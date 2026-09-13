@@ -31,6 +31,16 @@ export interface ApiError {
 export interface ApiResult<T> {
   data?: T;
   error?: ApiError;
+  /**
+   * The response status on SUCCESS.
+   *
+   * Present because some endpoints distinguish outcomes by status rather than
+   * by body: verifying a sign-in code answers 201 when the code created the
+   * account and 200 when it found one, and the dialog has a different next step
+   * for each. Reading it off the result beats adding a `created` flag to a body
+   * that four other endpoints share.
+   */
+  status?: number;
 }
 
 interface RequestOptions extends RequestInit {
@@ -62,7 +72,7 @@ export async function apiFetch<T>(path: string, options: RequestOptions = {}): P
     }
 
     if (response.status === 204) {
-      return { data: undefined as T };
+      return { data: undefined as T, status: response.status };
     }
 
     const payload = (await response.json().catch(() => null)) as
@@ -79,7 +89,7 @@ export async function apiFetch<T>(path: string, options: RequestOptions = {}): P
         },
       };
     }
-    return { data: payload as T };
+    return { data: payload as T, status: response.status };
   } catch (error) {
     const timedOut = error instanceof DOMException && error.name === "AbortError";
     return { error: { message: timedOut ? "Request timed out" : "Could not reach the API" } };

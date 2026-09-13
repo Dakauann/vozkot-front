@@ -366,8 +366,46 @@
     border-radius: 6px;
     color: hsl(var(--muted-foreground));
   }
+  /*
+    THE VARIANTS CHANGE THE INK AND NOTHING ELSE.
+
+    The ground stays the same quiet neutral for every state, and only the mark
+    — an icon, a title — takes the status colour. That is the whole rule, and
+    it exists because the obvious alternative is the most recognisable tell of
+    a generated interface: a 10-15% wash of a hue carrying text in a darker
+    shade of THAT SAME hue. Green on green, amber on amber. It muddies at small
+    sizes, its contrast is unknowable because the wash sits over whatever is
+    behind it, and it makes five different states read as five variations of
+    one thing.
+
+    `alert.tsx` has referenced these three since it was written; only
+    notice-fault existed, so a warning and a success have been rendering with
+    muted ink. They are defined here now.
+  */
   .notice-fault { --notice-ink: hsl(var(--destructive-ink)); }
+  .notice-warning { --notice-ink: hsl(var(--warning-ink)); }
+  .notice-healthy { --notice-ink: hsl(var(--healthy-ink)); }
+  .notice-info { --notice-ink: hsl(var(--info-ink)); }
   .notice-ink { color: var(--notice-ink); }
+
+  /*
+    THE PLATE: a small square behind a glyph.
+
+    Same rule, same reason. The plate is a quiet neutral with a hairline, and
+    the GLYPH carries the meaning — never a tint of the glyph's own hue, which
+    is the pattern this replaces everywhere it appeared.
+  */
+  .plate {
+    display: grid;
+    place-items: center;
+    border-radius: 9999px;
+    background: hsl(var(--muted));
+    border: 1px solid hsl(var(--border));
+  }
+  .plate-brand > svg { color: hsl(var(--primary-ink)); }
+  .plate-healthy > svg { color: hsl(var(--healthy-ink)); }
+  .plate-warning > svg { color: hsl(var(--warning-ink)); }
+  .plate-fault > svg { color: hsl(var(--destructive-ink)); }
 }
 
 @media (prefers-reduced-motion: reduce) {

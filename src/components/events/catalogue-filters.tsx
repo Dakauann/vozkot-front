@@ -183,7 +183,7 @@ function Select({
     <label
       className={`relative inline-flex h-9 shrink-0 items-center rounded-full border px-3 text-sm transition-colors ${
         chosen
-          ? "border-primary-edge bg-primary-subtle text-primary-ink"
+          ? "border-primary-edge bg-primary text-primary-foreground"
           : "border-border-strong bg-background text-foreground hover:bg-accent-hover"
       }`}
     >
@@ -227,7 +227,7 @@ function Toggle({
       onClick={() => onChange(!pressed)}
       className={`h-9 shrink-0 rounded-full border px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
         pressed
-          ? "border-primary-edge bg-primary-subtle text-primary-ink"
+          ? "border-primary-edge bg-primary text-primary-foreground"
           : "border-border-strong bg-background text-foreground hover:bg-accent-hover"
       }`}
     >

@@ -93,3 +93,37 @@ export function secondsUntil(iso: string | undefined): number {
   if (!iso) return 0;
   return Math.max(0, Math.ceil((new Date(iso).getTime() - Date.now()) / 1000));
 }
+
+export interface SetPasswordInput {
+  /** Required only when the account already has a password. */
+  current?: string;
+  next: string;
+}
+
+/**
+ * Adds a password to an account, as a SECOND way in.
+ *
+ * Never the first: the account already exists and already works without one.
+ * This is for the person who would rather type a password than wait for an
+ * email — and for the day their mail provider is having an outage.
+ */
+export function setPassword(input: SetPasswordInput) {
+  return apiFetch<void>("/user/password", {
+    method: "PUT",
+    body: JSON.stringify({ current: input.current, new: input.next }),
+  });
+}
+
+/**
+ * Signs in with an email and a password.
+ *
+ * Answers the same generic refusal for a wrong password and for an address
+ * with no account, which is what keeps this from being a way to ask who has
+ * one.
+ */
+export function signInWithPassword(email: string, password: string) {
+  return apiFetch<{ user: unknown }>("/auth/login", {
+    method: "POST",
+    body: JSON.stringify({ email, password }),
+  });
+}

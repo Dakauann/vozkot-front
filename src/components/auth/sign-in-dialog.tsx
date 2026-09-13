@@ -3,7 +3,8 @@
 import * as React from "react";
 import { useTranslations } from "next-intl";
 
-import { CircleNotch, EnvelopeSimple, IdentificationCard, Person } from "@/components/icons";
+import { CircleNotch, EnvelopeSimple, IdentificationCard, LockIcon, Person } from "@/components/icons";
+import { Link } from "@/i18n/routing";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { useAuth } from "@/contexts/auth-context";
 import { useAuthDialog } from "@/contexts/auth-dialog-context";
@@ -12,6 +13,8 @@ import {
   saveProfile,
   secondsUntil,
   startEmailSignIn,
+  setPassword,
+  signInWithPassword,
   startPhoneVerification,
   verifyEmailSignIn,
   verifyPhone,
@@ -23,18 +26,27 @@ import { cn } from "@/lib/utils";
 /**
  * Signing in, over the page rather than instead of it.
  *
- * Four steps, and only the first two are ever on the critical path:
+ * Five steps, and only the first two are ever on the critical path:
  *
- *  1. EMAIL — type an address, get a code.
+ *  1. EMAIL — type an address, get a code. A password field is offered here
+ *     too, for accounts that later chose one.
  *  2. CODE — six digits, and you are in.
- *  3. IDENTITY — document, legal name, date of birth. Asked only of an account
- *     that has not given them, and asked AFTER the session exists, so the
- *     person is already signed in by the time they see a document form.
- *  4. PHONE — optional, skippable, and skipping it does not block anything.
+ *  3. PASSWORD — offered, never demanded, and only to an account that has just
+ *     been created.
+ *  4. IDENTITY — document, legal name, date of birth. Asked AFTER the session
+ *     exists, so nobody meets a document form before they are signed in.
+ *  5. PHONE — optional, skippable, and skipping it blocks nothing.
  *
- * No password anywhere. There is nothing to choose, nothing to remember,
- * nothing to reuse from another site that has been breached, and nothing for us
- * to store that is worth stealing.
+ * Registering does not ask for a password, and that ordering is the point. A
+ * password chosen before an address is proven is a password attached to a
+ * mailbox nobody has demonstrated they can read; asked afterwards, it is a
+ * SECOND way in for somebody who already has one. Nielsen Norman's guidance on
+ * passwordless accounts says exactly this — offer the password after the
+ * account exists, for the people who want it.
+ *
+ * It is offered at all because email delivery fails. A provider has an outage,
+ * a filter eats the message, somebody is on a plane. An account whose only key
+ * arrives by email is unreachable precisely when its owner most wants in.
  */
 export function SignInDialog() {
   const { open, reason, settle } = useAuthDialog();
@@ -71,7 +83,7 @@ function SignInFlow({
   const { refreshUser } = useAuth();
   const t = useTranslations("signIn");
 
-  type Step = "email" | "code" | "identity" | "phone";
+  type Step = "email" | "code" | "password" | "identity" | "phone";
   const [step, setStep] = React.useState<Step>("email");
   const [email, setEmail] = React.useState("");
   const [challenge, setChallenge] = React.useState<Started | null>(null);
@@ -83,26 +95,47 @@ function SignInFlow({
     settle(true);
   }, [refreshUser, settle]);
 
-  // Signed in, but the account still owes its identity block. The session is
-  // already live at this point — closing here still counts as success.
-  const afterSignIn = React.useCallback(async () => {
-    await refreshUser();
+  // Signed in. What is left to ask depends on whether this code just MADE the
+  // account: a new one is offered a password, an existing one is not asked
+  // again. Either way the session is live from here, so closing the dialog at
+  // any later step still counts as success.
+  const afterSignIn = React.useCallback(
+    async (created: boolean) => {
+      await refreshUser();
+      if (created) {
+        setStep("password");
+        return;
+      }
+      const { data } = await getProfile();
+      if (data?.complete) {
+        settle(true);
+        return;
+      }
+      setStep("identity");
+    },
+    [refreshUser, settle],
+  );
+
+  // Past the password step: ask for the identity block if it is still owed.
+  const afterPassword = React.useCallback(async () => {
     const { data } = await getProfile();
     if (data?.complete) {
       settle(true);
       return;
     }
     setStep("identity");
-  }, [refreshUser, settle]);
+  }, [settle]);
 
   return (
     <>
       <div className="flex flex-col items-center gap-1 px-6 pt-6 text-center">
-          <span className="mb-2 grid size-11 place-items-center rounded-full bg-primary-subtle text-primary-ink">
+          <span className="plate plate-brand mb-2 size-11">
             {step === "identity" ? (
               <IdentificationCard size={22} aria-hidden />
             ) : step === "phone" ? (
               <Person size={22} aria-hidden />
+            ) : step === "password" ? (
+              <LockIcon size={22} aria-hidden />
             ) : (
               <EnvelopeSimple size={22} aria-hidden />
             )}
@@ -127,6 +160,7 @@ function SignInFlow({
                 setChallenge(started);
                 setStep("code");
               }}
+              onSignedIn={() => afterSignIn(false)}
             />
           ) : step === "code" ? (
             <CodeStep
@@ -136,6 +170,8 @@ function SignInFlow({
               onBack={() => setStep("email")}
               onVerified={afterSignIn}
             />
+          ) : step === "password" ? (
+            <PasswordStep onDone={afterPassword} />
           ) : step === "identity" ? (
             <IdentityStep onSaved={() => setStep("phone")} />
         ) : (
@@ -150,12 +186,17 @@ function EmailStep({
   email,
   onEmail,
   onStarted,
+  onSignedIn,
 }: {
   email: string;
   onEmail: (value: string) => void;
   onStarted: (started: Started) => void;
+  /** The password route signs in directly, with no code in between. */
+  onSignedIn: () => void | Promise<void>;
 }) {
   const t = useTranslations("signIn");
+  const [mode, setMode] = React.useState<"code" | "password">("code");
+  const [password, setPasswordValue] = React.useState("");
   const [busy, setBusy] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
@@ -166,14 +207,39 @@ function EmailStep({
     const { data, error: failed } = await startEmailSignIn(email.trim());
     setBusy(false);
     if (failed || !data) {
-      setError(failed?.message ?? t("errors.send"));
+      setError(
+        failed?.code === "delivery_unavailable"
+          ? t("errors.unavailable")
+          : (failed?.message ?? t("errors.send")),
+      );
       return;
     }
     onStarted(data);
   };
 
+  const withPassword = async () => {
+    setBusy(true);
+    setError(null);
+    const { error: failed } = await signInWithPassword(email.trim(), password);
+    setBusy(false);
+    if (failed) {
+      // One message for a wrong password and for an address with no account.
+      // Distinguishing them would answer "does this person have an account
+      // here", which for a ticketing site is a question about who went where.
+      setError(t("errors.credentials"));
+      return;
+    }
+    await onSignedIn();
+  };
+
   return (
-    <form className="flex flex-col gap-3" onSubmit={submit}>
+    <form
+      className="flex flex-col gap-3"
+      onSubmit={mode === "code" ? submit : (submitEvent) => {
+        submitEvent.preventDefault();
+        void withPassword();
+      }}
+    >
       <Field
         id="sign-in-email"
         label={t("email.label")}
@@ -186,11 +252,126 @@ function EmailStep({
         onChange={onEmail}
         placeholder={t("email.placeholder")}
       />
+
+      {mode === "password" ? (
+        <Field
+          id="sign-in-password"
+          label={t("email.password")}
+          type="password"
+          autoComplete="current-password"
+          required
+          value={password}
+          onChange={setPasswordValue}
+        />
+      ) : null}
+
       <Failure message={error} />
-      <Primary busy={busy} disabled={email.trim() === ""}>
-        {t("email.submit")}
+      <Primary busy={busy} disabled={email.trim() === "" || (mode === "password" && password === "")}>
+        {mode === "code" ? t("email.submit") : t("email.submitPassword")}
       </Primary>
-      <p className="text-center text-xs leading-relaxed text-muted-foreground">{t("email.legal")}</p>
+
+      {/* The second way in, offered as an alternative rather than as the
+          default. Nothing here reveals whether the address HAS a password —
+          the option is shown to everybody, and choosing it just fails
+          generically for an account that has none. */}
+      <button
+        type="button"
+        onClick={() => {
+          setMode(mode === "code" ? "password" : "code");
+          setError(null);
+        }}
+        className="rounded-[--radius] text-center text-sm font-medium text-primary-ink underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        {mode === "code" ? t("email.usePassword") : t("email.useCode")}
+      </button>
+
+      <LegalNote />
+    </form>
+  );
+}
+
+/**
+ * What we are about to do with their details, said where they are asked for.
+ *
+ * Both documents are real links rather than a sentence naming them: a policy
+ * that cannot be opened from the screen that invokes it is a policy nobody has
+ * read, and consent to a document somebody could not reach is not consent.
+ */
+function LegalNote() {
+  const t = useTranslations("signIn");
+  return (
+    <div className="mt-1 border-t border-border pt-3">
+      <p className="text-xs leading-relaxed text-muted-foreground">{t("email.legal")}</p>
+      <p className="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs">
+        <Link
+          href="/terms-of-service"
+          target="_blank"
+          className="rounded-[--radius] font-medium text-primary-ink underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          {t("email.terms")}
+        </Link>
+        <Link
+          href="/privacy-policy"
+          target="_blank"
+          className="rounded-[--radius] font-medium text-primary-ink underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          {t("email.privacy")}
+        </Link>
+      </p>
+    </div>
+  );
+}
+
+/**
+ * Offering a password, once the account exists.
+ *
+ * Skippable, and the skip is a real button rather than a corner X: an optional
+ * step that looks mandatory is one people abandon the whole flow at.
+ */
+function PasswordStep({ onDone }: { onDone: () => void | Promise<void> }) {
+  const t = useTranslations("signIn");
+  const [value, setValue] = React.useState("");
+  const [busy, setBusy] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+
+  const submit = async (submitEvent: React.FormEvent) => {
+    submitEvent.preventDefault();
+    setBusy(true);
+    setError(null);
+    const { error: failed } = await setPassword({ next: value });
+    setBusy(false);
+    if (failed) {
+      setError(
+        failed.code === "weak_password" ? t("password.weak") : (failed.message ?? t("errors.profile")),
+      );
+      return;
+    }
+    await onDone();
+  };
+
+  return (
+    <form className="flex flex-col gap-3" onSubmit={submit}>
+      <Field
+        id="new-password"
+        label={t("password.label")}
+        type="password"
+        autoComplete="new-password"
+        required
+        value={value}
+        onChange={setValue}
+        hint={t("password.rule")}
+      />
+      <Failure message={error} />
+      <Primary busy={busy} disabled={value === ""}>
+        {t("password.submit")}
+      </Primary>
+      <button
+        type="button"
+        onClick={() => void onDone()}
+        className="rounded-[--radius] text-center text-sm text-muted-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        {t("password.skip")}
+      </button>
     </form>
   );
 }
@@ -206,7 +387,8 @@ function CodeStep({
   challenge: Started | null;
   onChallenge: (started: Started) => void;
   onBack: () => void;
-  onVerified: () => void | Promise<void>;
+  /** created is true when this code MADE the account rather than found it. */
+  onVerified: (created: boolean) => void | Promise<void>;
 }) {
   const t = useTranslations("signIn");
   const [code, setCode] = React.useState("");
@@ -229,7 +411,7 @@ function CodeStep({
       if (!challenge) return;
       setBusy(true);
       setError(null);
-      const { data, error: failed } = await verifyEmailSignIn(challenge.challengeId, value);
+      const { data, error: failed, status } = await verifyEmailSignIn(challenge.challengeId, value);
       setBusy(false);
       if (failed || !data) {
         setError(failed?.message ?? t("errors.code"));
@@ -241,7 +423,8 @@ function CodeStep({
         }
         return;
       }
-      await onVerified();
+      // 201 means the account did not exist a moment ago.
+      await onVerified(status === 201);
     },
     [challenge, onVerified, t],
   );
@@ -482,7 +665,14 @@ function PhoneStep({ onDone }: { onDone: () => void | Promise<void> }) {
     const { data, error: failed } = await startPhoneVerification(phone);
     setBusy(false);
     if (failed || !data) {
-      setError(failed?.message ?? t("errors.send"));
+      // 503 means no SMS provider is wired. That is not a retry the person can
+      // win, so it is named rather than shown as a generic failure — and the
+      // step is skippable anyway.
+      setError(
+        failed?.code === "delivery_unavailable"
+          ? t("phone.unavailable")
+          : (failed?.message ?? t("errors.send")),
+      );
       return;
     }
     setChallenge(data);
@@ -519,9 +709,7 @@ function PhoneStep({ onDone }: { onDone: () => void | Promise<void> }) {
             }}
             disabled={busy}
           />
-          {/* The provider is a stub today, and saying so beats a person staring
-              at a phone that will never buzz. */}
-          <p className="text-center text-xs text-warning-ink">{t("phone.mockNotice")}</p>
+
         </>
       ) : (
         <>
@@ -623,7 +811,7 @@ function Failure({ message }: { message: string | null }) {
   return (
     <p
       role="alert"
-      className="rounded-md border border-destructive-edge bg-destructive-subtle px-3 py-2 text-sm text-destructive-ink"
+      className="notice notice-fault notice-ink px-3 py-2 text-sm"
     >
       {message}
     </p>

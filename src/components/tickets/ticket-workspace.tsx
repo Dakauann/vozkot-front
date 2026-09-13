@@ -381,7 +381,7 @@ function FilterChip({
         "shrink-0 rounded-full border px-2.5 py-1 text-xs font-medium transition-colors",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         active
-          ? "border-primary-edge bg-primary-subtle text-primary-ink"
+          ? "border-primary-edge bg-primary text-primary-foreground"
           : "border-border text-muted-foreground hover:border-border-strong hover:text-foreground",
       )}
     >

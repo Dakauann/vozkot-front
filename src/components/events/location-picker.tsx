@@ -75,7 +75,7 @@ export function LocationPicker({
                 className={cn(
                   "h-7 rounded-[--radius] px-2.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                   basemap === id
-                    ? "bg-primary-subtle text-primary-ink"
+                    ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:bg-accent-hover hover:text-foreground",
                 )}
               >

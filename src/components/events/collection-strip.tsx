@@ -92,7 +92,7 @@ function CollectionTile({
   return (
     <Link
       href={`/?category=${category}`}
-      className="flex h-full min-h-[76px] flex-col justify-between rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary-edge hover:bg-primary-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      className="flex h-full min-h-[76px] flex-col justify-between rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary-edge hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
       <span className="text-sm font-semibold leading-snug text-card-foreground">{label}</span>
       <span className="mt-2 text-xs tabular-nums text-muted-foreground">{countLabel}</span>

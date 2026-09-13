@@ -111,8 +111,8 @@ export function EventManager({ eventId }: { eventId: string }) {
   if (failed) {
     return (
       <div className="mx-auto max-w-[1200px]">
-        <div className="rounded-lg border border-destructive-edge bg-destructive-subtle px-6 py-16 text-center">
-          <p className="font-display text-lg font-semibold text-destructive-ink">{t("notFound")}</p>
+        <div className="notice notice-fault px-6 py-16 text-center">
+          <p className="notice-ink font-display text-lg font-semibold">{t("notFound")}</p>
           <Link
             href="/events"
             className="mt-5 inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary-hover"
@@ -271,12 +271,12 @@ export function EventManager({ eventId }: { eventId: string }) {
               are about to get it wrong: a published event with no tier on sale
               is a page a buyer can reach and cannot buy from. */}
           {event.status === "published" && totals.onSale === 0 ? (
-            <p className="rounded-lg border border-warning-edge bg-warning-subtle px-4 py-3 text-sm text-warning-ink">
+            <p className="notice notice-warning notice-ink px-4 py-3 text-sm">
               {t("publishedWithNothingOnSale")}
             </p>
           ) : null}
           {event.status === "draft" && tiers.length > 0 ? (
-            <p className="rounded-lg border border-info-edge bg-info-subtle px-4 py-3 text-sm text-info-ink">
+            <p className="notice notice-info notice-ink px-4 py-3 text-sm">
               {t("draftHint")}
             </p>
           ) : null}

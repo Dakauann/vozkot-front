@@ -149,7 +149,7 @@ function OrdersPage({
       {error ? (
         <p
           role="alert"
-          className="rounded-md border border-destructive-edge bg-destructive-subtle px-4 py-3 text-sm text-destructive-ink"
+          className="notice notice-fault notice-ink px-4 py-3 text-sm"
         >
           {error}
         </p>
@@ -318,7 +318,7 @@ function OrderRow({
         // Said plainly and in the buyer's favour. This state means their money
         // arrived after the tickets had gone back on sale; they are owed a
         // refund and should not have to work out why from a status word.
-        <p className="border-t border-warning-edge bg-warning-subtle px-4 py-2 text-xs text-warning-ink">
+        <p className="notice notice-warning notice-ink rounded-none border-x-0 border-b-0 px-4 py-2 text-xs">
           {t("refundRequiredNote")}
         </p>
       ) : null}

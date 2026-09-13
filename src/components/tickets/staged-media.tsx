@@ -220,7 +220,7 @@ export function StagedMediaPicker({
                 <button
                   type="button"
                   onClick={() => inputRef.current?.click()}
-                  className="grid aspect-square w-full place-items-center gap-1 rounded-[--radius] border border-dashed border-border-strong bg-card text-muted-foreground transition-colors hover:border-primary hover:bg-primary-subtle hover:text-primary-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="grid aspect-square w-full place-items-center gap-1 rounded-[--radius] border border-dashed border-border-strong bg-card text-muted-foreground transition-colors hover:border-primary hover:bg-accent-hover hover:text-primary-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <Plus size={18} />
                   <span className="px-1 text-[11px] font-medium leading-tight">{t("add")}</span>

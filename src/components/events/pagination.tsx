@@ -109,7 +109,7 @@ function PageLink({
       aria-current={current ? "page" : undefined}
       className={`${shared} ${
         current
-          ? "border-primary-edge bg-primary-subtle font-semibold text-primary-ink"
+          ? "border-primary-edge bg-primary font-semibold text-primary-foreground"
           : "border-border-strong bg-background text-foreground hover:bg-accent-hover"
       }`}
     >

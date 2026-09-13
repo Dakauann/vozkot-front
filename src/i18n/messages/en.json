@@ -793,7 +793,13 @@
       "label": "Email",
       "placeholder": "you@example.com",
       "submit": "Send code",
-      "legal": "By continuing you agree to the Terms of Use and the Privacy Policy."
+      "legal": "By continuing you agree to our Terms of Use and Privacy Policy. We use your email to send your access code and your tickets — nothing else.",
+      "terms": "Terms of Use",
+      "privacy": "Privacy Policy",
+      "password": "Password",
+      "submitPassword": "Sign in",
+      "usePassword": "Sign in with a password",
+      "useCode": "Sign in with an email code"
     },
     "code": {
       "title": "Enter the code",
@@ -818,7 +824,7 @@
       "legalNameHint": "As it appears on the document — it is the name checked at the door.",
       "birthDate": "Date of birth",
       "submit": "Continue",
-      "privacy": "These details are required by law to sell tickets and are stored encrypted. They are never shown to the organiser."
+      "privacy": "We ask for these because Brazilian law requires a document to sell tickets: half-price admission is capped per CPF and a PIX charge cannot be issued without one. They are stored encrypted, are never shown to the event organiser, and are not used for advertising. Details in the Privacy Policy."
     },
     "phone": {
       "title": "Almost there",
@@ -826,12 +832,23 @@
       "label": "Your mobile number",
       "submit": "Send code",
       "skip": "Not now",
-      "mockNotice": "SMS delivery is not live yet: the code is printed in the server log."
+      "unavailable": "SMS confirmation is not available yet. You can continue without it."
     },
     "errors": {
       "send": "We could not send the code.",
       "code": "We could not check that code.",
-      "profile": "We could not save your details."
+      "profile": "We could not save your details.",
+      "credentials": "That email or password is not right.",
+      "unavailable": "Sending codes is unavailable right now. Try signing in with a password, or come back later."
+    },
+    "password": {
+      "title": "Want to set a password?",
+      "body": "Your account is already set up and works with the email code alone. A password is a second way in — useful if an email is slow or never arrives.",
+      "label": "New password",
+      "rule": "At least 8 characters, with an upper case, a lower case and a number.",
+      "submit": "Set password",
+      "skip": "Not now, continue without one",
+      "weak": "Use at least 8 characters, with an upper case, a lower case and a number."
     }
   }
 }

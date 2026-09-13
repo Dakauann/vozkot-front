@@ -16,8 +16,9 @@ import {
   reserveCheckout,
   type Order,
 } from "@/lib/checkout/api";
-import { loginHref, readIntent, type CheckoutIntent } from "@/lib/checkout/intent";
+import { readIntent, type CheckoutIntent } from "@/lib/checkout/intent";
 import { OpenHolds } from "@/components/checkout/open-holds";
+import { useAuthDialog } from "@/contexts/auth-dialog-context";
 
 /**
  * Checkout.
@@ -94,13 +95,26 @@ export function CheckoutFlow({
     intent: readIntent(params),
   }));
 
+  // Signing in is a DIALOG over this page, not a wall instead of it.
+  //
+  // The screen the buyer came for — the poster, the tiers, the total — renders
+  // either way, and the dialog asks for a session on top of it. Swapping the
+  // whole page for a "sign in first" card throws away the context they were
+  // about to act on, and it is also a worse answer for a session that merely
+  // EXPIRED: the old card could not tell "never signed in" from "the cookie
+  // went stale ten minutes ago", so both got the same dead end.
   if (entry.resumeID) {
-    if (!authenticated) return <SignInToResume />;
     return <Resume orderID={entry.resumeID} locale={locale} />;
   }
   if (!entry.intent) return <Recover />;
-  if (!authenticated) return <SignInFirst intent={entry.intent} />;
-  return <Purchase intent={entry.intent} locale={locale} preview={preview} />;
+  return (
+    <Purchase
+      intent={entry.intent}
+      locale={locale}
+      preview={preview}
+      authenticated={authenticated}
+    />
+  );
 }
 
 /**
@@ -113,6 +127,7 @@ export function CheckoutFlow({
 function Resume({ orderID, locale }: { orderID: string; locale: Locale }) {
   const t = useTranslations("checkout");
   const router = useRouter();
+  const { requireAuth } = useAuthDialog();
   const [order, setOrder] = useState<Order | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -120,6 +135,12 @@ function Resume({ orderID, locale }: { orderID: string; locale: Locale }) {
   useEffect(() => {
     let cancelled = false;
     void (async () => {
+      // An order belongs to an account, so reading one needs a session. Asked
+      // for the same way as everywhere else: a dialog over this page.
+      if (!(await requireAuth("orders"))) {
+        if (!cancelled) setError(t("signInBody"));
+        return;
+      }
       const { data, error: failed } = await getOrder(orderID);
       if (cancelled) return;
       if (failed || !data) {
@@ -131,7 +152,7 @@ function Resume({ orderID, locale }: { orderID: string; locale: Locale }) {
     return () => {
       cancelled = true;
     };
-  }, [orderID, t]);
+  }, [orderID, requireAuth, t]);
 
   const confirm = async (buyer: { name: string; email: string; document: string }) => {
     if (!order) return;
@@ -175,13 +196,21 @@ function Purchase({
   intent,
   locale,
   preview,
+  authenticated,
 }: {
   intent: CheckoutIntent;
   locale: Locale;
   preview?: CheckoutPreview;
+  /** The server's read of the session cookie, used only to avoid a flash. */
+  authenticated: boolean;
 }) {
   const t = useTranslations("checkout");
   const router = useRouter();
+  const { requireAuth, openSignIn } = useAuthDialog();
+  // Set when the buyer closed the sign-in dialog without signing in. The page
+  // stays exactly as it is and offers the dialog again, rather than becoming
+  // an error.
+  const [needsSignIn, setNeedsSignIn] = useState(false);
 
   const [order, setOrder] = useState<Order | null>(null);
   const [failure, setFailure] = useState<{ message: string; code?: string } | null>(null);
@@ -228,12 +257,38 @@ function Purchase({
     if (reserved.current === attempt) return;
     reserved.current = attempt;
     setFailure(null);
+    setNeedsSignIn(false);
 
     void (async () => {
-      const { data, error: failed } = await reserveCheckout(
-        { items: intent.lines.map(({ ticketId, quantity }) => ({ ticketId, quantity })) },
-        idempotencyKey,
-      );
+      // The SERVER's read of the cookie decides whether to ask up front.
+      //
+      // Consulting the client's own session state instead would flash the
+      // dialog at somebody who is already signed in, because that state starts
+      // false and only becomes true after a round trip to /user/me. The server
+      // already knows a cookie was sent, so a buyer who has one goes straight
+      // to reserving — and if that cookie turns out to be stale, the 401 below
+      // asks for a session properly. That is the case the server cannot see:
+      // it knows a cookie EXISTS, and one that expired an hour ago looks
+      // identical to a live one from there.
+      if (!authenticated && !(await requireAuth("checkout"))) {
+        setNeedsSignIn(true);
+        return;
+      }
+
+      const lines = intent.lines.map(({ ticketId, quantity }) => ({ ticketId, quantity }));
+      let { data, error: failed } = await reserveCheckout({ items: lines }, idempotencyKey);
+
+      // The cookie was there and the API refused it anyway. Ask for a real
+      // session and try once more, rather than showing "authentication
+      // required" to somebody who is looking at a Sign in button.
+      if (failed?.status === 401) {
+        if (!(await requireAuth("checkout"))) {
+          setNeedsSignIn(true);
+          return;
+        }
+        ({ data, error: failed } = await reserveCheckout({ items: lines }, idempotencyKey));
+      }
+
       if (failed || !data) {
         setFailure({ message: failed?.message ?? t("reserveFailed"), code: failed?.code });
         return;
@@ -241,7 +296,7 @@ function Purchase({
       setOrder(data.data);
       rememberOrder(data.data.id);
     })();
-  }, [intent, idempotencyKey, attempt, t]);
+  }, [intent, idempotencyKey, attempt, authenticated, requireAuth, t]);
 
   const confirm = async (buyer: { name: string; email: string; document: string }) => {
     if (!order) return;
@@ -258,6 +313,36 @@ function Purchase({
     }
     setOrder(data.data);
   };
+
+  // Closed the dialog. The basket is still on screen in the panel beside this;
+  // all that is missing is a session, and the way back is one button.
+  if (!order && needsSignIn) {
+    return (
+      <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-8">
+        <div className="rounded-lg border border-border bg-card p-6 text-center shadow-sm sm:p-8">
+          <p className="font-display text-lg font-semibold text-card-foreground">
+            {t("signInTitle")}
+          </p>
+          <p className="mx-auto mt-2 max-w-[46ch] text-sm text-muted-foreground">
+            {t("signInBody")}
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              openSignIn("checkout");
+              // Re-runs the reservation once a session exists. The attempt
+              // counter is what the effect above watches.
+              retry();
+            }}
+            className="mt-5 inline-flex h-11 items-center rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-[var(--elev-button-primary)] hover:bg-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            {t("signIn")}
+          </button>
+        </div>
+        <OrderSummary order={null} preview={preview} locale={locale} />
+      </div>
+    );
+  }
 
   // The reservation failed outright: no hold, nothing to fill in.
   if (!order && failure) {
@@ -349,24 +434,20 @@ function ReserveFailed({
 
   return (
     <div
-      className={`rounded-lg p-6 sm:p-8 ${
-        overHoldLimit
-          ? "border border-warning-edge bg-warning-subtle text-center"
-          : "border border-destructive-edge bg-destructive-subtle text-center"
-      }`}
+      // One quiet ground for both, and the STATE is carried by the ink on the
+      // title. A washed amber panel and a washed red one read as two shades of
+      // the same thing at a glance; a neutral card with a warning-inked heading
+      // and a fault-inked one do not.
+      className={`notice ${overHoldLimit ? "notice-warning" : "notice-fault"} p-6 text-center sm:p-8`}
     >
       <p
-        className={`font-display text-lg font-semibold ${
-          overHoldLimit ? "text-warning-ink" : "text-destructive-ink"
-        }`}
+        className="notice-ink font-display text-lg font-semibold"
       >
         {overHoldLimit ? t("holdLimitTitle") : t("reserveFailedTitle")}
       </p>
       <p
         role="alert"
-        className={`mx-auto mt-2 max-w-[52ch] text-sm ${
-          overHoldLimit ? "text-warning-ink" : "text-destructive-ink"
-        }`}
+        className="mx-auto mt-2 max-w-[52ch] text-sm text-muted-foreground"
       >
         {message}
       </p>
@@ -385,22 +466,6 @@ function ReserveFailed({
   );
 }
 
-/** An order link followed while signed out. */
-function SignInToResume() {
-  const t = useTranslations("checkout");
-  return (
-    <div className="rounded-lg border border-border bg-card p-8 text-center">
-      <p className="font-display text-lg font-semibold text-card-foreground">{t("signInTitle")}</p>
-      <p className="mx-auto mt-2 max-w-[46ch] text-sm text-muted-foreground">{t("signInBody")}</p>
-      <Link
-        href="/login"
-        className="mt-5 inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary-hover"
-      >
-        {t("signIn")}
-      </Link>
-    </div>
-  );
-}
 
 /** A link that arrived without a usable choice on it. */
 function Recover() {
@@ -419,27 +484,6 @@ function Recover() {
   );
 }
 
-/**
- * The sign-in gate.
- *
- * The choice is preserved in the return path, so signing in lands the buyer
- * back on this exact checkout rather than on a home page with nothing selected.
- */
-function SignInFirst({ intent }: { intent: CheckoutIntent }) {
-  const t = useTranslations("checkout");
-  return (
-    <div className="rounded-lg border border-border bg-card p-8 text-center">
-      <p className="font-display text-lg font-semibold text-card-foreground">{t("signInTitle")}</p>
-      <p className="mx-auto mt-2 max-w-[46ch] text-sm text-muted-foreground">{t("signInBody")}</p>
-      <Link
-        href={loginHref(intent)}
-        className="mt-5 inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary-hover"
-      >
-        {t("signIn")}
-      </Link>
-    </div>
-  );
-}
 
 /**
  * What the buyer is buying and what it costs, on screen the whole way through.
@@ -651,7 +695,7 @@ function BuyerForm({
       />
 
       {error ? (
-        <p role="alert" className="rounded-md border border-destructive-edge bg-destructive-subtle px-3 py-2 text-sm text-destructive-ink">
+        <p role="alert" className="notice notice-fault notice-ink px-3 py-2 text-sm">
           {error}
         </p>
       ) : null}
@@ -761,9 +805,9 @@ function Payment({
 
   if (order.status === "paid") {
     return (
-      <div className="rounded-lg border border-healthy-edge bg-healthy-subtle p-8 text-center">
-        <p className="font-display text-lg font-semibold text-healthy-ink">{t("paidTitle")}</p>
-        <p className="mx-auto mt-2 max-w-[46ch] text-sm text-healthy-ink">
+      <div className="notice notice-healthy p-8 text-center">
+        <p className="notice-ink font-display text-lg font-semibold">{t("paidTitle")}</p>
+        <p className="mx-auto mt-2 max-w-[46ch] text-sm text-muted-foreground">
           {t("paidBody", { email: order.buyerEmail })}
         </p>
         <Link

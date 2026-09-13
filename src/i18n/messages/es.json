@@ -793,7 +793,13 @@
       "label": "Correo electrónico",
       "placeholder": "tu@ejemplo.com",
       "submit": "Enviar código",
-      "legal": "Al continuar aceptas los Términos de Uso y la Política de Privacidad."
+      "legal": "Al continuar aceptas nuestros Términos de Uso y la Política de Privacidad. Usamos tu correo para enviarte el código de acceso y tus entradas, nada más.",
+      "terms": "Términos de Uso",
+      "privacy": "Política de Privacidad",
+      "password": "Contraseña",
+      "submitPassword": "Entrar",
+      "usePassword": "Entrar con contraseña",
+      "useCode": "Entrar con código por correo"
     },
     "code": {
       "title": "Escribe el código",
@@ -818,7 +824,7 @@
       "legalNameHint": "Como aparece en el documento: es el nombre que se comprueba en la entrada.",
       "birthDate": "Fecha de nacimiento",
       "submit": "Continuar",
-      "privacy": "Estos datos son obligatorios por ley para vender entradas y se guardan cifrados. Nunca se muestran al organizador."
+      "privacy": "Pedimos estos datos porque la ley brasileña exige un documento para vender entradas: la entrada reducida está limitada por CPF y sin documento no se emite el cobro PIX. Se guardan cifrados, nunca se muestran al organizador y no se usan para publicidad. Más detalles en la Política de Privacidad."
     },
     "phone": {
       "title": "¡Ya casi!",
@@ -826,12 +832,23 @@
       "label": "Tu número de móvil",
       "submit": "Enviar código",
       "skip": "Ahora no",
-      "mockNotice": "El envío de SMS aún no está activo: el código aparece en el log del servidor."
+      "unavailable": "La confirmación por SMS aún no está disponible. Puedes continuar sin ella."
     },
     "errors": {
       "send": "No pudimos enviar el código.",
       "code": "No pudimos comprobar el código.",
-      "profile": "No pudimos guardar tus datos."
+      "profile": "No pudimos guardar tus datos.",
+      "credentials": "Ese correo o contraseña no es correcto.",
+      "unavailable": "El envío de códigos no está disponible ahora. Prueba a entrar con contraseña o vuelve más tarde."
+    },
+    "password": {
+      "title": "¿Quieres crear una contraseña?",
+      "body": "Tu cuenta ya está lista y funciona solo con el código por correo. La contraseña es una segunda forma de entrar, útil si un correo tarda o no llega.",
+      "label": "Nueva contraseña",
+      "rule": "Al menos 8 caracteres, con mayúscula, minúscula y número.",
+      "submit": "Crear contraseña",
+      "skip": "Ahora no, seguir sin contraseña",
+      "weak": "Usa al menos 8 caracteres, con mayúscula, minúscula y número."
     }
   }
 }

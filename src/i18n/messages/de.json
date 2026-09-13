@@ -793,7 +793,13 @@
       "label": "E-Mail",
       "placeholder": "du@beispiel.de",
       "submit": "Code senden",
-      "legal": "Mit dem Fortfahren stimmst du den Nutzungsbedingungen und der Datenschutzerklärung zu."
+      "legal": "Mit dem Fortfahren stimmst du unseren Nutzungsbedingungen und der Datenschutzerklärung zu. Wir nutzen deine E-Mail für den Zugangscode und deine Tickets — für nichts anderes.",
+      "terms": "Nutzungsbedingungen",
+      "privacy": "Datenschutzerklärung",
+      "password": "Passwort",
+      "submitPassword": "Anmelden",
+      "usePassword": "Mit Passwort anmelden",
+      "useCode": "Mit E-Mail-Code anmelden"
     },
     "code": {
       "title": "Code eingeben",
@@ -818,7 +824,7 @@
       "legalNameHint": "Wie im Dokument — dieser Name wird am Einlass geprüft.",
       "birthDate": "Geburtsdatum",
       "submit": "Weiter",
-      "privacy": "Diese Angaben sind für den Ticketverkauf gesetzlich vorgeschrieben und werden verschlüsselt gespeichert. Der Veranstalter sieht sie nie."
+      "privacy": "Wir fragen danach, weil das brasilianische Recht für den Ticketverkauf ein Dokument verlangt: die Ermäßigung ist pro CPF begrenzt und ohne Dokument lässt sich keine PIX-Zahlung ausstellen. Die Angaben werden verschlüsselt gespeichert, dem Veranstalter nie gezeigt und nicht für Werbung genutzt. Details in der Datenschutzerklärung."
     },
     "phone": {
       "title": "Fast geschafft",
@@ -826,12 +832,23 @@
       "label": "Deine Handynummer",
       "submit": "Code senden",
       "skip": "Jetzt nicht",
-      "mockNotice": "SMS-Versand ist noch nicht aktiv: der Code steht im Server-Log."
+      "unavailable": "Die SMS-Bestätigung ist noch nicht verfügbar. Du kannst ohne sie fortfahren."
     },
     "errors": {
       "send": "Der Code konnte nicht gesendet werden.",
       "code": "Der Code konnte nicht geprüft werden.",
-      "profile": "Deine Angaben konnten nicht gespeichert werden."
+      "profile": "Deine Angaben konnten nicht gespeichert werden.",
+      "credentials": "E-Mail oder Passwort stimmen nicht.",
+      "unavailable": "Der Codeversand ist derzeit nicht verfügbar. Melde dich mit Passwort an oder versuche es später."
+    },
+    "password": {
+      "title": "Passwort einrichten?",
+      "body": "Dein Konto ist fertig und funktioniert allein mit dem E-Mail-Code. Ein Passwort ist ein zweiter Weg hinein — praktisch, wenn eine E-Mail spät oder gar nicht ankommt.",
+      "label": "Neues Passwort",
+      "rule": "Mindestens 8 Zeichen, mit Groß- und Kleinbuchstabe und Ziffer.",
+      "submit": "Passwort setzen",
+      "skip": "Jetzt nicht, ohne Passwort fortfahren",
+      "weak": "Mindestens 8 Zeichen, mit Groß- und Kleinbuchstabe und Ziffer."
     }
   }
 }

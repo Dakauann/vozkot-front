@@ -151,7 +151,7 @@ export function EventWorkspace() {
               aria-pressed={status === value}
               className={`h-7 rounded-full border px-3 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                 status === value
-                  ? "border-primary-edge bg-primary-subtle text-primary-ink"
+                  ? "border-primary-edge bg-primary text-primary-foreground"
                   : "border-border-strong bg-background text-muted-foreground hover:bg-accent-hover"
               }`}
             >
