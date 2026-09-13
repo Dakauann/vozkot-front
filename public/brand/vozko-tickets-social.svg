@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Vozko Tickets</title>
+  <desc id="description">Bilheteria e gestão de ingressos para eventos.</desc>
+  <rect width="1200" height="630" fill="#0d1518"/>
+  <g opacity=".18" fill="none" stroke="#00c28f" stroke-width="2">
+    <path d="M0 118h278l78 78h234"/><path d="M1200 496H898l-94-94H616"/>
+    <circle cx="278" cy="118" r="6" fill="#00c28f"/><circle cx="898" cy="496" r="6" fill="#00c28f"/>
+  </g>
+  <g transform="translate(294 223) scale(2.4)">
+    <path d="M4.5 9H16l11.4 20.2-6.2 11.7L4.5 18.1V9Z" fill="#f6faf9"/>
+    <path d="M40.3 9h11.2L30.9 41.1l-6.2-11.6L40.3 9Z" fill="#f6faf9"/>
+    <path d="m20.2 43.1 7.8-11.2 7.9 11.2L28 53l-7.8-9.9Z" fill="#00c28f"/>
+    <path d="m28.9 29.3 6.8-10.7h5.2l2.2-3.5h-5.2l-8 12.5-1 1.7Z" fill="#00c28f"/>
+    <rect x="42.1" y="9.1" width="4.4" height="4.4" rx=".7" fill="#00c28f"/>
+    <rect x="47.2" y="3.8" width="3.8" height="3.8" rx=".6" fill="#00c28f"/>
+    <rect x="51.6" width="3.3" height="3.3" rx=".6" fill="#00c28f"/>
+  </g>
+  <text x="455" y="314" fill="#f6faf9" font-family="Arial, sans-serif" font-size="78" font-weight="700" letter-spacing="12">VOZKO</text>
+  <text x="460" y="368" fill="#6ee8c5" font-family="Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="14">TICKETS</text>
+</svg>

@@ -1,0 +1,7 @@
+.next
+.tmp
+node_modules
+npm-debug.log*
+bun-error.log*
+.env*
+!.env.example

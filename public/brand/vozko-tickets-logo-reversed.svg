@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 252 64" role="img" aria-labelledby="title">
+  <title id="title">Vozko Tickets</title>
+  <path d="M4.5 9H16l11.4 20.2-6.2 11.7L4.5 18.1V9Z" fill="#f6faf9"/>
+  <path d="M40.3 9h11.2L30.9 41.1l-6.2-11.6L40.3 9Z" fill="#f6faf9"/>
+  <path d="m20.2 43.1 7.8-11.2 7.9 11.2L28 53l-7.8-9.9Z" fill="#00d9a0"/>
+  <path d="m28.9 29.3 6.8-10.7h5.2l2.2-3.5h-5.2l-8 12.5-1 1.7Z" fill="#00d9a0"/>
+  <rect x="42.1" y="9.1" width="4.4" height="4.4" rx=".7" fill="#00d9a0"/>
+  <rect x="47.2" y="3.8" width="3.8" height="3.8" rx=".6" fill="#00d9a0"/>
+  <rect x="51.6" width="3.3" height="3.3" rx=".6" fill="#00d9a0"/>
+  <g fill="#f6faf9">
+    <path d="M71 15h6.5l8.2 20.2L94 15h6.5L89.4 42h-7.3L71 15Z"/>
+    <path fill-rule="evenodd" d="M105 15h27v27h-27V15Zm6 5.5v16h15v-16h-15Z"/>
+    <path d="M138 15h28v5.5l-19.4 16h19.9V42h-29v-5.5l19.3-16H138V15Z"/>
+    <path d="M173 15h6.2v10.6L190 15h8.3l-13.8 13 14.7 14h-8.6l-11.4-11.6V42H173V15Z"/>
+    <path fill-rule="evenodd" d="M204 15h27v27h-27V15Zm6 5.5v16h15v-16h-15Z"/>
+  </g>
+  <text x="72" y="55" fill="#6ee8c5" font-family="Arial, sans-serif" font-size="9" font-weight="700" letter-spacing="3.1">TICKETS</text>
+</svg>

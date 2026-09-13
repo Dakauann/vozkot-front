@@ -1,0 +1,353 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 200 24% 97%;
+    --foreground: 206 15% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 206 15% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 206 15% 9%;
+
+    --primary: 164 100% 38%;
+    --primary-foreground: 200 10% 6%;
+    --primary-hover: 164 100% 33%;
+    --primary-active: 164 100% 29%;
+    --primary-edge: 164 100% 30%;
+    --primary-ink: 165 100% 24%;
+    --primary-subtle: 163 60% 94%;
+    --primary-subtle-hover: 163 55% 90%;
+    --primary-50: 163 70% 96%;
+    --primary-100: 163 65% 91%;
+    --primary-200: 163 60% 83%;
+    --primary-300: 163 65% 70%;
+    --primary-400: 164 70% 54%;
+    --primary-500: 164 100% 41%;
+    --primary-600: 164 100% 38%;
+    --primary-700: 164 100% 26%;
+    --primary-800: 165 95% 20%;
+    --primary-900: 166 90% 15%;
+
+    --secondary: 204 20% 95%;
+    --secondary-foreground: 206 15% 9%;
+    --muted: 204 16% 93%;
+    --muted-foreground: 206 9% 38%;
+    --accent: 204 20% 95%;
+    --accent-foreground: 206 15% 9%;
+    --accent-hover: 204 16% 89%;
+
+    --healthy: 152 90% 27%;
+    --healthy-foreground: 0 0% 100%;
+    --healthy-ink: 152 95% 22%;
+    --warning: 42 96% 45%;
+    --warning-foreground: 26 90% 12%;
+    --warning-ink: 32 94% 29%;
+    --destructive: 352 74% 44%;
+    --destructive-foreground: 0 0% 100%;
+    --destructive-ink: 352 78% 38%;
+    --info: 210 90% 42%;
+    --info-foreground: 0 0% 100%;
+    --info-ink: 211 92% 34%;
+
+    --border: 204 14% 88%;
+    --border-strong: 205 12% 76%;
+    --control-edge: 205 12% 53%;
+    --input: 204 14% 88%;
+    --ring: 164 100% 30%;
+    --ornament: 164 100% 30%;
+    --icon-accent: hsl(164 100% 30%);
+    --icon-stroke-scale: 1.1;
+    --pool-brand: 0.05;
+    --pool-cool: 0.035;
+
+    --chart-1: 164 100% 32%;
+    --chart-2: 231 60% 56%;
+    --chart-3: 43 92% 45%;
+    --chart-4: 199 89% 42%;
+    --chart-5: 321 50% 46%;
+    --radius: 6px;
+
+    --elev-1: 0 1px 1px hsl(206 30% 22% / 0.06), 0 1px 2px hsl(206 30% 22% / 0.04);
+    --elev-2: 0 1px 1px hsl(206 30% 22% / 0.07), 0 2px 5px -1px hsl(206 30% 22% / 0.07);
+    --elev-3: 0 2px 5px -1px hsl(206 30% 22% / 0.1), 0 1px 3px -1px hsl(0 0% 0% / 0.06);
+    --elev-4: 0 4px 12px -2px hsl(206 30% 22% / 0.12), 0 2px 6px -2px hsl(0 0% 0% / 0.06);
+    --elev-5: 0 8px 24px -4px hsl(206 30% 22% / 0.16), 0 4px 10px -4px hsl(0 0% 0% / 0.08);
+    --elev-6: 0 16px 48px -8px hsl(206 30% 22% / 0.22), 0 8px 16px -8px hsl(0 0% 0% / 0.1);
+    --elev-button: 0 1px 2px hsl(206 30% 22% / 0.07);
+    --elev-button-hover: 0 1px 3px hsl(206 30% 22% / 0.11);
+    --elev-button-primary: 0 0 0 1px hsl(var(--primary-edge)), 0 1px 2px hsl(206 30% 22% / 0.07);
+    --elev-button-primary-hover: 0 0 0 1px hsl(var(--primary-edge)), 0 1px 3px hsl(206 30% 22% / 0.11);
+    --elev-button-quiet: 0 0 0 1px hsl(204 14% 88%), 0 1px 1px hsl(206 30% 22% / 0.05), 0 2px 5px -1px hsl(206 30% 22% / 0.06);
+    --elev-button-quiet-hover: 0 0 0 1px hsl(205 12% 78%), 0 2px 5px -1px hsl(206 30% 22% / 0.12);
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 206 15% 9%;
+    --sidebar-primary: 164 100% 38%;
+    --sidebar-primary-foreground: 200 10% 6%;
+    --sidebar-accent: 204 20% 95%;
+    --sidebar-accent-foreground: 206 15% 9%;
+    --sidebar-border: 204 14% 88%;
+    --sidebar-ring: 164 100% 38%;
+  }
+
+  .dark {
+    --background: 200 10% 6%;
+    --foreground: 210 15% 96%;
+    --card: 210 12% 9%;
+    --card-foreground: 210 15% 96%;
+    --popover: 210 10% 12%;
+    --popover-foreground: 210 15% 96%;
+
+    --primary: 158 55% 55%;
+    --primary-foreground: 200 10% 6%;
+    --primary-hover: 158 73% 62%;
+    --primary-active: 158 45% 47%;
+    --primary-edge: 158 55% 55%;
+    --primary-ink: 158 69% 61%;
+    --primary-subtle: 166 45% 12%;
+    --primary-subtle-hover: 166 42% 16%;
+    --primary-50: 165 33% 11%;
+    --primary-100: 165 33% 15%;
+    --primary-200: 163 37% 21%;
+    --primary-300: 162 42% 30%;
+    --primary-400: 160 44% 41%;
+    --primary-500: 158 55% 55%;
+    --primary-600: 158 77% 64%;
+    --primary-700: 159 86% 68%;
+    --primary-800: 161 76% 74%;
+    --primary-900: 160 71% 86%;
+
+    --secondary: 210 10% 12%;
+    --secondary-foreground: 210 15% 96%;
+    --muted: 210 10% 12%;
+    --muted-foreground: 213 7% 64%;
+    --accent: 210 10% 12%;
+    --accent-foreground: 210 15% 96%;
+    --accent-hover: 210 9% 18%;
+
+    --healthy: 152 65% 44%;
+    --healthy-foreground: 200 10% 6%;
+    --healthy-ink: 152 60% 55%;
+    --warning: 42 94% 55%;
+    --warning-foreground: 200 10% 6%;
+    --warning-ink: 42 96% 62%;
+    --destructive: 352 78% 52%;
+    --destructive-foreground: 0 0% 100%;
+    --destructive-ink: 353 90% 72%;
+    --info: 206 90% 60%;
+    --info-foreground: 200 10% 6%;
+    --info-ink: 206 92% 70%;
+
+    --border: 210 10% 19%;
+    --border-strong: 211 8% 30%;
+    --control-edge: 211 8% 42%;
+    --input: 210 10% 19%;
+    --ring: 158 73% 62%;
+    --ornament: 158 55% 55%;
+    --icon-accent: hsl(159 48% 54%);
+    --icon-stroke-scale: 1;
+    --pool-brand: 0.08;
+    --pool-cool: 0.05;
+
+    --chart-1: 158 55% 55%;
+    --chart-2: 229 75% 60%;
+    --chart-3: 44 92% 37%;
+    --chart-4: 200 95% 43%;
+    --chart-5: 320 66% 49%;
+
+    --elev-1: 0 1px 1px hsl(0 0% 0% / 0.3), 0 1px 2px hsl(0 0% 0% / 0.24);
+    --elev-2: 0 1px 2px hsl(0 0% 0% / 0.34), 0 2px 5px -1px hsl(0 0% 0% / 0.3);
+    --elev-3: 0 2px 6px -1px hsl(0 0% 0% / 0.4), 0 1px 3px -1px hsl(0 0% 0% / 0.3);
+    --elev-4: 0 4px 14px -2px hsl(0 0% 0% / 0.46), 0 2px 6px -2px hsl(0 0% 0% / 0.32);
+    --elev-5: 0 8px 28px -4px hsl(0 0% 0% / 0.54), 0 4px 10px -4px hsl(0 0% 0% / 0.36);
+    --elev-6: 0 16px 52px -8px hsl(0 0% 0% / 0.64), 0 8px 18px -8px hsl(0 0% 0% / 0.42);
+    --elev-button: 0 1px 2px hsl(0 0% 0% / 0.34);
+    --elev-button-hover: 0 1px 3px hsl(0 0% 0% / 0.44);
+    --elev-button-primary: 0 0 0 1px hsl(var(--primary-edge)), 0 1px 2px hsl(0 0% 0% / 0.34);
+    --elev-button-primary-hover: 0 0 0 1px hsl(var(--primary-edge)), 0 1px 3px hsl(0 0% 0% / 0.44);
+    --elev-button-quiet: 0 0 0 1px hsl(210 10% 24%), 0 1px 2px hsl(0 0% 0% / 0.3);
+    --elev-button-quiet-hover: 0 0 0 1px hsl(211 8% 34%), 0 2px 5px -1px hsl(0 0% 0% / 0.42);
+
+    --sidebar-background: 200 10% 6%;
+    --sidebar-foreground: 210 15% 96%;
+    --sidebar-primary: 158 55% 55%;
+    --sidebar-primary-foreground: 200 10% 6%;
+    --sidebar-accent: 210 10% 12%;
+    --sidebar-accent-foreground: 210 15% 96%;
+    --sidebar-border: 210 10% 19%;
+    --sidebar-ring: 158 73% 62%;
+  }
+
+  * { @apply border-border; }
+  html { color-scheme: light; }
+  html.dark { color-scheme: dark; }
+  body { @apply min-h-screen bg-background text-foreground; }
+  ::selection { background: hsl(var(--primary) / 0.24); color: hsl(var(--foreground)); }
+  :focus-visible { outline: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer components {
+  .field-label {
+    position: absolute;
+    left: var(--field-label-left, 0.75rem);
+    top: var(--field-label-top, 0.4375rem);
+    max-width: calc(100% - var(--field-label-left, 0.75rem) - 1.75rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    pointer-events: none;
+    transform-origin: left top;
+    font-size: 12px;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    color: hsl(var(--muted-foreground));
+    transition:
+      top 160ms cubic-bezier(0.16, 1, 0.3, 1),
+      font-size 160ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 160ms cubic-bezier(0.16, 1, 0.3, 1),
+      color 160ms ease-out;
+  }
+
+  .peer:placeholder-shown ~ .field-label:not(.field-label-floating),
+  .field-label-rest {
+    top: var(--field-label-rest, 50%);
+    transform: var(--field-label-rest-transform, translateY(-50%));
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .field-label-floating {
+    top: var(--field-label-top, 0.4375rem);
+    transform: none;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .peer:focus ~ .field-label,
+  .field-label-active {
+    color: hsl(var(--primary-ink));
+  }
+
+  .peer[aria-invalid="true"] ~ .field-label,
+  .field-label-invalid {
+    color: hsl(var(--destructive-ink));
+  }
+
+  .peer:disabled ~ .field-label {
+    color: hsl(var(--muted-foreground));
+    opacity: 0.6;
+  }
+
+  .legend {
+    font-size: 12px;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    color: hsl(var(--muted-foreground));
+  }
+
+  /*
+    THE SELECTION LAMP.
+
+    A 3px bar on the leading edge of the current nav row. It is the third of the
+    three signals that say "you are here": the solid brand ground, the weight of
+    the label, and this. Three, because in the icon rail the first two are gone
+    and only the lamp survives to carry it.
+  */
+  .lamp {
+    width: 3px;
+    height: 16px;
+    border-radius: 9999px;
+    background: hsl(var(--primary));
+    flex-shrink: 0;
+  }
+
+  /* On a solid brand row the lamp would be green on green. It flips to the
+     label's own ink so the three selection signals stay three. */
+  .lamp-on-fill {
+    background: hsl(var(--primary-foreground));
+  }
+
+  /* The spine scrolls all day; a platform scrollbar inside 208px is furniture
+     the operator never asked for. */
+  .scrollbar-sleek::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-sleek::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 3px;
+  }
+
+  .scrollbar-sleek::-webkit-scrollbar-thumb {
+    background: hsl(var(--foreground) / 0.15);
+    border-radius: 3px;
+    transition: background 0.2s ease;
+  }
+
+  .scrollbar-sleek::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--foreground) / 0.3);
+  }
+
+  .scrollbar-sleek::-webkit-scrollbar-thumb:active {
+    background: hsl(var(--foreground) / 0.4);
+  }
+
+  .scrollbar-sleek {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--foreground) / 0.15) transparent;
+  }
+
+  .rule-engraved { border-bottom: 1px solid hsl(var(--border)); }
+
+  .well {
+    background: hsl(var(--card));
+    border-radius: 6px;
+    box-shadow: var(--elev-2);
+  }
+
+  .notice {
+    --notice-ink: hsl(var(--muted-foreground));
+    background: hsl(var(--muted));
+    border: 1px solid hsl(var(--border));
+    border-radius: 6px;
+    color: hsl(var(--muted-foreground));
+  }
+  .notice-fault { --notice-ink: hsl(var(--destructive-ink)); }
+  .notice-ink { color: var(--notice-ink); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field-label { transition: none; }
+}
+
+@keyframes vz-circuit-grow {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes vz-circuit-retire {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.vz-circuit-grow { animation: vz-circuit-grow 1.2s ease-out both; }
+.vz-circuit-retire { animation: vz-circuit-retire 0.8s ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vz-circuit-grow { animation: none; }
+  .vz-circuit-retire { display: none; }
+}

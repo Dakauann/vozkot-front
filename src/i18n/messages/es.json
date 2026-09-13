@@ -1,0 +1,462 @@
+{
+  "metadata": {
+    "title": "Vozko Tickets",
+    "description": "Gestión de entradas, lotes y multimedia para eventos."
+  },
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "remove": "Quitar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "retry": "Reintentar",
+    "loading": "Cargando",
+    "optional": "opcional",
+    "search": "Buscar",
+    "language": "Idioma",
+    "clear": "Limpiar",
+    "of": "de"
+  },
+  "nav": {
+    "product": "Boletería",
+    "productDescription": "Entradas, acceso y ventas",
+    "insights": "Análisis",
+    "insightsDescription": "Ventas y público",
+    "sections": {
+      "operations": "Boletería",
+      "support": "Soporte",
+      "insights": "Análisis"
+    },
+    "tickets": "Entradas",
+    "checkIn": "Control de acceso",
+    "orders": "Pedidos",
+    "reports": "Informes",
+    "help": "Centro de ayuda",
+    "contact": "Contacto",
+    "settings": "Configuración",
+    "admin": "Administración"
+  },
+  "navbar": {
+    "toggleSidebar": "Alternar el menú lateral",
+    "openMenu": "Abrir el menú",
+    "account": "Cuenta",
+    "signOut": "Cerrar sesión",
+    "signedInAs": "Sesión iniciada como",
+    "theme": "Tema",
+    "themeLight": "Claro",
+    "themeDark": "Oscuro",
+    "themeSystem": "Sistema"
+  },
+  "auth": {
+    "signIn": {
+      "title": "Iniciar sesión",
+      "subtitle": "Entra a la boletería de tu operación.",
+      "email": "Correo",
+      "emailPlaceholder": "tu@empresa.com",
+      "password": "Contraseña",
+      "submit": "Iniciar sesión",
+      "submitting": "Entrando…",
+      "noAccount": "¿Aún no tienes cuenta?",
+      "createAccount": "Crear cuenta",
+      "invalidCredentials": "Correo o contraseña incorrectos."
+    },
+    "signUp": {
+      "title": "Crear cuenta",
+      "subtitle": "Empieza a publicar entradas en minutos.",
+      "name": "Nombre",
+      "namePlaceholder": "María Souza",
+      "email": "Correo",
+      "emailPlaceholder": "tu@empresa.com",
+      "password": "Contraseña",
+      "passwordHint": "Mínimo 8 caracteres, con mayúscula, minúscula y número.",
+      "agreementBefore": "Al crear una cuenta, aceptas los",
+      "terms": "Términos de Uso",
+      "agreementAnd": "y la",
+      "privacy": "Política de Privacidad",
+      "submit": "Crear cuenta",
+      "submitting": "Creando…",
+      "hasAccount": "¿Ya tienes cuenta?",
+      "signIn": "Iniciar sesión",
+      "confirmPassword": "Confirmar contraseña",
+      "passwordMismatch": "Las contraseñas no coinciden.",
+      "emailTaken": "Ya existe una cuenta con este correo."
+    },
+    "gate": {
+      "checking": "Verificando la sesión…",
+      "serverDown": "La API no respondió",
+      "serverDownBody": "El servidor en {url} no responde. Inicia el backend e inténtalo de nuevo.",
+      "retry": "Reintentar"
+    }
+  },
+  "tickets": {
+    "page": {
+      "title": "Entradas",
+      "description": "Lotes a la venta, existencias y multimedia de cada evento."
+    },
+    "summary": {
+      "batches": "{count, plural, =0 {ningún lote} one {# lote} other {# lotes}}",
+      "available": "{count, number} entradas disponibles",
+      "potential": "{value} en existencias"
+    },
+    "toolbar": {
+      "searchPlaceholder": "Buscar por evento, lote, recinto o ciudad",
+      "searchLabel": "Buscar entradas",
+      "sortLabel": "Ordenar por",
+      "sortStartsAt": "Fecha del evento",
+      "sortCreatedAt": "Creados recientemente",
+      "sortPrice": "Precio más bajo",
+      "statusLabel": "Filtrar por estado",
+      "statusAll": "Todos"
+    },
+    "status": {
+      "draft": "Borrador",
+      "on_sale": "A la venta",
+      "sold_out": "Agotado",
+      "cancelled": "Cancelado"
+    },
+    "fields": {
+      "eventName": "Evento",
+      "title": "Lote",
+      "description": "Descripción",
+      "venue": "Recinto",
+      "city": "Ciudad",
+      "startsAt": "Fecha y hora",
+      "price": "Precio",
+      "quantity": "Cantidad",
+      "status": "Estado",
+      "sold": "Vendidas",
+      "available": "Disponibles",
+      "createdAt": "Creado",
+      "updatedAt": "Actualizado"
+    },
+    "list": {
+      "columnTicket": "Lote",
+      "columnStatus": "Estado",
+      "columnPrice": "Precio",
+      "stock": "{sold} de {total} vendidas",
+      "showing": "{shown} de {total}",
+      "loadMore": "Cargar más",
+      "loadingMore": "Cargando…",
+      "selectHint": "Selecciona un lote para ver sus detalles."
+    },
+    "empty": {
+      "title": "Todavía no hay entradas",
+      "body": "Crea el primer lote para poner un evento a la venta. Puedes empezar como borrador y publicarlo después.",
+      "action": "Crear entrada"
+    },
+    "emptyFiltered": {
+      "title": "Sin resultados",
+      "body": "Ningún lote coincide con estos filtros.",
+      "action": "Limpiar filtros"
+    },
+    "error": {
+      "title": "No se pudieron cargar las entradas",
+      "body": "Comprueba que la API esté en marcha e inténtalo de nuevo."
+    },
+    "actions": {
+      "create": "Nueva entrada",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "publish": "Poner a la venta",
+      "backToDraft": "Volver a borrador",
+      "markSoldOut": "Marcar como agotado",
+      "cancelSale": "Cancelar la venta",
+      "more": "Más acciones",
+      "backToList": "Volver a la lista"
+    },
+    "delete": {
+      "title": "¿Eliminar esta entrada?",
+      "body": "El lote {title} de {event} se eliminará, junto con las imágenes y los vídeos subidos. Esta acción no se puede deshacer.",
+      "confirm": "Eliminar entrada",
+      "deleting": "Eliminando…"
+    },
+    "detail": {
+      "stock": "Existencias",
+      "stockValue": "{sold} de {total} vendidas",
+      "remaining": "{count, number} restantes",
+      "revenue": "Ingresos potenciales",
+      "doors": "Apertura",
+      "gallery": "Imágenes y vídeos"
+    },
+    "form": {
+      "createTitle": "Nueva entrada",
+      "createSubtitle": "Un lote pertenece a un evento y tiene su propio precio y existencias.",
+      "editTitle": "Editar entrada",
+      "editSubtitle": "Los cambios se aplican a las ventas siguientes.",
+      "eventNamePlaceholder": "Festival Aurora",
+      "titlePlaceholder": "Pista Premium",
+      "descriptionPlaceholder": "A qué da acceso este lote.",
+      "venuePlaceholder": "Arena Castelão",
+      "cityPlaceholder": "Fortaleza, CE",
+      "priceHint": "En reales. Usa 0 para una cortesía.",
+      "quantityHint": "Total de entradas de este lote.",
+      "submitCreate": "Crear entrada",
+      "submitEdit": "Guardar cambios",
+      "submitting": "Guardando…",
+      "errors": {
+        "eventName": "Indica el nombre del evento.",
+        "title": "Indica el nombre del lote.",
+        "venue": "Indica el recinto.",
+        "startsAt": "Indica la fecha y la hora del evento.",
+        "price": "El precio no puede ser negativo.",
+        "quantity": "La cantidad debe ser mayor que cero."
+      },
+      "backToTickets": "Volver a las entradas",
+      "sections": {
+        "event": "Evento",
+        "place": "Recinto y fecha",
+        "sale": "Venta"
+      },
+      "mediaHint": "Los archivos se suben en cuanto se crea la entrada.",
+      "mediaQueued": "{count, plural, =0 {ningún archivo en cola} one {# archivo en cola} other {# archivos en cola}}",
+      "uploadingMedia": "Subiendo {done} de {total}…",
+      "mediaPartial": "Entrada creada, pero {count, plural, one {# archivo no se pudo subir} other {# archivos no se pudieron subir}}.",
+      "loading": "Cargando la entrada…",
+      "notFound": "Entrada no encontrada."
+    },
+    "feedback": {
+      "created": "Entrada creada.",
+      "updated": "Entrada actualizada.",
+      "deleted": "Entrada eliminada.",
+      "statusChanged": "Estado actualizado."
+    }
+  },
+  "media": {
+    "title": "Imágenes y vídeos",
+    "count": "{count, plural, =0 {ningún archivo} one {# archivo} other {# archivos}}",
+    "add": "Añadir multimedia",
+    "dropHere": "Suelta para subir",
+    "dropHint": "Arrastra archivos aquí o haz clic para elegir",
+    "constraints": "Imágenes hasta 10 MB · Vídeos hasta 50 MB · Máximo 12 archivos",
+    "uploading": "Subiendo {name}…",
+    "remove": "Quitar archivo",
+    "empty": "Todavía no hay imágenes ni vídeos.",
+    "emptyHint": "La primera imagen es la portada que ve el comprador.",
+    "cover": "Portada",
+    "video": "Vídeo",
+    "limitReached": "Se alcanzó el límite de 12 archivos.",
+    "errors": {
+      "unsupported": "{name} no es un formato aceptado. Usa JPG, PNG, WebP, AVIF, GIF, MP4, WebM o MOV.",
+      "tooLarge": "{name} supera el límite. Imágenes hasta 10 MB y vídeos hasta 50 MB.",
+      "failed": "No se pudo subir {name}."
+    },
+    "deleted": "Archivo eliminado."
+  },
+  "errors": {
+    "generic": "Algo salió mal. Inténtalo de nuevo.",
+    "network": "No se pudo contactar con la API.",
+    "unauthorized": "Tu sesión expiró. Inicia sesión de nuevo.",
+    "notFound": "No encontramos este registro."
+  },
+  "scaffold": {
+    "title": "Aquí todavía no hay nada conectado",
+    "body": "Esta ruta forma parte del esqueleto del proyecto. Sustitúyela por tu propia página; el shell, la cabecera y el elemento de menú ya funcionan.",
+    "checkIn": {
+      "title": "Control de acceso",
+      "description": "Lectura de entradas en la puerta."
+    },
+    "orders": {
+      "title": "Pedidos",
+      "description": "Compras, pagos y reembolsos."
+    },
+    "reports": {
+      "title": "Informes",
+      "description": "Ventas, ingresos y público."
+    },
+    "help": {
+      "title": "Centro de ayuda",
+      "description": "Artículos que el comprador consulta por su cuenta."
+    },
+    "contact": {
+      "title": "Contacto",
+      "description": "Habla con el equipo detrás de este proyecto."
+    },
+    "settings": {
+      "title": "Configuración",
+      "description": "Espacio de trabajo, miembros y preferencias."
+    }
+  },
+  "footer": {
+    "description": "Tecnología de la familia Vozko para crear, organizar y operar entradas para eventos con claridad.",
+    "legalNavigation": "Documentos legales",
+    "terms": "Términos de Uso",
+    "privacy": "Política de Privacidad",
+    "rights": "Todos los derechos reservados."
+  },
+  "legal": {
+    "back": "Volver al producto",
+    "contents": "En esta página",
+    "version": "Versión",
+    "updated": "Última actualización",
+    "reading": "Tiempo de lectura",
+    "minutes": "unos {minutes} min",
+    "questions": "¿Tienes alguna pregunta?",
+    "contact": "Contacta con el canal responsable de este documento.",
+    "operator": "Operadora",
+    "address": "Dirección",
+    "website": "Sitio web"
+  },
+  "termsOfService": {
+    "title": "Términos de Uso",
+    "metaDescription": "Reglas para usar la plataforma Vozko Tickets.",
+    "intro": "Estos Términos rigen el acceso y uso de {productName}, servicio ofrecido por {legalName}. Lee este documento antes de crear una cuenta u operar eventos.",
+    "sections": {
+      "acceptance": {
+        "title": "Aceptación y elegibilidad",
+        "content": "Al crear una cuenta, acceder o usar {productName}, declaras haber leído y aceptado estos Términos y la Política de Privacidad. Si actúas por una empresa u organizador, declaras tener autoridad para vincularlo.\n\nEl servicio está destinado a mayores de 18 años con capacidad para contratar. Si no estás de acuerdo, no uses la plataforma."
+      },
+      "scope": {
+        "title": "Alcance y función de la plataforma",
+        "content": "{productName} ofrece tecnología para registrar eventos, crear lotes de entradas, controlar existencias y publicar medios. Los recursos de pedidos, pagos, emisión, reembolso o check-in solo forman parte del servicio cuando estén expresamente habilitados.\n\nSalvo indicación clara en una oferta, la plataforma no es organizadora, productora, recinto ni vendedora de entradas. El organizador responde por el evento y su relación con el comprador; la plataforma actúa como proveedor tecnológico."
+      },
+      "accounts": {
+        "title": "Cuentas y seguridad",
+        "content": "Debes proporcionar información correcta, mantenerla actualizada y proteger contraseña, dispositivos y acceso. Las credenciales son personales; se prohíben cuentas compartidas sin control.\n\nAvisa de inmediato al soporte sobre usos no autorizados. Las acciones de una sesión válida se atribuirán a la cuenta, salvo disposición legal contraria. Podemos exigir verificación de identidad o representación para proteger el servicio."
+      },
+      "organizer": {
+        "title": "Obligaciones del organizador",
+        "content": "El organizador debe contar con autorizaciones, licencias, derechos y capacidad para realizar y divulgar cada evento. Debe mantener correctos precio, lote, existencias, fecha, horario, lugar, clasificación por edad, accesibilidad, política de entrada y demás condiciones.\n\nResponde por la realización, atención a compradores, impuestos, derechos de autor, descuentos legales y otras normas aplicables. Los cambios relevantes deben comunicarse clara y oportunamente."
+      },
+      "sales": {
+        "title": "Venta, entrada y consumidores",
+        "content": "Cuando la venta al público esté habilitada, las condiciones mostradas al comprar integran la oferta. El organizador debe cumplir el Código de Defensa del Consumidor brasileño, el Decreto n.º 7.962/2013 y otras normas sobre comercio electrónico y eventos.\n\nLa entrada otorga el acceso descrito y puede estar sujeta a validación, límite por persona y reglas antifraude previamente informadas. Cancelaciones, aplazamientos y cambios sustanciales deben respetar los derechos legales del comprador, incluida información y reembolso cuando corresponda. Estos Términos no limitan derechos irrenunciables."
+      },
+      "payments": {
+        "title": "Pagos, tasas y reembolsos",
+        "content": "Mientras no esté habilitado un módulo de pago, la plataforma no recibe fondos de compradores ni almacena datos de tarjetas. Cuando se habilite, se informarán precio total, tasas, medio, cuotas y receptor antes de confirmar.\n\nLos pagos pueden ser procesados por un socio regulado y quedar sujetos a sus reglas. El organizador debe mantener saldo e información suficientes para anulaciones, contracargos y reembolsos. Nada excluye un reembolso o desistimiento exigido por ley."
+      },
+      "integrations": {
+        "title": "Integraciones, Vozko y APIs",
+        "content": "Cuando el usuario lo habilite, el servicio podrá conectarse con otros productos Vozko y terceros mediante APIs, webhooks, importaciones o cuentas conectadas. Puede incluir CRM, automatización, pagos, control de acceso, análisis y canales de comunicación. Cada conexión debe autorizarla y configurarla una persona facultada.\n\nEl organizador responde por el origen, calidad, permisos y uso de los datos enviados o recibidos. Las integraciones pueden tener términos propios y detenerse si un tercero cambia o retira su API. No accedas a cuentas, audiencias o canales ajenos sin autorización válida."
+      },
+      "communications": {
+        "title": "Notificaciones y marketing",
+        "content": "Las funciones futuras podrán enviar confirmaciones, recordatorios, cambios de evento, recuperación de compra y campañas por email, WhatsApp, SMS, push u otros canales, incluso mediante Vozko. El organizador decide destinatarios, contenido, momento y fundamento, y generalmente actúa como responsable.\n\nDebe poder demostrar consentimiento u otra base adecuada, respetar preferencias y listas de bloqueo, identificar al remitente, ofrecer baja sencilla para marketing y cumplir la LGPD, normas de consumo y reglas del canal. Los mensajes transaccionales no deben ocultar publicidad. Podemos bloquear campañas con señales de spam, fraude o riesgo."
+      },
+      "acceptableUse": {
+        "title": "Uso aceptable",
+        "content": "Se prohíbe usar el servicio para fraude, lavado de dinero, reventa ilegal, eventos no autorizados, violación de derechos, contenido ilegal o engañoso, discriminación ilícita, malware, recolección indebida de datos o interferencia con la seguridad y disponibilidad.\n\nTambién se prohíbe eludir límites técnicos, probar vulnerabilidades sin permiso, automatizar accesos abusivamente, copiar el servicio o usar marcas ajenas sin autorización. Podemos retirar contenido y restringir operaciones para evitar daños, cumplir la ley o investigar señales consistentes de abuso."
+      },
+      "content": {
+        "title": "Contenido y propiedad intelectual",
+        "content": "Conservas los derechos sobre nombres, descripciones, imágenes y vídeos enviados. Concedes a {productName} una licencia no exclusiva, mundial y por el tiempo necesario para alojar, reproducir, adaptar técnicamente y mostrar ese contenido solo para operar, proteger y mejorar el servicio.\n\nGarantizas contar con permisos, incluidos derechos de imagen, música y marcas. El software, identidad Vozko, componentes, documentación y demás materiales siguen protegidos y no se transfieren al usuario."
+      },
+      "privacy": {
+        "title": "Privacidad y datos personales",
+        "content": "El tratamiento sigue la Política de Privacidad y la legislación aplicable, incluida la Ley brasileña n.º 13.709/2018 (LGPD). El organizador debe tener base legal, informar a los titulares y atender derechos sobre datos de compradores o asistentes que introduzca o trate en la plataforma.\n\nLas partes deben aplicar controles de acceso adecuados y usar los datos solo para fines legítimos del evento. Acuerdos empresariales podrán incluir condiciones específicas de tratamiento."
+      },
+      "availability": {
+        "title": "Disponibilidad y cambios del servicio",
+        "content": "Procuramos mantener el servicio seguro y disponible, pero no garantizamos funcionamiento ininterrumpido o sin errores. Mantenimiento, fallos de internet o proveedores, fuerza mayor o medidas de seguridad pueden causar indisponibilidad.\n\nPodemos corregir, sustituir o dejar de ofrecer funciones. Ante cambios materiales que afecten una operación activa, intentaremos avisar con antelación razonable, salvo urgencia de seguridad, obligación legal o hecho fuera de nuestro control."
+      },
+      "suspension": {
+        "title": "Suspensión, terminación y datos",
+        "content": "Podemos suspender o terminar el acceso por incumplimiento, riesgo de seguridad, fraude, exigencia legal o impago de un valor contratado, con aviso y oportunidad de subsanar cuando sea razonable. El usuario puede dejar el servicio y pedir el cierre.\n\nAntes de un cierre planificado, exporta los datos necesarios. Después, podrán eliminarse o anonimizarse según la Política de Privacidad, salvo retención legal, prevención del fraude, ejercicio de derechos y copias de seguridad temporales."
+      },
+      "warranties": {
+        "title": "Garantías y servicios de terceros",
+        "content": "El servicio se ofrece según disponibilidad y con los compromisos expresos del contrato. No garantizamos resultados comerciales, ventas mínimas, asistencia, idoneidad del evento ni conducta de organizadores, compradores o terceros.\n\nIntegraciones, almacenamiento, redes y procesadores de pago pueden tener términos propios. No controlamos servicios independientes, pero seleccionamos proveedores y gestionamos integraciones conforme a obligaciones legales y contractuales."
+      },
+      "liability": {
+        "title": "Responsabilidad",
+        "content": "Cada parte responde por daños directos causados por incumplimiento contractual o legal. En la máxima medida permitida, no respondemos por lucro cesante, pérdida indirecta de oportunidad ni daños causados exclusivamente por información incorrecta del organizador, conducta de terceros o hechos fuera de control razonable.\n\nNingún límite acordado se aplica a dolo, fraude, violación de confidencialidad o protección de datos, propiedad intelectual, daños personales, derechos del consumidor u otras responsabilidades que la ley no permita limitar."
+      },
+      "changes": {
+        "title": "Cambios en estos Términos",
+        "content": "Podemos actualizar estos Términos por cambios legales, de seguridad o del servicio. La versión y fecha superiores identifican el texto vigente. Los cambios materiales se comunicarán por un medio adecuado antes de surtir efecto cuando sea exigible.\n\nEl uso continuado después de su vigencia implica aceptación, sin perjuicio del consentimiento específico necesario. Si no aceptas un cambio material, puedes dejar de usar el servicio antes de la nueva versión."
+      },
+      "law": {
+        "title": "Ley aplicable y controversias",
+        "content": "Estos Términos se rigen por las leyes de la República Federativa de Brasil. Las partes buscarán primero una solución amistosa mediante soporte.\n\nEn relaciones de consumo se preservan el foro del domicilio del consumidor y todas las protecciones aplicables. En los demás casos regirá el foro pactado en contrato empresarial; si no existe, será competente el de la sede de la operadora, salvo norma imperativa."
+      },
+      "contact": {
+        "title": "Contacto",
+        "content": "Las preguntas sobre estos Términos, avisos de infracción o solicitudes de cuenta pueden enviarse a {supportEmail}. Incluye información suficiente para identificar la cuenta y el asunto, sin enviar contraseñas ni datos financieros por email."
+      }
+    }
+  },
+  "privacyPolicy": {
+    "title": "Política de Privacidad",
+    "metaDescription": "Cómo Vozko Tickets recopila, usa, comparte y protege datos personales.",
+    "intro": "Esta Política explica cómo {legalName} trata datos personales al ofrecer {productName}, incluidos qué datos usamos, para qué, con quién los compartimos y cómo ejercer derechos.",
+    "sections": {
+      "scope": {
+        "title": "Alcance",
+        "content": "Esta Política se aplica al sitio, panel, APIs, soporte y funciones del producto. Abarca titulares de cuenta, representantes de organizadores y, cuando se habiliten venta o check-in, compradores y asistentes.\n\nSitios, integraciones y servicios independientes siguen sus propias políticas. Los avisos específicos de un flujo se aplican a ese tratamiento y complementan este documento."
+      },
+      "roles": {
+        "title": "Quién trata los datos",
+        "content": "{legalName} es responsable de los datos necesarios para crear cuentas, contratar, proteger y administrar {productName}, prestar soporte y cumplir obligaciones propias.\n\nPara datos de compradores, invitados o equipos incorporados por un organizador, este suele ser responsable y nosotros actuamos como encargados según sus instrucciones. Podemos ser responsables para seguridad, prevención de fraude, registros legalmente exigidos y obligaciones propias."
+      },
+      "data": {
+        "title": "Datos que tratamos",
+        "content": "• Cuenta y contacto: nombre, email, función, organización y preferencias de idioma.\n• Autenticación y seguridad: contraseña solo como hash, identificadores y hashes de sesión, dirección IP, navegador, dispositivo, fechas de acceso y auditoría.\n• Evento y contenido: nombres, descripciones, lugar, ciudad, fecha, precios, existencias, estado, imágenes y vídeos. Pueden contener datos personales elegidos por el organizador.\n• Soporte: mensajes, adjuntos, solicitudes e historial.\n• Venta y entrada, cuando se habiliten: pedido, entrada, estado de pago, reembolso, validación y check-in. Los datos completos de tarjeta quedan con el procesador, no con la plataforma.\n• Técnicos: registros de error y rendimiento, dirección de red y preferencias esenciales guardadas en el navegador."
+      },
+      "collection": {
+        "title": "Cómo obtenemos datos",
+        "content": "Recibimos datos directamente al crear una cuenta, registrar un evento, subir medios, usar funciones o contactar con soporte. También generamos datos técnicos y de seguridad durante el uso.\n\nLos organizadores pueden aportar datos de equipos y, en módulos habilitados, compradores o asistentes. Socios de autenticación, pago, almacenamiento e infraestructura pueden devolver confirmaciones e identificadores necesarios."
+      },
+      "purposes": {
+        "title": "Para qué usamos los datos",
+        "content": "• Crear y autenticar cuentas, mantener sesiones y permisos.\n• Registrar y mostrar eventos, lotes, existencias y medios.\n• Procesar pedidos, pagos, emisión, reembolsos y check-in cuando se habiliten.\n• Prestar soporte, responder solicitudes y enviar comunicaciones operativas.\n• Prevenir fraude, abuso e incidentes; auditar acciones y proteger a las personas.\n• Corregir fallos, medir rendimiento y mejorar funciones.\n• Cumplir obligaciones legales, regulatorias y órdenes válidas; ejercer o defender derechos.\n\nNo vendemos datos personales ni usamos el panel para publicidad comportamental de terceros."
+      },
+      "bases": {
+        "title": "Bases legales",
+        "content": "Según el contexto, tratamos datos para ejecutar un contrato o medidas previas; cumplir obligaciones legales o regulatorias; ejercer derechos en procesos; proteger vida o integridad; atender intereses legítimos tras evaluar necesidad e impacto; prevenir fraude y proteger crédito; y, cuando se indique, con consentimiento.\n\nCuando actuamos como encargados, el organizador responsable determina la base. El consentimiento puede retirarse, sin invalidar tratamientos anteriores ni afectar tratamientos con otra base legal."
+      },
+      "integrations": {
+        "title": "Integraciones y ecosistema Vozko",
+        "content": "Si el organizador conecta el producto con Vozko u otro servicio, podremos recibir y enviar identificadores de cuenta y contacto, eventos de compra y check-in, segmentos, preferencias, claves de integración, estado de sincronización y campos elegidos al configurar. El flujo comienza solo mediante configuración autorizada o cuando sea necesario para una función contratada.\n\nLos productos y terceros pueden ser encargados o responsables independientes según la finalidad. Explicaremos el contexto relevante al activar. El organizador debe minimizar campos, revisar permisos, proteger credenciales API y desconectar vínculos innecesarios."
+      },
+      "communications": {
+        "title": "Notificaciones, campañas y preferencias",
+        "content": "Cuando se habiliten, trataremos destinatario y canal, contenido y plantilla, evento que inicia el envío, consentimiento u oposición, bloqueo, horario, entrega, apertura, clic, respuesta y fallo, según lo facilite el canal. Esto permite confirmaciones, recordatorios, alertas operativas, recuperación de compra y marketing autorizado.\n\nEl organizador determina finalidad y base de mensajes a su público. Nosotros y Vozko podemos ser encargados al ejecutar una campaña y responsables para seguridad, prevención de abuso, facturación y obligaciones propias. El marketing debe ofrecer oposición o baja fácil; las solicitudes se propagan a sistemas conectados cuando sea técnicamente posible."
+      },
+      "sharing": {
+        "title": "Comunicación y proveedores",
+        "content": "Compartimos solo lo necesario con proveedores de alojamiento, bases de datos, almacenamiento de medios, entrega de contenido, email, supervisión de seguridad, soporte y, cuando se habiliten, pagos, emisión, Vozko y proveedores de WhatsApp, SMS, push u otros canales. Reciben instrucciones y obligaciones de confidencialidad y protección.\n\nTambién podemos compartir con el organizador responsable, empresas del grupo que apoyen la operación, autoridades ante obligación o solicitud válida y en reorganizaciones con salvaguardas. No comercializamos listas de personas."
+      },
+      "transfers": {
+        "title": "Transferencias internacionales",
+        "content": "Algunos proveedores pueden tratar o almacenar datos fuera de Brasil. Usamos entonces mecanismos permitidos por la LGPD y salvaguardas contractuales, técnicas y organizativas adecuadas, considerando las reglas de la ANPD.\n\nLa ubicación efectiva depende de la infraestructura contratada. Puedes pedir al responsable de privacidad más información sobre categorías de proveedores."
+      },
+      "cookies": {
+        "title": "Cookies y almacenamiento local",
+        "content": "Usamos cookies necesarios para autenticación, renovación segura de sesión y datos básicos de cuenta. Los tokens de acceso y renovación se configuran como cookies httpOnly; idioma, tema, menú y navegación pueden guardarse en cookies o almacenamiento local.\n\nSon recursos esenciales o funcionales y no se usan actualmente para anuncios dirigidos. Si añadimos medición o marketing no esencial, ofreceremos información y controles de consentimiento cuando proceda. Bloquear lo esencial puede impedir el acceso."
+      },
+      "retention": {
+        "title": "Conservación y eliminación",
+        "content": "Conservamos datos de cuenta y evento mientras la cuenta esté activa y sea necesario para prestar el servicio. Las sesiones permanecen hasta expirar o revocarse; el contenido, hasta que el usuario lo elimine o cierre la cuenta, sujeto a colas y copias temporales.\n\nDespués eliminamos o anonimizamos, salvo necesidad por obligación legal, prevención de fraude, auditoría, seguridad, reclamaciones o prescripción. Los plazos varían según categoría, contrato y módulo."
+      },
+      "security": {
+        "title": "Seguridad",
+        "content": "Aplicamos medidas técnicas y organizativas proporcionales al riesgo: control de acceso, contraseñas con hash, tokens protegidos y rotados, límites de tipo y tamaño de archivos, separación lógica, copias y supervisión adecuada al entorno.\n\nNingún sistema es invulnerable. Usa contraseñas fuertes, restringe accesos y avisa de actividad sospechosa. No envíes contraseñas, tarjetas completas o documentos sensibles por canales no solicitados."
+      },
+      "rights": {
+        "title": "Derechos de los titulares",
+        "content": "Conforme a la LGPD, puedes pedir confirmación y acceso; corrección; información sobre comunicación; anonimización, bloqueo o eliminación de datos innecesarios o ilícitos; portabilidad según regulación; eliminación de datos basados en consentimiento; información sobre su negativa; retirada; oposición; y revisión de decisiones automatizadas cuando proceda.\n\nEnvía solicitudes a {dpoEmail}. Podemos verificar identidad y contexto para evitar fraude. Son gratuitas, sujetas a plazos legales y causas justificadas de retención o rechazo. También puedes acudir a la ANPD y organismos de consumo."
+      },
+      "organizerData": {
+        "title": "Datos controlados por el organizador",
+        "content": "Si una solicitud trata de una compra, invitación o asistencia a un evento concreto, el organizador suele decidir la finalidad y debe ser contactado primero. Remitiremos o apoyaremos la solicitud cuando seamos encargados.\n\nEl organizador debe ofrecer su aviso de privacidad, recoger solo lo necesario, fijar conservación y base legal, atender derechos y no usar datos para fines incompatibles."
+      },
+      "children": {
+        "title": "Niños y adolescentes",
+        "content": "Las cuentas administrativas son para mayores de 18 años. La plataforma no busca recopilar directamente datos de niños para crear cuentas.\n\nLos eventos pueden admitir menores. El organizador debe informar a sus responsables, aplicar el interés superior, obtener consentimiento específico y destacado cuando proceda y limitar la recogida a lo estrictamente necesario conforme a la LGPD y al Estatuto brasileño del Niño y del Adolescente."
+      },
+      "incidents": {
+        "title": "Incidentes de seguridad",
+        "content": "Evaluamos y respondemos a incidentes confirmados. Si un incidente con datos personales puede causar riesgo o daño relevante, el responsable notificará a la ANPD y a los afectados dentro de los plazos y con el contenido exigido por la regulación vigente.\n\nCuando seamos encargados, notificaremos al organizador responsable sin demora indebida y ayudaremos en evaluación, contención y comunicaciones."
+      },
+      "changes": {
+        "title": "Cambios en esta Política",
+        "content": "Podemos actualizar esta Política por cambios en producto, proveedores o ley. La versión y fecha superiores identifican el texto vigente. Los cambios materiales se destacarán adecuadamente y pediremos nuevo consentimiento cuando sea necesario.\n\nPueden solicitarse versiones anteriores al canal de privacidad. Recomendamos revisar este documento periódicamente."
+      },
+      "contact": {
+        "title": "Responsable y canal de privacidad",
+        "content": "El canal de privacidad de {legalName} es {dpoEmail}. Úsalo para ejercer derechos, preguntar sobre esta Política o comunicar inquietudes sobre datos. El sitio institucional es {siteUrl}.\n\nNo adjuntes contraseñas, tarjetas ni documentos completos. Proporciona solo lo necesario para localizar la relación y verificar tu identidad de forma segura."
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Vozko Tickets",
+  "short_name": "Tickets",
+  "description": "Bilheteria e gestão de ingressos para eventos.",
+  "start_url": "/pt",
+  "display": "standalone",
+  "background_color": "#f6f9fa",
+  "theme_color": "#0d1518",
+  "icons": [
+    {
+      "src": "/brand/vozko-tickets-mark-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/brand/vozko-tickets-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
