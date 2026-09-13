@@ -1,5 +1,14 @@
 import "../globals.css";
 
+/**
+ * Namespaces each supplied by the one route that renders them.
+ *
+ * The two legal documents are together more than half the catalogue, and every
+ * page that is not /privacy-policy or /terms-of-service would otherwise carry
+ * about 22 KB of text it never shows.
+ */
+const ROUTE_LOCAL_NAMESPACES = new Set(["privacyPolicy", "termsOfService"]);
+
 import { Inter, Oxanium } from "next/font/google";
 import { getMessages, setRequestLocale } from "next-intl/server";
 
@@ -69,7 +78,16 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
 
   // Required for the static rendering of every page below this layout.
   setRequestLocale(locale as Locale);
-  const messages = await getMessages();
+  // Everything except the two legal documents, which together are more than
+  // half the catalogue. NextIntlClientProvider serialises whatever it is given
+  // into the HTML of every page, so shipping the privacy policy and the terms
+  // to the checkout — and to every other route — costs about 22 KB per request
+  // to translate text those two routes alone render. Each of them provides its
+  // own namespace locally instead.
+  const all = await getMessages();
+  const messages = Object.fromEntries(
+    Object.entries(all).filter(([namespace]) => !ROUTE_LOCAL_NAMESPACES.has(namespace)),
+  );
 
   return (
     <html lang={locale} suppressHydrationWarning>

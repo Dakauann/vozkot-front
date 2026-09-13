@@ -1,0 +1,26 @@
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.2:3000
+
+✓ Starting...
+Creating turbopack project {
+  dir: "C:\\Users\\dakau\\Documents\\projects\\vozkot_main\\vozkot-front",
+  testMode: true,
+}
+✓ Ready in 747ms
+ GET /pt 200 in 518ms (compile: 374ms, generate-params: 211ms, render: 144ms)
+ GET /pt 200 in 50ms (compile: 10ms, generate-params: 7ms, render: 40ms)
+ GET /pt?q=rock 200 in 53ms (compile: 9ms, generate-params: 5ms, render: 45ms)
+ GET /pt 200 in 359ms (compile: 8ms, generate-params: 5ms, render: 351ms)
+ GET /pt 200 in 36ms (compile: 7ms, generate-params: 4ms, render: 29ms)
+ GET /pt 200 in 150ms (compile: 65ms, generate-params: 7ms, render: 85ms)
+ GET /pt 200 in 125ms (compile: 8ms, generate-params: 5ms, render: 116ms)
+ GET /pt 200 in 731ms (compile: 108ms, generate-params: 11ms, render: 623ms)
+ GET /pt 200 in 926ms (compile: 6ms, generate-params: 40µs, render: 921ms)
+✓ Compiled in 18ms
+ GET /pt 200 in 591ms (compile: 358ms, generate-params: 5ms, render: 233ms)
+ GET /pt 200 in 154ms (compile: 9ms, generate-params: 6ms, render: 146ms)
+ GET /pt/eventos/encontro-caminhos-de-luz 200 in 871ms (compile: 842ms, render: 30ms)
+ GET /pt?category=outros 200 in 38ms (compile: 7ms, generate-params: 5ms, render: 31ms)
+ GET /pt/eventos/feira-trocas-e-descobertas 200 in 29ms (compile: 7ms, render: 22ms)
+[?25h

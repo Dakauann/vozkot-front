@@ -1,0 +1,79 @@
+$ next dev --turbopack
+Error handling upgrade request TypeError: undefined is not an object (evaluating 'message')
+    at abortHandshake (ws:671:14)
+    at completeUpgrade (ws:1018:21)
+    at handleUpgrade (ws:1069:25)
+    at processTicksAndRejections (null)
+events: public list request failed Error [TypeError]: fetch() URL is invalid
+    at fetch (null)
+    at processTicksAndRejections (null) {
+  code: 'ERR_INVALID_URL',
+  toString: [Function: toString]
+}
+events: public list request failed Error [TypeError]: fetch() URL is invalid
+    at fetch (null)
+    at processTicksAndRejections (null) {
+  code: 'ERR_INVALID_URL',
+  toString: [Function: toString]
+}
+events: public list request failed Error [TypeError]: fetch() URL is invalid
+    at fetch (null)
+    at processTicksAndRejections (null) {
+  code: 'ERR_INVALID_URL',
+  toString: [Function: toString]
+}
+events: public list request failed Error [TypeError]: fetch() URL is invalid
+    at fetch (null)
+    at processTicksAndRejections (null) {
+  code: 'ERR_INVALID_URL',
+  toString: [Function: toString]
+}
+events: public list request failed Error [TypeError]: fetch() URL is invalid
+    at fetch (null)
+    at processTicksAndRejections (null) {
+  code: 'ERR_INVALID_URL',
+  toString: [Function: toString]
+}
+events: public list request failed Error [TypeError]: fetch() URL is invalid
+    at fetch (null)
+    at processTicksAndRejections (null) {
+  code: 'ERR_INVALID_URL',
+  toString: [Function: toString]
+}
+⚠ Fast Refresh had to perform a full reload when ./src/lib/api/client.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+events: public list request failed Error [TypeError]: fetch() URL is invalid
+    at fetch (null)
+    at processTicksAndRejections (null) {
+  code: 'ERR_INVALID_URL',
+  toString: [Function: toString]
+}
+events: public list request failed Error [TypeError]: fetch() URL is invalid
+    at fetch (null)
+    at processTicksAndRejections (null) {
+  code: 'ERR_INVALID_URL',
+  toString: [Function: toString]
+}
+events: public list request failed Error [TypeError]: fetch() URL is invalid
+    at fetch (null)
+    at processTicksAndRejections (null) {
+  code: 'ERR_INVALID_URL',
+  toString: [Function: toString]
+}
+events: public list request failed Error [TypeError]: fetch() URL is invalid
+    at fetch (null)
+    at processTicksAndRejections (null) {
+  code: 'ERR_INVALID_URL',
+  toString: [Function: toString]
+}
+events: public list request failed Error [TypeError]: fetch() URL is invalid
+    at fetch (null)
+    at processTicksAndRejections (null) {
+  code: 'ERR_INVALID_URL',
+  toString: [Function: toString]
+}
+events: public list request failed Error [TypeError]: fetch() URL is invalid
+    at fetch (null)
+    at processTicksAndRejections (null) {
+  code: 'ERR_INVALID_URL',
+  toString: [Function: toString]
+}

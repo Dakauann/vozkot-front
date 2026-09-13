@@ -9,6 +9,8 @@ import { formatMoney, formatNumber } from "@/lib/format";
 import { totalAvailable, totalStockValue, ticketStatuses, type Ticket, type TicketSort, type TicketStatus } from "@/lib/tickets/types";
 import { useLocale, useTranslations } from "next-intl";
 
+import { useEventDirectory } from "@/lib/events/directory";
+
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { DashboardPageHeader } from "@/components/dashboard/page-header";
@@ -35,6 +37,9 @@ export function TicketWorkspace() {
   const t = useTranslations("tickets");
   const common = useTranslations("common");
   const locale = useLocale() as Locale;
+  // One directory, shared by the list, the detail panel and the delete prompt,
+  // so a tier's event is resolved once per screen rather than once per row.
+  const events = useEventDirectory();
 
   const [search, setSearch] = React.useState("");
   const [query, setQuery] = React.useState("");
@@ -289,7 +294,12 @@ export function TicketWorkspace() {
             )
           ) : (
             <>
-              <TicketList tickets={tickets} selectedId={selectedId} onSelect={(ticket) => setSelectedId(ticket.id)} />
+              <TicketList
+                tickets={tickets}
+                events={events}
+                selectedId={selectedId}
+                onSelect={(ticket) => setSelectedId(ticket.id)}
+              />
               <div className="flex items-center justify-between gap-3 border-t border-border px-3 py-2">
                 <p className="text-xs tabular-nums text-muted-foreground">
                   {t("list.showing", {
@@ -319,6 +329,7 @@ export function TicketWorkspace() {
           {selected ? (
             <TicketDetail
               ticket={selected}
+              events={events}
               statusPending={statusPending}
               onEdit={() => router.push(`/tickets/${selected.id}/edit`)}
               onDelete={() => setDeleting(selected)}
@@ -338,7 +349,10 @@ export function TicketWorkspace() {
         title={t("delete.title")}
         description={
           deleting
-            ? t("delete.body", { title: deleting.title, event: deleting.eventName })
+            ? t("delete.body", {
+                title: deleting.title,
+                event: events.nameOf(deleting.eventId, t("noEvent")),
+              })
             : undefined
         }
         confirmLabel={t("delete.confirm")}

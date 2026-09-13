@@ -4,6 +4,7 @@ import * as React from "react";
 
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import {
+  CalendarBlank,
   CaretDown,
   ChartBar,
   Check,
@@ -170,7 +171,10 @@ export const defaultProducts: Product[] = [
     descriptionKey: "productDescription",
     icon: Storefront,
     navItems: [
-      { icon: Receipt, labelKey: "tickets", href: "/", family: "operations" },
+      // Events first: an event is what a buyer browses to, and the tiers under
+      // it are what they buy. The spine should read in that order.
+      { icon: CalendarBlank, labelKey: "events", href: "/events", family: "operations" },
+      { icon: Receipt, labelKey: "tickets", href: "/dashboard", family: "operations" },
       { icon: UserCheck, labelKey: "checkIn", href: "/check-in", family: "operations" },
       { icon: Invoice, labelKey: "orders", href: "/orders", family: "operations" },
       { icon: Question, labelKey: "help", href: "/help", family: "support" },

@@ -44,22 +44,88 @@ export function formatNumber(value: number, locale: Locale): string {
   return numberFormatter("plain", locale, {}).format(value);
 }
 
-export function formatDateTime(iso: string, locale: Locale): string {
+/**
+ * What a date renders as when there is no date.
+ *
+ * A dash rather than an empty string: a blank cell in a table of dates reads as
+ * a rendering bug, and a dash reads as "this record has none", which is what it
+ * means.
+ */
+export const NO_DATE = "—";
+
+/**
+ * Formats an instant, or returns a dash.
+ *
+ * Intl.DateTimeFormat THROWS a RangeError on an invalid date, and these
+ * functions are called from server components — so one record with a missing
+ * timestamp does not render as a blank line, it takes down the entire page with
+ * a 500. A field that is absent because an API dropped it, or null because the
+ * column is nullable, is a data problem worth seeing; it is not worth an outage.
+ *
+ * This is deliberately not a silent catch-all. It converts an unrenderable
+ * value into a visible gap, which is the one behaviour that both keeps the page
+ * up and still shows somebody that something is missing.
+ */
+export function formatDateTime(iso: string | null | undefined, locale: Locale): string {
+  const date = toDate(iso);
+  if (!date) return NO_DATE;
   return dateFormatter("dateTime", locale, {
     day: "2-digit",
     month: "short",
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
-  }).format(new Date(iso));
+  }).format(date);
 }
 
-export function formatDate(iso: string, locale: Locale): string {
+export function formatDate(iso: string | null | undefined, locale: Locale): string {
+  const date = toDate(iso);
+  if (!date) return NO_DATE;
   return dateFormatter("date", locale, {
     day: "2-digit",
     month: "short",
     year: "numeric",
-  }).format(new Date(iso));
+  }).format(date);
+}
+
+/**
+ * The long form an event page uses: "sábado, 15 de novembro de 2026, 22:00".
+ *
+ * Here rather than in the page so it gets the same invalid-value guard as
+ * everything else. A public event page is the last place that should be able to
+ * 500 on one bad timestamp.
+ */
+export function formatLongDateTime(iso: string | null | undefined, locale: Locale): string {
+  const date = toDate(iso);
+  if (!date) return NO_DATE;
+  return dateFormatter("longDateTime", locale, {
+    weekday: "long",
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(date);
+}
+
+/** The compact form a catalogue card uses: "sáb., 15 nov., 22:00". */
+export function formatCardDateTime(iso: string | null | undefined, locale: Locale): string {
+  const date = toDate(iso);
+  if (!date) return NO_DATE;
+  return dateFormatter("cardDateTime", locale, {
+    weekday: "short",
+    day: "2-digit",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(date);
+}
+
+/** A Date that Intl can actually format, or null. */
+function toDate(iso: string | null | undefined): Date | null {
+  if (iso === null || iso === undefined || iso === "") return null;
+  const date = new Date(iso);
+  return Number.isNaN(date.getTime()) ? null : date;
 }
 
 export function formatFileSize(bytes: number, locale: Locale): string {

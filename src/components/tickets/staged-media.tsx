@@ -163,7 +163,7 @@ export function StagedMediaPicker({
             type="button"
             onClick={() => inputRef.current?.click()}
             disabled={!canAdd}
-            className="flex w-full flex-col items-center gap-1.5 rounded-[--radius] px-4 py-8 text-center text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-60"
+            className="flex w-full flex-col items-center gap-1.5 rounded-[--radius] px-4 py-8 text-center text-muted-foreground transition-colors hover:bg-accent-hover hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-60"
           >
             <Plus size={20} aria-hidden="true" />
             <span className="text-sm font-medium">{t("dropHint")}</span>
@@ -198,7 +198,7 @@ export function StagedMediaPicker({
                 </span>
 
                 {index === 0 && (
-                  <span className="pointer-events-none absolute left-1 top-1 rounded-sm bg-background/90 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                  <span className="pointer-events-none absolute left-1 top-1 rounded-sm bg-background px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
                     {t("cover")}
                   </span>
                 )}
@@ -208,7 +208,7 @@ export function StagedMediaPicker({
                   onClick={() => onRemove(entry.id)}
                   disabled={Boolean(uploading)}
                   aria-label={t("remove")}
-                  className="absolute right-1 top-1 grid size-6 place-items-center rounded-[--radius] bg-background/90 text-muted-foreground shadow-elev-1 transition-colors hover:bg-destructive hover:text-destructive-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50"
+                  className="absolute right-1 top-1 grid size-6 place-items-center rounded-[--radius] bg-background text-muted-foreground shadow-elev-1 transition-colors hover:bg-destructive hover:text-destructive-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50"
                 >
                   <Trash size={13} />
                 </button>

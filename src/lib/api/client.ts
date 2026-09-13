@@ -1,5 +1,7 @@
 "use client";
 
+import { API_URL } from "./url";
+
 /**
  * The one way this app talks to the API.
  *
@@ -9,8 +11,6 @@
  * while the rest of the app recovers.
  */
 
-export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
-
 const DEFAULT_TIMEOUT_MS = 15_000;
 /** Uploads carry up to 50 MB and are measured in minutes on hotel wifi. */
 export const UPLOAD_TIMEOUT_MS = 120_000;
@@ -18,6 +18,14 @@ export const UPLOAD_TIMEOUT_MS = 120_000;
 export interface ApiError {
   message: string;
   status?: number;
+  /**
+   * The API's machine-readable name for the failure, when it has one.
+   *
+   * `message` is written for a person and arrives in one language; branching on
+   * it breaks the first time the wording improves. Anything that has to show a
+   * different screen for one refusal than for another keys on this instead.
+   */
+  code?: string;
 }
 
 export interface ApiResult<T> {
@@ -57,12 +65,17 @@ export async function apiFetch<T>(path: string, options: RequestOptions = {}): P
       return { data: undefined as T };
     }
 
-    const payload = (await response.json().catch(() => null)) as T | { error?: string } | null;
+    const payload = (await response.json().catch(() => null)) as
+      | T
+      | { error?: string; code?: string }
+      | null;
     if (!response.ok) {
+      const failure = payload as { error?: string; code?: string } | null;
       return {
         error: {
-          message: (payload as { error?: string } | null)?.error ?? `Request failed with status ${response.status}`,
+          message: failure?.error ?? `Request failed with status ${response.status}`,
           status: response.status,
+          code: failure?.code,
         },
       };
     }

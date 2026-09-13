@@ -17,6 +17,7 @@ export function listTickets(query: TicketQuery = {}) {
   const search = new URLSearchParams();
   if (query.status) search.set("status", query.status);
   if (query.q?.trim()) search.set("q", query.q.trim());
+  if (query.eventId) search.set("eventId", query.eventId);
   if (query.sort) search.set("sort", query.sort);
   if (query.limit !== undefined) search.set("limit", String(query.limit));
   if (query.offset) search.set("offset", String(query.offset));

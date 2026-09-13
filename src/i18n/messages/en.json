@@ -28,6 +28,7 @@
       "support": "Support",
       "insights": "Insights"
     },
+    "events": "Events",
     "tickets": "Tickets",
     "checkIn": "Check-in",
     "orders": "Orders",
@@ -47,6 +48,14 @@
     "themeLight": "Light",
     "themeDark": "Dark",
     "themeSystem": "System"
+  },
+  "publicNav": {
+    "label": "Main navigation",
+    "home": "Home",
+    "myTickets": "My tickets",
+    "organiser": "Organiser dashboard",
+    "sell": "Sell tickets",
+    "signIn": "Sign in"
   },
   "auth": {
     "signIn": {
@@ -116,12 +125,9 @@
       "cancelled": "Cancelled"
     },
     "fields": {
-      "eventName": "Event",
+      "event": "Event",
       "title": "Batch",
       "description": "Description",
-      "venue": "Venue",
-      "city": "City",
-      "startsAt": "Date and time",
       "price": "Price",
       "quantity": "Quantity",
       "status": "Status",
@@ -184,28 +190,22 @@
       "createSubtitle": "A batch belongs to an event and carries its own price and stock.",
       "editTitle": "Edit ticket",
       "editSubtitle": "Changes apply to the sales that follow.",
-      "eventNamePlaceholder": "Aurora Festival",
       "titlePlaceholder": "Premium floor",
       "descriptionPlaceholder": "What this batch gives access to.",
-      "venuePlaceholder": "Castelão Arena",
-      "cityPlaceholder": "Fortaleza, CE",
       "priceHint": "In reais. Use 0 for a complimentary ticket.",
       "quantityHint": "Total tickets in this batch.",
       "submitCreate": "Create ticket",
       "submitEdit": "Save changes",
       "submitting": "Saving…",
       "errors": {
-        "eventName": "Enter the event name.",
+        "event": "Choose the event this tier belongs to",
         "title": "Enter the batch name.",
-        "venue": "Enter the venue.",
-        "startsAt": "Enter the event date and time.",
         "price": "The price cannot be negative.",
         "quantity": "The quantity must be greater than zero."
       },
       "backToTickets": "Back to tickets",
       "sections": {
-        "event": "Event",
-        "place": "Venue and date",
+        "event": "Tier",
         "sale": "Sale"
       },
       "mediaHint": "Files upload as soon as the ticket is created.",
@@ -213,14 +213,16 @@
       "uploadingMedia": "Uploading {done} of {total}…",
       "mediaPartial": "Ticket created, but {count, plural, one {# file could not be uploaded} other {# files could not be uploaded}}.",
       "loading": "Loading the ticket…",
-      "notFound": "Ticket not found."
+      "notFound": "Ticket not found.",
+      "pickEvent": "Select the event"
     },
     "feedback": {
       "created": "Ticket created.",
       "updated": "Ticket updated.",
       "deleted": "Ticket deleted.",
       "statusChanged": "Status updated."
-    }
+    },
+    "noEvent": "Event not found"
   },
   "media": {
     "title": "Images and videos",
@@ -243,6 +245,253 @@
     },
     "deleted": "File removed."
   },
+  "catalogue": {
+    "title": "Find something to do",
+    "subtitle": "Concerts, theatre, courses and experiences near you.",
+    "searchLabel": "Search events",
+    "searchPlaceholder": "Search by name, venue or city",
+    "search": "Search",
+    "category": "Category",
+    "allCategories": "All categories",
+    "city": "City",
+    "allCities": "All cities",
+    "sortBy": "Sort by",
+    "sortSoonest": "Soonest",
+    "sortPrice": "Lowest price",
+    "sortRelevance": "Relevance",
+    "onlyFree": "Free",
+    "onlyAvailable": "Available",
+    "clearFilters": "Clear filters",
+    "showing": "Showing {first}–{last} of {total} events",
+    "noResults": "No events found",
+    "emptyTitle": "Nothing here yet",
+    "emptyBody": "Try removing a filter or searching for something else.",
+    "soldOut": "Sold out",
+    "free": "Free",
+    "fromPrice": "From {price}",
+    "pagination": "Pagination",
+    "previous": "Previous",
+    "next": "Next",
+    "goToPage": "Go to page {page}",
+    "rails": {
+      "soonest": "Happening soon",
+      "weekend": "This weekend",
+      "free": "Free entry"
+    },
+    "seeAll": "See all",
+    "emptyCatalogue": "As soon as the first events are published, they show up here.",
+    "browseBy": "Browse by city and category",
+    "byCity": "Events by city",
+    "byCategory": "Events by category",
+    "featured": "Featured",
+    "eventCount": "{count, plural, one {# event} other {# events}}",
+    "slidePosition": "Slide {index} of {total}"
+  },
+  "organiserBand": {
+    "title": "Do you run events?",
+    "body": "Publish your event, sell tickets with PIX and follow sales in real time. No monthly fee.",
+    "create": "Create event",
+    "how": "How it works"
+  },
+  "event": {
+    "when": "When",
+    "where": "Where",
+    "about": "About this event",
+    "location": "Location",
+    "tickets": "Tickets",
+    "openInMaps": "Open in Google Maps",
+    "openInWaze": "Open in Waze",
+    "mapPreview": "Map of {venue}",
+    "mapHint": "Explore the area here or open directions in your preferred app.",
+    "noTiers": "No tickets on sale right now.",
+    "soldOut": "Sold out",
+    "free": "Free",
+    "fewLeft": "Only {count} left",
+    "total": "Total",
+    "pickATier": "Select a ticket",
+    "buy": "Buy {count, plural, one {# ticket} other {# tickets}}",
+    "increase": "Add one {tier} ticket",
+    "decrease": "Remove one {tier} ticket",
+    "holdNotice": "Your tickets are held for {minutes} minutes once you choose them.",
+    "cancelled": "This event has been cancelled.",
+    "cancelledNoSales": "Sales are closed because the event was cancelled."
+  },
+  "checkout": {
+    "title": "Checkout",
+    "yourDetails": "Your details",
+    "name": "Full name",
+    "email": "Email",
+    "emailHint": "This is where the tickets go.",
+    "document": "CPF",
+    "documentHint": "Required to issue the PIX charge.",
+    "back": "Back",
+    "failed": "We could not complete the reservation.",
+    "noSelectionTitle": "No tickets selected",
+    "noSelectionBody": "This link did not carry a valid choice. Please pick your tickets again.",
+    "browseEvents": "Browse events",
+    "signInTitle": "Sign in to continue",
+    "signInBody": "Your choice is kept: you will come straight back to this purchase.",
+    "signIn": "Sign in",
+    "payTitle": "Pay with PIX",
+    "payBody": "{count, plural, one {# ticket} other {# tickets}} · {total}",
+    "preparingCode": "Generating your PIX code…",
+    "preparingCodeHint": "This takes a few seconds. Please keep this page open.",
+    "copyPaste": "PIX copy and paste",
+    "copyCode": "Copy code",
+    "copied": "Copied",
+    "qrAlt": "PIX QR code",
+    "waitingForPayment": "This page confirms on its own as soon as the payment lands.",
+    "timeLeft": "Time left:",
+    "paidTitle": "Payment confirmed",
+    "paidBody": "We sent the tickets to {email}.",
+    "expiredTitle": "The reservation expired",
+    "expiredBody": "The tickets went back on sale. You can try again.",
+    "tryAgain": "Try again",
+    "summary": "Order summary",
+    "ticket": "Ticket",
+    "total": "Total",
+    "noExtraFees": "No booking fees. The amount above is what you pay.",
+    "heldUntil": "Reservation expires in",
+    "holdExplainer": "Your tickets are already reserved. If the time runs out they go back on sale so no reservation stays stuck — and you can start again.",
+    "reservingTitle": "Reserving your tickets",
+    "reservingBody": "We are taking these tickets off sale for you. It takes a moment.",
+    "reserveFailedTitle": "We could not reserve these",
+    "reserveFailed": "These tickets could not be reserved.",
+    "detailsHint": "Your tickets are held. Fill in your details to pay.",
+    "goToPayment": "Continue to payment",
+    "confirming": "Confirming…",
+    "showCode": "Show the copy-and-paste code",
+    "myOrders": "View my orders",
+    "loadingOrder": "Loading your order…",
+    "notFound": "Order not found.",
+    "holdLimitTitle": "You already have reservations open",
+    "openHoldsTitle": "Your open reservations",
+    "openHoldsBody": "Release one of these to carry on with this purchase. Released tickets go back on sale straight away.",
+    "releaseHold": "Release",
+    "releasing": "Releasing…",
+    "loadingHolds": "Loading your reservations…",
+    "unknownEvent": "Event unavailable",
+    "orderReference": "Order reference"
+  },
+  "eventAdmin": {
+    "listTitle": "Events",
+    "newEvent": "New event",
+    "newTitle": "New event",
+    "editTitle": "Edit event",
+    "backToList": "Events",
+    "loading": "Loading",
+    "notFound": "Event not found",
+    "saved": "Event saved",
+    "created": "Event created",
+    "published": "Event published",
+    "unpublished": "Event unpublished",
+    "publish": "Publish",
+    "unpublish": "Unpublish",
+    "previous": "Previous",
+    "next": "Next",
+    "empty": "No events here yet",
+    "emptyHint": "Create an event to start selling tickets.",
+    "searchLabel": "Search your events",
+    "searchPlaceholder": "Search by name, venue or city",
+    "availableCount": "{count, plural, one {# ticket} other {# tickets}}",
+    "filters": {
+      "all": "All"
+    },
+    "sections": {
+      "about": "About",
+      "aboutHint": "What appears in the catalogue and on the event page.",
+      "where": "Location",
+      "whereHint": "The address becomes the point on the map. Drag the pin if it lands in the wrong place.",
+      "media": "Images",
+      "mediaHint": "The first image is the card's cover in the catalogue."
+    },
+    "fields": {
+      "name": "Event name",
+      "category": "Category",
+      "status": "Status",
+      "description": "Description",
+      "startsAt": "Starts",
+      "endsAt": "Ends",
+      "venue": "Venue",
+      "address": "Address",
+      "neighborhood": "Neighbourhood",
+      "postalCode": "Postcode",
+      "city": "City",
+      "uf": "State"
+    },
+    "placeholders": {
+      "name": "Aurora Festival",
+      "venue": "Arena Castelão",
+      "address": "Av. Alberto Craveiro, 2901"
+    },
+    "hints": {
+      "status": "A draft does not appear in the catalogue.",
+      "description": "Line breaks are kept. HTML is not interpreted.",
+      "endsAt": "Optional. Must be after the start.",
+      "postalCode": "A postcode makes the map position far more accurate."
+    },
+    "status": {
+      "draft": "Draft",
+      "published": "Published",
+      "cancelled": "Cancelled"
+    },
+    "map": {
+      "title": "Point on the map",
+      "clearPin": "Remove pin",
+      "label": "Map for positioning the event location",
+      "pinnedHint": "You placed this pin. We will keep the point exactly where it is.",
+      "unpinnedHint": "No pin: we will work the point out from the address on save. Click the map to set it yourself.",
+      "coordinates": "Latitude {latitude} · Longitude {longitude}",
+      "basemaps": {
+        "streets": "Map",
+        "bright": "Detailed",
+        "minimal": "Minimal",
+        "satellite": "Satellite"
+      }
+    },
+    "errors": {
+      "name": "Enter the event name",
+      "category": "Choose a category",
+      "venue": "Enter the venue",
+      "city": "Enter the city",
+      "uf": "Enter the two-letter state",
+      "startsAt": "Enter the start date and time",
+      "endsBeforeStart": "The end has to be after the start",
+      "postalCode": "A postcode needs eight digits",
+      "coordinates": "Latitude and longitude travel together: give both or neither",
+      "save": "We could not save the event",
+      "load": "We could not load your events"
+    },
+    "lookup": {
+      "idle": "A postcode makes the map position far more accurate.",
+      "loading": "Looking the address up…",
+      "ok": "Address found. Check the pin on the map.",
+      "not_found": "Postcode not found. Fill the address in and place the pin yourself.",
+      "unavailable": "We could not reach the postcode service. You can still fill the address in by hand."
+    },
+    "loadMore": "Showing {shown} of {total} · load more",
+    "form": {
+      "pickEvent": "Select the event"
+    }
+  },
+  "categories": {
+    "festas_shows": "Parties & shows",
+    "teatros_espetaculos": "Theatre & performance",
+    "stand_up_comedy": "Stand-up comedy",
+    "cursos_workshops": "Courses & workshops",
+    "congressos_palestras": "Conferences & talks",
+    "esportivo": "Sports",
+    "gastronomia": "Food & drink",
+    "religiao_espiritualidade": "Religion & spirituality",
+    "passeios_tours": "Tours & experiences",
+    "infantil": "Kids",
+    "games_geek": "Games & geek",
+    "moda_beleza": "Fashion & beauty",
+    "saude_bem_estar": "Health & wellbeing",
+    "arte_cultura_lazer": "Arts & culture",
+    "pride": "Pride",
+    "outros": "Other"
+  },
   "errors": {
     "generic": "Something went wrong. Try again.",
     "network": "The API could not be reached.",
@@ -255,10 +504,6 @@
     "checkIn": {
       "title": "Check-in",
       "description": "Scan tickets at the gate."
-    },
-    "orders": {
-      "title": "Orders",
-      "description": "Purchases, payments and refunds."
     },
     "reports": {
       "title": "Reports",
@@ -458,5 +703,83 @@
         "content": "The privacy channel for {legalName} is {dpoEmail}. Use it to exercise rights, ask about this Policy or report a personal-data concern. The institutional website is {siteUrl}.\n\nBefore sending, avoid attaching passwords, card details or complete identity documents. Provide only what is needed to locate the relationship and verify your identity securely."
       }
     }
+  },
+  "orders": {
+    "title": "My orders",
+    "description": "Your purchases, payments and refunds.",
+    "filterLabel": "Filter orders by status",
+    "filters": {
+      "all": "All",
+      "pending_payment": "Awaiting payment",
+      "paid": "Paid",
+      "refund_required": "Refund due"
+    },
+    "status": {
+      "pending_payment": "Awaiting payment",
+      "paid": "Paid",
+      "expired": "Reservation expired",
+      "cancelled": "Cancelled",
+      "failed": "Payment declined",
+      "refunded": "Refunded",
+      "refund_required": "Refund due"
+    },
+    "payNow": "Pay now",
+    "cancel": "Cancel order",
+    "cancelling": "Cancelling…",
+    "viewEvent": "View event",
+    "unknownEvent": "Event unavailable",
+    "unknownTier": "Ticket",
+    "refundRequiredNote": "Your payment arrived after the reservation expired and the tickets went back on sale. You will be refunded — there is nothing for you to do.",
+    "loadFailed": "We could not load your orders.",
+    "emptyTitle": "No orders yet",
+    "emptyBody": "Once you buy a ticket it shows up here, with its receipt.",
+    "emptyFilteredTitle": "No orders with that status",
+    "emptyFilteredBody": "Try another filter to see the rest of your orders.",
+    "browseEvents": "Browse events",
+    "pagination": "Orders pagination",
+    "showing": "Showing {first}–{last} of {total}",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "eventManager": {
+    "notFound": "Event not found",
+    "backToEvents": "Back to events",
+    "editEvent": "Edit event",
+    "newTier": "New tier",
+    "viewOrders": "Orders",
+    "viewPublic": "View public page",
+    "summaryLabel": "Event summary",
+    "stats": {
+      "sold": "Sold",
+      "held": "Held",
+      "heldHint": "Awaiting payment",
+      "available": "Available",
+      "revenue": "Revenue",
+      "revenueHint": "Paid tickets only"
+    },
+    "tiersTitle": "Tiers",
+    "tierCount": "{count, plural, =0 {no tiers} one {# tier} other {# tiers}}",
+    "noTiersTitle": "This event has no tiers yet",
+    "noTiersBody": "An event with no tiers cannot be bought. Create at least one, with a price and a quantity, before publishing.",
+    "capacity": "capacity",
+    "soldThrough": "{percent}% sold",
+    "free": "Free",
+    "editTier": "Edit",
+    "putOnSale": "Put on sale",
+    "pauseSales": "Pause sales",
+    "cancelTier": "Cancel tier",
+    "cancelTierTitle": "Cancel {tier}?",
+    "cancelTierBody": "The tier comes off sale and can no longer be bought. Orders already placed stay valid.",
+    "cancelTierSold": "This tier has already sold {count, plural, one {# ticket} other {# tickets}}. Cancelling takes it off sale; tickets already sold stay valid and are not refunded automatically.",
+    "cancelTierConfirm": "Cancel tier",
+    "tierUpdated": "Tier updated",
+    "when": "When",
+    "where": "Where",
+    "publishedWithNothingOnSale": "This event is published but no tier is on sale. Anyone opening the page cannot buy.",
+    "draftHint": "This event is a draft and is not visible to buyers. Publish it once the tiers are ready.",
+    "errors": {
+      "tierStatus": "The tier could not be changed."
+    },
+    "manage": "Manage"
   }
 }

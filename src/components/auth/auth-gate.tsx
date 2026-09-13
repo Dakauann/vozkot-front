@@ -3,7 +3,7 @@
 import { useEffect, type ReactNode } from "react";
 import { usePathname, useRouter } from "@/i18n/routing";
 
-import { API_URL } from "@/lib/api/client";
+import { API_URL } from "@/lib/api/url";
 import { Button } from "@/components/ui/button";
 import { CircleNotch } from "@/components/icons";
 import { useAuth } from "@/contexts/auth-context";

@@ -5,7 +5,8 @@ import * as React from "react";
 import { ArrowLeft, CircleNotch, Receipt } from "@/components/icons";
 import { Field, SelectField, TextAreaField, TextField } from "@/components/ui/field";
 import { StagedMediaPicker, useStagedMedia } from "@/components/tickets/staged-media";
-import { centsToMoneyInput, fromDateTimeLocalValue, parseMoneyToCents, toDateTimeLocalValue } from "@/lib/format";
+import { centsToMoneyInput, parseMoneyToCents } from "@/lib/format";
+import { EventCombobox } from "@/components/events/event-combobox";
 import { createTicket, getTicket, updateTicket, uploadTicketMedia } from "@/lib/tickets/api";
 import { ticketStatuses, type Ticket, type TicketInput, type TicketStatus } from "@/lib/tickets/types";
 import { useLocale, useTranslations } from "next-intl";
@@ -19,15 +20,14 @@ import { toast } from "sonner";
 interface TicketFormProps {
   /** Null while creating; the record being edited otherwise. */
   ticket: Ticket | null;
+  /** Preselects the event when creating from that event's own page. */
+  eventId?: string;
 }
 
 interface FormState {
-  eventName: string;
+  eventId: string;
   title: string;
   description: string;
-  venue: string;
-  city: string;
-  startsAt: string;
   price: string;
   quantity: string;
   status: TicketStatus;
@@ -47,15 +47,19 @@ type FieldErrors = Partial<Record<keyof FormState, string>>;
  * A page also gives the form room to be read in sections rather than as one
  * scrolling column of nine controls in a 520px panel.
  */
-export function TicketForm({ ticket }: TicketFormProps) {
+export function TicketForm({ ticket, eventId = "" }: TicketFormProps) {
   const t = useTranslations("tickets");
   const common = useTranslations("common");
   const locale = useLocale() as Locale;
   const router = useRouter();
   const isEdit = ticket !== null;
 
+  // A new tier arriving from an event's own page already knows which night it
+  // belongs to. Making the organiser pick it again out of a list of all their
+  // events is asking them to re-answer a question they just answered by
+  // navigating.
   const [form, setForm] = React.useState<FormState>(() =>
-    ticket ? stateFrom(ticket, locale) : emptyState(locale),
+    ticket ? stateFrom(ticket, locale) : emptyState(locale, eventId),
   );
   const [errors, setErrors] = React.useState<FieldErrors>({});
   const [pending, setPending] = React.useState(false);
@@ -74,10 +78,8 @@ export function TicketForm({ ticket }: TicketFormProps) {
     const priceCents = parseMoneyToCents(form.price);
     const quantity = Number.parseInt(form.quantity, 10);
 
-    if (!form.eventName.trim()) next.eventName = t("form.errors.eventName");
+    if (!form.eventId.trim()) next.eventId = t("form.errors.event");
     if (!form.title.trim()) next.title = t("form.errors.title");
-    if (!form.venue.trim()) next.venue = t("form.errors.venue");
-    if (!form.startsAt) next.startsAt = t("form.errors.startsAt");
     if (!Number.isFinite(priceCents) || priceCents < 0) next.price = t("form.errors.price");
     if (!Number.isFinite(quantity) || quantity <= 0) next.quantity = t("form.errors.quantity");
 
@@ -91,12 +93,9 @@ export function TicketForm({ ticket }: TicketFormProps) {
     }
 
     return {
-      eventName: form.eventName.trim(),
+      eventId: form.eventId,
       title: form.title.trim(),
       description: form.description.trim(),
-      venue: form.venue.trim(),
-      city: form.city.trim(),
-      startsAt: fromDateTimeLocalValue(form.startsAt),
       priceCents,
       quantity,
       status: form.status,
@@ -149,7 +148,7 @@ export function TicketForm({ ticket }: TicketFormProps) {
     <div className="mx-auto max-w-[1200px]">
       <div className="border-b border-border pb-3">
         <Link
-          href="/"
+          href="/dashboard"
           className="-ml-1 inline-flex items-center gap-1 rounded-[--radius] px-1 py-0.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <ArrowLeft size={14} />
@@ -169,14 +168,18 @@ export function TicketForm({ ticket }: TicketFormProps) {
       <form onSubmit={submit} className="mt-4 grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
         <div className="min-w-0 space-y-4">
           <FormSection title={t("form.sections.event")}>
-            <Field id="ticket-event" label={t("fields.eventName")} error={errors.eventName}>
-              <TextField
-                id="ticket-event"
-                value={form.eventName}
-                onChange={(event) => set("eventName", event.target.value)}
-                placeholder={t("form.eventNamePlaceholder")}
-                autoFocus={!isEdit}
-                disabled={busy}
+            {/* The tier names its event; it does not describe it. Everything
+                about the happening itself — name, venue, city, date, category,
+                map pin — lives on the event and is edited there. */}
+            <Field id="ticket-eventId" label={t("fields.event")} error={errors.eventId}>
+              <EventCombobox
+                id="ticket-eventId"
+                value={form.eventId}
+                onChange={(eventId) => set("eventId", eventId)}
+                invalid={Boolean(errors.eventId)}
+                // A tier cannot move to another event: orders already reference
+                // it, and moving it would rewrite what somebody has bought.
+                disabled={isEdit || busy}
               />
             </Field>
 
@@ -197,41 +200,6 @@ export function TicketForm({ ticket }: TicketFormProps) {
                 value={form.description}
                 onChange={(event) => set("description", event.target.value)}
                 placeholder={t("form.descriptionPlaceholder")}
-                disabled={busy}
-              />
-            </Field>
-          </FormSection>
-
-          <FormSection title={t("form.sections.place")}>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Field id="ticket-venue" label={t("fields.venue")} error={errors.venue}>
-                <TextField
-                  id="ticket-venue"
-                  value={form.venue}
-                  onChange={(event) => set("venue", event.target.value)}
-                  placeholder={t("form.venuePlaceholder")}
-                  disabled={busy}
-                />
-              </Field>
-
-              <Field id="ticket-city" label={`${t("fields.city")} · ${common("optional")}`}>
-                <TextField
-                  id="ticket-city"
-                  value={form.city}
-                  onChange={(event) => set("city", event.target.value)}
-                  placeholder={t("form.cityPlaceholder")}
-                  disabled={busy}
-                />
-              </Field>
-            </div>
-
-            <Field id="ticket-starts-at" label={t("fields.startsAt")} error={errors.startsAt}>
-              <TextField
-                id="ticket-starts-at"
-                type="datetime-local"
-                value={form.startsAt}
-                onChange={(event) => set("startsAt", event.target.value)}
-                className="sm:max-w-[16rem]"
                 disabled={busy}
               />
             </Field>
@@ -302,7 +270,7 @@ export function TicketForm({ ticket }: TicketFormProps) {
         </aside>
 
         <div className="flex items-center justify-end gap-2 border-t border-border pt-3 lg:col-span-2">
-          <Button type="button" variant="outline" onClick={() => router.push("/")} disabled={busy}>
+          <Button type="button" variant="outline" onClick={() => router.push("/dashboard")} disabled={busy}>
             {common("cancel")}
           </Button>
           <Button type="submit" disabled={busy}>
@@ -330,14 +298,11 @@ function FormSection({ title, children }: { title: string; children: React.React
   );
 }
 
-function emptyState(locale: Locale): FormState {
+function emptyState(locale: Locale, eventId = ""): FormState {
   return {
-    eventName: "",
+    eventId,
     title: "",
     description: "",
-    venue: "",
-    city: "",
-    startsAt: "",
     price: centsToMoneyInput(0, locale),
     quantity: "100",
     status: "draft",
@@ -346,12 +311,9 @@ function emptyState(locale: Locale): FormState {
 
 function stateFrom(ticket: Ticket, locale: Locale): FormState {
   return {
-    eventName: ticket.eventName,
+    eventId: ticket.eventId,
     title: ticket.title,
     description: ticket.description,
-    venue: ticket.venue,
-    city: ticket.city,
-    startsAt: toDateTimeLocalValue(ticket.startsAt),
     price: centsToMoneyInput(ticket.priceCents, locale),
     quantity: String(ticket.quantity),
     status: ticket.status,
@@ -360,12 +322,5 @@ function stateFrom(ticket: Ticket, locale: Locale): FormState {
 
 /** Maps a state key to the suffix of its input's DOM id. */
 function fieldId(key: keyof FormState): string {
-  switch (key) {
-    case "eventName":
-      return "event";
-    case "startsAt":
-      return "starts-at";
-    default:
-      return key;
-  }
+  return key;
 }

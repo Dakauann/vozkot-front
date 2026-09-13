@@ -8,9 +8,18 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   output: "standalone",
   images: {
-    // Ticket artwork is served by the API in development and by the R2 public
-    // hostname in production. Both are read from the environment so a fork
-    // points at its own bucket without touching this file.
+    // A custom loader, because the API already did the resizing. The media
+    // pipeline writes a 400, 800 and 1600px copy of every upload, so the
+    // browser asks for one of those by name instead of asking Next to fetch
+    // the original and resize it again per size, per image, per request.
+    loader: "custom",
+    loaderFile: "./src/lib/images/loader.ts",
+    // The exact widths the pipeline generates, so next/image builds a srcset
+    // of files that exist rather than of sizes the loader has to round.
+    deviceSizes: [400, 800, 1600],
+    imageSizes: [400],
+    // Kept for the optimiser'''s benefit if the loader is ever removed, and
+    // because next/image still validates remote hosts in some code paths.
     remotePatterns: [
       ...mediaPatterns(process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080"),
       ...mediaPatterns(process.env.NEXT_PUBLIC_MEDIA_URL),

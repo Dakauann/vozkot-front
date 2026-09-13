@@ -51,6 +51,33 @@
     --info-foreground: 0 0% 100%;
     --info-ink: 211 92% 34%;
 
+    /*
+      STATUS GROUNDS AND EDGES, SOLID.
+
+      A tinted panel used to be written `bg-destructive/10` — the status colour
+      at a tenth of its strength, composited over whatever happened to be
+      behind it. That is one value that renders as several: over a white card
+      it is pink, over the muted footer it is greyer, over a dark surface it
+      inverts, and stacking two of them compounds. Contrast against it is
+      unknowable, so the ink on top cannot be checked once and trusted.
+
+      These are the same colours resolved ONCE, as opaque values picked against
+      each theme's own ground. Vozko fills its status surfaces solid for the
+      same reason, and these are the tokens Vozkot was missing to be able to.
+
+      Alpha is still right for things that are genuinely see-through — a modal
+      scrim over a page, a hairline ring over artwork — and those stay as they
+      are.
+    */
+    --healthy-subtle: 150 55% 94%;
+    --healthy-edge: 151 40% 80%;
+    --warning-subtle: 44 90% 93%;
+    --warning-edge: 40 70% 78%;
+    --destructive-subtle: 353 75% 96%;
+    --destructive-edge: 353 60% 85%;
+    --info-subtle: 208 85% 95%;
+    --info-edge: 209 60% 83%;
+
     --border: 204 14% 88%;
     --border-strong: 205 12% 76%;
     --control-edge: 205 12% 53%;
@@ -139,6 +166,19 @@
     --info: 206 90% 60%;
     --info-foreground: 200 10% 6%;
     --info-ink: 206 92% 70%;
+
+    /* The dark grounds are mixed toward the dark card rather than away from
+       white, which is why they are not simply the light values darkened: a
+       status panel here has to read as a tinted CARD, not as a glowing panel
+       sitting on top of one. */
+    --healthy-subtle: 154 32% 13%;
+    --healthy-edge: 153 25% 24%;
+    --warning-subtle: 40 40% 13%;
+    --warning-edge: 39 32% 26%;
+    --destructive-subtle: 352 38% 14%;
+    --destructive-edge: 352 32% 28%;
+    --info-subtle: 208 40% 14%;
+    --info-edge: 208 32% 27%;
 
     --border: 210 10% 19%;
     --border-strong: 211 8% 30%;
@@ -344,10 +384,34 @@
   to { opacity: 0; }
 }
 
+/* One coordinated entrance for an event's identity. This page is visited
+   occasionally and the motion bridges the server-rendered shell with its hero
+   artwork; the transactional controls below remain still and immediately
+   usable. */
+@keyframes vz-event-hero-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes vz-event-media-enter {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.event-hero-enter {
+  animation: vz-event-hero-enter 260ms cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.event-hero-media-enter {
+  animation: vz-event-media-enter 280ms 40ms cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
 .vz-circuit-grow { animation: vz-circuit-grow 1.2s ease-out both; }
 .vz-circuit-retire { animation: vz-circuit-retire 0.8s ease-out both; }
 
 @media (prefers-reduced-motion: reduce) {
   .vz-circuit-grow { animation: none; }
   .vz-circuit-retire { display: none; }
+  .event-hero-enter,
+  .event-hero-media-enter { animation: none; }
 }

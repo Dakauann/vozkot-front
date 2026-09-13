@@ -5,11 +5,15 @@ import { useLocale, useTranslations } from "next-intl";
 
 import { Image as ImageIcon } from "@/components/icons";
 import type { Locale } from "@/i18n/config";
+import type { EventDirectory } from "@/lib/events/directory";
+import type { EventListing } from "@/lib/events/types";
 import type { Ticket } from "@/lib/tickets/types";
 import { TicketStatusChip } from "@/components/tickets/ticket-status-chip";
 import { cn } from "@/lib/utils";
 
 interface TicketListProps {
+  /** Resolves each tier's eventId into the event a person recognises. */
+  events: EventDirectory;
   tickets: Ticket[];
   selectedId: string | null;
   onSelect: (ticket: Ticket) => void;
@@ -23,7 +27,7 @@ interface TicketListProps {
  * four things the scan is actually for — what it is, when the doors open, what
  * it costs, and how much of it is left.
  */
-export function TicketList({ tickets, selectedId, onSelect }: TicketListProps) {
+export function TicketList({ tickets, events, selectedId, onSelect }: TicketListProps) {
   const t = useTranslations("tickets");
   const locale = useLocale() as Locale;
 
@@ -45,7 +49,7 @@ export function TicketList({ tickets, selectedId, onSelect }: TicketListProps) {
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
                 selected
                   ? "border-l-primary bg-muted"
-                  : "border-l-transparent hover:bg-muted/60",
+                  : "border-l-transparent hover:bg-accent-hover",
               )}
             >
               <span className="grid size-11 shrink-0 place-items-center overflow-hidden rounded-[--radius] border border-border bg-muted text-muted-foreground">
@@ -60,11 +64,11 @@ export function TicketList({ tickets, selectedId, onSelect }: TicketListProps) {
               <span className="min-w-0 flex-1">
                 <span className="flex items-start justify-between gap-3">
                   <span className="min-w-0">
-                    <span className="block truncate text-xs text-muted-foreground">{ticket.eventName}</span>
+                    <span className="block truncate text-xs text-muted-foreground">{events.nameOf(ticket.eventId, t("noEvent"))}</span>
                     <span
                       className={cn(
                         "mt-0.5 block truncate text-sm font-medium",
-                        selected ? "text-foreground" : "text-foreground/90",
+                        selected ? "text-foreground" : "text-muted-foreground",
                       )}
                     >
                       {ticket.title}
@@ -79,7 +83,7 @@ export function TicketList({ tickets, selectedId, onSelect }: TicketListProps) {
                 </span>
 
                 <span className="mt-1 block truncate text-xs text-muted-foreground">
-                  {formatDateTime(ticket.startsAt, locale)} · {ticket.venue}
+                  {eventLine(events.byId.get(ticket.eventId), locale, t("noEvent"))}
                 </span>
 
                 <span className="mt-1.5 flex items-center gap-2">
@@ -87,7 +91,7 @@ export function TicketList({ tickets, selectedId, onSelect }: TicketListProps) {
                     <span
                       className={cn(
                         "block h-full rounded-full",
-                        ticket.available === 0 ? "bg-warning" : "bg-primary/70",
+                        ticket.available === 0 ? "bg-warning" : "bg-primary",
                       )}
                       style={{ width: `${Math.min(100, Math.round(soldRatio * 100))}%` }}
                     />
@@ -125,4 +129,17 @@ export function TicketListSkeleton() {
       ))}
     </ul>
   );
+}
+
+/**
+ * The line under a tier: when and where its event is.
+ *
+ * The facts belong to the event, not the tier, so they are read from the
+ * directory. A tier whose event is not in the directory still renders a row —
+ * the operator can see the tier and open it — rather than blanking the list.
+ */
+function eventLine(event: EventListing | undefined, locale: Locale, fallback: string): string {
+  if (!event) return fallback;
+  const place = [event.location.venue, event.location.city].filter(Boolean).join(" · ");
+  return [formatDateTime(event.startsAt, locale), place].filter(Boolean).join(" · ");
 }

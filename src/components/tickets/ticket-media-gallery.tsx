@@ -135,7 +135,7 @@ export function TicketMediaGallery({ ticketId, media, onChanged }: TicketMediaGa
               </button>
 
               {index === 0 && (
-                <span className="pointer-events-none absolute left-1 top-1 rounded-sm bg-background/90 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+                <span className="pointer-events-none absolute left-1 top-1 rounded-sm bg-background px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
                   {t("cover")}
                 </span>
               )}
@@ -145,7 +145,7 @@ export function TicketMediaGallery({ ticketId, media, onChanged }: TicketMediaGa
                 onClick={() => void remove(item)}
                 disabled={removing === item.id}
                 aria-label={t("remove")}
-                className="absolute right-1 top-1 grid size-6 place-items-center rounded-[--radius] bg-background/90 text-muted-foreground shadow-elev-1 transition-colors hover:bg-destructive hover:text-destructive-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-60"
+                className="absolute right-1 top-1 grid size-6 place-items-center rounded-[--radius] bg-background text-muted-foreground shadow-elev-1 transition-colors hover:bg-destructive hover:text-destructive-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-60"
               >
                 {removing === item.id ? (
                   <CircleNotch size={13} className="animate-spin" />

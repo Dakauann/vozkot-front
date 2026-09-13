@@ -28,6 +28,7 @@
       "support": "Support",
       "insights": "Auswertungen"
     },
+    "events": "Veranstaltungen",
     "tickets": "Tickets",
     "checkIn": "Einlass",
     "orders": "Bestellungen",
@@ -47,6 +48,14 @@
     "themeLight": "Hell",
     "themeDark": "Dunkel",
     "themeSystem": "System"
+  },
+  "publicNav": {
+    "label": "Hauptnavigation",
+    "home": "Startseite",
+    "myTickets": "Meine Tickets",
+    "organiser": "Veranstalter-Bereich",
+    "sell": "Tickets verkaufen",
+    "signIn": "Anmelden"
   },
   "auth": {
     "signIn": {
@@ -116,12 +125,9 @@
       "cancelled": "Storniert"
     },
     "fields": {
-      "eventName": "Veranstaltung",
+      "event": "Veranstaltung",
       "title": "Kontingent",
       "description": "Beschreibung",
-      "venue": "Veranstaltungsort",
-      "city": "Stadt",
-      "startsAt": "Datum und Uhrzeit",
       "price": "Preis",
       "quantity": "Menge",
       "status": "Status",
@@ -184,28 +190,22 @@
       "createSubtitle": "Ein Kontingent gehört zu einer Veranstaltung und hat eigenen Preis und Bestand.",
       "editTitle": "Ticket bearbeiten",
       "editSubtitle": "Änderungen gelten für die folgenden Verkäufe.",
-      "eventNamePlaceholder": "Aurora Festival",
       "titlePlaceholder": "Premium-Stehplatz",
       "descriptionPlaceholder": "Wozu dieses Kontingent Zutritt gibt.",
-      "venuePlaceholder": "Castelão Arena",
-      "cityPlaceholder": "Fortaleza, CE",
       "priceHint": "In Real. 0 für ein Freiticket.",
       "quantityHint": "Gesamtzahl der Tickets in diesem Kontingent.",
       "submitCreate": "Ticket anlegen",
       "submitEdit": "Änderungen speichern",
       "submitting": "Wird gespeichert…",
       "errors": {
-        "eventName": "Gib den Namen der Veranstaltung an.",
+        "event": "Wähle die Veranstaltung für dieses Kontingent",
         "title": "Gib den Namen des Kontingents an.",
-        "venue": "Gib den Veranstaltungsort an.",
-        "startsAt": "Gib Datum und Uhrzeit der Veranstaltung an.",
         "price": "Der Preis darf nicht negativ sein.",
         "quantity": "Die Menge muss größer als null sein."
       },
       "backToTickets": "Zurück zu den Tickets",
       "sections": {
-        "event": "Veranstaltung",
-        "place": "Ort und Datum",
+        "event": "Kontingent",
         "sale": "Verkauf"
       },
       "mediaHint": "Die Dateien werden hochgeladen, sobald das Ticket angelegt ist.",
@@ -213,14 +213,16 @@
       "uploadingMedia": "{done} von {total} werden hochgeladen…",
       "mediaPartial": "Ticket angelegt, aber {count, plural, one {# Datei konnte nicht hochgeladen werden} other {# Dateien konnten nicht hochgeladen werden}}.",
       "loading": "Ticket wird geladen…",
-      "notFound": "Ticket nicht gefunden."
+      "notFound": "Ticket nicht gefunden.",
+      "pickEvent": "Veranstaltung auswählen"
     },
     "feedback": {
       "created": "Ticket angelegt.",
       "updated": "Ticket aktualisiert.",
       "deleted": "Ticket gelöscht.",
       "statusChanged": "Status aktualisiert."
-    }
+    },
+    "noEvent": "Veranstaltung nicht gefunden"
   },
   "media": {
     "title": "Bilder und Videos",
@@ -243,6 +245,253 @@
     },
     "deleted": "Datei entfernt."
   },
+  "catalogue": {
+    "title": "Finde etwas zu erleben",
+    "subtitle": "Konzerte, Theater, Kurse und Erlebnisse in deiner Nähe.",
+    "searchLabel": "Veranstaltungen suchen",
+    "searchPlaceholder": "Nach Name, Ort oder Stadt suchen",
+    "search": "Suchen",
+    "category": "Kategorie",
+    "allCategories": "Alle Kategorien",
+    "city": "Stadt",
+    "allCities": "Alle Städte",
+    "sortBy": "Sortieren nach",
+    "sortSoonest": "Demnächst",
+    "sortPrice": "Niedrigster Preis",
+    "sortRelevance": "Relevanz",
+    "onlyFree": "Kostenlos",
+    "onlyAvailable": "Verfügbar",
+    "clearFilters": "Filter zurücksetzen",
+    "showing": "{first}–{last} von {total} Veranstaltungen",
+    "noResults": "Keine Veranstaltungen gefunden",
+    "emptyTitle": "Hier ist noch nichts",
+    "emptyBody": "Entferne einen Filter oder suche nach etwas anderem.",
+    "soldOut": "Ausverkauft",
+    "free": "Kostenlos",
+    "fromPrice": "Ab {price}",
+    "pagination": "Seitennummerierung",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "goToPage": "Zu Seite {page}",
+    "rails": {
+      "soonest": "Demnächst",
+      "weekend": "Dieses Wochenende",
+      "free": "Freier Eintritt"
+    },
+    "seeAll": "Alle ansehen",
+    "emptyCatalogue": "Sobald die ersten Veranstaltungen veröffentlicht sind, erscheinen sie hier.",
+    "browseBy": "Nach Stadt und Kategorie stöbern",
+    "byCity": "Veranstaltungen nach Stadt",
+    "byCategory": "Veranstaltungen nach Kategorie",
+    "featured": "Im Fokus",
+    "eventCount": "{count, plural, one {# Event} other {# Events}}",
+    "slidePosition": "Folie {index} von {total}"
+  },
+  "organiserBand": {
+    "title": "Veranstaltest du Events?",
+    "body": "Veröffentliche deine Veranstaltung, verkaufe Tickets per PIX und verfolge die Verkäufe in Echtzeit. Ohne Monatsgebühr.",
+    "create": "Veranstaltung erstellen",
+    "how": "So funktioniert es"
+  },
+  "event": {
+    "when": "Wann",
+    "where": "Wo",
+    "about": "Über diese Veranstaltung",
+    "location": "Veranstaltungsort",
+    "tickets": "Tickets",
+    "openInMaps": "In Google Maps öffnen",
+    "openInWaze": "In Waze öffnen",
+    "mapPreview": "Karte von {venue}",
+    "mapHint": "Erkunde die Umgebung hier oder öffne die Route in deiner bevorzugten App.",
+    "noTiers": "Derzeit sind keine Tickets im Verkauf.",
+    "soldOut": "Ausverkauft",
+    "free": "Kostenlos",
+    "fewLeft": "Nur noch {count}",
+    "total": "Gesamt",
+    "pickATier": "Ticket auswählen",
+    "buy": "{count, plural, one {# Ticket} other {# Tickets}} kaufen",
+    "increase": "Ein {tier}-Ticket hinzufügen",
+    "decrease": "Ein {tier}-Ticket entfernen",
+    "holdNotice": "Deine Tickets werden nach der Auswahl {minutes} Minuten lang reserviert.",
+    "cancelled": "Diese Veranstaltung wurde abgesagt.",
+    "cancelledNoSales": "Der Verkauf ist beendet, da die Veranstaltung abgesagt wurde."
+  },
+  "checkout": {
+    "title": "Kasse",
+    "yourDetails": "Deine Daten",
+    "name": "Vollständiger Name",
+    "email": "E-Mail",
+    "emailHint": "Dorthin gehen die Tickets.",
+    "document": "CPF",
+    "documentHint": "Für die PIX-Zahlung erforderlich.",
+    "back": "Zurück",
+    "failed": "Die Reservierung konnte nicht abgeschlossen werden.",
+    "noSelectionTitle": "Keine Tickets ausgewählt",
+    "noSelectionBody": "Dieser Link enthielt keine gültige Auswahl. Bitte wähle die Tickets erneut.",
+    "browseEvents": "Veranstaltungen ansehen",
+    "signInTitle": "Zum Fortfahren anmelden",
+    "signInBody": "Deine Auswahl bleibt erhalten: Du kommst direkt zu diesem Kauf zurück.",
+    "signIn": "Anmelden",
+    "payTitle": "Mit PIX bezahlen",
+    "payBody": "{count, plural, one {# Ticket} other {# Tickets}} · {total}",
+    "preparingCode": "Dein PIX-Code wird erzeugt…",
+    "preparingCodeHint": "Das dauert ein paar Sekunden. Bitte lass diese Seite offen.",
+    "copyPaste": "PIX zum Kopieren",
+    "copyCode": "Code kopieren",
+    "copied": "Kopiert",
+    "qrAlt": "PIX-QR-Code",
+    "waitingForPayment": "Sobald die Zahlung eingeht, bestätigt sich diese Seite von selbst.",
+    "timeLeft": "Verbleibende Zeit:",
+    "paidTitle": "Zahlung bestätigt",
+    "paidBody": "Wir haben die Tickets an {email} geschickt.",
+    "expiredTitle": "Die Reservierung ist abgelaufen",
+    "expiredBody": "Die Tickets sind wieder im Verkauf. Du kannst es erneut versuchen.",
+    "tryAgain": "Erneut versuchen",
+    "summary": "Bestellübersicht",
+    "ticket": "Ticket",
+    "total": "Gesamt",
+    "noExtraFees": "Keine zusätzlichen Gebühren. Der Betrag oben ist der Endpreis.",
+    "heldUntil": "Reservierung läuft ab in",
+    "holdExplainer": "Deine Tickets sind bereits reserviert. Läuft die Zeit ab, gehen sie zurück in den Verkauf, damit keine Reservierung hängen bleibt — du kannst dann neu beginnen.",
+    "reservingTitle": "Tickets werden reserviert",
+    "reservingBody": "Wir nehmen die Tickets für dich aus dem Verkauf. Einen Moment.",
+    "reserveFailedTitle": "Reservierung nicht möglich",
+    "reserveFailed": "Diese Tickets konnten nicht reserviert werden.",
+    "detailsHint": "Deine Tickets sind reserviert. Gib deine Daten ein, um zu bezahlen.",
+    "goToPayment": "Weiter zur Zahlung",
+    "confirming": "Wird bestätigt…",
+    "showCode": "Code zum Kopieren anzeigen",
+    "myOrders": "Meine Bestellungen",
+    "loadingOrder": "Bestellung wird geladen…",
+    "notFound": "Bestellung nicht gefunden.",
+    "holdLimitTitle": "Du hast bereits offene Reservierungen",
+    "openHoldsTitle": "Deine offenen Reservierungen",
+    "openHoldsBody": "Gib eine davon frei, um mit diesem Kauf fortzufahren. Freigegebene Tickets gehen sofort zurück in den Verkauf.",
+    "releaseHold": "Freigeben",
+    "releasing": "Wird freigegeben…",
+    "loadingHolds": "Reservierungen werden geladen…",
+    "unknownEvent": "Event nicht verfügbar",
+    "orderReference": "Bestellnummer"
+  },
+  "eventAdmin": {
+    "listTitle": "Veranstaltungen",
+    "newEvent": "Neue Veranstaltung",
+    "newTitle": "Neue Veranstaltung",
+    "editTitle": "Veranstaltung bearbeiten",
+    "backToList": "Veranstaltungen",
+    "loading": "Wird geladen",
+    "notFound": "Veranstaltung nicht gefunden",
+    "saved": "Veranstaltung gespeichert",
+    "created": "Veranstaltung erstellt",
+    "published": "Veranstaltung veröffentlicht",
+    "unpublished": "Veröffentlichung zurückgezogen",
+    "publish": "Veröffentlichen",
+    "unpublish": "Zurückziehen",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "empty": "Noch keine Veranstaltungen",
+    "emptyHint": "Erstelle eine Veranstaltung, um Tickets zu verkaufen.",
+    "searchLabel": "Eigene Veranstaltungen durchsuchen",
+    "searchPlaceholder": "Nach Name, Ort oder Stadt suchen",
+    "availableCount": "{count, plural, one {# Ticket} other {# Tickets}}",
+    "filters": {
+      "all": "Alle"
+    },
+    "sections": {
+      "about": "Allgemein",
+      "aboutHint": "Was im Katalog und auf der Veranstaltungsseite erscheint.",
+      "where": "Ort",
+      "whereHint": "Aus der Adresse wird der Punkt auf der Karte. Zieh die Nadel, wenn sie falsch sitzt.",
+      "media": "Bilder",
+      "mediaHint": "Das erste Bild ist das Titelbild der Karte im Katalog."
+    },
+    "fields": {
+      "name": "Name der Veranstaltung",
+      "category": "Kategorie",
+      "status": "Status",
+      "description": "Beschreibung",
+      "startsAt": "Beginn",
+      "endsAt": "Ende",
+      "venue": "Veranstaltungsort",
+      "address": "Adresse",
+      "neighborhood": "Stadtteil",
+      "postalCode": "PLZ",
+      "city": "Stadt",
+      "uf": "Bundesstaat"
+    },
+    "placeholders": {
+      "name": "Aurora Festival",
+      "venue": "Arena Castelão",
+      "address": "Av. Alberto Craveiro, 2901"
+    },
+    "hints": {
+      "status": "Ein Entwurf erscheint nicht im Katalog.",
+      "description": "Zeilenumbrüche bleiben erhalten. HTML wird nicht ausgewertet.",
+      "endsAt": "Optional. Muss nach dem Beginn liegen.",
+      "postalCode": "Mit Postleitzahl wird die Position auf der Karte deutlich genauer."
+    },
+    "status": {
+      "draft": "Entwurf",
+      "published": "Veröffentlicht",
+      "cancelled": "Abgesagt"
+    },
+    "map": {
+      "title": "Punkt auf der Karte",
+      "clearPin": "Nadel entfernen",
+      "label": "Karte zum Positionieren des Veranstaltungsorts",
+      "pinnedHint": "Diese Nadel hast du gesetzt. Wir lassen den Punkt genau dort, wo er ist.",
+      "unpinnedHint": "Keine Nadel: Wir ermitteln den Punkt beim Speichern aus der Adresse. Klick auf die Karte, um ihn selbst zu setzen.",
+      "coordinates": "Breite {latitude} · Länge {longitude}",
+      "basemaps": {
+        "streets": "Karte",
+        "bright": "Detailliert",
+        "minimal": "Reduziert",
+        "satellite": "Satellit"
+      }
+    },
+    "errors": {
+      "name": "Gib den Namen der Veranstaltung ein",
+      "category": "Wähle eine Kategorie",
+      "venue": "Gib den Veranstaltungsort ein",
+      "city": "Gib die Stadt ein",
+      "uf": "Gib den Bundesstaat mit zwei Buchstaben ein",
+      "startsAt": "Gib Datum und Uhrzeit des Beginns ein",
+      "endsBeforeStart": "Das Ende muss nach dem Beginn liegen",
+      "postalCode": "Die Postleitzahl braucht acht Ziffern",
+      "coordinates": "Breite und Länge gehören zusammen: gib beide an oder keine",
+      "save": "Die Veranstaltung konnte nicht gespeichert werden",
+      "load": "Deine Veranstaltungen konnten nicht geladen werden"
+    },
+    "lookup": {
+      "idle": "Mit Postleitzahl wird die Position auf der Karte deutlich genauer.",
+      "loading": "Adresse wird gesucht…",
+      "ok": "Adresse gefunden. Prüfe die Nadel auf der Karte.",
+      "not_found": "Postleitzahl nicht gefunden. Trage die Adresse ein und setze die Nadel selbst.",
+      "unavailable": "Der Postleitzahldienst ist nicht erreichbar. Die Adresse lässt sich weiterhin von Hand eintragen."
+    },
+    "loadMore": "{shown} von {total} · mehr laden",
+    "form": {
+      "pickEvent": "Veranstaltung auswählen"
+    }
+  },
+  "categories": {
+    "festas_shows": "Partys & Konzerte",
+    "teatros_espetaculos": "Theater & Bühne",
+    "stand_up_comedy": "Stand-up-Comedy",
+    "cursos_workshops": "Kurse & Workshops",
+    "congressos_palestras": "Kongresse & Vorträge",
+    "esportivo": "Sport",
+    "gastronomia": "Gastronomie",
+    "religiao_espiritualidade": "Religion & Spiritualität",
+    "passeios_tours": "Touren & Erlebnisse",
+    "infantil": "Für Kinder",
+    "games_geek": "Games & Geek",
+    "moda_beleza": "Mode & Beauty",
+    "saude_bem_estar": "Gesundheit & Wohlbefinden",
+    "arte_cultura_lazer": "Kunst & Kultur",
+    "pride": "Pride",
+    "outros": "Sonstiges"
+  },
   "errors": {
     "generic": "Etwas ist schiefgelaufen. Versuche es erneut.",
     "network": "Die API war nicht erreichbar.",
@@ -255,10 +504,6 @@
     "checkIn": {
       "title": "Einlass",
       "description": "Tickets am Eingang scannen."
-    },
-    "orders": {
-      "title": "Bestellungen",
-      "description": "Käufe, Zahlungen und Erstattungen."
     },
     "reports": {
       "title": "Berichte",
@@ -458,5 +703,83 @@
         "content": "Der Datenschutzkontakt von {legalName} ist {dpoEmail}. Nutzen Sie ihn für Rechte, Fragen zu dieser Erklärung oder Datenschutzbedenken. Die Unternehmenswebsite ist {siteUrl}.\n\nSenden Sie keine Passwörter, Karten oder vollständigen Dokumente. Geben Sie nur das Nötige an, um die Beziehung zuzuordnen und Ihre Identität sicher zu prüfen."
       }
     }
+  },
+  "orders": {
+    "title": "Meine Bestellungen",
+    "description": "Deine Käufe, Zahlungen und Erstattungen.",
+    "filterLabel": "Bestellungen nach Status filtern",
+    "filters": {
+      "all": "Alle",
+      "pending_payment": "Zahlung ausstehend",
+      "paid": "Bezahlt",
+      "refund_required": "Erstattung offen"
+    },
+    "status": {
+      "pending_payment": "Zahlung ausstehend",
+      "paid": "Bezahlt",
+      "expired": "Reservierung abgelaufen",
+      "cancelled": "Storniert",
+      "failed": "Zahlung abgelehnt",
+      "refunded": "Erstattet",
+      "refund_required": "Erstattung offen"
+    },
+    "payNow": "Jetzt bezahlen",
+    "cancel": "Bestellung stornieren",
+    "cancelling": "Wird storniert…",
+    "viewEvent": "Event ansehen",
+    "unknownEvent": "Event nicht verfügbar",
+    "unknownTier": "Ticket",
+    "refundRequiredNote": "Deine Zahlung kam an, nachdem die Reservierung abgelaufen war und die Tickets wieder im Verkauf standen. Du bekommst das Geld zurück — du musst nichts tun.",
+    "loadFailed": "Deine Bestellungen konnten nicht geladen werden.",
+    "emptyTitle": "Noch keine Bestellungen",
+    "emptyBody": "Sobald du ein Ticket kaufst, erscheint es hier mit dem Beleg.",
+    "emptyFilteredTitle": "Keine Bestellungen mit diesem Status",
+    "emptyFilteredBody": "Probiere einen anderen Filter, um deine übrigen Bestellungen zu sehen.",
+    "browseEvents": "Events ansehen",
+    "pagination": "Seitennavigation der Bestellungen",
+    "showing": "{first}–{last} von {total}",
+    "previous": "Zurück",
+    "next": "Weiter"
+  },
+  "eventManager": {
+    "notFound": "Event nicht gefunden",
+    "backToEvents": "Zurück zu den Events",
+    "editEvent": "Event bearbeiten",
+    "newTier": "Neue Kategorie",
+    "viewOrders": "Bestellungen",
+    "viewPublic": "Öffentliche Seite ansehen",
+    "summaryLabel": "Event-Übersicht",
+    "stats": {
+      "sold": "Verkauft",
+      "held": "Reserviert",
+      "heldHint": "Zahlung ausstehend",
+      "available": "Verfügbar",
+      "revenue": "Umsatz",
+      "revenueHint": "Nur bezahlte Tickets"
+    },
+    "tiersTitle": "Kategorien",
+    "tierCount": "{count, plural, =0 {keine Kategorien} one {# Kategorie} other {# Kategorien}}",
+    "noTiersTitle": "Dieses Event hat noch keine Kategorien",
+    "noTiersBody": "Ein Event ohne Kategorien kann nicht gekauft werden. Lege vor dem Veröffentlichen mindestens eine mit Preis und Menge an.",
+    "capacity": "Kapazität",
+    "soldThrough": "{percent}% verkauft",
+    "free": "Kostenlos",
+    "editTier": "Bearbeiten",
+    "putOnSale": "In den Verkauf",
+    "pauseSales": "Verkauf pausieren",
+    "cancelTier": "Kategorie stornieren",
+    "cancelTierTitle": "{tier} stornieren?",
+    "cancelTierBody": "Die Kategorie geht aus dem Verkauf und kann nicht mehr gekauft werden. Bereits aufgegebene Bestellungen bleiben gültig.",
+    "cancelTierSold": "Diese Kategorie hat bereits {count, plural, one {# Ticket} other {# Tickets}} verkauft. Ein Storno nimmt sie aus dem Verkauf; verkaufte Tickets bleiben gültig und werden nicht automatisch erstattet.",
+    "cancelTierConfirm": "Kategorie stornieren",
+    "tierUpdated": "Kategorie aktualisiert",
+    "when": "Wann",
+    "where": "Wo",
+    "publishedWithNothingOnSale": "Dieses Event ist veröffentlicht, aber keine Kategorie ist im Verkauf. Wer die Seite öffnet, kann nichts kaufen.",
+    "draftHint": "Dieses Event ist ein Entwurf und für Käufer nicht sichtbar. Veröffentliche es, sobald die Kategorien bereit sind.",
+    "errors": {
+      "tierStatus": "Die Kategorie konnte nicht geändert werden."
+    },
+    "manage": "Verwalten"
   }
 }

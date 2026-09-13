@@ -61,7 +61,7 @@ export function TicketEditor({ ticketId }: { ticketId: string }) {
         </span>
         <p className="mt-3 text-sm font-semibold">{t("notFound")}</p>
         <Button asChild variant="outline" size="sm" className="mt-4">
-          <Link href="/">
+          <Link href="/dashboard">
             <ArrowLeft size={15} />
             {t("backToTickets")}
           </Link>

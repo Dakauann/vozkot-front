@@ -25,19 +25,31 @@ export interface TicketMedia {
 
 export interface Ticket {
   id: string;
-  eventName: string;
+  /**
+   * The event this tier sells admission to.
+   *
+   * The event owns the name, venue, city, date, category and map pin. A tier
+   * owns only what varies between tiers of the same event: what it is called,
+   * what it costs and how many exist.
+   */
+  eventId: string;
   /** The tier being sold: Pista, Camarote, Meia-entrada. */
   title: string;
   description: string;
-  venue: string;
-  city: string;
-  /** ISO. The doors time, not when the row was created. */
-  startsAt: string;
   /** Centavos. No float ever touches a price. */
   priceCents: number;
   currency: string;
   quantity: number;
   sold: number;
+  /**
+   * Stock held by orders waiting to be paid.
+   *
+   * Neither sold nor available, and the distinction is what an operator needs
+   * on the night: a tier that is nearly gone has gone either to sales, which
+   * are money, or to holds, which expire. Folding the two into "available"
+   * hides which of those just happened.
+   */
+  reserved: number;
   available: number;
   status: TicketStatus;
   media: TicketMedia[];
@@ -45,14 +57,17 @@ export interface Ticket {
   updatedAt: string;
 }
 
-/** Create and update carry the same fields; the API replaces the whole record. */
+/**
+ * Create and update carry the same fields; the API replaces the whole record.
+ *
+ * `eventId` is only read on create. An update cannot move a tier to another
+ * event, because orders already reference it and moving it would rewrite what
+ * somebody already bought.
+ */
 export interface TicketInput {
-  eventName: string;
+  eventId: string;
   title: string;
   description: string;
-  venue: string;
-  city: string;
-  startsAt: string;
   priceCents: number;
   quantity: number;
   status: TicketStatus;
@@ -61,6 +76,8 @@ export interface TicketInput {
 export interface TicketQuery {
   status?: TicketStatus | "";
   q?: string;
+  /** One event's tiers. What managing a single event asks for. */
+  eventId?: string;
   sort?: TicketSort;
   limit?: number;
   offset?: number;

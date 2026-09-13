@@ -28,6 +28,7 @@
       "support": "Suporte",
       "insights": "Análises"
     },
+    "events": "Eventos",
     "tickets": "Ingressos",
     "checkIn": "Check-in",
     "orders": "Pedidos",
@@ -47,6 +48,14 @@
     "themeLight": "Claro",
     "themeDark": "Escuro",
     "themeSystem": "Sistema"
+  },
+  "publicNav": {
+    "label": "Navegação principal",
+    "home": "Página inicial",
+    "myTickets": "Meus ingressos",
+    "organiser": "Painel do organizador",
+    "sell": "Vender ingressos",
+    "signIn": "Entrar"
   },
   "auth": {
     "signIn": {
@@ -116,12 +125,9 @@
       "cancelled": "Cancelado"
     },
     "fields": {
-      "eventName": "Evento",
+      "event": "Evento",
       "title": "Lote",
       "description": "Descrição",
-      "venue": "Local",
-      "city": "Cidade",
-      "startsAt": "Data e hora",
       "price": "Preço",
       "quantity": "Quantidade",
       "status": "Status",
@@ -184,28 +190,22 @@
       "createSubtitle": "Um lote pertence a um evento e tem preço e estoque próprios.",
       "editTitle": "Editar ingresso",
       "editSubtitle": "As alterações valem para as próximas vendas.",
-      "eventNamePlaceholder": "Festival Aurora",
       "titlePlaceholder": "Pista Premium",
       "descriptionPlaceholder": "O que este lote dá direito de acessar.",
-      "venuePlaceholder": "Arena Castelão",
-      "cityPlaceholder": "Fortaleza, CE",
       "priceHint": "Em reais. Use 0 para cortesia.",
       "quantityHint": "Total de ingressos deste lote.",
       "submitCreate": "Criar ingresso",
       "submitEdit": "Salvar alterações",
       "submitting": "Salvando…",
       "errors": {
-        "eventName": "Informe o nome do evento.",
+        "event": "Escolha o evento deste lote",
         "title": "Informe o nome do lote.",
-        "venue": "Informe o local do evento.",
-        "startsAt": "Informe a data e a hora do evento.",
         "price": "O preço não pode ser negativo.",
         "quantity": "A quantidade precisa ser maior que zero."
       },
       "backToTickets": "Voltar para ingressos",
       "sections": {
-        "event": "Evento",
-        "place": "Local e data",
+        "event": "Lote",
         "sale": "Venda"
       },
       "mediaHint": "Os arquivos são enviados assim que o ingresso é criado.",
@@ -213,14 +213,16 @@
       "uploadingMedia": "Enviando {done} de {total}…",
       "mediaPartial": "Ingresso criado, mas {count, plural, one {# arquivo não foi enviado} other {# arquivos não foram enviados}}.",
       "loading": "Carregando o ingresso…",
-      "notFound": "Ingresso não encontrado."
+      "notFound": "Ingresso não encontrado.",
+      "pickEvent": "Selecione o evento"
     },
     "feedback": {
       "created": "Ingresso criado.",
       "updated": "Ingresso atualizado.",
       "deleted": "Ingresso excluído.",
       "statusChanged": "Status atualizado."
-    }
+    },
+    "noEvent": "Evento não encontrado"
   },
   "media": {
     "title": "Imagens e vídeos",
@@ -243,6 +245,253 @@
     },
     "deleted": "Arquivo removido."
   },
+  "catalogue": {
+    "title": "Descubra o que fazer",
+    "subtitle": "Shows, teatro, cursos e experiências perto de você.",
+    "searchLabel": "Buscar eventos",
+    "searchPlaceholder": "Buscar por nome, local ou cidade",
+    "search": "Buscar",
+    "category": "Categoria",
+    "allCategories": "Todas as categorias",
+    "city": "Cidade",
+    "allCities": "Todas as cidades",
+    "sortBy": "Ordenar por",
+    "sortSoonest": "Mais próximos",
+    "sortPrice": "Menor preço",
+    "sortRelevance": "Relevância",
+    "onlyFree": "Grátis",
+    "onlyAvailable": "Com ingressos",
+    "clearFilters": "Limpar filtros",
+    "showing": "Mostrando {first}–{last} de {total} eventos",
+    "noResults": "Nenhum evento encontrado",
+    "emptyTitle": "Nada por aqui ainda",
+    "emptyBody": "Tente remover um filtro ou buscar por outro termo.",
+    "soldOut": "Esgotado",
+    "free": "Grátis",
+    "fromPrice": "A partir de {price}",
+    "pagination": "Paginação",
+    "previous": "Anterior",
+    "next": "Próximo",
+    "goToPage": "Ir para a página {page}",
+    "rails": {
+      "soonest": "Acontecendo em breve",
+      "weekend": "Neste fim de semana",
+      "free": "Entrada gratuita"
+    },
+    "seeAll": "Ver tudo",
+    "emptyCatalogue": "Assim que os primeiros eventos forem publicados, eles aparecem aqui.",
+    "browseBy": "Navegue por cidade e categoria",
+    "byCity": "Eventos por cidade",
+    "byCategory": "Eventos por categoria",
+    "featured": "Em destaque",
+    "eventCount": "{count, plural, one {# evento} other {# eventos}}",
+    "slidePosition": "Slide {index} de {total}"
+  },
+  "organiserBand": {
+    "title": "Você organiza eventos?",
+    "body": "Publique seu evento, venda ingressos com PIX e acompanhe as vendas em tempo real. Sem mensalidade.",
+    "create": "Criar evento",
+    "how": "Como funciona"
+  },
+  "event": {
+    "when": "Quando",
+    "where": "Onde",
+    "about": "Sobre o evento",
+    "location": "Local",
+    "tickets": "Ingressos",
+    "openInMaps": "Ver no Google Maps",
+    "openInWaze": "Abrir no Waze",
+    "mapPreview": "Mapa de {venue}",
+    "mapHint": "Explore o entorno aqui ou abra a rota no seu aplicativo preferido.",
+    "noTiers": "Nenhum lote à venda no momento.",
+    "soldOut": "Esgotado",
+    "free": "Grátis",
+    "fewLeft": "Últimas {count} unidades",
+    "total": "Total",
+    "pickATier": "Selecione um ingresso",
+    "buy": "Comprar {count, plural, one {# ingresso} other {# ingressos}}",
+    "increase": "Adicionar um ingresso de {tier}",
+    "decrease": "Remover um ingresso de {tier}",
+    "holdNotice": "Seus ingressos ficam reservados por {minutes} minutos após a escolha.",
+    "cancelled": "Este evento foi cancelado.",
+    "cancelledNoSales": "As vendas foram encerradas porque o evento foi cancelado."
+  },
+  "checkout": {
+    "title": "Finalizar compra",
+    "yourDetails": "Seus dados",
+    "name": "Nome completo",
+    "email": "E-mail",
+    "emailHint": "É para lá que os ingressos vão.",
+    "document": "CPF",
+    "documentHint": "Obrigatório para gerar o PIX.",
+    "back": "Voltar",
+    "failed": "Não foi possível concluir a reserva.",
+    "noSelectionTitle": "Nenhum ingresso selecionado",
+    "noSelectionBody": "O link não trouxe uma escolha válida. Escolha os ingressos novamente.",
+    "browseEvents": "Ver eventos",
+    "signInTitle": "Entre para continuar",
+    "signInBody": "Sua escolha fica guardada: você volta direto para esta compra.",
+    "signIn": "Entrar",
+    "payTitle": "Pague com PIX",
+    "payBody": "{count, plural, one {# ingresso} other {# ingressos}} · {total}",
+    "preparingCode": "Gerando seu código PIX…",
+    "preparingCodeHint": "Isso leva alguns segundos. Não feche esta página.",
+    "copyPaste": "PIX copia e cola",
+    "copyCode": "Copiar código",
+    "copied": "Copiado",
+    "qrAlt": "QR Code do PIX",
+    "waitingForPayment": "Assim que o pagamento cair, esta página confirma sozinha.",
+    "timeLeft": "Tempo restante:",
+    "paidTitle": "Pagamento confirmado",
+    "paidBody": "Enviamos os ingressos para {email}.",
+    "expiredTitle": "A reserva expirou",
+    "expiredBody": "Os ingressos voltaram para a venda. Você pode tentar de novo.",
+    "tryAgain": "Tentar de novo",
+    "summary": "Resumo do pedido",
+    "ticket": "Ingresso",
+    "total": "Total",
+    "noExtraFees": "Sem taxas adicionais. O valor acima é o que você paga.",
+    "heldUntil": "Reserva expira em",
+    "holdExplainer": "Seus ingressos já estão reservados. Se o tempo acabar, eles voltam para a venda para que ninguém fique com uma reserva presa — e você pode começar de novo.",
+    "reservingTitle": "Reservando seus ingressos",
+    "reservingBody": "Estamos tirando os ingressos da venda para você. Leva um instante.",
+    "reserveFailedTitle": "Não foi possível reservar",
+    "reserveFailed": "Não foi possível reservar esses ingressos.",
+    "detailsHint": "Os ingressos já estão reservados. Preencha seus dados para pagar.",
+    "goToPayment": "Ir para o pagamento",
+    "confirming": "Confirmando…",
+    "showCode": "Ver o código copia e cola",
+    "myOrders": "Ver meus pedidos",
+    "loadingOrder": "Carregando seu pedido…",
+    "notFound": "Pedido não encontrado.",
+    "holdLimitTitle": "Você já tem reservas em aberto",
+    "openHoldsTitle": "Suas reservas em aberto",
+    "openHoldsBody": "Libere uma delas para continuar com esta compra. Os ingressos liberados voltam para a venda na hora.",
+    "releaseHold": "Liberar",
+    "releasing": "Liberando…",
+    "loadingHolds": "Carregando suas reservas…",
+    "unknownEvent": "Evento indisponível",
+    "orderReference": "Código do pedido"
+  },
+  "eventAdmin": {
+    "listTitle": "Eventos",
+    "newEvent": "Novo evento",
+    "newTitle": "Novo evento",
+    "editTitle": "Editar evento",
+    "backToList": "Eventos",
+    "loading": "Carregando",
+    "notFound": "Evento não encontrado",
+    "saved": "Evento salvo",
+    "created": "Evento criado",
+    "published": "Evento publicado",
+    "unpublished": "Evento despublicado",
+    "publish": "Publicar",
+    "unpublish": "Despublicar",
+    "previous": "Anterior",
+    "next": "Próximo",
+    "empty": "Nenhum evento por aqui",
+    "emptyHint": "Crie um evento para começar a vender ingressos.",
+    "searchLabel": "Buscar nos seus eventos",
+    "searchPlaceholder": "Buscar por nome, local ou cidade",
+    "availableCount": "{count, plural, one {# ingresso} other {# ingressos}}",
+    "filters": {
+      "all": "Todos"
+    },
+    "sections": {
+      "about": "Sobre",
+      "aboutHint": "O que aparece na vitrine e na página do evento.",
+      "where": "Local",
+      "whereHint": "O endereço vira o ponto no mapa. Arraste o pino se ele cair no lugar errado.",
+      "media": "Imagens",
+      "mediaHint": "A primeira imagem é a capa do card na vitrine."
+    },
+    "fields": {
+      "name": "Nome do evento",
+      "category": "Categoria",
+      "status": "Situação",
+      "description": "Descrição",
+      "startsAt": "Início",
+      "endsAt": "Término",
+      "venue": "Local",
+      "address": "Endereço",
+      "neighborhood": "Bairro",
+      "postalCode": "CEP",
+      "city": "Cidade",
+      "uf": "UF"
+    },
+    "placeholders": {
+      "name": "Festival Aurora",
+      "venue": "Arena Castelão",
+      "address": "Av. Alberto Craveiro, 2901"
+    },
+    "hints": {
+      "status": "Rascunho não aparece na vitrine.",
+      "description": "Quebras de linha são mantidas. HTML não é interpretado.",
+      "endsAt": "Opcional. Deve ser depois do início.",
+      "postalCode": "Com o CEP a localização no mapa fica bem mais precisa."
+    },
+    "status": {
+      "draft": "Rascunho",
+      "published": "Publicado",
+      "cancelled": "Cancelado"
+    },
+    "map": {
+      "title": "Ponto no mapa",
+      "clearPin": "Remover pino",
+      "label": "Mapa para posicionar o local do evento",
+      "pinnedHint": "Pino posicionado por você. Vamos manter este ponto exatamente onde está.",
+      "unpinnedHint": "Sem pino: vamos calcular o ponto pelo endereço ao salvar. Clique no mapa para definir você mesmo.",
+      "coordinates": "Latitude {latitude} · Longitude {longitude}",
+      "basemaps": {
+        "streets": "Mapa",
+        "bright": "Detalhado",
+        "minimal": "Simples",
+        "satellite": "Satélite"
+      }
+    },
+    "errors": {
+      "name": "Informe o nome do evento",
+      "category": "Escolha uma categoria",
+      "venue": "Informe o local",
+      "city": "Informe a cidade",
+      "uf": "Informe a UF com duas letras",
+      "startsAt": "Informe a data e a hora de início",
+      "endsBeforeStart": "O término precisa ser depois do início",
+      "postalCode": "O CEP precisa ter oito dígitos",
+      "coordinates": "Latitude e longitude andam juntas: informe as duas ou nenhuma",
+      "save": "Não foi possível salvar o evento",
+      "load": "Não foi possível carregar seus eventos"
+    },
+    "lookup": {
+      "idle": "Com o CEP a localização no mapa fica bem mais precisa.",
+      "loading": "Buscando o endereço…",
+      "ok": "Endereço encontrado. Confira o pino no mapa.",
+      "not_found": "CEP não encontrado. Preencha o endereço e posicione o pino no mapa.",
+      "unavailable": "Não deu para consultar o CEP agora. O endereço ainda pode ser preenchido à mão."
+    },
+    "loadMore": "Mostrando {shown} de {total} · carregar mais",
+    "form": {
+      "pickEvent": "Selecione o evento"
+    }
+  },
+  "categories": {
+    "festas_shows": "Festas e shows",
+    "teatros_espetaculos": "Teatros e espetáculos",
+    "stand_up_comedy": "Stand up comedy",
+    "cursos_workshops": "Cursos e workshops",
+    "congressos_palestras": "Congressos e palestras",
+    "esportivo": "Esportivo",
+    "gastronomia": "Gastronomia",
+    "religiao_espiritualidade": "Religião e espiritualidade",
+    "passeios_tours": "Passeios e tours",
+    "infantil": "Infantil",
+    "games_geek": "Games e geek",
+    "moda_beleza": "Moda e beleza",
+    "saude_bem_estar": "Saúde e bem-estar",
+    "arte_cultura_lazer": "Arte, cultura e lazer",
+    "pride": "Pride",
+    "outros": "Outros"
+  },
   "errors": {
     "generic": "Algo deu errado. Tente de novo.",
     "network": "Não foi possível falar com a API.",
@@ -255,10 +504,6 @@
     "checkIn": {
       "title": "Check-in",
       "description": "Leitura de ingressos na portaria."
-    },
-    "orders": {
-      "title": "Pedidos",
-      "description": "Compras, pagamentos e reembolsos."
     },
     "reports": {
       "title": "Relatórios",
@@ -458,5 +703,83 @@
         "content": "O canal de privacidade de {legalName} é {dpoEmail}. Use-o para exercer direitos, esclarecer esta Política ou relatar preocupação com dados pessoais. O site institucional é {siteUrl}.\n\nAntes de enviar, evite anexar senha, cartão ou documento completo. Forneça apenas o necessário para localizar a relação e validar sua identidade com segurança."
       }
     }
+  },
+  "orders": {
+    "title": "Meus pedidos",
+    "description": "Suas compras, pagamentos e reembolsos.",
+    "filterLabel": "Filtrar pedidos por situação",
+    "filters": {
+      "all": "Todos",
+      "pending_payment": "Aguardando pagamento",
+      "paid": "Pagos",
+      "refund_required": "Reembolso devido"
+    },
+    "status": {
+      "pending_payment": "Aguardando pagamento",
+      "paid": "Pago",
+      "expired": "Reserva expirada",
+      "cancelled": "Cancelado",
+      "failed": "Pagamento recusado",
+      "refunded": "Reembolsado",
+      "refund_required": "Reembolso devido"
+    },
+    "payNow": "Pagar agora",
+    "cancel": "Cancelar pedido",
+    "cancelling": "Cancelando…",
+    "viewEvent": "Ver evento",
+    "unknownEvent": "Evento indisponível",
+    "unknownTier": "Ingresso",
+    "refundRequiredNote": "Seu pagamento chegou depois que a reserva expirou e os ingressos voltaram à venda. O valor será devolvido — você não precisa fazer nada.",
+    "loadFailed": "Não foi possível carregar seus pedidos.",
+    "emptyTitle": "Nenhum pedido ainda",
+    "emptyBody": "Quando você comprar um ingresso, ele aparece aqui com o comprovante.",
+    "emptyFilteredTitle": "Nenhum pedido nessa situação",
+    "emptyFilteredBody": "Tente outro filtro para ver o restante dos seus pedidos.",
+    "browseEvents": "Ver eventos",
+    "pagination": "Paginação dos pedidos",
+    "showing": "Mostrando {first}–{last} de {total}",
+    "previous": "Anterior",
+    "next": "Próxima"
+  },
+  "eventManager": {
+    "notFound": "Evento não encontrado",
+    "backToEvents": "Voltar para eventos",
+    "editEvent": "Editar evento",
+    "newTier": "Novo lote",
+    "viewOrders": "Pedidos",
+    "viewPublic": "Ver página pública",
+    "summaryLabel": "Resumo do evento",
+    "stats": {
+      "sold": "Vendidos",
+      "held": "Reservados",
+      "heldHint": "Aguardando pagamento",
+      "available": "Disponíveis",
+      "revenue": "Receita",
+      "revenueHint": "Somente ingressos pagos"
+    },
+    "tiersTitle": "Lotes",
+    "tierCount": "{count, plural, =0 {nenhum lote} one {# lote} other {# lotes}}",
+    "noTiersTitle": "Este evento ainda não tem lotes",
+    "noTiersBody": "Um evento sem lotes não pode ser comprado. Crie ao menos um lote com preço e quantidade antes de publicar.",
+    "capacity": "capacidade",
+    "soldThrough": "{percent}% vendido",
+    "free": "Grátis",
+    "editTier": "Editar",
+    "putOnSale": "Colocar à venda",
+    "pauseSales": "Pausar vendas",
+    "cancelTier": "Cancelar lote",
+    "cancelTierTitle": "Cancelar {tier}?",
+    "cancelTierBody": "O lote sai da venda e não pode mais ser comprado. Os pedidos já feitos continuam válidos.",
+    "cancelTierSold": "Este lote já vendeu {count, plural, one {# ingresso} other {# ingressos}}. Cancelar tira o lote da venda; os ingressos já vendidos continuam válidos e não são reembolsados automaticamente.",
+    "cancelTierConfirm": "Cancelar lote",
+    "tierUpdated": "Lote atualizado",
+    "when": "Quando",
+    "where": "Onde",
+    "publishedWithNothingOnSale": "Este evento está publicado, mas nenhum lote está à venda. Quem abrir a página não consegue comprar.",
+    "draftHint": "Este evento é um rascunho e não aparece para compradores. Publique quando os lotes estiverem prontos.",
+    "errors": {
+      "tierStatus": "Não foi possível alterar o lote."
+    },
+    "manage": "Gerenciar"
   }
 }

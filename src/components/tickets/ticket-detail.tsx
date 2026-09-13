@@ -8,12 +8,15 @@ import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import type { Locale } from "@/i18n/config";
+import type { EventDirectory } from "@/lib/events/directory";
 import type { Ticket, TicketStatus } from "@/lib/tickets/types";
 import { TicketMediaGallery } from "@/components/tickets/ticket-media-gallery";
 import { TicketStatusChip } from "@/components/tickets/ticket-status-chip";
 import { cn } from "@/lib/utils";
 
 interface TicketDetailProps {
+  /** Resolves the tier's eventId into the event it sells admission to. */
+  events: EventDirectory;
   ticket: Ticket;
   onEdit: () => void;
   onDelete: () => void;
@@ -32,6 +35,7 @@ interface TicketDetailProps {
  * ticket on sale — is the only filled button on the panel.
  */
 export function TicketDetail({
+  events,
   ticket,
   onEdit,
   onDelete,
@@ -57,7 +61,9 @@ export function TicketDetail({
           {t("actions.backToList")}
         </button>
 
-        <p className="truncate text-xs text-muted-foreground">{ticket.eventName}</p>
+        <p className="truncate text-xs text-muted-foreground">
+          {events.nameOf(ticket.eventId, t("noEvent"))}
+        </p>
         <div className="mt-0.5 flex items-start justify-between gap-3">
           <h2 className="min-w-0 font-display text-lg font-semibold leading-tight tracking-[0.01em]">
             {ticket.title}
@@ -85,12 +91,21 @@ export function TicketDetail({
 
       <div className="min-h-0 flex-1 overflow-y-auto">
         <dl className="grid grid-cols-2 gap-x-4 gap-y-3 border-b border-border px-4 py-3.5">
+          {/* The date and the place belong to the event, so they are read from
+              the directory rather than from the tier, which no longer carries
+              them. */}
           <Fact icon={CalendarBlank} label={t("fields.startsAt")}>
-            {formatDateTime(ticket.startsAt, locale)}
+            {formatDateTime(events.byId.get(ticket.eventId)?.startsAt, locale)}
           </Fact>
           <Fact icon={MapPin} label={t("fields.venue")}>
-            <span className="block truncate">{ticket.venue}</span>
-            {ticket.city && <span className="block truncate text-xs text-muted-foreground">{ticket.city}</span>}
+            <span className="block truncate">
+              {events.byId.get(ticket.eventId)?.location.venue ?? t("noEvent")}
+            </span>
+            {events.byId.get(ticket.eventId)?.location.city ? (
+              <span className="block truncate text-xs text-muted-foreground">
+                {events.byId.get(ticket.eventId)?.location.city}
+              </span>
+            ) : null}
           </Fact>
           <Fact icon={CurrencyDollar} label={t("fields.price")}>
             <span className="tabular-nums">{formatMoney(ticket.priceCents, locale, ticket.currency)}</span>
