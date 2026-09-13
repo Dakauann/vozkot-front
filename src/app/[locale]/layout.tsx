@@ -13,6 +13,7 @@ import { Inter, Oxanium } from "next/font/google";
 import { getMessages, setRequestLocale } from "next-intl/server";
 
 import { AuthProvider } from "@/contexts/auth-context";
+import { AuthDialogHost } from "@/components/auth/auth-dialog-host";
 import type { Locale } from "@/i18n/config";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
@@ -94,7 +95,9 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
       <body className={`${inter.variable} ${oxanium.variable} bg-background font-sans text-foreground antialiased`}>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-            <AuthProvider>{children}</AuthProvider>
+            <AuthProvider>
+              <AuthDialogHost>{children}</AuthDialogHost>
+            </AuthProvider>
             <Toaster position="bottom-right" />
           </ThemeProvider>
         </NextIntlClientProvider>

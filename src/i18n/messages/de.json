@@ -781,5 +781,57 @@
       "tierStatus": "Die Kategorie konnte nicht geändert werden."
     },
     "manage": "Verwalten"
+  },
+  "signIn": {
+    "reason": {
+      "checkout": "Zum Kauf von Tickets musst du dich anmelden.",
+      "orders": "Melde dich an, um deine Bestellungen zu sehen."
+    },
+    "email": {
+      "title": "Anmelden oder Konto erstellen",
+      "body": "Gib deine E-Mail ein und wir schicken dir einen Code. Kein Passwort nötig.",
+      "label": "E-Mail",
+      "placeholder": "du@beispiel.de",
+      "submit": "Code senden",
+      "legal": "Mit dem Fortfahren stimmst du den Nutzungsbedingungen und der Datenschutzerklärung zu."
+    },
+    "code": {
+      "title": "Code eingeben",
+      "body": "Wir haben einen 6-stelligen Code an {email} geschickt.",
+      "label": "Bestätigungscode",
+      "digit": "Ziffer {position}",
+      "checking": "Wird geprüft…",
+      "resend": "Neuen Code senden",
+      "resendIn": "Erneut in {seconds}s",
+      "changeEmail": "Andere E-Mail verwenden"
+    },
+    "identity": {
+      "title": "Wir brauchen ein paar Angaben",
+      "body": "Wähle einen Dokumenttyp und fülle die Angaben aus, um dein Konto abzuschließen.",
+      "documentType": "Welches Dokument?",
+      "cpf": "CPF",
+      "cnpj": "CNPJ",
+      "passport": "Reisepass",
+      "document": "Dokumentnummer",
+      "documentPlaceholder": "Dokumentnummer eingeben",
+      "legalName": "Dein vollständiger Name",
+      "legalNameHint": "Wie im Dokument — dieser Name wird am Einlass geprüft.",
+      "birthDate": "Geburtsdatum",
+      "submit": "Weiter",
+      "privacy": "Diese Angaben sind für den Ticketverkauf gesetzlich vorgeschrieben und werden verschlüsselt gespeichert. Der Veranstalter sieht sie nie."
+    },
+    "phone": {
+      "title": "Fast geschafft",
+      "body": "Jetzt brauchen wir noch deine Handynummer.",
+      "label": "Deine Handynummer",
+      "submit": "Code senden",
+      "skip": "Jetzt nicht",
+      "mockNotice": "SMS-Versand ist noch nicht aktiv: der Code steht im Server-Log."
+    },
+    "errors": {
+      "send": "Der Code konnte nicht gesendet werden.",
+      "code": "Der Code konnte nicht geprüft werden.",
+      "profile": "Deine Angaben konnten nicht gespeichert werden."
+    }
   }
 }

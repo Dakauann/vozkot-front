@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import type { Locale } from "@/i18n/config";
 import { useRouter } from "@/i18n/routing";
 import { intentParams, MAX_QUANTITY } from "@/lib/checkout/intent";
+import { useAuthDialog } from "@/contexts/auth-dialog-context";
 import { formatMoney } from "@/lib/format";
 import type { TicketTier } from "@/lib/events/types";
 
@@ -34,6 +35,7 @@ export function TierPicker({
 }) {
   const t = useTranslations("event");
   const router = useRouter();
+  const { requireAuth } = useAuthDialog();
   const [quantities, setQuantities] = useState<Record<string, number>>({});
 
   const selected = useMemo(
@@ -76,8 +78,14 @@ export function TierPicker({
     });
   };
 
-  const goToCheckout = () => {
+  const goToCheckout = async () => {
     if (selected.length === 0) return;
+    // The session is asked for HERE, before the navigation, rather than on the
+    // checkout page after it. The dialog opens over this panel, the chosen
+    // quantities stay on screen behind it, and the buyer lands on checkout
+    // already signed in — instead of arriving at a "sign in first" wall having
+    // lost the selection they just made.
+    if (!(await requireAuth("checkout"))) return;
     // EVERY selected tier, which is what this panel has been letting people
     // choose all along. It used to send only the first and drop the rest in
     // silence — the buyer picked two Pista and one Camarote, paid for the
@@ -177,7 +185,7 @@ export function TierPicker({
 
         <button
           type="button"
-          onClick={goToCheckout}
+          onClick={() => void goToCheckout()}
           disabled={count === 0}
           className="mt-3 h-11 w-full rounded-md bg-primary text-sm font-semibold text-primary-foreground shadow-[var(--elev-button-primary)] transition-[transform,background-color,box-shadow] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-primary-hover hover:shadow-[var(--elev-button-primary-hover)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:active:scale-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >

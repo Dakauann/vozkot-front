@@ -781,5 +781,57 @@
       "tierStatus": "Não foi possível alterar o lote."
     },
     "manage": "Gerenciar"
+  },
+  "signIn": {
+    "reason": {
+      "checkout": "Você precisa entrar para comprar ingressos.",
+      "orders": "Entre para ver seus pedidos."
+    },
+    "email": {
+      "title": "Entrar ou criar conta",
+      "body": "Digite seu e-mail e enviaremos um código de acesso. Sem senha para criar ou lembrar.",
+      "label": "E-mail",
+      "placeholder": "voce@exemplo.com.br",
+      "submit": "Enviar código",
+      "legal": "Ao continuar você concorda com os Termos de Uso e a Política de Privacidade."
+    },
+    "code": {
+      "title": "Digite o código",
+      "body": "Enviamos um código de 6 dígitos para {email}.",
+      "label": "Código de verificação",
+      "digit": "Dígito {position}",
+      "checking": "Conferindo…",
+      "resend": "Reenviar código",
+      "resendIn": "Reenviar em {seconds}s",
+      "changeEmail": "Usar outro e-mail"
+    },
+    "identity": {
+      "title": "Precisamos de alguns dados",
+      "body": "Para concluir seu cadastro, escolha o tipo de documento e preencha as informações.",
+      "documentType": "Qual é o tipo de documento?",
+      "cpf": "CPF",
+      "cnpj": "CNPJ",
+      "passport": "Passaporte",
+      "document": "Qual é o número do documento?",
+      "documentPlaceholder": "Digite o número do documento",
+      "legalName": "Qual seu nome completo?",
+      "legalNameHint": "Como está no documento — é o nome conferido na entrada.",
+      "birthDate": "Data de nascimento",
+      "submit": "Continuar",
+      "privacy": "Estes dados são exigidos por lei para a venda de ingressos e ficam guardados criptografados. Nunca são exibidos para o organizador."
+    },
+    "phone": {
+      "title": "Falta pouco!",
+      "body": "Agora, precisamos do seu número de celular.",
+      "label": "Qual o número do seu celular?",
+      "submit": "Enviar código",
+      "skip": "Agora não",
+      "mockNotice": "Envio de SMS ainda não está ativo: o código aparece no log do servidor."
+    },
+    "errors": {
+      "send": "Não foi possível enviar o código.",
+      "code": "Não foi possível conferir o código.",
+      "profile": "Não foi possível salvar seus dados."
+    }
   }
 }

@@ -781,5 +781,57 @@
       "tierStatus": "No se pudo cambiar el lote."
     },
     "manage": "Gestionar"
+  },
+  "signIn": {
+    "reason": {
+      "checkout": "Necesitas iniciar sesión para comprar entradas.",
+      "orders": "Inicia sesión para ver tus pedidos."
+    },
+    "email": {
+      "title": "Entrar o crear una cuenta",
+      "body": "Escribe tu correo y te enviaremos un código. Sin contraseña que crear ni recordar.",
+      "label": "Correo electrónico",
+      "placeholder": "tu@ejemplo.com",
+      "submit": "Enviar código",
+      "legal": "Al continuar aceptas los Términos de Uso y la Política de Privacidad."
+    },
+    "code": {
+      "title": "Escribe el código",
+      "body": "Enviamos un código de 6 dígitos a {email}.",
+      "label": "Código de verificación",
+      "digit": "Dígito {position}",
+      "checking": "Comprobando…",
+      "resend": "Enviar otro código",
+      "resendIn": "Reenviar en {seconds}s",
+      "changeEmail": "Usar otro correo"
+    },
+    "identity": {
+      "title": "Necesitamos algunos datos",
+      "body": "Para completar tu cuenta, elige el tipo de documento y rellena la información.",
+      "documentType": "¿Qué documento?",
+      "cpf": "CPF",
+      "cnpj": "CNPJ",
+      "passport": "Pasaporte",
+      "document": "Número del documento",
+      "documentPlaceholder": "Escribe el número del documento",
+      "legalName": "Tu nombre completo",
+      "legalNameHint": "Como aparece en el documento: es el nombre que se comprueba en la entrada.",
+      "birthDate": "Fecha de nacimiento",
+      "submit": "Continuar",
+      "privacy": "Estos datos son obligatorios por ley para vender entradas y se guardan cifrados. Nunca se muestran al organizador."
+    },
+    "phone": {
+      "title": "¡Ya casi!",
+      "body": "Ahora necesitamos tu número de móvil.",
+      "label": "Tu número de móvil",
+      "submit": "Enviar código",
+      "skip": "Ahora no",
+      "mockNotice": "El envío de SMS aún no está activo: el código aparece en el log del servidor."
+    },
+    "errors": {
+      "send": "No pudimos enviar el código.",
+      "code": "No pudimos comprobar el código.",
+      "profile": "No pudimos guardar tus datos."
+    }
   }
 }

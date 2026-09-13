@@ -781,5 +781,57 @@
       "tierStatus": "The tier could not be changed."
     },
     "manage": "Manage"
+  },
+  "signIn": {
+    "reason": {
+      "checkout": "You need to sign in to buy tickets.",
+      "orders": "Sign in to see your orders."
+    },
+    "email": {
+      "title": "Sign in or create an account",
+      "body": "Enter your email and we will send you a code. No password to create or remember.",
+      "label": "Email",
+      "placeholder": "you@example.com",
+      "submit": "Send code",
+      "legal": "By continuing you agree to the Terms of Use and the Privacy Policy."
+    },
+    "code": {
+      "title": "Enter the code",
+      "body": "We sent a 6-digit code to {email}.",
+      "label": "Verification code",
+      "digit": "Digit {position}",
+      "checking": "Checking…",
+      "resend": "Send another code",
+      "resendIn": "Resend in {seconds}s",
+      "changeEmail": "Use a different email"
+    },
+    "identity": {
+      "title": "We need a few details",
+      "body": "To finish setting up your account, choose a document type and fill in the details.",
+      "documentType": "Which document?",
+      "cpf": "CPF",
+      "cnpj": "CNPJ",
+      "passport": "Passport",
+      "document": "Document number",
+      "documentPlaceholder": "Enter the document number",
+      "legalName": "Your full name",
+      "legalNameHint": "As it appears on the document — it is the name checked at the door.",
+      "birthDate": "Date of birth",
+      "submit": "Continue",
+      "privacy": "These details are required by law to sell tickets and are stored encrypted. They are never shown to the organiser."
+    },
+    "phone": {
+      "title": "Almost there",
+      "body": "Now we need your mobile number.",
+      "label": "Your mobile number",
+      "submit": "Send code",
+      "skip": "Not now",
+      "mockNotice": "SMS delivery is not live yet: the code is printed in the server log."
+    },
+    "errors": {
+      "send": "We could not send the code.",
+      "code": "We could not check that code.",
+      "profile": "We could not save your details."
+    }
   }
 }
