@@ -63,8 +63,8 @@
   "auth": {
     "gate": {
       "checking": "Verificando a sessão…",
-      "serverDown": "A API não respondeu",
-      "serverDownBody": "O servidor em {url} está fora do ar. Inicie o backend e tente de novo.",
+      "serverDown": "Não foi possível conectar",
+      "serverDownBody": "Estamos com dificuldade para carregar sua conta. Tente de novo em alguns instantes.",
       "retry": "Tentar de novo"
     }
   },
@@ -128,7 +128,7 @@
     },
     "error": {
       "title": "Não foi possível carregar os ingressos",
-      "body": "Verifique se a API está no ar e tente de novo."
+      "body": "Tente de novo em alguns instantes."
     },
     "actions": {
       "create": "Novo ingresso",
@@ -470,7 +470,7 @@
   },
   "errors": {
     "generic": "Algo deu errado. Tente de novo.",
-    "network": "Não foi possível falar com a API.",
+    "network": "Não foi possível conectar. Verifique sua internet e tente de novo.",
     "unauthorized": "Sua sessão expirou. Entre de novo.",
     "notFound": "Não encontramos este registro."
   },

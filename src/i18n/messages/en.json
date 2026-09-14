@@ -63,8 +63,8 @@
   "auth": {
     "gate": {
       "checking": "Checking your session…",
-      "serverDown": "The API did not answer",
-      "serverDownBody": "The server at {url} is unreachable. Start the backend and try again.",
+      "serverDown": "We could not connect",
+      "serverDownBody": "We are having trouble loading your account. Try again in a moment.",
       "retry": "Try again"
     }
   },
@@ -128,7 +128,7 @@
     },
     "error": {
       "title": "Tickets could not be loaded",
-      "body": "Check that the API is running and try again."
+      "body": "Try again in a moment."
     },
     "actions": {
       "create": "New ticket",
@@ -470,7 +470,7 @@
   },
   "errors": {
     "generic": "Something went wrong. Try again.",
-    "network": "The API could not be reached.",
+    "network": "We could not connect. Check your connection and try again.",
     "unauthorized": "Your session expired. Sign in again.",
     "notFound": "That record was not found."
   },

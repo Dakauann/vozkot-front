@@ -63,8 +63,8 @@
   "auth": {
     "gate": {
       "checking": "Verificando la sesión…",
-      "serverDown": "La API no respondió",
-      "serverDownBody": "El servidor en {url} no responde. Inicia el backend e inténtalo de nuevo.",
+      "serverDown": "No pudimos conectar",
+      "serverDownBody": "Estamos teniendo problemas para cargar tu cuenta. Inténtalo de nuevo en un momento.",
       "retry": "Reintentar"
     }
   },
@@ -128,7 +128,7 @@
     },
     "error": {
       "title": "No se pudieron cargar las entradas",
-      "body": "Comprueba que la API esté en marcha e inténtalo de nuevo."
+      "body": "Inténtalo de nuevo en un momento."
     },
     "actions": {
       "create": "Nueva entrada",
@@ -470,7 +470,7 @@
   },
   "errors": {
     "generic": "Algo salió mal. Inténtalo de nuevo.",
-    "network": "No se pudo contactar con la API.",
+    "network": "No pudimos conectar. Revisa tu conexión e inténtalo de nuevo.",
     "unauthorized": "Tu sesión expiró. Inicia sesión de nuevo.",
     "notFound": "No encontramos este registro."
   },

@@ -63,8 +63,8 @@
   "auth": {
     "gate": {
       "checking": "Sitzung wird geprüft…",
-      "serverDown": "Die API hat nicht geantwortet",
-      "serverDownBody": "Der Server unter {url} ist nicht erreichbar. Starte das Backend und versuche es erneut.",
+      "serverDown": "Verbindung nicht möglich",
+      "serverDownBody": "Wir haben Probleme, dein Konto zu laden. Versuche es in einem Moment erneut.",
       "retry": "Erneut versuchen"
     }
   },
@@ -128,7 +128,7 @@
     },
     "error": {
       "title": "Tickets konnten nicht geladen werden",
-      "body": "Prüfe, ob die API läuft, und versuche es erneut."
+      "body": "Versuche es in einem Moment erneut."
     },
     "actions": {
       "create": "Neues Ticket",
@@ -470,7 +470,7 @@
   },
   "errors": {
     "generic": "Etwas ist schiefgelaufen. Versuche es erneut.",
-    "network": "Die API war nicht erreichbar.",
+    "network": "Verbindung fehlgeschlagen. Prüfe deine Internetverbindung und versuche es erneut.",
     "unauthorized": "Deine Sitzung ist abgelaufen. Melde dich erneut an.",
     "notFound": "Dieser Eintrag wurde nicht gefunden."
   },
