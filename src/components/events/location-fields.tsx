@@ -128,8 +128,8 @@ export function LocationFields({
    *
    * A CEP is the one thing an operator already knows that a machine can turn
    * into a point, so the moment eight digits are present the form fills the
-   * street, the neighbourhood, the city and the state from it and drops the pin
-   *, which is what every Brazilian checkout has trained people to expect.
+   * street, the neighbourhood, the city and the state from it and drops the pin,
+   * which is what every Brazilian checkout has trained people to expect.
    *
    * `value` is deliberately not a dependency. The effect watches the postcode
    * and nothing else: including the whole location object would re-run the

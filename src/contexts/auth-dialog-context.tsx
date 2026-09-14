@@ -41,8 +41,8 @@ interface AuthDialogValue {
   /**
    * Ensures there is a session, opening the dialog if there is not.
    *
-   * Resolves true when signed in; immediately, if there already was a session
-   *, and false when the person closed the dialog instead.
+   * Resolves true when signed in; immediately, if there already was a session,
+   * and false when the person closed the dialog instead.
    */
   requireAuth: (reason?: AuthReason) => Promise<boolean>;
   /** Opens the dialog without a task waiting on it. */

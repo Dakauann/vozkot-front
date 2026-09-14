@@ -4,8 +4,8 @@ import { CEP_DIGITS, cepDigits, lookupPostalCode, searchAddresses } from "./geoc
 
 /**
  * The postcode lookup is what moves the pin, so the two things that matter are
- * that it recognises a CEP however it was punctuated, and that it never throws
- *; it runs while somebody is typing, and a rejected promise there is a form
+ * that it recognises a CEP however it was punctuated, and that it never throws;
+ * it runs while somebody is typing, and a rejected promise there is a form
  * that silently stops responding.
  */
 

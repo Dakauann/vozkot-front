@@ -49,9 +49,10 @@ export function formatNumber(value: number, locale: Locale): string {
  *
  * A dash rather than an empty string: a blank cell in a table of dates reads as
  * a rendering bug, and a dash reads as "this record has none", which is what it
- * means.
+ * means. It is a GLYPH standing in for a value, not punctuation, which is why
+ * it survived the pass that took the em-dashes out of the prose.
  */
-export const NO_DATE = ", ";
+export const NO_DATE = "-";
 
 /**
  * Formats an instant, or returns a dash.

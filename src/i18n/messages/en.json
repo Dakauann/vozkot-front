@@ -819,7 +819,7 @@
     },
     "password": {
       "title": "Want to set a password?",
-      "body": "Your account is already set up and works with the email code alone. A password is a second way in; useful if an email is slow or never arrives.",
+      "body": "Your account is already set up and works with the email code alone. A password is a second way in, useful if an email is slow or never arrives.",
       "label": "New password",
       "rule": "At least 8 characters, with an upper case, a lower case and a number.",
       "submit": "Set password",

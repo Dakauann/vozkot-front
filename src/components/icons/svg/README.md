@@ -1,4 +1,4 @@
-# Ícones, arquivos-fonte
+# Ícones: arquivos-fonte
 
 Os 208 desenhos do sistema próprio, em grade 24x24, traço 1.5.
 

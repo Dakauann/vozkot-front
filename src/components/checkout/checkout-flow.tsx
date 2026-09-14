@@ -243,8 +243,8 @@ function Purchase({
   //
   // Guarded by a ref rather than by the effect's dependencies, because React's
   // development mode runs every effect twice on purpose. The idempotency key
-  // would make the second call harmless at the API; it returns the same order
-  //, but firing it at all is a wasted round trip on the one screen where
+  // would make the second call harmless at the API; it returns the same order,
+  // but firing it at all is a wasted round trip on the one screen where
   // latency is most visible.
   //
   // There is deliberately NO cancelled flag here, and that is the subtle part.
@@ -593,7 +593,7 @@ function OrderSummary({
             </span>
             <span className="shrink-0 text-sm tabular-nums text-muted-foreground">
               {line.totalCents === undefined
-                ? ", "
+                ? /* a glyph for "no amount yet", not punctuation */ "-"
                 : formatMoney(line.totalCents, locale, line.currency)}
             </span>
           </li>
