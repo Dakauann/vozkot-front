@@ -18,7 +18,7 @@ import { getEvent, getEventTiers } from "@/lib/events/api";
  * cannot submit.
  *
  * And the EVENT is known. The basket in the URL is a list of tier ids, which is
- * all that can safely travel there — but a summary reading "1× Ingresso" beside
+ * all that can safely travel there, but a summary reading "1× Ingresso" beside
  * a blank price is not a summary, it is a loading state pretending to be one.
  * Resolving the poster, the show and the tier names here means the panel is
  * complete in the first paint, while the reservation is still in flight.
@@ -63,8 +63,8 @@ export default async function CheckoutPage({
  * The chosen basket, resolved into things a person recognises.
  *
  * Best effort throughout: a missing event costs the panel its poster and its
- * tier names, and nothing else. The reservation does not depend on any of it —
- * the server re-reads every tier at checkout and prices the order itself — so a
+ * tier names, and nothing else. The reservation does not depend on any of it:
+ * the server re-reads every tier at checkout and prices the order itself, so a
  * catalogue having a bad moment must not stop somebody buying a ticket.
  */
 async function resolvePreview(

@@ -15,7 +15,7 @@ import type { EventMedia } from "@/lib/events/types";
  * URI. It needs no decoder, no library and no hydration: it is present in the
  * server-rendered HTML and paints on first paint. A hash like BlurHash or
  * ThumbHash is smaller on the wire but has to be decoded by JavaScript in the
- * browser, which only pays off past roughly fifty images on one page — a number
+ * browser, which only pays off past roughly fifty images on one page, a number
  * a card grid does not reach above the fold.
  *
  * The dominant colour sits behind everything as the last fallback, for the
@@ -38,7 +38,7 @@ export function EventImage({
    */
   sizes: string;
   /**
-   * Only for an image already in the first screenful — a hero. Marking several
+   * Only for an image already in the first screenful, a hero. Marking several
    * makes them compete and none of them arrives sooner.
    */
   priority?: boolean;

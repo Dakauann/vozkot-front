@@ -27,8 +27,8 @@ import { cn } from "@/lib/utils";
  * them, and once there are more than a screenful the only way to find one is to
  * scroll. An organiser with four hundred events gets a four-hundred-row menu.
  *
- * So the list is searched and paged on the SERVER — the same full-text search
- * the public catalogue uses — and the control holds one page at a time. Typing
+ * So the list is searched and paged on the SERVER, the same full-text search
+ * the public catalogue uses, and the control holds one page at a time. Typing
  * narrows it; reaching the bottom asks for more.
  *
  * Search is debounced and every request is abortable, because a person typing
@@ -69,7 +69,7 @@ export function EventCombobox({
    * The chosen event, kept even when it is not in the current page of results.
    *
    * Without this the trigger would go blank the moment somebody typed a search
-   * that excludes their own selection — the value is still set, so a blank
+   * that excludes their own selection; the value is still set, so a blank
    * label would be a lie about the form's state.
    */
   const [selected, setSelected] = React.useState<EventSummary | EventListing | null>(null);

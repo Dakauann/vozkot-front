@@ -16,7 +16,10 @@
     "search": "Buscar",
     "language": "Idioma",
     "clear": "Limpiar",
-    "of": "de"
+    "of": "de",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "mapUnavailable": "No se pudo cargar el mapa. La dirección de arriba y los enlaces de ruta siguen funcionando."
   },
   "nav": {
     "product": "Boletería",
@@ -58,39 +61,6 @@
     "signIn": "Iniciar sesión"
   },
   "auth": {
-    "signIn": {
-      "title": "Iniciar sesión",
-      "subtitle": "Entra a la boletería de tu operación.",
-      "email": "Correo",
-      "emailPlaceholder": "tu@empresa.com",
-      "password": "Contraseña",
-      "submit": "Iniciar sesión",
-      "submitting": "Entrando…",
-      "noAccount": "¿Aún no tienes cuenta?",
-      "createAccount": "Crear cuenta",
-      "invalidCredentials": "Correo o contraseña incorrectos."
-    },
-    "signUp": {
-      "title": "Crear cuenta",
-      "subtitle": "Empieza a publicar entradas en minutos.",
-      "name": "Nombre",
-      "namePlaceholder": "María Souza",
-      "email": "Correo",
-      "emailPlaceholder": "tu@empresa.com",
-      "password": "Contraseña",
-      "passwordHint": "Mínimo 8 caracteres, con mayúscula, minúscula y número.",
-      "agreementBefore": "Al crear una cuenta, aceptas los",
-      "terms": "Términos de Uso",
-      "agreementAnd": "y la",
-      "privacy": "Política de Privacidad",
-      "submit": "Crear cuenta",
-      "submitting": "Creando…",
-      "hasAccount": "¿Ya tienes cuenta?",
-      "signIn": "Iniciar sesión",
-      "confirmPassword": "Confirmar contraseña",
-      "passwordMismatch": "Las contraseñas no coinciden.",
-      "emailTaken": "Ya existe una cuenta con este correo."
-    },
     "gate": {
       "checking": "Verificando la sesión…",
       "serverDown": "La API no respondió",
@@ -472,6 +442,12 @@
     "loadMore": "Mostrando {shown} de {total} · cargar más",
     "form": {
       "pickEvent": "Selecciona el evento"
+    },
+    "search": {
+      "label": "Buscar dirección o lugar",
+      "hint": "Escribe el nombre del lugar o la calle con su número y elige de la lista. Luego ajusta el pin.",
+      "empty": "No se encontró ningún lugar. Prueba a añadir la ciudad.",
+      "attribution": "Resultados de OpenStreetMap, vía Photon"
     }
   },
   "categories": {

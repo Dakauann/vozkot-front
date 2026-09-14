@@ -10,8 +10,8 @@ import { EventCard } from "./event-card";
  * The landing page is built from these rather than from a grid, which is what
  * every marketplace of this kind converged on: a grid answers "show me
  * everything" and a rail answers "here is a reason to look". Somebody arriving
- * with no query has no query to answer, so the page offers angles — this
- * weekend, free, by category — instead of page one of four thousand.
+ * with no query has no query to answer, so the page offers angles, this
+ * weekend, free, by category, instead of page one of four thousand.
  *
  * A scroller, not a carousel. No autoplay, no timed rotation, no hidden state:
  * it is a list that overflows, the cards are real links, and the scrollbar is

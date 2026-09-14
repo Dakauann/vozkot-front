@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
  *
  * On the landing page the 3D scenes sit in a pool of light rather than inside a
  * frame: one soft wash in the brand green where the object stands, and a cooler
- * one at the far edge. It is the same idea as the trace ornament — periphery,
- * never information — and it belongs to the same places: empty states, auth
+ * one at the far edge. It is the same idea as the trace ornament: periphery,
+ * never information, and it belongs to the same places: empty states, auth
  * plates, the panel behind no data.
  *
  * This is NOT the glow the design system bans. There is no blur filter, no halo

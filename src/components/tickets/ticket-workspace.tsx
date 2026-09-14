@@ -17,6 +17,7 @@ import { DashboardPageHeader } from "@/components/dashboard/page-header";
 import { Link, useRouter } from "@/i18n/routing";
 import type { Locale } from "@/i18n/config";
 import { SelectField } from "@/components/ui/field";
+import ElevatedInput from "@/components/elevated-design/elevated-input";
 import { TicketDetail } from "@/components/tickets/ticket-detail";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -29,7 +30,7 @@ const SEARCH_DEBOUNCE_MS = 300;
  * The box office workspace: the catalogue on the left, the record on the right.
  *
  * Master-detail rather than a table plus a modal, because the work here is
- * comparative — an operator prices one batch against the others and needs both
+ * comparative; an operator prices one batch against the others and needs both
  * in view. Below lg there is no room for both, so the panel takes the screen
  * and the list comes back with one control.
  */
@@ -202,21 +203,18 @@ export function TicketWorkspace() {
         >
           <div className="border-b border-border p-3">
             <div className="flex flex-wrap items-center gap-2">
-              <div className="relative min-w-0 flex-1">
-                <MagnifyingGlass
-                  size={16}
-                  className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-                  aria-hidden="true"
-                />
-                <input
-                  type="search"
-                  value={search}
-                  onChange={(event) => setSearch(event.target.value)}
-                  placeholder={t("toolbar.searchPlaceholder")}
-                  aria-label={t("toolbar.searchLabel")}
-                  className="h-9 w-full rounded-[--radius] border border-control-edge bg-card pl-9 pr-3 text-sm outline-none transition-[border-color,box-shadow] placeholder:text-muted-foreground hover:border-[hsl(var(--muted-foreground)/0.5)] focus-visible:shadow-[inset_0_-2px_0_0_hsl(var(--primary-edge))] focus-visible:ring-2 focus-visible:ring-primary/15 dark:bg-muted"
-                />
-              </div>
+              {/* Label-less, so it keeps the 36px toolbar height rather than
+                  growing to make room for one to float into. */}
+              <ElevatedInput
+                variant="search"
+                icon={<MagnifyingGlass size={16} aria-hidden />}
+                type="search"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder={t("toolbar.searchPlaceholder")}
+                aria-label={t("toolbar.searchLabel")}
+                className="min-w-0 flex-1"
+              />
               <SelectField
                 value={sort}
                 onChange={(event) => setSort(event.target.value as TicketSort)}

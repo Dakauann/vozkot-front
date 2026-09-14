@@ -1,5 +1,5 @@
 /**
- * Icon glyphs — GENERATED, do not hand-edit.
+ * Icon glyphs; GENERATED, do not hand-edit.
  *
  * The app's own 208 drawings, 24x24, 1.5 stroke. Each carries two colour
  * layers: the base stroke follows `currentColor`, and the accent parts use
@@ -24,7 +24,7 @@ const ACCENT = "var(--icon-accent, currentColor)";
  * `strokeWidth` is expressed in viewBox units, so a fixed 1.5 on a 24 grid
  * renders as `1.5 * size / 24` device pixels. This app calls icons at 10-16px
  * far more than anywhere else (size={14} alone is 66 call sites), where a fixed
- * 1.5 lands at 0.88px — thinner than the Inter it sits beside, which is exactly
+ * 1.5 lands at 0.88px; thinner than the Inter it sits beside, which is exactly
  * the washed-out look. Tabler had the same falloff and got away with it on
  * simpler geometry.
  *
@@ -34,7 +34,7 @@ const ACCENT = "var(--icon-accent, currentColor)";
  *
  * Not a flat apparent weight, though: a gentle ramp. Pure compensation would
  * make a 32px icon as thin as a 12px one, and large marks want a little more
- * presence. The `+ 0.35` tilts it so apparent weight rises slowly with size —
+ * presence. The `+ 0.35` tilts it so apparent weight rises slowly with size,
  * 1.2px at 12, 1.35px at 14, 1.5px at 24, 2px at 32.
  */
 function strokeFor(size: number): number {
@@ -62,7 +62,7 @@ const DEFAULT_SIZE = 16;
  *   - `color` overrides the base stroke; the accent stays branded
  *
  * stroke-linecap / stroke-linejoin are plain presentation attributes, so a CSS
- * rule on the element still wins — that is what lets `.vz-icon--sharp` swap the
+ * rule on the element still wins, that is what lets `.vz-icon--sharp` swap the
  * terminal profile without a second copy of the geometry.
  */
 function glyph(displayName: string, children: React.ReactNode): Icon {

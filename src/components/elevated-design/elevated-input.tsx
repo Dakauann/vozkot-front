@@ -39,6 +39,26 @@ type ElevatedInputProps = NativeInputProps & {
   variant?: ButtonVariant;
   controlSize?: ElevatedInputSize;
   error?: string;
+  /**
+   * Standing guidance under the control; the format a document wants, what
+   * an address will be used for.
+   *
+   * It exists because the floating label CANNOT carry it. The label is the
+   * only thing in an empty control, so a rule long enough to be useful would
+   * have to sit where the value goes and then leave the moment it is needed.
+   * A hint under the box is the one place it can stay put while typing.
+   */
+  hint?: string;
+  /**
+   * What the reveal button on a password field announces.
+   *
+   * Passed in rather than translated here: this component is rendered inside
+   * route-local message providers as well as the app-wide one, so reaching for
+   * a namespace of its own would work on most screens and throw on the rest.
+   * The English defaults are what a caller that forgets gets.
+   */
+  revealLabel?: string;
+  hideRevealLabel?: string;
 };
 
 const variantAlias: Record<ButtonVariant, BaseVariant> = {
@@ -59,8 +79,8 @@ const variantAlias: Record<ButtonVariant, BaseVariant> = {
 /**
  * Heights, and why there are two sets of them.
  *
- * A field carrying a floating label has to stack two lines of type — the risen
- * label and the value — so it runs taller than the bare control it replaces.
+ * A field carrying a floating label has to stack two lines of type, the risen
+ * label and the value, so it runs taller than the bare control it replaces.
  * How much taller was a judgement call, and the first one (44/48/56, straight
  * off Material's filled field) came back too heavy for a console: pinned to
  * 40 / 44 / 48 on 2026-09-01.
@@ -97,8 +117,8 @@ const labelTop: Record<ElevatedInputSize, string> = {
 /**
  * Where it WAITS: dead centre of the control.
  *
- * The obvious alternative — centre it on the VALUE's line box, so the rise is
- * a straight vertical lift — was built and rejected. The value sits low in the
+ * The obvious alternative; centre it on the VALUE's line box, so the rise is
+ * a straight vertical lift; was built and rejected. The value sits low in the
  * box because the top padding is reserved for the risen label, so a label
  * parked on it lands ~8px below centre and an empty field reads as broken.
  * Material's own filled field does exactly that and gets away with it at 56px;
@@ -135,24 +155,24 @@ const iconPosition: Record<ElevatedInputSize, string> = {
  *
  * It was a --muted well in both, and in light that is a dated pattern: a grey
  * fill on a white card is the 2012 form input, and it measured 1.17:1 / APCA
- * Lc 8 against its own card — below the ~Lc 15 a fill needs to read as a plane
+ * Lc 8 against its own card; below the ~Lc 15 a fill needs to read as a plane
  * at all, so it landed as a stain on white rather than a surface. Light now
  * keeps the sheet and lets the 3:1 --control-edge do the bounding, which is
  * what it is for and what every current light-mode field does.
  *
  * Dark keeps the well. On graphite a lifted fill is right, and fill separation
- * there is structurally capped anyway — reaching Lc 18 against the card would
- * mean going to mid-grey — so dark leans on the border too.
+ * there is structurally capped anyway; reaching Lc 18 against the card would
+ * mean going to mid-grey, so dark leans on the border too.
  *
  * FOCUS DOES NOT MOVE THE GROUND. In light the field is already the top plane,
  * so there is nowhere to lift to. In dark it cannot lift: --muted is LIGHTER
  * than --card there, so the old `focus-visible:bg-card` was sinking the field
  * while claiming to raise it, and lifting to --accent-hover instead drops
  * --control-edge to 2.71:1, under the 3:1 the boundary owes. The border, the
- * 2px brand underline and the ring carry focus — all three of which only
+ * 2px brand underline and the ring carry focus, all three of which only
  * started rendering once the inline box-shadow suppressing them was removed.
  */
-const FIELD = cn(
+export const FIELD_CHROME = cn(
   "bg-card dark:bg-muted text-foreground border border-control-edge",
   "hover:border-[hsl(var(--muted-foreground)/0.5)]",
   "focus-visible:border-control-edge",
@@ -163,18 +183,18 @@ const FIELD = cn(
 const inputVariantClasses: Record<BaseVariant, string> = {
   primary:
     "bg-primary text-primary-foreground border border-transparent focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-  secondary: FIELD,
-  outline: FIELD,
+  secondary: FIELD_CHROME,
+  outline: FIELD_CHROME,
   ghost: cn(
     "bg-transparent text-foreground border border-transparent hover:bg-muted",
     "focus-visible:bg-card dark:focus-visible:bg-muted focus-visible:border-control-edge",
     "focus-visible:shadow-[inset_0_-2px_0_0_hsl(var(--primary-edge))]",
     "focus-visible:ring-2 focus-visible:ring-primary/15",
   ),
-  vsl: FIELD,
+  vsl: FIELD_CHROME,
   action:
     "bg-primary text-primary-foreground border border-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-  search: FIELD,
+  search: FIELD_CHROME,
 };
 
 /** Error re-colours the edge and the underline; the message renders below. */
@@ -191,7 +211,7 @@ const disabledClasses =
 const iconColorByVariant: Record<BaseVariant, string> = {
   primary: "text-primary-foreground",
   // A resting field is not commit, selection or focus, so its icon carries no
-  // brand ink — the focus underline is where the green arrives.
+  // brand ink; the focus underline is where the green arrives.
   secondary: "text-muted-foreground",
   outline: "text-muted-foreground",
   ghost: "text-muted-foreground",
@@ -217,6 +237,9 @@ const ElevatedInput = forwardRef<HTMLInputElement, ElevatedInputProps>(
       placeholder,
       disabled,
       error,
+      hint,
+      revealLabel = "Show password",
+      hideRevealLabel = "Hide password",
       variant = "secondary",
       controlSize = "default",
       type = "text",
@@ -229,13 +252,18 @@ const ElevatedInput = forwardRef<HTMLInputElement, ElevatedInputProps>(
     const fallbackId = useId();
     const inputId = id ?? fallbackId;
     const errorId = `${inputId}-error`;
+    const hintId = `${inputId}-hint`;
+    // One slot below the control, and an error takes it. Stacking both puts
+    // the rule that was just broken directly under the complaint about
+    // breaking it, which reads as two problems rather than one.
+    const describedBy = error ? errorId : hint ? hintId : undefined;
 
     // A field floats its label only when it HAS one. Everything else keeps the
     // compact height and simply shows its placeholder at rest.
     const floatingLabel = label?.trim() ? label.trim() : undefined;
     const isFloating = Boolean(floatingLabel);
 
-    // The label mechanism is CSS, keyed off :placeholder-shown — which is also
+    // The label mechanism is CSS, keyed off :placeholder-shown, which is also
     // why the old 150ms autofill polling interval could be deleted outright
     // rather than replaced. Chrome fires no event when it autofills, but an
     // autofilled input is not :placeholder-shown, so the label is already up
@@ -318,14 +346,12 @@ const ElevatedInput = forwardRef<HTMLInputElement, ElevatedInputProps>(
             type={inputType}
             placeholder={nativePlaceholder}
             aria-invalid={error ? true : ariaInvalid}
-            aria-describedby={
-              error ? cn(errorId, ariaDescribedBy) : ariaDescribedBy
-            }
+            aria-describedby={cn(describedBy, ariaDescribedBy) || undefined}
             className={cn(
               "peer block w-full font-medium transition-[background-color,border-color,box-shadow] duration-150 ease-out focus-visible:outline-none",
               // On a floating field the LABEL is what occupies the value slot
               // while empty, so the native placeholder stays invisible for as
-              // long as it would collide with it — which is exactly as long as
+              // long as it would collide with it, which is exactly as long as
               // the field is empty. It exists only to drive :placeholder-shown.
               // A compact field shows its placeholder immediately; there, the
               // hint is the only thing standing in for a label.
@@ -347,7 +373,7 @@ const ElevatedInput = forwardRef<HTMLInputElement, ElevatedInputProps>(
 
           {/* After the input on purpose: the label rides `peer ~` off the
               input's own :placeholder-shown and :focus state, which needs it
-              to be a following sibling. htmlFor keeps the association real —
+              to be a following sibling. htmlFor keeps the association real;
               this is a label, never a placeholder standing in for one. */}
           {isFloating ? (
             <label
@@ -366,7 +392,7 @@ const ElevatedInput = forwardRef<HTMLInputElement, ElevatedInputProps>(
             <button
               type="button"
               tabIndex={-1}
-              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-label={showPassword ? hideRevealLabel : revealLabel}
               className="absolute inset-y-0 right-2 z-[2] flex items-center px-1 text-lg text-muted-foreground transition-colors hover:text-foreground"
               onClick={() => setShowPassword((v) => !v)}
             >
@@ -375,7 +401,7 @@ const ElevatedInput = forwardRef<HTMLInputElement, ElevatedInputProps>(
           )}
         </div>
 
-        {/* The `error` prop used to be accepted, typed and thrown away — it
+        {/* The `error` prop used to be accepted, typed and thrown away, it
             only ever flipped aria-invalid, so a form passing a message showed
             a sighted user nothing. */}
         {error ? (
@@ -384,6 +410,10 @@ const ElevatedInput = forwardRef<HTMLInputElement, ElevatedInputProps>(
             className="mt-1 text-xs font-medium text-destructive-ink"
           >
             {error}
+          </p>
+        ) : hint ? (
+          <p id={hintId} className="mt-1 text-xs text-muted-foreground">
+            {hint}
           </p>
         ) : null}
       </div>

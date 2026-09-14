@@ -5,7 +5,7 @@
  * colour on every page it appeared on: `ChartBar` was brand orange on the
  * hourly-volume panel and neutral grey three sections later, `Robot` was amber
  * on one surface and violet on another. That is not a colour system, it is
- * fourteen separate authors, and it is why the tiles read as decoration — an
+ * fourteen separate authors, and it is why the tiles read as decoration, an
  * operator cannot learn a colour that never means the same thing twice.
  *
  * So the colour is a property of the MARK, not of the surface it lands on.
@@ -13,7 +13,7 @@
  *
  * The plates themselves are the lockup shape defined in `globals.css`: an
  * opaque fill carrying that fill's own measured foreground, the same shape the
- * WhatsApp channel mark has always used. Channel marks are not in this table —
+ * WhatsApp channel mark has always used. Channel marks are not in this table;
  * they keep their real brand colours and live in `channels/channel-tile.tsx`.
  *
  * The five `tile-1..5` plates are the chart series, so a category reads the
@@ -28,7 +28,7 @@
  * `tile-brand` / `tile-healthy` / `tile-warning` / `tile-fault` / `tile-info`
  * stay reserved for their meanings: the product's own primary object, and the
  * four states. A glyph only takes a status plate when the glyph itself IS the
- * status — `Warning`, `CheckCircle`, `XCircle` — never as decoration.
+ * status, `Warning`, `CheckCircle`, `XCircle`, never as decoration.
  */
 export const GLYPH_PLATE = {
   /* Measurement and analytics. */
@@ -72,7 +72,7 @@ export const GLYPH_PLATE = {
   GitBranch: "tile-5",
   Lightbulb: "tile-5",
 
-  /* The product's own primary objects — what the operator came here to work. */
+  /* The product's own primary objects; what the operator came here to work. */
   Megaphone: "tile-brand",
   PaperPlaneTilt: "tile-brand",
   ChatCircle: "tile-brand",
@@ -83,7 +83,7 @@ export const GLYPH_PLATE = {
   Target: "tile-brand",
 
   /* Money. Amber, because it is a quantity read against time far more often
-     than it is a status — a balance is not "good" or "bad" on sight. */
+     than it is a status; a balance is not "good" or "bad" on sight. */
   Wallet: "tile-3",
   CurrencyDollar: "tile-3",
   Money: "tile-3",

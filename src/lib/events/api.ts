@@ -30,7 +30,7 @@ const EVENT_REVALIDATE_SECONDS = 15;
  * How long the catalogue will wait for the API before giving up on it.
  *
  * Without this, `fetch` waits as long as the socket stays open, and a single
- * slow upstream pins a server render worker for minutes — first the page never
+ * slow upstream pins a server render worker for minutes, first the page never
  * paints, then every worker is stuck on the same call and the whole site stops
  * answering. Three seconds is generous for a query that takes eleven
  * milliseconds, and the fallbacks below already render a usable page.

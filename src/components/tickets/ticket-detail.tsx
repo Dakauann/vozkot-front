@@ -31,8 +31,8 @@ interface TicketDetailProps {
  * it is left, and the artwork that sells it.
  *
  * Actions sit at the top because that is where the eye already is after
- * choosing a row, and the one that changes what buyers can see — putting a
- * ticket on sale — is the only filled button on the panel.
+ * choosing a row, and the one that changes what buyers can see, putting a
+ * ticket on sale; is the only filled button on the panel.
  */
 export function TicketDetail({
   events,

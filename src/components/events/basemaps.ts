@@ -23,7 +23,7 @@ export type BasemapId = keyof typeof BASEMAP_STYLES | "satellite";
  * Satellite imagery, only when a key is configured.
  *
  * Deliberately not pointed at one of the open imagery servers. Every layer that
- * is free to fetch — Esri World Imagery, the various Sentinel mirrors —
+ * is free to fetch, Esri World Imagery, the various Sentinel mirrors,
  * restricts commercial use, and a box office selling tickets is exactly the use
  * they restrict. With NEXT_PUBLIC_MAPTILER_KEY set the option appears; without
  * one it is not offered at all, which is the honest behaviour rather than a

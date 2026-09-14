@@ -4,6 +4,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useCallback, useState, useTransition } from "react";
 
+import ElevatedInput from "@/components/elevated-design/elevated-input";
+import { MagnifyingGlass } from "@/components/icons";
 import { patchParams } from "@/lib/events/query";
 import { EVENT_CATEGORIES, type CatalogueFilters as Options } from "@/lib/events/types";
 
@@ -61,16 +63,23 @@ export function CatalogueFilters({ options }: { options: Options }) {
       aria-busy={pending}
     >
       <div className="flex flex-wrap gap-2">
+        {/* No `label` prop, on purpose: a floating label would stand the
+            control up to 44px beside a 40px button, and a search box that
+            already carries a placeholder has nothing to float. The name for
+            a screen reader comes from the sr-only label instead. */}
         <label className="sr-only" htmlFor="catalogue-search">
           {t("searchLabel")}
         </label>
-        <input
+        <ElevatedInput
           id="catalogue-search"
+          variant="search"
+          controlSize="lg"
+          icon={<MagnifyingGlass size={16} aria-hidden />}
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder={t("searchPlaceholder")}
-          className="h-10 min-w-0 flex-1 rounded-md border border-input bg-background px-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="min-w-0 flex-1 basis-40"
         />
         <button
           type="submit"

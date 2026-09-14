@@ -9,8 +9,8 @@ import * as React from "react";
  * in a `next` parameter. That works, and it costs a full navigation: the page
  * they were on is torn down, whatever they had typed into it is gone, and
  * coming back depends on every intermediate screen having remembered to pass
- * the parameter along. Anything not in the URL — a half-filled form, a chosen
- * quantity, a scroll position — does not survive it.
+ * the parameter along. Anything not in the URL: a half-filled form, a chosen
+ * quantity, a scroll position; does not survive it.
  *
  * So signing in happens in a DIALOG over the page, and the thing that was
  * interrupted is a callback rather than a URL. The page is never unmounted, so
@@ -41,8 +41,8 @@ interface AuthDialogValue {
   /**
    * Ensures there is a session, opening the dialog if there is not.
    *
-   * Resolves true when signed in — immediately, if there already was a session
-   * — and false when the person closed the dialog instead.
+   * Resolves true when signed in; immediately, if there already was a session
+   *, and false when the person closed the dialog instead.
    */
   requireAuth: (reason?: AuthReason) => Promise<boolean>;
   /** Opens the dialog without a task waiting on it. */
@@ -78,7 +78,7 @@ export function AuthDialogProvider({
     if (signedIn.current) return Promise.resolve(true);
     return new Promise<boolean>((resolve) => {
       setPending((current) => {
-        // Two guards racing — a click and a keyboard activation — must not
+        // Two guards racing, a click and a keyboard activation, must not
         // stack two dialogs. The first one wins and the second is told no,
         // rather than being left hanging on a promise nothing will resolve.
         if (current) {
@@ -101,7 +101,7 @@ export function AuthDialogProvider({
   // caller passed.
   //
   // That covers the case an effect would otherwise have to watch for: a session
-  // appearing some other way while the dialog is open — another tab signed in,
+  // appearing some other way while the dialog is open: another tab signed in,
   // a refresh landed. Closing then resolves true, because by the time the
   // dialog closed the thing the caller asked for was true. Watching for it in
   // an effect instead would mean setting state during an effect to close a

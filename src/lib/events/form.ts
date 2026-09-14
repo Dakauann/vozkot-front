@@ -8,8 +8,8 @@ import { EVENT_CATEGORIES, type EventCategory, type EventStatus, type EventSumma
  *
  * Validation is where a form is either trustworthy or not, and a rule buried in
  * a submit handler beside setState calls is a rule nobody can check. Keeping it
- * here means every branch — the pair of coordinates that must travel together,
- * the end that must follow the start — is a plain function call in a test
+ * here means every branch; the pair of coordinates that must travel together,
+ * the end that must follow the start; is a plain function call in a test
  * rather than a rendered component and a simulated click.
  *
  * These rules deliberately mirror the API's, and do not replace them. The
@@ -142,7 +142,7 @@ export function validateEventForm(
   }
 
   // Coordinates are a pair or nothing. Half a pin is not a place, and the API
-  // rejects it — better to say so here than to lose the whole save to it.
+  // rejects it: better to say so here than to lose the whole save to it.
   const hasLatitude = isCoordinate(state.latitude);
   const hasLongitude = isCoordinate(state.longitude);
   if (hasLatitude !== hasLongitude) {
@@ -180,14 +180,14 @@ export function validateEventForm(
 /**
  * A Brazilian CEP as eight digits with the hyphen, or null if it is not one.
  *
- * Operators paste these from anywhere — "60861630", "60861-630", "60.861-630" —
+ * Operators paste these from anywhere, "60861630", "60861-630", "60.861-630",
  * and the geocoder only accepts one shape. Normalising here means an operator
  * never sees "we could not find that address" for a postcode that was simply
  * punctuated differently.
  */
 export function normalisePostalCode(raw: string): string | null {
   // Blank is "no postcode", which is allowed. Anything else the operator
-  // actually typed has to be a postcode or be reported as wrong — stripping
+  // actually typed has to be a postcode or be reported as wrong, stripping
   // non-digits first would turn a field full of letters into a blank one and
   // discard what they wrote without saying so.
   if (raw.trim() === "") return "";

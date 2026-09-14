@@ -16,7 +16,10 @@
     "search": "Search",
     "language": "Language",
     "clear": "Clear",
-    "of": "of"
+    "of": "of",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "mapUnavailable": "The map could not be loaded. The address above and the route links still work."
   },
   "nav": {
     "product": "Box office",
@@ -58,39 +61,6 @@
     "signIn": "Sign in"
   },
   "auth": {
-    "signIn": {
-      "title": "Sign in",
-      "subtitle": "Open your box office.",
-      "email": "Email",
-      "emailPlaceholder": "you@company.com",
-      "password": "Password",
-      "submit": "Sign in",
-      "submitting": "Signing in…",
-      "noAccount": "No account yet?",
-      "createAccount": "Create one",
-      "invalidCredentials": "Email or password is incorrect."
-    },
-    "signUp": {
-      "title": "Create account",
-      "subtitle": "Start publishing tickets in minutes.",
-      "name": "Name",
-      "namePlaceholder": "Maria Souza",
-      "email": "Email",
-      "emailPlaceholder": "you@company.com",
-      "password": "Password",
-      "passwordHint": "At least 8 characters, with an uppercase letter, a lowercase letter and a digit.",
-      "agreementBefore": "By creating an account, you accept the",
-      "terms": "Terms of Service",
-      "agreementAnd": "and",
-      "privacy": "Privacy Policy",
-      "submit": "Create account",
-      "submitting": "Creating…",
-      "hasAccount": "Already have an account?",
-      "signIn": "Sign in",
-      "confirmPassword": "Confirm password",
-      "passwordMismatch": "The passwords do not match.",
-      "emailTaken": "An account already uses this email."
-    },
     "gate": {
       "checking": "Checking your session…",
       "serverDown": "The API did not answer",
@@ -352,7 +322,7 @@
     "total": "Total",
     "noExtraFees": "No booking fees. The amount above is what you pay.",
     "heldUntil": "Reservation expires in",
-    "holdExplainer": "Your tickets are already reserved. If the time runs out they go back on sale so no reservation stays stuck — and you can start again.",
+    "holdExplainer": "Your tickets are already reserved. If the time runs out they go back on sale so no reservation stays stuck, and you can start again.",
     "reservingTitle": "Reserving your tickets",
     "reservingBody": "We are taking these tickets off sale for you. It takes a moment.",
     "reserveFailedTitle": "We could not reserve these",
@@ -472,6 +442,12 @@
     "loadMore": "Showing {shown} of {total} · load more",
     "form": {
       "pickEvent": "Select the event"
+    },
+    "search": {
+      "label": "Search for an address or venue",
+      "hint": "Type the venue name or the street with its number, then pick from the list. Adjust the pin afterwards.",
+      "empty": "No place found. Try adding the city.",
+      "attribution": "Results from OpenStreetMap, via Photon"
     }
   },
   "categories": {
@@ -729,7 +705,7 @@
     "viewEvent": "View event",
     "unknownEvent": "Event unavailable",
     "unknownTier": "Ticket",
-    "refundRequiredNote": "Your payment arrived after the reservation expired and the tickets went back on sale. You will be refunded — there is nothing for you to do.",
+    "refundRequiredNote": "Your payment arrived after the reservation expired and the tickets went back on sale. You will be refunded, there is nothing for you to do.",
     "loadFailed": "We could not load your orders.",
     "emptyTitle": "No orders yet",
     "emptyBody": "Once you buy a ticket it shows up here, with its receipt.",
@@ -793,7 +769,7 @@
       "label": "Email",
       "placeholder": "you@example.com",
       "submit": "Send code",
-      "legal": "By continuing you agree to our Terms of Use and Privacy Policy. We use your email to send your access code and your tickets — nothing else.",
+      "legal": "By continuing you agree to our Terms of Use and Privacy Policy. We use your email to send your access code and your tickets, nothing else.",
       "terms": "Terms of Use",
       "privacy": "Privacy Policy",
       "password": "Password",
@@ -821,7 +797,7 @@
       "document": "Document number",
       "documentPlaceholder": "Enter the document number",
       "legalName": "Your full name",
-      "legalNameHint": "As it appears on the document — it is the name checked at the door.",
+      "legalNameHint": "As it appears on the document; it is the name checked at the door.",
       "birthDate": "Date of birth",
       "submit": "Continue",
       "privacy": "We ask for these because Brazilian law requires a document to sell tickets: half-price admission is capped per CPF and a PIX charge cannot be issued without one. They are stored encrypted, are never shown to the event organiser, and are not used for advertising. Details in the Privacy Policy."
@@ -843,7 +819,7 @@
     },
     "password": {
       "title": "Want to set a password?",
-      "body": "Your account is already set up and works with the email code alone. A password is a second way in — useful if an email is slow or never arrives.",
+      "body": "Your account is already set up and works with the email code alone. A password is a second way in; useful if an email is slow or never arrives.",
       "label": "New password",
       "rule": "At least 8 characters, with an upper case, a lower case and a number.",
       "submit": "Set password",

@@ -40,7 +40,7 @@ type FieldErrors = Partial<Record<keyof FormState, string>>;
  *
  * It replaced a side sheet for one reason that matters: artwork. Media attaches
  * to a ticket id, so a sheet could only offer the gallery after the record
- * existed — an operator filled the form, saved, hunted the ticket down in the
+ * existed: an operator filled the form, saved, hunted the ticket down in the
  * list, and only then added the image that sells it. Here the files are chosen
  * alongside the fields and uploaded the instant the id comes back.
  *
@@ -169,8 +169,8 @@ export function TicketForm({ ticket, eventId = "" }: TicketFormProps) {
         <div className="min-w-0 space-y-4">
           <FormSection title={t("form.sections.event")}>
             {/* The tier names its event; it does not describe it. Everything
-                about the happening itself — name, venue, city, date, category,
-                map pin — lives on the event and is edited there. */}
+                about the happening itself: name, venue, city, date, category,
+                map pin; lives on the event and is edited there. */}
             <Field id="ticket-eventId" label={t("fields.event")} error={errors.eventId}>
               <EventCombobox
                 id="ticket-eventId"

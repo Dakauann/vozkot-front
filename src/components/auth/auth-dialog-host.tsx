@@ -12,7 +12,7 @@ import { SignInDialog } from "@/components/auth/sign-in-dialog";
  * there is never a second one behind the first.
  *
  * It sits INSIDE AuthProvider because it needs to know whether there is already
- * a session — a guard must resolve immediately for somebody who is signed in,
+ * a session; a guard must resolve immediately for somebody who is signed in,
  * not flash a dialog and close it.
  */
 export function AuthDialogHost({ children }: { children: React.ReactNode }) {

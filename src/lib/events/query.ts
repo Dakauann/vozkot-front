@@ -16,8 +16,8 @@ import {
  * It lives in lib rather than in the page for the same reason the backend puts
  * filter normalisation in the domain rather than the handler: the page is
  * delivery, and what a query parameter means is not a delivery concern. Two
- * surfaces already need it — the page parses the address, the API client
- * renders it back — and they must agree exactly, which is only checkable if
+ * surfaces already need it: the page parses the address, the API client
+ * renders it back, and they must agree exactly, which is only checkable if
  * both halves sit in one testable module.
  */
 
@@ -43,7 +43,7 @@ export function parseEventQuery(search: SearchParams | URLSearchParams): EventQu
   // Pages are clamped by the deepest offset the server will honour. Letting
   // `page=9999` through would ask for an offset the API silently pulls back to
   // its ceiling, so the buyer would see page one's events under a header that
-  // says 9999 — worse than simply landing on the last reachable page.
+  // says 9999, worse than simply landing on the last reachable page.
   const lastPage = Math.floor(MAX_OFFSET / limit) + 1;
   const page = clamp(one("page"), 1, 1, lastPage);
 
@@ -71,7 +71,7 @@ export function parseEventQuery(search: SearchParams | URLSearchParams): EventQu
  *
  * Only what differs from the default is written, which is what keeps a plain
  * `/eventos` from becoming `/eventos?free=false&available=false&offset=0` the
- * first time anyone touches a filter — and keeps the CDN from caching the same
+ * first time anyone touches a filter, and keeps the CDN from caching the same
  * page under a dozen spellings.
  */
 export function buildEventQuery(query: EventQuery): string {
@@ -98,7 +98,7 @@ export function buildEventQuery(query: EventQuery): string {
 /**
  * A server component's `searchParams` as URLSearchParams entries.
  *
- * Repeated parameters arrive as an array — `?city=a&city=b` — and only the
+ * Repeated parameters arrive as an array, `?city=a&city=b`, and only the
  * first is kept. Every filter here is single-valued, so a repeated one is
  * either a hand-edited link or a crawler permuting the address, and joining
  * them would build a query for a city called "a,b" that matches nothing.
@@ -115,9 +115,9 @@ export function toPairs(search: SearchParams): [string, string][] {
  * The current URL with some parameters changed.
  *
  * `page` is dropped BEFORE the changes are applied, which is what lets one
- * function serve both callers. A filter change has to reset the page — staying
+ * function serve both callers. A filter change has to reset the page, staying
  * on page 7 of a filter that now matches four events shows an empty page with
- * no way back — and a pagination link simply names the page it wants in the
+ * no way back, and a pagination link simply names the page it wants in the
  * changes, after the reset.
  *
  * Unknown parameters survive. A campaign tag or a referral code someone put on
@@ -154,7 +154,7 @@ function isSort(value: string | undefined): value is EventSort {
 /**
  * A bounded integer, or the fallback.
  *
- * Anything that is not a finite number — "abc", "", "1e999", undefined — is the
+ * Anything that is not a finite number, "abc", "", "1e999", undefined, is the
  * fallback rather than an error, and anything out of range is pulled to the
  * nearest end rather than refused.
  */

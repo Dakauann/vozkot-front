@@ -19,7 +19,7 @@ import { EVENT_CATEGORIES, type CatalogueFilters, type EventCategory } from "@/l
  * with its real count underneath.
  *
  * Only categories that actually have events, biggest first. A shortcut that
- * leads somewhere empty is worse than no shortcut — it teaches people the
+ * leads somewhere empty is worse than no shortcut, it teaches people the
  * navigation lies, and they stop trusting the rest of it.
  */
 const SHOWN = 10;

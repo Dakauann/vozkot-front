@@ -7,7 +7,7 @@
  * produce it. This function is the other half of that design: it turns a width
  * into the name of a file that already exists.
  *
- * Without it, Next's own optimiser re-does work that is already done — it
+ * Without it, Next's own optimiser re-does work that is already done, it
  * fetches the full-size original, decodes it, resizes it with sharp and caches
  * the result, per size, per image. On a catalogue page of twenty-four cards
  * that is twenty-four decodes of the largest file for images that were resized
@@ -15,7 +15,7 @@
  * milliseconds.
  *
  * Anything this does not recognise is returned untouched, so an icon in
- * /public, an external logo or a data URI still renders — just unoptimised,
+ * /public, an external logo or a data URI still renders: just unoptimised,
  * which for those is the right answer anyway.
  */
 
@@ -25,7 +25,7 @@ const VARIANTS = [400, 800, 1600] as const;
 /**
  * A storage key written by the media pipeline, and nothing else.
  *
- * The prefix is load-bearing. A looser pattern — "anything with an extension" —
+ * The prefix is load-bearing. A looser pattern, "anything with an extension",
  * matches `/logo.svg` in /public too, and rewrites it to a variant that was
  * never generated, replacing a working image with a 404. Only files under the
  * bucket's own `events/` and `tickets/` prefixes have variants beside them.

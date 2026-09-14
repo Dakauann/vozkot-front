@@ -18,8 +18,8 @@ import {
  * better half of each.
  *
  * From the first: the STATE RAMP. Rest, hover and pressed are discrete, named
- * steps rather than an opacity fade — `--primary` → `--primary-hover` →
- * `--primary-active` — so a pressed button is a different colour, not a
+ * steps rather than an opacity fade, `--primary` → `--primary-hover` →
+ * `--primary-active`, so a pressed button is a different colour, not a
  * translucent one. Fading a fill's opacity over an unknown ground is how a
  * hover state ends up looking different on every page it appears on.
  *
@@ -32,7 +32,7 @@ import {
  *
  * The FILLED variant now draws its edge the same way (`--elev-button-primary`).
  * It has to: across the brand green's whole lightness range no single value
- * carries both a readable label and a 3:1 boundary — at L38 the label measures
+ * carries both a readable label and a 3:1 boundary, at L38 the label measures
  * APCA Lc 58.6 and the fill edge only 2.31:1 on white, which fails WCAG 1.4.11.
  * The fill stays vivid and `--primary-edge` carries the boundary (3.63:1). On
  * graphite the fill is already 9.52:1 against the canvas, so the same token
@@ -40,8 +40,8 @@ import {
  *
  * The neutral surfaces (primary, secondary, outline, ghost) live in
  * button-surfaces.ts, shared with elevated-design/button.tsx. Two components is
- * a fair answer to two needs — this one exports `buttonVariants` as a class
- * string for the shadcn primitives; that one is what people render — but two
+ * a fair answer to two needs, this one exports `buttonVariants` as a class
+ * string for the shadcn primitives; that one is what people render, but two
  * copies of the class strings never was, and they had already drifted.
  *
  * Corners are 6px off a real ramp. The outgoing identity squared everything to
@@ -69,14 +69,14 @@ const buttonVariants = cva(
         secondary: BUTTON_SECONDARY,
         outline: BUTTON_OUTLINE,
         ghost: BUTTON_GHOST,
-        // The board's "Botão de Texto": accent ink, no box. Ink, not fill —
+        // The board's "Botão de Texto": accent ink, no box. Ink, not fill;
         // the fill value is tuned for a label to sit ON it, the ink for text
         // on a sheet. Underline arrives on hover so a row of these doesn't
         // read as a paragraph of links.
         link: "text-primary-ink underline-offset-4 hover:underline active:text-primary-active",
       },
       size: {
-        // 28 / 32 / 40 — the three heights both references ship.
+        // 28 / 32 / 40, the three heights both references ship.
         sm: "h-7 px-2.5 text-xs",
         default: "h-8 px-3",
         lg: "h-10 px-5",

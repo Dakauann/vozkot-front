@@ -4,7 +4,7 @@
  * It travels in the URL, and that is the whole design. Checkout may require a
  * sign-in, and a sign-in is a navigation: possibly to another tab, possibly
  * back the next morning from a link in an email. Anything held in React state,
- * or in a store, is gone by then — and a buyer who has just chosen two Camarote
+ * or in a store, is gone by then, and a buyer who has just chosen two Camarote
  * tickets and signed in should not land on an empty page and have to choose
  * again.
  *
@@ -12,7 +12,7 @@
  * back button. It is also inspectable, which matters more than it sounds:
  * nothing here is trusted. Each tier id names a row the server re-reads, every
  * quantity is re-validated against real stock, and no price is in the URL at
- * all — a buyer who edits it changes nothing, because the amount is computed
+ * all; a buyer who edits it changes nothing, because the amount is computed
  * from the tiers the server looked up.
  */
 
@@ -54,8 +54,8 @@ const ITEMS_PARAM = "items";
  * Reads an intent out of query parameters, or returns null.
  *
  * Null rather than a thrown error or a partially filled object: a malformed
- * link — truncated by a chat app, hand-edited, from an older version of the
- * site — should show "pick your tickets again" rather than a stack trace or,
+ * link: truncated by a chat app, hand-edited, from an older version of the
+ * site; should show "pick your tickets again" rather than a stack trace or,
  * worse, a checkout for one ticket the buyer never chose.
  */
 export function readIntent(
@@ -128,20 +128,6 @@ export function intentParams(intent: CheckoutIntent): URLSearchParams {
   });
   if (intent.eventSlug) params.set("event", intent.eventSlug);
   return params;
-}
-
-/**
- * Where to send someone who has to sign in first, and how to get them back.
- *
- * The return path carries the intent, so signing in lands the buyer on the
- * checkout they were already filling in rather than on a home page. It is a
- * PATH and never an absolute URL: a `next` parameter that accepts an arbitrary
- * origin is an open redirect, and an open redirect on a login page is how a
- * phishing link borrows a real domain's credibility.
- */
-export function loginHref(intent: CheckoutIntent): string {
-  const next = `/checkout?${intentParams(intent).toString()}`;
-  return `/login?next=${encodeURIComponent(next)}`;
 }
 
 /**

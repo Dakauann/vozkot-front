@@ -8,7 +8,7 @@ import { Link } from "@/i18n/routing";
  * A mid-page band rather than a header link, which is where Sympla puts the
  * same message on its city pages. Somebody who has scrolled the whole landing
  * page has seen what the platform does with an event, and that is the moment
- * the offer to list one lands — far better than a link in the chrome that
+ * the offer to list one lands, far better than a link in the chrome that
  * competes with "sign in" before anyone knows what the site is.
  *
  * One band, two links, no illustration. It is a footnote to a buyer's page, not

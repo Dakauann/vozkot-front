@@ -28,7 +28,7 @@ import { routing } from "@/i18n/routing";
  *
  * Inter carries everything read at length: rows, labels, forms, data. Oxanium
  * is the display voice for page titles and figures. Both load `latin-ext`,
- * which is not optional here — pt, de and es all need the accented glyphs, and
+ * which is not optional here; pt, de and es all need the accented glyphs, and
  * without the subset an accented word drops to a fallback mid-title.
  */
 const inter = Inter({ variable: "--font-inter", subsets: ["latin", "latin-ext"], display: "swap" });
@@ -82,7 +82,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
   // Everything except the two legal documents, which together are more than
   // half the catalogue. NextIntlClientProvider serialises whatever it is given
   // into the HTML of every page, so shipping the privacy policy and the terms
-  // to the checkout — and to every other route — costs about 22 KB per request
+  // to the checkout, and to every other route, costs about 22 KB per request
   // to translate text those two routes alone render. Each of them provides its
   // own namespace locally instead.
   const all = await getMessages();

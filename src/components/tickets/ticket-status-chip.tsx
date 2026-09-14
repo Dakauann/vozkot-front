@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
  * Four states, four inks: a draft is quiet because nobody can buy it, on sale
  * is the healthy one, sold out is a warning the operator may want to act on,
  * and cancelled is struck out of the running entirely. Colour alone never
- * carries it — each state keeps its own glyph and its own word.
+ * carries it: each state keeps its own glyph and its own word.
  */
 const config = {
   draft: { icon: PencilSimple, className: "text-muted-foreground" },

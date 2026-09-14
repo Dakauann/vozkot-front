@@ -16,7 +16,10 @@
     "search": "Suchen",
     "language": "Sprache",
     "clear": "Zurücksetzen",
-    "of": "von"
+    "of": "von",
+    "showPassword": "Passwort anzeigen",
+    "hidePassword": "Passwort verbergen",
+    "mapUnavailable": "Die Karte konnte nicht geladen werden. Die Adresse oben und die Routen-Links funktionieren weiterhin."
   },
   "nav": {
     "product": "Ticketverkauf",
@@ -58,39 +61,6 @@
     "signIn": "Anmelden"
   },
   "auth": {
-    "signIn": {
-      "title": "Anmelden",
-      "subtitle": "Öffne den Ticketverkauf deines Betriebs.",
-      "email": "E-Mail",
-      "emailPlaceholder": "du@firma.de",
-      "password": "Passwort",
-      "submit": "Anmelden",
-      "submitting": "Anmeldung läuft…",
-      "noAccount": "Noch kein Konto?",
-      "createAccount": "Konto erstellen",
-      "invalidCredentials": "E-Mail oder Passwort ist falsch."
-    },
-    "signUp": {
-      "title": "Konto erstellen",
-      "subtitle": "Veröffentliche Tickets in wenigen Minuten.",
-      "name": "Name",
-      "namePlaceholder": "Maria Souza",
-      "email": "E-Mail",
-      "emailPlaceholder": "du@firma.de",
-      "password": "Passwort",
-      "passwordHint": "Mindestens 8 Zeichen, mit Groß- und Kleinbuchstabe und Ziffer.",
-      "agreementBefore": "Mit der Kontoerstellung akzeptieren Sie die",
-      "terms": "Nutzungsbedingungen",
-      "agreementAnd": "und die",
-      "privacy": "Datenschutzerklärung",
-      "submit": "Konto erstellen",
-      "submitting": "Wird erstellt…",
-      "hasAccount": "Schon ein Konto?",
-      "signIn": "Anmelden",
-      "confirmPassword": "Passwort bestätigen",
-      "passwordMismatch": "Die Passwörter stimmen nicht überein.",
-      "emailTaken": "Für diese E-Mail gibt es bereits ein Konto."
-    },
     "gate": {
       "checking": "Sitzung wird geprüft…",
       "serverDown": "Die API hat nicht geantwortet",
@@ -352,7 +322,7 @@
     "total": "Gesamt",
     "noExtraFees": "Keine zusätzlichen Gebühren. Der Betrag oben ist der Endpreis.",
     "heldUntil": "Reservierung läuft ab in",
-    "holdExplainer": "Deine Tickets sind bereits reserviert. Läuft die Zeit ab, gehen sie zurück in den Verkauf, damit keine Reservierung hängen bleibt — du kannst dann neu beginnen.",
+    "holdExplainer": "Deine Tickets sind bereits reserviert. Läuft die Zeit ab, gehen sie zurück in den Verkauf, damit keine Reservierung hängen bleibt, du kannst dann neu beginnen.",
     "reservingTitle": "Tickets werden reserviert",
     "reservingBody": "Wir nehmen die Tickets für dich aus dem Verkauf. Einen Moment.",
     "reserveFailedTitle": "Reservierung nicht möglich",
@@ -472,6 +442,12 @@
     "loadMore": "{shown} von {total} · mehr laden",
     "form": {
       "pickEvent": "Veranstaltung auswählen"
+    },
+    "search": {
+      "label": "Adresse oder Veranstaltungsort suchen",
+      "hint": "Namen des Orts oder Straße mit Hausnummer eingeben und aus der Liste wählen. Danach die Markierung anpassen.",
+      "empty": "Kein Ort gefunden. Versuche es mit der Stadt.",
+      "attribution": "Ergebnisse von OpenStreetMap, über Photon"
     }
   },
   "categories": {
@@ -729,7 +705,7 @@
     "viewEvent": "Event ansehen",
     "unknownEvent": "Event nicht verfügbar",
     "unknownTier": "Ticket",
-    "refundRequiredNote": "Deine Zahlung kam an, nachdem die Reservierung abgelaufen war und die Tickets wieder im Verkauf standen. Du bekommst das Geld zurück — du musst nichts tun.",
+    "refundRequiredNote": "Deine Zahlung kam an, nachdem die Reservierung abgelaufen war und die Tickets wieder im Verkauf standen. Du bekommst das Geld zurück, du musst nichts tun.",
     "loadFailed": "Deine Bestellungen konnten nicht geladen werden.",
     "emptyTitle": "Noch keine Bestellungen",
     "emptyBody": "Sobald du ein Ticket kaufst, erscheint es hier mit dem Beleg.",
@@ -793,7 +769,7 @@
       "label": "E-Mail",
       "placeholder": "du@beispiel.de",
       "submit": "Code senden",
-      "legal": "Mit dem Fortfahren stimmst du unseren Nutzungsbedingungen und der Datenschutzerklärung zu. Wir nutzen deine E-Mail für den Zugangscode und deine Tickets — für nichts anderes.",
+      "legal": "Mit dem Fortfahren stimmst du unseren Nutzungsbedingungen und der Datenschutzerklärung zu. Wir nutzen deine E-Mail für den Zugangscode und deine Tickets, für nichts anderes.",
       "terms": "Nutzungsbedingungen",
       "privacy": "Datenschutzerklärung",
       "password": "Passwort",
@@ -821,7 +797,7 @@
       "document": "Dokumentnummer",
       "documentPlaceholder": "Dokumentnummer eingeben",
       "legalName": "Dein vollständiger Name",
-      "legalNameHint": "Wie im Dokument — dieser Name wird am Einlass geprüft.",
+      "legalNameHint": "Wie im Dokument, dieser Name wird am Einlass geprüft.",
       "birthDate": "Geburtsdatum",
       "submit": "Weiter",
       "privacy": "Wir fragen danach, weil das brasilianische Recht für den Ticketverkauf ein Dokument verlangt: die Ermäßigung ist pro CPF begrenzt und ohne Dokument lässt sich keine PIX-Zahlung ausstellen. Die Angaben werden verschlüsselt gespeichert, dem Veranstalter nie gezeigt und nicht für Werbung genutzt. Details in der Datenschutzerklärung."
@@ -843,7 +819,7 @@
     },
     "password": {
       "title": "Passwort einrichten?",
-      "body": "Dein Konto ist fertig und funktioniert allein mit dem E-Mail-Code. Ein Passwort ist ein zweiter Weg hinein — praktisch, wenn eine E-Mail spät oder gar nicht ankommt.",
+      "body": "Dein Konto ist fertig und funktioniert allein mit dem E-Mail-Code. Ein Passwort ist ein zweiter Weg hinein: praktisch, wenn eine E-Mail spät oder gar nicht ankommt.",
       "label": "Neues Passwort",
       "rule": "Mindestens 8 Zeichen, mit Groß- und Kleinbuchstabe und Ziffer.",
       "submit": "Passwort setzen",

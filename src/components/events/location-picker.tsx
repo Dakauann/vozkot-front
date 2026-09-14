@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
  * stacked above the map in a form column would be the same controls in a place
  * nobody looks for them.
  *
- * The map itself is a separate module loaded on demand — see location-map.
+ * The map itself is a separate module loaded on demand, see location-map.
  */
 const LocationMap = dynamic(() => import("./location-map"), {
   ssr: false,

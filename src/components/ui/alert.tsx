@@ -49,7 +49,7 @@ const AlertTitle = React.forwardRef<
     ref={ref}
     className={cn(
       // The title is the line that names the problem, so it is where the hue
-      // still earns its place. Body copy below stays neutral — it is prose.
+      // still earns its place. Body copy below stays neutral; it is prose.
       "notice-ink mb-1 font-semibold leading-none tracking-tight",
       className,
     )}

@@ -12,7 +12,7 @@ import { formatMoney } from "@/lib/format";
  *
  * Telling a buyer they have hit a limit and stopping there is a dead end: the
  * limit is about orders they cannot see from this page, and the only way to
- * satisfy it — give one of them up — is an action they have to go and find
+ * satisfy it, give one of them up, is an action they have to go and find
  * somewhere else, by which time the basket they were buying is gone.
  *
  * So the refusal shows the orders that caused it, and lets them release one on

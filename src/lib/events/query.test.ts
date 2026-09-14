@@ -18,7 +18,7 @@ function url(query: string) {
   return Object.fromEntries(new URLSearchParams(query).entries());
 }
 
-describe("parseEventQuery — search", () => {
+describe("parseEventQuery: search", () => {
   it("reads a search term", () => {
     expect(parseEventQuery(url("q=rock+in+rio")).q).toBe("rock in rio");
   });
@@ -40,7 +40,7 @@ describe("parseEventQuery — search", () => {
   });
 });
 
-describe("parseEventQuery — filtering", () => {
+describe("parseEventQuery: filtering", () => {
   it("keeps a category it knows", () => {
     expect(parseEventQuery(url("category=festas_shows")).category).toBe("festas_shows");
   });
@@ -82,7 +82,7 @@ describe("parseEventQuery — filtering", () => {
   });
 });
 
-describe("parseEventQuery — pagination", () => {
+describe("parseEventQuery: pagination", () => {
   it("defaults to the first page at the default size", () => {
     const query = parseEventQuery(url(""));
     expect(query.limit).toBe(DEFAULT_PAGE_SIZE);

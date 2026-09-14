@@ -3,9 +3,10 @@
 import { useTranslations } from "next-intl";
 import * as React from "react";
 
+import { AddressSearch } from "@/components/events/address-search";
 import { LocationPicker } from "@/components/events/location-picker";
 import { Field, TextField } from "@/components/ui/field";
-import { cepDigits, lookupPostalCode } from "@/lib/events/geocode";
+import { cepDigits, lookupPostalCode, type AddressSuggestion } from "@/lib/events/geocode";
 
 /**
  * Where the event is.
@@ -18,8 +19,15 @@ import { cepDigits, lookupPostalCode } from "@/lib/events/geocode";
  * The server geocodes the address on save. The pin is the correction: when an
  * operator drags it, the coordinates travel with the request and the server
  * leaves them alone. That is the whole contract, and it is why "clear the pin"
- * is an action rather than a hidden side effect — it is the only way back to
+ * is an action rather than a hidden side effect: it is the only way back to
  * "let the server work it out".
+ *
+ * THREE WAYS IN, in the order people reach for them. Searching for the venue by
+ * name or street fills everything at once and is what this section leads with.
+ * A CEP fills the blanks it knows, for an operator who has the postcode in
+ * front of them. Typing into the fields directly always works. The pin is the
+ * last word over all three, because only a person can say which side of the
+ * building the door is on.
  */
 
 export interface LocationValue {
@@ -51,6 +59,14 @@ export function LocationFields({
 }) {
   const t = useTranslations("eventAdmin");
 
+  // The live value, read from callbacks that must not be rebuilt when it
+  // changes: a search or a lookup lands after the operator has typed more, and
+  // closing over a stale object would write the older form back.
+  const latest = React.useRef(value);
+  React.useEffect(() => {
+    latest.current = value;
+  }, [value]);
+
   const set = React.useCallback(
     <K extends keyof LocationValue>(key: K, next: LocationValue[K]) => {
       onChange({ ...value, [key]: next });
@@ -63,6 +79,41 @@ export function LocationFields({
       onChange({ ...value, latitude, longitude });
     },
     [onChange, value],
+  );
+
+  /**
+   * A place taken from the search.
+   *
+   * Everything it knows is written, INCLUDING over what is already there, and
+   * that is the difference between this and the CEP lookup below. A postcode
+   * lookup is an aside; it fills blanks and leaves typed text alone, because
+   * the operator was doing something else and it fired on its own. Choosing a
+   * search result is a deliberate act that means "this is the place", so a
+   * neighbourhood left over from the last address would be a stale field
+   * nobody thought to clear.
+   *
+   * Blanks are the exception: a geocoder that has no postcode for a rural venue
+   * must not wipe the one somebody typed from the invitation.
+   */
+  const pick = React.useCallback(
+    (found: AddressSuggestion) => {
+      const current = latest.current;
+      onChange({
+        ...current,
+        // The venue name is the one field a search should not overwrite: it is
+        // what prints on the ticket, and an operator's "Espaço Aurora, Sala 2"
+        // beats OpenStreetMap's "Espaço Aurora".
+        venue: current.venue.trim() === "" ? found.name : current.venue,
+        address: found.street || current.address,
+        neighborhood: found.neighborhood || current.neighborhood,
+        city: found.city || current.city,
+        uf: found.uf || current.uf,
+        postalCode: found.postalCode || current.postalCode,
+        latitude: found.latitude,
+        longitude: found.longitude,
+      });
+    },
+    [onChange],
   );
 
   const clearPin = React.useCallback(() => {
@@ -78,7 +129,7 @@ export function LocationFields({
    * A CEP is the one thing an operator already knows that a machine can turn
    * into a point, so the moment eight digits are present the form fills the
    * street, the neighbourhood, the city and the state from it and drops the pin
-   * — which is what every Brazilian checkout has trained people to expect.
+   *, which is what every Brazilian checkout has trained people to expect.
    *
    * `value` is deliberately not a dependency. The effect watches the postcode
    * and nothing else: including the whole location object would re-run the
@@ -86,10 +137,6 @@ export function LocationFields({
    * dragging the pin would immediately snap it back to the CEP's centre.
    */
   const [lookup, setLookup] = React.useState<LookupState>("idle");
-  const latest = React.useRef(value);
-  React.useEffect(() => {
-    latest.current = value;
-  }, [value]);
 
   const postalCode = value.postalCode;
   const complete = cepDigits(postalCode) !== null;
@@ -128,7 +175,7 @@ export function LocationFields({
           current.neighborhood.trim() === "" ? found.neighborhood : current.neighborhood,
         city: current.city.trim() === "" ? found.city : current.city,
         uf: current.uf.trim() === "" ? found.uf : current.uf,
-        // The pin, however, does move — unless the operator has placed one
+        // The pin, however, does move, unless the operator has placed one
         // themselves, which is a deliberate correction and outranks a lookup.
         ...(found.latitude !== undefined &&
         found.longitude !== undefined &&
@@ -149,6 +196,8 @@ export function LocationFields({
 
   return (
     <div className="flex flex-col gap-4">
+      <AddressSearch id={`${idPrefix}-search`} onPick={pick} />
+
       <div className="grid gap-4 sm:grid-cols-2">
         <Field
           id={`${idPrefix}-venue`}

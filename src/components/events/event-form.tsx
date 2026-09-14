@@ -38,7 +38,7 @@ import {
  * Artwork is staged rather than uploaded, because media attaches to an event
  * id and the id does not exist until the record is saved. The operator picks
  * the files alongside the fields and the submit handler uploads them the moment
- * the id comes back — one action here, two calls underneath.
+ * the id comes back: one action here, two calls underneath.
  */
 export function EventForm({ event }: { event: EventSummary | null }) {
   const t = useTranslations("eventAdmin");

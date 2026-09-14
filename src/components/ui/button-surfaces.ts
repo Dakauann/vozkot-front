@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
  * That is a fair reason for two components. It was never a reason for two
  * copies of the class strings, which is what they had: `primary`, `secondary`
  * and `ghost` were character-identical in both files, and `outline` was
- * identical right up until it wasn't — it went a half pixel heavier than every
+ * identical right up until it wasn't, it went a half pixel heavier than every
  * field on the screen and nobody noticed for as long as the two were only ever
  * read one at a time.
  *
@@ -40,7 +40,7 @@ export const BUTTON_SECONDARY = cn(
  * dark), with the edge itself reacting to hover.
  *
  * A select trigger, an input and an outline button are the same object to
- * someone scanning a toolbar, and they were drawn differently — 1.5px against
+ * someone scanning a toolbar, and they were drawn differently, 1.5px against
  * the fields' 1px reads as a heavier corner arc and a different control at the
  * same size.
  *
@@ -59,7 +59,7 @@ export const BUTTON_OUTLINE = cn(
 );
 
 /**
- * Same edge, no plate — and THAT is the subtlety.
+ * Same edge, no plate, and THAT is the subtlety.
  *
  * It used to be the same plate one step lighter in weight, which made the two
  * outline variants differ only in half a pixel: indistinguishable in use, and
@@ -76,8 +76,8 @@ export const BUTTON_OUTLINE_SUBTLE = cn(
 /**
  * The irreversible action, and the one variant this file was missing.
  *
- * It lived only in `ui/button.tsx`, so `elevated-design/button` — the one 133
- * files reach for — had no way to spell "delete" and every danger control was
+ * It lived only in `ui/button.tsx`, so `elevated-design/button`, the one 133
+ * files reach for; had no way to spell "delete" and every danger control was
  * hand-rolled with `!important` overrides on the primary. That is the exact
  * drift this module exists to prevent, one variant later.
  *

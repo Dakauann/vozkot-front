@@ -28,7 +28,7 @@ export interface ProfileState {
  * Asks for a sign-in code.
  *
  * The response is deliberately identical whether or not the address has an
- * account, so nothing here can be used to tell the two apart — including by
+ * account, so nothing here can be used to tell the two apart, including by
  * branching on the result.
  */
 export function startEmailSignIn(email: string) {
@@ -105,7 +105,7 @@ export interface SetPasswordInput {
  *
  * Never the first: the account already exists and already works without one.
  * This is for the person who would rather type a password than wait for an
- * email — and for the day their mail provider is having an outage.
+ * email, and for the day their mail provider is having an outage.
  */
 export function setPassword(input: SetPasswordInput) {
   return apiFetch<void>("/user/password", {

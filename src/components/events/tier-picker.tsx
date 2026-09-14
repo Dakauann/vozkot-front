@@ -15,7 +15,7 @@ import type { TicketTier } from "@/lib/events/types";
  *
  * The choice is carried to checkout in the URL rather than in memory, and that
  * is the point of the design. Checkout may require a sign-in, and a sign-in is
- * a navigation — possibly to another tab, possibly back tomorrow. Anything held
+ * a navigation: possibly to another tab, possibly back tomorrow. Anything held
  * in React state is gone by then, and a buyer who has just chosen two Camarote
  * tickets and signed in should not arrive at an empty page and have to choose
  * again. A URL survives a redirect, a refresh, a shared link and the back
@@ -62,11 +62,11 @@ export function TierPicker({
     setQuantities((current) => {
       const now = current[tier.id] ?? 0;
       // Never past what is actually left, and never past the per-order cap the
-      // API enforces anyway — refusing here costs a round trip and a rejection
+      // API enforces anyway; refusing here costs a round trip and a rejection
       // the buyer cannot act on.
       // Never past what is left of THIS tier, and never past what the whole
       // basket may hold. The order cap counts every tier, so the room left for
-      // this one shrinks as the others fill — which is the arithmetic that
+      // this one shrinks as the others fill, which is the arithmetic that
       // stops an event with three tiers having three times the intended
       // ceiling.
       const chosenElsewhere = Object.entries(current)
@@ -83,12 +83,12 @@ export function TierPicker({
     // The session is asked for HERE, before the navigation, rather than on the
     // checkout page after it. The dialog opens over this panel, the chosen
     // quantities stay on screen behind it, and the buyer lands on checkout
-    // already signed in — instead of arriving at a "sign in first" wall having
+    // already signed in, instead of arriving at a "sign in first" wall having
     // lost the selection they just made.
     if (!(await requireAuth("checkout"))) return;
     // EVERY selected tier, which is what this panel has been letting people
     // choose all along. It used to send only the first and drop the rest in
-    // silence — the buyer picked two Pista and one Camarote, paid for the
+    // silence: the buyer picked two Pista and one Camarote, paid for the
     // Pista, and never found out the Camarote had gone. One order now covers
     // the whole basket: one hold, one PIX code, one receipt.
     const params = intentParams({

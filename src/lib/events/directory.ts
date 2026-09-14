@@ -8,7 +8,7 @@ import { MAX_PAGE_SIZE, type EventListing } from "./types";
 /**
  * The operator's events, by id.
  *
- * A tier carries only an `eventId` now — the event owns the name, the venue and
+ * A tier carries only an `eventId` now: the event owns the name, the venue and
  * the date. Every screen that lists tiers therefore needs a way to turn that id
  * back into something a person recognises, and none of them should each invent
  * their own.

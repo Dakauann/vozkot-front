@@ -23,8 +23,8 @@ import { MAX_OFFSET, type EventListing } from "@/lib/events/types";
  * ONE route with two faces, and the split is the whole design:
  *
  * - With no query, this is a landing page made of RAILS. Somebody who has not
- *   asked for anything has no query to answer, so the page offers angles —
- *   soonest, this weekend, free, by category — rather than page one of four
+ *   asked for anything has no query to answer, so the page offers angles:
+ *   soonest, this weekend, free, by category, rather than page one of four
  *   thousand events sorted by a rule they did not choose. Every marketplace
  *   worth copying does this: none of them open on a grid.
  * - The moment anything is asked for, it becomes a GRID with pagination. The
@@ -71,8 +71,8 @@ export default async function HomePage({
  * The landing page: one featured night, ways in, then rails.
  *
  * The order is the whole argument. A visitor who has asked for nothing gets
- * something SPECIFIC first — a real event, with its poster, its date and its
- * price — because a page that opens on navigation asks them to make a decision
+ * something SPECIFIC first: a real event, with its poster, its date and its
+ * price, because a page that opens on navigation asks them to make a decision
  * before showing them anything worth deciding about. The ways in come second,
  * for the visitor who does have a shape in mind. The rails come last, and are
  * the bulk of the page.
@@ -96,12 +96,12 @@ async function Landing({ locale }: { locale: Locale }) {
   ]);
 
   // The featured row and the first rail come from the same query rather than
-  // two, and the rail then skips what the row is already showing — a landing
+  // two, and the rail then skips what the row is already showing, a landing
   // page whose first two elements are the same events looks broken.
   //
   // "Featured" is the soonest events that still have tickets. That is a fact
   // the query computes on every render, not an editorial flag somebody has to
-  // remember to keep current — which is the version that eventually promotes a
+  // remember to keep current, which is the version that eventually promotes a
   // show that happened last month.
   const featured = soonest.data.slice(0, FEATURED_COUNT);
   const rest = soonest.data.slice(FEATURED_COUNT);
@@ -166,7 +166,7 @@ const FEATURED_COUNT = 5;
  * An event, flattened to what the carousel needs.
  *
  * Done here, on the server, so the client component ships no catalogue types
- * and no image-picking rules — and so the slide carries the cover's real pixel
+ * and no image-picking rules, and so the slide carries the cover's real pixel
  * dimensions, which is what lets the browser reserve the box before the bytes
  * arrive.
  */

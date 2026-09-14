@@ -16,7 +16,10 @@
     "search": "Buscar",
     "language": "Idioma",
     "clear": "Limpar",
-    "of": "de"
+    "of": "de",
+    "showPassword": "Mostrar senha",
+    "hidePassword": "Ocultar senha",
+    "mapUnavailable": "Não foi possível carregar o mapa. O endereço acima e os links de rota continuam válidos."
   },
   "nav": {
     "product": "Bilheteria",
@@ -58,39 +61,6 @@
     "signIn": "Entrar"
   },
   "auth": {
-    "signIn": {
-      "title": "Entrar",
-      "subtitle": "Acesse a bilheteria da sua operação.",
-      "email": "Email",
-      "emailPlaceholder": "voce@empresa.com.br",
-      "password": "Senha",
-      "submit": "Entrar",
-      "submitting": "Entrando…",
-      "noAccount": "Ainda não tem conta?",
-      "createAccount": "Criar conta",
-      "invalidCredentials": "Email ou senha incorretos."
-    },
-    "signUp": {
-      "title": "Criar conta",
-      "subtitle": "Comece a publicar ingressos em minutos.",
-      "name": "Nome",
-      "namePlaceholder": "Maria Souza",
-      "email": "Email",
-      "emailPlaceholder": "voce@empresa.com.br",
-      "password": "Senha",
-      "passwordHint": "Mínimo de 8 caracteres, com maiúscula, minúscula e número.",
-      "agreementBefore": "Ao criar a conta, você aceita os",
-      "terms": "Termos de Uso",
-      "agreementAnd": "e a",
-      "privacy": "Política de Privacidade",
-      "submit": "Criar conta",
-      "submitting": "Criando…",
-      "hasAccount": "Já tem conta?",
-      "signIn": "Entrar",
-      "confirmPassword": "Confirmar senha",
-      "passwordMismatch": "As senhas não conferem.",
-      "emailTaken": "Já existe uma conta com este email."
-    },
     "gate": {
       "checking": "Verificando a sessão…",
       "serverDown": "A API não respondeu",
@@ -352,7 +322,7 @@
     "total": "Total",
     "noExtraFees": "Sem taxas adicionais. O valor acima é o que você paga.",
     "heldUntil": "Reserva expira em",
-    "holdExplainer": "Seus ingressos já estão reservados. Se o tempo acabar, eles voltam para a venda para que ninguém fique com uma reserva presa — e você pode começar de novo.",
+    "holdExplainer": "Seus ingressos já estão reservados. Se o tempo acabar, eles voltam para a venda para que ninguém fique com uma reserva presa, e você pode começar de novo.",
     "reservingTitle": "Reservando seus ingressos",
     "reservingBody": "Estamos tirando os ingressos da venda para você. Leva um instante.",
     "reserveFailedTitle": "Não foi possível reservar",
@@ -472,6 +442,12 @@
     "loadMore": "Mostrando {shown} de {total} · carregar mais",
     "form": {
       "pickEvent": "Selecione o evento"
+    },
+    "search": {
+      "label": "Buscar endereço ou local",
+      "hint": "Digite o nome do local ou o endereço com número e escolha na lista. Depois ajuste o pino no mapa.",
+      "empty": "Nenhum lugar encontrado. Tente incluir a cidade.",
+      "attribution": "Resultados do OpenStreetMap, via Photon"
     }
   },
   "categories": {
@@ -729,7 +705,7 @@
     "viewEvent": "Ver evento",
     "unknownEvent": "Evento indisponível",
     "unknownTier": "Ingresso",
-    "refundRequiredNote": "Seu pagamento chegou depois que a reserva expirou e os ingressos voltaram à venda. O valor será devolvido — você não precisa fazer nada.",
+    "refundRequiredNote": "Seu pagamento chegou depois que a reserva expirou e os ingressos voltaram à venda. O valor será devolvido, você não precisa fazer nada.",
     "loadFailed": "Não foi possível carregar seus pedidos.",
     "emptyTitle": "Nenhum pedido ainda",
     "emptyBody": "Quando você comprar um ingresso, ele aparece aqui com o comprovante.",
@@ -793,7 +769,7 @@
       "label": "E-mail",
       "placeholder": "voce@exemplo.com.br",
       "submit": "Enviar código",
-      "legal": "Ao continuar, você concorda com nossos Termos de Uso e com a Política de Privacidade. Usamos seu e-mail para enviar o código de acesso e os seus ingressos — nada além disso.",
+      "legal": "Ao continuar, você concorda com nossos Termos de Uso e com a Política de Privacidade. Usamos seu e-mail para enviar o código de acesso e os seus ingressos, nada além disso.",
       "terms": "Termos de Uso",
       "privacy": "Política de Privacidade",
       "password": "Senha",
@@ -821,7 +797,7 @@
       "document": "Qual é o número do documento?",
       "documentPlaceholder": "Digite o número do documento",
       "legalName": "Qual seu nome completo?",
-      "legalNameHint": "Como está no documento — é o nome conferido na entrada.",
+      "legalNameHint": "Como está no documento, é o nome conferido na entrada.",
       "birthDate": "Data de nascimento",
       "submit": "Continuar",
       "privacy": "Pedimos estes dados porque a lei brasileira exige documento na venda de ingressos: a meia-entrada é limitada por CPF e a cobrança PIX não é emitida sem ele. Ficam guardados criptografados, não aparecem para o organizador do evento e não são usados para publicidade. Detalhes na Política de Privacidade."
@@ -843,7 +819,7 @@
     },
     "password": {
       "title": "Quer criar uma senha?",
-      "body": "Sua conta já está pronta e funciona só com o código por e-mail. A senha é um segundo jeito de entrar — útil se o e-mail demorar ou não chegar.",
+      "body": "Sua conta já está pronta e funciona só com o código por e-mail. A senha é um segundo jeito de entrar, útil se o e-mail demorar ou não chegar.",
       "label": "Nova senha",
       "rule": "Pelo menos 8 caracteres, com maiúscula, minúscula e número.",
       "submit": "Criar senha",

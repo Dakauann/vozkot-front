@@ -26,8 +26,8 @@ export interface StagedFile {
  * Files chosen before the ticket they belong to exists.
  *
  * The API attaches media to a ticket id, so nothing can be uploaded until the
- * record is created. Rather than leaking that ordering into the interface — fill
- * the form, save, find the ticket again, then add the artwork — the creation
+ * record is created. Rather than leaking that ordering into the interface, fill
+ * the form, save, find the ticket again, then add the artwork, the creation
  * page queues the files here and the submit handler uploads them the moment the
  * id comes back. One action to the operator, two calls underneath.
  */

@@ -15,7 +15,7 @@ const PopoverAnchor = PopoverPrimitive.Anchor;
 //
 // Radix portals this to <body>, which makes it a SIBLING of whatever opened it
 // rather than a child. At the base z-50 it therefore lost to any panel above
-// 50 — the workflow node config panel is z-[70] — and the menu opened BEHIND
+// 50, the workflow node config panel is z-[70], and the menu opened BEHIND
 // the panel that triggered it. Raising it here fixes every caller at once
 // instead of each one rediscovering the bug and patching its own call site.
 const PopoverContent = React.forwardRef<

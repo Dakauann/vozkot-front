@@ -46,8 +46,8 @@ export function EventWorkspace() {
   // would re-run the fetch on every render.
   const loadError = t("errors.load");
 
-  // The effect only reports what came back. Whatever asked for a new page —
-  // the search box, the pagination buttons — turns the spinner on itself, so
+  // The effect only reports what came back. Whatever asked for a new page:
+  // the search box, the pagination buttons: turns the spinner on itself, so
   // nothing sets state synchronously while the effect body runs.
   React.useEffect(() => {
     let active = true;
@@ -78,7 +78,7 @@ export function EventWorkspace() {
   }, [offset, query, loadError]);
 
   // Filtering by status is done here rather than in the request because the
-  // operator listing is small — one page of an organiser's own events — and a
+  // operator listing is small, one page of an organiser's own events, and a
   // round trip to hide three drafts is a round trip for nothing.
   const visible = status === "" ? events : events.filter((event) => event.status === status);
 

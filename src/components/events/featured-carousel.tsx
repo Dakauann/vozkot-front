@@ -35,7 +35,7 @@ export interface FeaturedSlide {
  * The featured row: one poster held large, its neighbours visible either side.
  *
  * What is FEATURED here is not an editorial flag somebody has to remember to
- * keep current — it is the soonest events that still have tickets, computed on
+ * keep current; it is the soonest events that still have tickets, computed on
  * every render. A hand-curated hero is a hero that eventually promotes a show
  * that happened last month.
  *
@@ -113,7 +113,7 @@ export function FeaturedCarousel({
       <div className="relative">
         {/* The viewport deliberately bleeds past the page gutter, so the
             neighbouring posters are cut by the window rather than by a
-            container edge — which is what makes them read as "there is more"
+            container edge, which is what makes them read as "there is more"
             instead of as cropped cards. */}
         <div className="-mx-4 overflow-hidden sm:-mx-6 lg:-mx-8" ref={emblaRef}>
           {/* items-center so the scaled-down neighbours sit on the centre

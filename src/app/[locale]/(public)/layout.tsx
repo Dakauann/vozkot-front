@@ -11,7 +11,7 @@ import { PublicNavbar } from "@/components/brand/public-navbar";
  * two never see each other's navigation.
  *
  * A column that fills the viewport, with the footer pushed to the bottom by the
- * growing middle — so a short page (an empty search, a sold-out event) still
+ * growing middle, so a short page (an empty search, a sold-out event) still
  * has the footer at the bottom of the window instead of floating halfway up it.
  */
 export default function PublicLayout({ children }: { children: React.ReactNode }) {

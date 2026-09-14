@@ -4,7 +4,7 @@ import { localeFormats, type Locale } from "@/i18n/config";
  * Formatting, in the viewer's language and the box office's currency.
  *
  * Those are two different things and the split is deliberate: a German operator
- * of a Brazilian venue reads "24.000,00 R$" — German separators, Brazilian
+ * of a Brazilian venue reads "24.000,00 R$": German separators, Brazilian
  * money. Deriving the currency from the locale would quietly relabel every
  * price as euros.
  */
@@ -51,13 +51,13 @@ export function formatNumber(value: number, locale: Locale): string {
  * a rendering bug, and a dash reads as "this record has none", which is what it
  * means.
  */
-export const NO_DATE = "—";
+export const NO_DATE = ", ";
 
 /**
  * Formats an instant, or returns a dash.
  *
  * Intl.DateTimeFormat THROWS a RangeError on an invalid date, and these
- * functions are called from server components — so one record with a missing
+ * functions are called from server components, so one record with a missing
  * timestamp does not render as a blank line, it takes down the entire page with
  * a 500. A field that is absent because an API dropped it, or null because the
  * column is nullable, is a data problem worth seeing; it is not worth an outage.
@@ -160,7 +160,7 @@ export function fromDateTimeLocalValue(value: string): string {
  *
  * Both separators are accepted in either role, because four locales share this
  * one field: "240,00", "240.00", "1.240,50" and "1,240.50" are all the same
- * price. The rule is positional rather than locale-driven — the LAST separator
+ * price. The rule is positional rather than locale-driven, the LAST separator
  * is the decimal point when one or two digits follow it, and grouping
  * otherwise. Reading the separator from the active locale instead would turn a
  * pt-BR operator typing "240.00" into twenty-four thousand reais, which is the
@@ -188,7 +188,7 @@ export function parseMoneyToCents(value: string): number {
 /**
  * Cents to the value a price field holds while being edited, written with the
  * operator's own decimal separator: a Brazilian sees 240,00 and a US operator
- * 240.00. Grouping is deliberately off — separators inside an input are noise
+ * 240.00. Grouping is deliberately off; separators inside an input are noise
  * to edit around.
  */
 export function centsToMoneyInput(cents: number, locale: Locale): string {

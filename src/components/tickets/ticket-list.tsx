@@ -24,7 +24,7 @@ interface TicketListProps {
  *
  * Rows, not cards: an operator scans this looking for one event among many, and
  * a grid of equal tiles turns that scan into a search. Each row carries the
- * four things the scan is actually for — what it is, when the doors open, what
+ * four things the scan is actually for; what it is, when the doors open, what
  * it costs, and how much of it is left.
  */
 export function TicketList({ tickets, events, selectedId, onSelect }: TicketListProps) {
@@ -135,8 +135,8 @@ export function TicketListSkeleton() {
  * The line under a tier: when and where its event is.
  *
  * The facts belong to the event, not the tier, so they are read from the
- * directory. A tier whose event is not in the directory still renders a row —
- * the operator can see the tier and open it — rather than blanking the list.
+ * directory. A tier whose event is not in the directory still renders a row;
+ * the operator can see the tier and open it, rather than blanking the list.
  */
 function eventLine(event: EventListing | undefined, locale: Locale, fallback: string): string {
   if (!event) return fallback;

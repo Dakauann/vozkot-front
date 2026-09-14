@@ -6,7 +6,8 @@ import { BrandLogo } from "@/components/brand/brand-mark";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useAuth } from "@/contexts/auth-context";
-import { Link } from "@/i18n/routing";
+import { useAuthDialog } from "@/contexts/auth-dialog-context";
+import { Link, useRouter } from "@/i18n/routing";
 import ElevatedInput from "../elevated-design/elevated-input";
 import { Buscar } from "../icons/glyphs";
 
@@ -14,20 +15,28 @@ import { Buscar } from "../icons/glyphs";
  * The buyer-facing header.
  *
  * Three jobs, in the order a visitor needs them: get back to the catalogue,
- * search from anywhere, and reach their own tickets. Everything else — the
- * language, the theme — is a preference and sits at the far end where it does
+ * search from anywhere, and reach their own tickets. Everything else, the
+ * language, the theme; is a preference and sits at the far end where it does
  * not compete.
  *
  * Search lives HERE and only here, on every page including the landing page.
  * That is the arrangement every ticketing marketplace converged on, and the
  * reason is that a second search box in a hero splits the answer to "where do I
- * type" — and costs a viewport of scroll to ask a question the header already
+ * type", and costs a viewport of scroll to ask a question the header already
  * asks. The landing page below spends that space on real events instead.
  */
 export function PublicNavbar() {
   const t = useTranslations("catalogue");
   const nav = useTranslations("publicNav");
   const { isAuthenticated } = useAuth();
+  const { openSignIn, requireAuth } = useAuthDialog();
+  const router = useRouter();
+
+  // Selling needs a session and then a destination; buying needs only the
+  // session, and whatever asked for it carries on by itself.
+  const sell = async () => {
+    if (await requireAuth()) router.push("/dashboard");
+  };
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-card">
@@ -44,24 +53,15 @@ export function PublicNavbar() {
             the server renders the results, and the term lands in the URL where
             the rest of the catalogue already reads it from. */}
         <form action="/" method="get" className="min-w-0 flex-1 sm:max-w-xl 2xl:max-w-3xl mx-auto">
-          {/* <label className="sr-only" htmlFor="navbar-search">
-            {t("searchLabel")}
-          </label>
-          <input
-            id="navbar-search"
-            name="q"
-            type="search"
-            placeholder={t("searchPlaceholder")}
-            className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          /> */}
           <ElevatedInput
-          icon={<Buscar/>}
             id="navbar-search"
             name="q"
             type="search"
+            variant="search"
+            icon={<Buscar size={18} aria-hidden />}
             label={t("searchLabel")}
             placeholder={t("searchPlaceholder")}
-/>
+          />
         </form>
 
         <nav aria-label={nav("label")} className="flex shrink-0 items-center gap-1">
@@ -72,17 +72,24 @@ export function PublicNavbar() {
             </>
           ) : (
             <>
-              {/* Organisers are a tiny fraction of the traffic here, so the
-                  link is quiet and the buyer's own action is the loud one. */}
-              <NavLink href="/login" className="hidden sm:inline-flex">
+              {/* Both open the sign-in dialog rather than leaving for a form.
+                  The page stays underneath, so somebody who was halfway through
+                  choosing tickets still has them chosen afterwards, and there
+                  is one sign-in in the app instead of a dialog and a page that
+                  can drift apart.
+
+                  Organisers are a tiny fraction of the traffic here, so this
+                  one is quiet and the buyer's own action is the loud one. */}
+              <button type="button" onClick={() => void sell()} className={`${NAV_LINK} hidden sm:inline-flex`}>
                 {nav("sell")}
-              </NavLink>
-              <Link
-                href="/login"
+              </button>
+              <button
+                type="button"
+                onClick={() => openSignIn()}
                 className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-[var(--elev-button-primary)] transition-[transform,background-color,box-shadow] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-primary-hover hover:shadow-[var(--elev-button-primary-hover)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 {nav("signIn")}
-              </Link>
+              </button>
             </>
           )}
           <span className="mx-1 hidden h-5 w-px bg-border sm:block" aria-hidden />
@@ -94,6 +101,10 @@ export function PublicNavbar() {
   );
 }
 
+/** Shared by the links and by the two buttons that are links in everything but tag. */
+const NAV_LINK =
+  "inline-flex h-9 items-center rounded-md px-3 text-sm font-medium text-muted-foreground transition-[transform,background-color,color] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-accent-hover hover:text-foreground active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+
 function NavLink({
   href,
   children,
@@ -104,10 +115,7 @@ function NavLink({
   className?: string;
 }) {
   return (
-    <Link
-      href={href}
-      className={`inline-flex h-9 items-center rounded-md px-3 text-sm font-medium text-muted-foreground transition-[transform,background-color,color] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-accent-hover hover:text-foreground active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${className}`}
-    >
+    <Link href={href} className={`${NAV_LINK} ${className}`}>
       {children}
     </Link>
   );

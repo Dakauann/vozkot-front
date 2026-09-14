@@ -37,7 +37,7 @@ import type { Ticket, TicketStatus } from "@/lib/tickets/types";
  * unrelated places: the event list could publish and rename a night, and a
  * separate global tier workspace held every tier of every event behind a
  * filter. Nobody manages a box office that way. An organiser thinks "Festival
- * X" and wants its door time, its tiers, what has sold and what is held — on
+ * X" and wants its door time, its tiers, what has sold and what is held, on
  * one page, with the actions next to the numbers they change.
  *
  * The numbers are the point. A tier reading "372 available" tells an operator
@@ -77,7 +77,7 @@ export function EventManager({ eventId }: { eventId: string }) {
     };
     // Loaded once. Every mutation on this screen writes the row it changed
     // back into state from the server's own response, so there is nothing a
-    // re-fetch would correct — and a page that silently re-read itself would
+    // re-fetch would correct, and a page that silently re-read itself would
     // discard an optimistic row an operator is still looking at.
   }, [eventId]);
 
@@ -320,7 +320,7 @@ function TierRow({
 
       {/* Sold, held and remaining as one bar, because they are one capacity.
           Three separate numbers make an operator do the arithmetic that this
-          shows at a glance — and holds sitting next to sales is exactly the
+          shows at a glance, and holds sitting next to sales is exactly the
           comparison that matters while a tier is selling. */}
       <div className="mt-3">
         <div className="flex h-2 overflow-hidden rounded-full bg-muted" role="presentation">

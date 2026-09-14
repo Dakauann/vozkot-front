@@ -27,7 +27,7 @@ type Filter = (typeof FILTERS)[number];
  * by accident.
  *
  * A client component, unlike the catalogue next door. This page is private, it
- * is behind a session, and it has actions that change what it is showing — none
+ * is behind a session, and it has actions that change what it is showing, none
  * of which a cached server render is any good at.
  */
 export function OrderList() {
@@ -75,8 +75,8 @@ export function OrderList() {
 
       {/* Keyed on the query, so changing the filter or the page REMOUNTS this
           with a fresh "not loaded yet" state.
-          The alternative — one long-lived component that resets its own state
-          from an effect when the query changes — sets state during an effect,
+          The alternative, one long-lived component that resets its own state
+          from an effect when the query changes: sets state during an effect,
           which renders once with the old page's rows under the new page's
           heading before correcting itself. Letting React discard the old
           instance says the same thing without the wrong frame in between. */}
@@ -116,7 +116,7 @@ function OrdersPage({
 
   // The request lives inside the effect rather than in a callback the effect
   // calls. It is the same work either way, but written here the first statement
-  // is an await, so nothing sets state before React has painted — which is what
+  // is an await, so nothing sets state before React has painted, which is what
   // stops a fetch on mount from costing an extra render pass.
   useEffect(() => {
     let cancelled = false;

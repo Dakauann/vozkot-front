@@ -2,14 +2,16 @@
 
 import * as React from "react";
 
+import { FIELD_CHROME } from "@/components/elevated-design/elevated-input";
 import { cn } from "@/lib/utils";
 
 /**
  * Form controls for data entry.
  *
- * The surface is character for character the one ElevatedInput draws — same
- * card fill, same control edge, same inset primary rule on focus — so a field
- * here and a field on the sign-in screen read as the same component family.
+ * The surface IS the one ElevatedInput draws: the chrome comes from that
+ * component rather than from a copy of it, so a field here and a field on the
+ * sign-in screen cannot drift apart. It used to be a duplicate kept in step by
+ * hand, and a duplicate kept in step by hand eventually is not.
  *
  * What differs is where the label sits. ElevatedInput floats it into the
  * control, which is right for a two-field sign-in and wrong for an eight-field
@@ -18,11 +20,10 @@ import { cn } from "@/lib/utils";
  * field to live. Labels sit above here for both reasons.
  */
 export const FIELD_SURFACE = cn(
-  "w-full rounded-[--radius] border border-control-edge bg-card text-foreground dark:bg-muted",
+  "w-full rounded-[--radius]",
+  FIELD_CHROME,
   "transition-[background-color,border-color,box-shadow] duration-150 ease-out",
-  "placeholder:text-muted-foreground hover:border-[hsl(var(--muted-foreground)/0.5)]",
-  "focus-visible:border-control-edge focus-visible:shadow-[inset_0_-2px_0_0_hsl(var(--primary-edge))]",
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/15",
+  "placeholder:text-muted-foreground focus-visible:outline-none",
   "disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground",
 );
 

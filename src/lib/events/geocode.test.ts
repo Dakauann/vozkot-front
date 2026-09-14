@@ -1,11 +1,11 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { CEP_DIGITS, cepDigits, lookupPostalCode } from "./geocode";
+import { CEP_DIGITS, cepDigits, lookupPostalCode, searchAddresses } from "./geocode";
 
 /**
  * The postcode lookup is what moves the pin, so the two things that matter are
  * that it recognises a CEP however it was punctuated, and that it never throws
- * — it runs while somebody is typing, and a rejected promise there is a form
+ *; it runs while somebody is typing, and a rejected promise there is a form
  * that silently stops responding.
  */
 
@@ -126,5 +126,157 @@ describe("lookupPostalCode", () => {
       throw new Error("offline");
     });
     expect((await lookupPostalCode("60861630")).status).toBe("unavailable");
+  });
+});
+
+/**
+ * The address search is what fills five form fields and drops the pin from one
+ * click, so the tests are about the translation step: OpenStreetMap's shape is
+ * not the form's shape, and every mismatch between them ends up stored on an
+ * event and printed on a ticket.
+ */
+describe("searchAddresses", () => {
+  function stubSearch(features: unknown[], ok = true) {
+    const fetchMock = vi.fn(async () => ({
+      ok,
+      status: ok ? 200 : 503,
+      json: async () => ({ features }),
+    }));
+    vi.stubGlobal("fetch", fetchMock as unknown as typeof fetch);
+    return fetchMock;
+  }
+
+  /** Photon's own shape, copied from a real response for Rua Harmonia. */
+  function feature(properties: Record<string, unknown>, coordinates = [-46.6901877, -23.5521457]) {
+    return { geometry: { type: "Point", coordinates }, properties };
+  }
+
+  it("does not ask about a query too short to mean anything", async () => {
+    const fetchMock = stubSearch([]);
+    expect(await searchAddresses("ru")).toEqual([]);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("flattens a house result into the street line the form stores", async () => {
+    stubSearch([
+      feature({
+        osm_type: "W",
+        osm_id: 450169794,
+        name: "Edifício Madalena",
+        street: "Rua Harmonia",
+        housenumber: "755",
+        district: "Vila Madalena",
+        city: "São Paulo",
+        state: "São Paulo",
+        postcode: "05435-000",
+        countrycode: "BR",
+      }),
+    ]);
+
+    const [found] = await searchAddresses("rua harmonia 755");
+    expect(found.name).toBe("Edifício Madalena");
+    expect(found.street).toBe("Rua Harmonia, 755");
+    expect(found.neighborhood).toBe("Vila Madalena");
+    expect(found.city).toBe("São Paulo");
+    expect(found.uf).toBe("SP");
+    expect(found.postalCode).toBe("05435-000");
+    expect(found).toMatchObject({ latitude: -23.5521457, longitude: -46.6901877 });
+  });
+
+  it("does not pass a street off as a venue name", async () => {
+    // A road result has the road in `name` and no `street` at all. Copying
+    // that into the venue field would print "Rua Harmonia" on a ticket.
+    stubSearch([
+      feature({
+        osm_type: "W",
+        osm_id: 699663666,
+        osm_key: "highway",
+        type: "street",
+        name: "Rua Harmonia",
+        district: "Vila Madalena",
+        city: "São Paulo",
+        state: "São Paulo",
+        countrycode: "BR",
+      }),
+    ]);
+
+    const [found] = await searchAddresses("rua harmonia");
+    expect(found.name).toBe("");
+    expect(found.street).toBe("Rua Harmonia");
+  });
+
+  it("turns every state name into the two letters the API accepts", async () => {
+    // The form stores a UF and the API validates one. OSM sends the full name,
+    // and it is not consistent about accents, so both spellings must land.
+    const states: [string, string][] = [
+      ["São Paulo", "SP"],
+      ["Rio Grande do Sul", "RS"],
+      ["Ceará", "CE"],
+      ["Ceara", "CE"],
+      ["Distrito Federal", "DF"],
+      ["Espírito Santo", "ES"],
+      ["Paraná", "PR"],
+    ];
+    for (const [state, uf] of states) {
+      stubSearch([feature({ name: "Casa", street: "Rua A", state, countrycode: "BR" })]);
+      const [found] = await searchAddresses("casa");
+      expect(found.uf, state).toBe(uf);
+    }
+  });
+
+  it("leaves the state blank rather than guessing at one it does not know", async () => {
+    stubSearch([feature({ name: "Casa", street: "Rua A", state: "Somewhere", countrycode: "BR" })]);
+    const [found] = await searchAddresses("casa");
+    expect(found.uf).toBe("");
+  });
+
+  it("drops results outside Brazil, which the bounding box only de-ranks", async () => {
+    stubSearch([
+      feature({ name: "Teatro UC", city: "Ñuñoa", state: "Santiago", countrycode: "CL" }),
+      feature({ name: "Teatro Municipal", city: "São Paulo", state: "São Paulo", countrycode: "BR" }),
+    ]);
+
+    const found = await searchAddresses("teatro");
+    expect(found).toHaveLength(1);
+    expect(found[0].name).toBe("Teatro Municipal");
+  });
+
+  it("drops a result with no point, which could not place a pin", async () => {
+    stubSearch([
+      { geometry: undefined, properties: { name: "Sem ponto", countrycode: "BR" } },
+      feature({ name: "Com ponto", countrycode: "BR" }),
+    ]);
+
+    const found = await searchAddresses("ponto");
+    expect(found.map((item) => item.name)).toEqual(["Com ponto"]);
+  });
+
+  it("keeps a partial postcode out of the form instead of half-filling it", async () => {
+    stubSearch([feature({ name: "Casa", street: "Rua A", postcode: "05435", countrycode: "BR" })]);
+    const [found] = await searchAddresses("casa");
+    expect(found.postalCode).toBe("");
+  });
+
+  it("answers with nothing rather than throwing when the service is down", async () => {
+    stubSearch([], false);
+    await expect(searchAddresses("qualquer coisa")).resolves.toEqual([]);
+  });
+
+  it("answers with nothing rather than throwing when the network fails", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => {
+      throw new Error("offline");
+    }) as unknown as typeof fetch);
+    await expect(searchAddresses("qualquer coisa")).resolves.toEqual([]);
+  });
+
+  it("asks only for Brazil and only for a listful of results", async () => {
+    const fetchMock = stubSearch([]);
+    await searchAddresses("espaço aurora");
+
+    const [requested] = fetchMock.mock.calls[0] as unknown as [RequestInfo];
+    const url = new URL(String(requested));
+    expect(url.searchParams.get("q")).toBe("espaço aurora");
+    expect(url.searchParams.get("bbox")).toBe("-73.99,-33.75,-28.85,5.27");
+    expect(Number(url.searchParams.get("limit"))).toBeLessThanOrEqual(10);
   });
 });

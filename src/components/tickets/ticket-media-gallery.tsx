@@ -29,7 +29,7 @@ interface TicketMediaGalleryProps {
  * the wrong one.
  *
  * Validation runs here as well as on the server. Not because the client is
- * trusted — it is not, and the API rejects the same files independently — but
+ * trusted, it is not, and the API rejects the same files independently, but
  * because a 40 MB video that fails after a two-minute upload is a worse answer
  * than one refused the instant it is dropped.
  */

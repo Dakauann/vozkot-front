@@ -8,8 +8,8 @@ import { EVENT_CATEGORIES } from "@/lib/events/types";
  * The links above the footer.
  *
  * This is a search surface as much as a navigation one. Every marketplace of
- * this kind carries the same block — Sympla lists twelve cities and thirteen
- * categories down there — because it is what gives a crawler a path into the
+ * this kind carries the same block, Sympla lists twelve cities and thirteen
+ * categories down there, because it is what gives a crawler a path into the
  * long tail of city and category pages that would otherwise only be reachable
  * by typing a query. Those landing pages are where most organic ticket traffic
  * actually arrives.

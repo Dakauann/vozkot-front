@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
+    "dev": "bun scripts/copy-maplibre-worker.mjs && next dev --turbopack",
+    "build": "bun scripts/copy-maplibre-worker.mjs && next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "maplibre:worker": "bun scripts/copy-maplibre-worker.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.2",

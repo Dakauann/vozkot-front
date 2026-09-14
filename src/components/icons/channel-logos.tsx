@@ -76,15 +76,15 @@ export function WhatsAppLogoColor({ className }: IconProps) {
 /**
  * The unofficial WhatsApp transport's mark.
  *
- * The SAME glyph as the official one, because to the customer it IS WhatsApp —
+ * The SAME glyph as the official one, because to the customer it IS WhatsApp;
  * a different silhouette would be a lie about which app the message lands in.
  * What changes is the treatment: the brand green is replaced by a neutral ink
  * and the mark is ringed, so an operator scanning a mixed inbox sees "WhatsApp,
  * but not the official one" in a single glance.
  *
  * That distinction is not cosmetic. The two transports send from different
- * numbers under different rules — one has a 24-hour window and templates, the
- * other can be banned for cold outbound — so an operator who cannot tell them
+ * numbers under different rules: one has a 24-hour window and templates, the
+ * other can be banned for cold outbound, so an operator who cannot tell them
  * apart cannot know what they are allowed to send. Before this existed,
  * ChannelLogo returned null for the unofficial channel and those conversations
  * carried no mark at all, which read as "no channel" rather than as a warning.
@@ -145,7 +145,7 @@ export function TelegramLogoColor({ className }: IconProps) {
  * The channels that have a brand mark.
  *
  * Beside ChannelLogo on purpose: this used to be a second hardcoded list inside
- * ChannelAvatar, and it drifted the moment a channel was added — unofficial
+ * ChannelAvatar, and it drifted the moment a channel was added, unofficial
  * WhatsApp had a mark here and was still gated out of the avatar badge, so those
  * conversations showed a bare initial while every other channel showed its
  * network. One list, next to the switch it must agree with.
@@ -169,7 +169,7 @@ export function hasChannelMark(channel: string | null | undefined): boolean {
  * surface that shows a channel has to agree on what to call it, and the ones
  * that answered the question inline got it wrong. The context rail asked
  * `entry_type === "whatsapp" ? "WhatsApp" : "Voz"`, so every Instagram, Telegram
- * and unofficial-WhatsApp conversation was labelled "Voz" — a voice call.
+ * and unofficial-WhatsApp conversation was labelled "Voz", a voice call.
  *
  * The unofficial channel says WhatsApp, because that is the network the customer
  * is on; that it reaches us over a linked device is our concern, and the sub-label

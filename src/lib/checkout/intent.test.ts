@@ -4,7 +4,6 @@ import {
   MAX_LINES,
   MAX_QUANTITY,
   intentParams,
-  loginHref,
   readIntent,
   safeNext,
   totalQuantity,
@@ -13,8 +12,8 @@ import {
 /**
  * The purchase intent survives a sign-in by living in the URL, so these tests
  * cover the three ways that can go wrong: losing the buyer's choice, letting a
- * hand-edited address do something it should not, and — the one that was a live
- * bug — quietly keeping only part of a basket.
+ * hand-edited address do something it should not, and; the one that was a live
+ * bug, quietly keeping only part of a basket.
  */
 
 describe("readIntent", () => {
@@ -127,31 +126,6 @@ describe("intentParams", () => {
     // Split on the LAST colon, so an id that contains one still parses.
     const intent = { lines: [{ ticketId: "tkt:weird:id", quantity: 3 }] };
     expect(readIntent(intentParams(intent))).toEqual({ ...intent, eventSlug: undefined });
-  });
-});
-
-describe("loginHref", () => {
-  it("sends the buyer back to the checkout they were filling in, basket intact", () => {
-    const intent = {
-      lines: [
-        { ticketId: "tier-1", quantity: 2 },
-        { ticketId: "tier-2", quantity: 1 },
-      ],
-      eventSlug: "rock-in-rio",
-    };
-    const href = loginHref(intent);
-    expect(href.startsWith("/login?next=")).toBe(true);
-
-    const next = new URLSearchParams(href.slice(href.indexOf("?") + 1)).get("next");
-    expect(next).not.toBeNull();
-    expect(next?.startsWith("/checkout?")).toBe(true);
-    expect(readIntent(new URLSearchParams(next!.slice(next!.indexOf("?") + 1)))).toEqual(intent);
-  });
-
-  it("produces a return path safeNext will accept", () => {
-    const href = loginHref({ lines: [{ ticketId: "tier-1", quantity: 1 }] });
-    const next = new URLSearchParams(href.slice(href.indexOf("?") + 1)).get("next");
-    expect(safeNext(next)).toBe(next);
   });
 });
 

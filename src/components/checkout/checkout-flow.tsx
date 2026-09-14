@@ -18,6 +18,9 @@ import {
 } from "@/lib/checkout/api";
 import { readIntent, type CheckoutIntent } from "@/lib/checkout/intent";
 import { OpenHolds } from "@/components/checkout/open-holds";
+import { TextAreaField } from "@/components/ui/field";
+import ElevatedInput from "@/components/elevated-design/elevated-input";
+import { EnvelopeSimple, IdentificationCard, Person } from "@/components/icons";
 import { useAuthDialog } from "@/contexts/auth-dialog-context";
 
 /**
@@ -88,7 +91,7 @@ export function CheckoutFlow({
   // URL on every render would turn our own rewrite into a state change: the
   // component would see an order id appear, switch branches mid-flow, and
   // remount the screen the buyer was already looking at. The address bar is a
-  // RECOVERY marker here, read on arrival — not a second source of truth
+  // RECOVERY marker here, read on arrival, not a second source of truth
   // competing with the component that is driving it.
   const [entry] = useState(() => ({
     resumeID: params.get("order")?.trim() ?? "",
@@ -97,7 +100,7 @@ export function CheckoutFlow({
 
   // Signing in is a DIALOG over this page, not a wall instead of it.
   //
-  // The screen the buyer came for — the poster, the tiers, the total — renders
+  // The screen the buyer came for, the poster, the tiers, the total, renders
   // either way, and the dialog asks for a session on top of it. Swapping the
   // whole page for a "sign in first" card throws away the context they were
   // about to act on, and it is also a worse answer for a session that merely
@@ -223,12 +226,12 @@ function Purchase({
 
   // One key per ATTEMPT, and reused for every retry within it. A fresh key per
   // network retry would create a second order for a buyer whose phone dropped
-  // the response, which is precisely what the key exists to prevent — while
+  // the response, which is precisely what the key exists to prevent, while
   // reusing one key across a deliberate retry, after the first was refused,
   // would replay the refusal instead of trying again.
   const [idempotencyKey, setIdempotencyKey] = useState(newIdempotencyKey);
 
-  // A deliberate retry — after the buyer released one of their other holds —
+  // A deliberate retry, after the buyer released one of their other holds,
   // needs a NEW key. Reusing the old one would replay the stored refusal
   // instead of asking again.
   const retry = useCallback(() => {
@@ -240,8 +243,8 @@ function Purchase({
   //
   // Guarded by a ref rather than by the effect's dependencies, because React's
   // development mode runs every effect twice on purpose. The idempotency key
-  // would make the second call harmless at the API — it returns the same order
-  // — but firing it at all is a wasted round trip on the one screen where
+  // would make the second call harmless at the API; it returns the same order
+  //, but firing it at all is a wasted round trip on the one screen where
   // latency is most visible.
   //
   // There is deliberately NO cancelled flag here, and that is the subtle part.
@@ -250,7 +253,7 @@ function Purchase({
   // the only request that was ever sent and the once-guard stops a replacement
   // being made. The screen then waits forever on a reservation that already
   // succeeded. Since this fires exactly once per mount either way, the right
-  // answer is to let it land — a state update after unmount is a no-op in React
+  // answer is to let it land; a state update after unmount is a no-op in React
   // 18, not a leak.
   const reserved = useRef(-1);
   useEffect(() => {
@@ -266,7 +269,7 @@ function Purchase({
       // dialog at somebody who is already signed in, because that state starts
       // false and only becomes true after a round trip to /user/me. The server
       // already knows a cookie was sent, so a buyer who has one goes straight
-      // to reserving — and if that cookie turns out to be stale, the 401 below
+      // to reserving, and if that cookie turns out to be stale, the 401 below
       // asks for a session properly. That is the case the server cannot see:
       // it knows a cookie EXISTS, and one that expired an hour ago looks
       // identical to a live one from there.
@@ -408,7 +411,7 @@ function Reserving({ resuming = false }: { resuming?: boolean }) {
  *
  * "Over a limit" is the one of those the buyer can actually fix, and it is the
  * one a plain error message fails worst. The cap counts orders they cannot see
- * from here, so the refusal shows them and offers to release one — the remedy
+ * from here, so the refusal shows them and offers to release one, the remedy
  * attached to the sentence that mentions it, rather than an instruction to go
  * and find it somewhere else while the basket goes cold.
  *
@@ -490,7 +493,7 @@ function Recover() {
  *
  * It renders from the INTENT before the hold exists and from the ORDER
  * afterwards. The two agree on quantities, and only the order knows the real
- * prices — so the panel shows the lines immediately and fills in the money when
+ * prices, so the panel shows the lines immediately and fills in the money when
  * the server has priced them. Guessing the price client-side and correcting it
  * a moment later would be a number that changes under the buyer's eyes on the
  * one screen where that is least forgivable.
@@ -590,7 +593,7 @@ function OrderSummary({
             </span>
             <span className="shrink-0 text-sm tabular-nums text-muted-foreground">
               {line.totalCents === undefined
-                ? "—"
+                ? ", "
                 : formatMoney(line.totalCents, locale, line.currency)}
             </span>
           </li>
@@ -664,30 +667,33 @@ function BuyerForm({
         <p className="mt-1 text-sm text-muted-foreground">{t("detailsHint")}</p>
       </div>
 
-      <Field
+      <ElevatedInput
         id="buyer-name"
         label={t("name")}
+        icon={<Person size={18} aria-hidden />}
         value={buyer.name}
-        onChange={(value) => setBuyer((current) => ({ ...current, name: value }))}
+        onChange={(event) => setBuyer((current) => ({ ...current, name: event.target.value }))}
         autoComplete="name"
         required
       />
-      <Field
+      <ElevatedInput
         id="buyer-email"
         label={t("email")}
+        icon={<EnvelopeSimple size={18} aria-hidden />}
         type="email"
         value={buyer.email}
-        onChange={(value) => setBuyer((current) => ({ ...current, email: value }))}
+        onChange={(event) => setBuyer((current) => ({ ...current, email: event.target.value }))}
         autoComplete="email"
         inputMode="email"
         required
         hint={t("emailHint")}
       />
-      <Field
+      <ElevatedInput
         id="buyer-document"
         label={t("document")}
+        icon={<IdentificationCard size={18} aria-hidden />}
         value={buyer.document}
-        onChange={(value) => setBuyer((current) => ({ ...current, document: value }))}
+        onChange={(event) => setBuyer((current) => ({ ...current, document: event.target.value }))}
         inputMode="numeric"
         autoComplete="off"
         required
@@ -717,51 +723,6 @@ function BuyerForm({
         </button>
       </div>
     </form>
-  );
-}
-
-function Field({
-  id,
-  label,
-  value,
-  onChange,
-  hint,
-  type = "text",
-  ...rest
-}: {
-  id: string;
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  hint?: string;
-  type?: string;
-  // The overridden props are omitted rather than intersected. An intersection
-  // would leave `onChange` meaning BOTH signatures at once, so the callback
-  // argument widens to `string | ChangeEvent` and every caller has to narrow it.
-} & Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  "id" | "type" | "value" | "onChange"
->) {
-  return (
-    <div className="flex flex-col gap-1">
-      <label htmlFor={id} className="text-sm font-medium text-card-foreground">
-        {label}
-      </label>
-      <input
-        {...rest}
-        id={id}
-        type={type}
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        aria-describedby={hint ? `${id}-hint` : undefined}
-        className="h-10 rounded-md border border-input bg-background px-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-      />
-      {hint ? (
-        <p id={`${id}-hint`} className="text-xs text-muted-foreground">
-          {hint}
-        </p>
-      ) : null}
-    </div>
   );
 }
 
@@ -913,14 +874,14 @@ function PixCode({ order }: { order: Order }) {
         <summary className="cursor-pointer text-xs font-medium text-muted-foreground">
           {t("showCode")}
         </summary>
-        <textarea
+        <TextAreaField
           id="pix-code"
           readOnly
           value={code}
           rows={3}
           aria-label={t("copyPaste")}
           onFocus={(event) => event.currentTarget.select()}
-          className="mt-2 w-full resize-none break-all rounded-md border border-input bg-muted p-2 font-mono text-xs text-foreground"
+          className="mt-2 resize-none break-all bg-muted p-2 font-mono text-xs"
         />
       </details>
 
@@ -985,16 +946,16 @@ interface SummaryLine {
 /**
  * Puts the order's id in the address bar, so a refresh RESUMES it.
  *
- * Without this the page's address describes only a basket, and reloading it —
- * an impatient refresh, a restored tab, a phone waking up — reserves a second
+ * Without this the page's address describes only a basket, and reloading it:
+ * an impatient refresh, a restored tab, a phone waking up, reserves a second
  * set of tickets. Two refreshes and the buyer is holding three times what they
  * asked for, against an account limit they will then hit for no reason, with
  * inventory off the shelf that nobody is going to pay for.
  *
  * history.replaceState rather than a router push: this is a correction to the
  * address of the page already on screen, not a new place. It must not add a
- * history entry — a buyer pressing Back should return to the event, not to a
- * basket that would reserve all over again — and it must not re-run the route.
+ * history entry; a buyer pressing Back should return to the event, not to a
+ * basket that would reserve all over again, and it must not re-run the route.
  */
 function rememberOrder(orderID: string) {
   if (typeof window === "undefined") return;

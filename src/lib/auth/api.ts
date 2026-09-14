@@ -6,17 +6,17 @@ import type { AuthResponse, User } from "./types";
 
 export type { ApiResult } from "@/lib/api/client";
 
+/**
+ * Password sign-in.
+ *
+ * Sign-in only: there is no register() beside it any more. A password is a
+ * SECOND key, chosen after a code has proven the address, so nothing here can
+ * bring an account into existence. See sign-in-flow.tsx for the ordering.
+ */
 export function login(email: string, password: string) {
   return apiFetch<AuthResponse>("/auth/login", {
     method: "POST",
     body: JSON.stringify({ email, password }),
-  });
-}
-
-export function register(name: string, email: string, password: string) {
-  return apiFetch<AuthResponse>("/auth/register", {
-    method: "POST",
-    body: JSON.stringify({ name, email, password }),
   });
 }
 

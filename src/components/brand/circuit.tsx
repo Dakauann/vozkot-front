@@ -1,16 +1,16 @@
 /*
- * The trace lines — the Vozko board's signature ornament, drawn rather than
+ * The trace lines: the Vozko board's signature ornament, drawn rather than
  * shipped as a PNG so they recolour with the theme and stay crisp at any size.
  *
  * The board's geometry, reproduced exactly (2026-08-24 correction against the
  * "Elementos Gráficos" panel): a BUNDLE of parallel traces rising at 45° like
- * a growth curve — each starts with a short horizontal run, climbs, and the
+ * a growth curve; each starts with a short horizontal run, climbs, and the
  * lead trace takes one horizontal step midway before climbing again. The lead
  * trace is full-strength; the flanking traces echo it thinner and fainter.
  *
  * What travels the bundle is CURRENT, not cargo (2026-09-04, user direction):
  * the static square trail, pads and vias are gone, and every run now carries
- * its own pulse instead — same geometry, staggered so the bundle reads as a
+ * its own pulse instead; same geometry, staggered so the bundle reads as a
  * live circuit rather than a diagram of one. No glow, no gradient; colour is
  * component-owned via the `tone` prop, internal opacity is drawn into the art.
  *
@@ -184,7 +184,7 @@ export function CircuitTraces({
 
 /**
  * The board's SECOND trace type: circuit-board routing. Where CircuitTraces
- * is the rising "results" bundle, this is the identity tile's PCB grammar —
+ * is the rising "results" bundle, this is the identity tile's PCB grammar;
  * long orthogonal runs connected by 45° chamfered bends and a branch splitting
  * off the main route. Same material rules: currentColor, tone prop, pulses.
  * ViewBox 220×220.
@@ -207,7 +207,7 @@ export function CircuitBoard({
       style={{ pointerEvents: "none" }}
     >
       {dynamic ? <GeneratedRuns width={220} height={220} pulse={pulse} seed={seed} branches={branches} speed={speed} /> : <>
-      {/* Main route: up, chamfer, up, chamfer, out — PCB routing. */}
+      {/* Main route: up, chamfer, up, chamfer, out, PCB routing. */}
       <Run d="M28 214 V158 L56 130 V86 L92 50 H150 L178 22 H214" width={3} pulse={pulse} delay={0} dash={13} duration={9} />
       {/* Branch splitting off the main route at the second chamfer. */}
       <Run d="M56 108 H104 L132 80 V44" width={2} opacity={0.5} pulse={pulse} delay={-3.2} dash={16} duration={7} />
@@ -221,7 +221,7 @@ export function CircuitBoard({
 }
 
 /**
- * The trace bundle for WIDE, SHORT bands — page headers, strips, footers.
+ * The trace bundle for WIDE, SHORT bands: page headers, strips, footers.
  * Same grammar as CircuitTraces (horizontal run → 45° climb → step → climb,
  * faint flankers, each with its own current) recomposed on a 460×150 canvas
  * so nothing has to bleed or clip in a band shorter than it is wide.
@@ -264,7 +264,7 @@ export function CircuitTracesWide({
 /**
  * The board's dot matrix: a clean grid of SQUARE dots (the board draws
  * squares, not circles), solid at the left edge and dissolving toward the
- * right — size and opacity step down together. ViewBox 140×92.
+ * right, size and opacity step down together. ViewBox 140×92.
  */
 export function DotMatrix({ className, tone = "bold" }: OrnamentProps) {
   const dots: React.ReactNode[] = [];

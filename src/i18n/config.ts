@@ -3,7 +3,7 @@
  *
  * Portuguese leads and is the default: the box office sells ingressos in
  * Brazil, and the operator using this every day reads pt-BR. The other three
- * exist because the product is sold beyond it, not as an afterthought — every
+ * exist because the product is sold beyond it, not as an afterthought, every
  * catalog is complete, and a missing key is a bug, not a silent fallback.
  */
 export const locales = ["pt", "en", "de", "es"] as const;

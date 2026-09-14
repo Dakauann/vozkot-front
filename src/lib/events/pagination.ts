@@ -16,7 +16,7 @@ export type PageGap = null;
  * How many pages a result set has, capped by how deep the API will actually go.
  *
  * The cap is not cosmetic. The server clamps the offset, so a link past it
- * returns the last reachable page under a label that claims otherwise — a
+ * returns the last reachable page under a label that claims otherwise, a
  * control that lies about where it goes is worse than one that stops.
  */
 export function pageCount(total: number, limit: number, maxOffset: number = MAX_OFFSET): number {

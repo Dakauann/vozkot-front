@@ -2,7 +2,7 @@
  * The catalogue as the API hands it over.
  *
  * An EVENT is the happening a buyer browses: one night, one place, one poster,
- * one category. A TICKET is a tier underneath it — Pista, Camarote — carrying a
+ * one category. A TICKET is a tier underneath it, Pista, Camarote, carrying a
  * price and a number of seats. The two were one thing once, which is why a
  * listing had to group by a repeated string and two tiers of the same night
  * could disagree about where it was.
@@ -171,7 +171,7 @@ export const DEFAULT_PAGE_SIZE = 24;
 /**
  * The deepest the API will page.
  *
- * A keyset cursor would go further, but nobody browses to event 5,001 — they
+ * A keyset cursor would go further, but nobody browses to event 5,001, they
  * search. The ceiling exists because OFFSET makes the database walk and discard
  * every row before it, so a crawler following page links forever would turn
  * each request into a full scan.

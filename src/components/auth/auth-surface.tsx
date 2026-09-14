@@ -6,9 +6,13 @@ import { CircuitTraces, DotMatrix } from "@/components/brand/circuit";
 import { LightPool } from "@/components/brand/light-pool";
 
 /**
- * The frame both credential screens sit in.
+ * The frame the sign-in screen sits in.
  *
- * The old "back to the app" row under the card is gone: every app route is
+ * It used to hold two, a login form and a register form, and now holds one,
+ * because there is one way into an account and the register form was the other
+ * one. See sign-in-flow.tsx for why that one went.
+ *
+ * The old "back to the app" row under the card is gone too: every app route is
  * behind the gate, so the link sent an unauthenticated visitor to a redirect
  * that returned them to the screen they were already on.
  */

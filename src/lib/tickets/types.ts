@@ -3,7 +3,7 @@
  *
  * A ticket here is an INGRESSO: admission to an event. It is priced, stocked,
  * put on sale and sold out. The English word collides with the support-desk
- * sense and shares nothing else with it — there is no assignee, no priority and
+ * sense and shares nothing else with it, there is no assignee, no priority and
  * no conversation thread anywhere in this file.
  */
 
