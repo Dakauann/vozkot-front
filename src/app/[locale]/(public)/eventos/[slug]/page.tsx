@@ -5,7 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { brand } from "@/config/brand";
 import { EventImage, coverImage } from "@/components/events/event-image";
 import { EventLocationMap } from "@/components/events/event-location-map";
-import { TierPicker } from "@/components/events/tier-picker";
+import { BuyPanel } from "@/components/events/buy-panel";
 import { ArrowSquareOut, CalendarBlank, MapPin } from "@/components/icons";
 import type { Locale } from "@/i18n/config";
 import { getEvent, getEventTiers } from "@/lib/events/api";
@@ -183,7 +183,8 @@ export default async function EventPage({
                 {t("cancelledNoSales")}
               </p>
             ) : (
-              <TierPicker
+              <BuyPanel
+                eventId={event.id}
                 tiers={tiers}
                 eventSlug={event.slug}
                 locale={locale}

@@ -29,17 +29,23 @@
     "sections": {
       "operations": "Box office",
       "support": "Support",
-      "insights": "Insights"
+      "insights": "Insights",
+      "account": "My account"
     },
     "events": "Events",
-    "tickets": "Tickets",
     "checkIn": "Check-in",
-    "orders": "Orders",
     "reports": "Reports",
     "help": "Help centre",
     "contact": "Contact",
     "settings": "Settings",
-    "admin": "Administration"
+    "admin": "Administration",
+    "account": "My account",
+    "accountDescription": "Your tickets and orders",
+    "tiers": "Tiers",
+    "myTickets": "My tickets",
+    "createEvent": "Create an event",
+    "createEventHint": "Publish an event and start selling tickets.",
+    "layouts": "Layouts"
   },
   "navbar": {
     "toggleSidebar": "Toggle the sidebar",
@@ -71,22 +77,95 @@
   "tickets": {
     "page": {
       "title": "Tickets",
-      "description": "Batches on sale, stock and media for every event."
+      "description": "Tiers on sale, stock and media for every event."
     },
-    "summary": {
-      "batches": "{count, plural, =0 {no batches} one {# batch} other {# batches}}",
-      "available": "{count, number} tickets available",
-      "potential": "{value} in stock"
+    "noEvent": "Event not found",
+    "actions": {
+      "create": "New ticket",
+      "edit": "Edit",
+      "delete": "Delete",
+      "backToList": "Back to tickets",
+      "publish": "Publish tier",
+      "backToDraft": "Back to draft",
+      "cancelSale": "Cancel sale"
     },
-    "toolbar": {
-      "searchPlaceholder": "Search by event, batch, venue or city",
-      "searchLabel": "Search tickets",
-      "sortLabel": "Sort by",
-      "sortStartsAt": "Event date",
-      "sortCreatedAt": "Recently created",
-      "sortPrice": "Lowest price",
-      "statusLabel": "Filter by status",
-      "statusAll": "All"
+    "delete": {
+      "title": "Delete this tier?",
+      "body": "The “{title}” tier of {event} comes off sale and cannot be recovered. Tickets already sold stay valid.",
+      "confirm": "Delete tier"
+    },
+    "detail": {
+      "stock": "Stock",
+      "stockValue": "{sold} of {total} sold",
+      "revenue": "Revenue in stock",
+      "remaining": "{count, plural, =0 {none left} one {# ticket left} other {# tickets left}}"
+    },
+    "empty": {
+      "title": "No tiers yet",
+      "body": "Tiers set the price, the quantity and the sale status for each event. Create the first one to start selling.",
+      "action": "Create the first tier"
+    },
+    "emptyFiltered": {
+      "title": "No tiers found",
+      "body": "No tier matches the current search and filters. Adjust the terms or clear the filters.",
+      "action": "Clear filters"
+    },
+    "error": {
+      "title": "Tickets could not be loaded",
+      "body": "Fetching your tiers failed. Try again in a moment."
+    },
+    "feedback": {
+      "created": "Tier created.",
+      "updated": "Tier updated.",
+      "deleted": "Tier deleted.",
+      "statusChanged": "Tier status updated."
+    },
+    "fields": {
+      "title": "Tier name",
+      "description": "Description",
+      "event": "Event",
+      "price": "Price",
+      "quantity": "Quantity",
+      "status": "Status",
+      "startsAt": "Event date",
+      "venue": "Venue"
+    },
+    "form": {
+      "createTitle": "New ticket",
+      "createSubtitle": "Set the price, the quantity and the status of this tier.",
+      "editTitle": "Edit ticket",
+      "editSubtitle": "Change the price, the quantity and the status of this tier.",
+      "backToTickets": "Back to tickets",
+      "titlePlaceholder": "General, VIP, Concession…",
+      "descriptionPlaceholder": "What does this tier include?",
+      "priceHint": "What you receive for every ticket sold.",
+      "quantityHint": "Total tickets available in this tier.",
+      "sections": {
+        "event": "Event",
+        "sale": "Sale"
+      },
+      "errors": {
+        "title": "Enter the tier name.",
+        "event": "Choose the event this tier belongs to.",
+        "price": "Enter a valid price.",
+        "quantity": "Enter a quantity greater than zero."
+      },
+      "submitCreate": "Create ticket",
+      "submitEdit": "Save changes",
+      "submitting": "Saving…",
+      "mediaPartial": "{count, plural, one {# file could not be uploaded} other {# files could not be uploaded}}",
+      "uploadingMedia": "Uploading media… {done} of {total}",
+      "mediaHint": "JPG, PNG or WebP, up to 5 MB each. The first image is the cover.",
+      "mediaQueued": "{count, plural, =0 {no media} one {# file queued} other {# files queued}}",
+      "loading": "Loading ticket…",
+      "notFound": "Ticket not found."
+    },
+    "list": {
+      "showing": "{shown} of {total}",
+      "loadMore": "Load more",
+      "loadingMore": "Loading…",
+      "selectHint": "Select a tier to see its details.",
+      "stock": "{sold} of {total} sold"
     },
     "status": {
       "draft": "Draft",
@@ -94,105 +173,42 @@
       "sold_out": "Sold out",
       "cancelled": "Cancelled"
     },
-    "fields": {
-      "event": "Event",
-      "title": "Batch",
-      "description": "Description",
-      "price": "Price",
-      "quantity": "Quantity",
-      "status": "Status",
-      "sold": "Sold",
-      "available": "Available",
-      "createdAt": "Created",
-      "updatedAt": "Updated"
+    "summary": {
+      "batches": "{count, plural, =0 {no tiers} one {# tier} other {# tiers}}",
+      "available": "{count, plural, one {# ticket available} other {# tickets available}}",
+      "potential": "{value} in stock"
     },
-    "list": {
-      "columnTicket": "Batch",
-      "columnStatus": "Status",
-      "columnPrice": "Price",
-      "stock": "{sold} of {total} sold",
-      "showing": "{shown} of {total}",
-      "loadMore": "Load more",
-      "loadingMore": "Loading…",
-      "selectHint": "Select a batch to see its details."
-    },
-    "empty": {
-      "title": "No tickets yet",
-      "body": "Create the first batch to put an event on sale. Start it as a draft and publish when you are ready.",
-      "action": "Create ticket"
-    },
-    "emptyFiltered": {
-      "title": "No results",
-      "body": "No batch matches these filters.",
-      "action": "Clear filters"
-    },
-    "error": {
-      "title": "Tickets could not be loaded",
-      "body": "Try again in a moment."
-    },
-    "actions": {
-      "create": "New ticket",
-      "edit": "Edit",
-      "delete": "Delete",
-      "publish": "Put on sale",
-      "backToDraft": "Back to draft",
-      "markSoldOut": "Mark as sold out",
-      "cancelSale": "Cancel sale",
-      "more": "More actions",
-      "backToList": "Back to the list"
-    },
-    "delete": {
-      "title": "Delete this ticket?",
-      "body": "The {title} batch of {event} will be removed, along with every image and video uploaded to it. This cannot be undone.",
-      "confirm": "Delete ticket",
-      "deleting": "Deleting…"
-    },
-    "detail": {
-      "stock": "Stock",
-      "stockValue": "{sold} of {total} sold",
-      "remaining": "{count, number} left",
-      "revenue": "Potential revenue",
-      "doors": "Doors",
-      "gallery": "Images and videos"
-    },
-    "form": {
-      "createTitle": "New ticket",
-      "createSubtitle": "A batch belongs to an event and carries its own price and stock.",
-      "editTitle": "Edit ticket",
-      "editSubtitle": "Changes apply to the sales that follow.",
-      "titlePlaceholder": "Premium floor",
-      "descriptionPlaceholder": "What this batch gives access to.",
-      "priceHint": "In reais. Use 0 for a complimentary ticket.",
-      "quantityHint": "Total tickets in this batch.",
-      "submitCreate": "Create ticket",
-      "submitEdit": "Save changes",
-      "submitting": "Saving…",
-      "errors": {
-        "event": "Choose the event this tier belongs to",
-        "title": "Enter the batch name.",
-        "price": "The price cannot be negative.",
-        "quantity": "The quantity must be greater than zero."
-      },
-      "backToTickets": "Back to tickets",
-      "sections": {
-        "event": "Tier",
-        "sale": "Sale"
-      },
-      "mediaHint": "Files upload as soon as the ticket is created.",
-      "mediaQueued": "{count, plural, =0 {no files queued} one {# file queued} other {# files queued}}",
-      "uploadingMedia": "Uploading {done} of {total}…",
-      "mediaPartial": "Ticket created, but {count, plural, one {# file could not be uploaded} other {# files could not be uploaded}}.",
-      "loading": "Loading the ticket…",
-      "notFound": "Ticket not found.",
-      "pickEvent": "Select the event"
-    },
-    "feedback": {
-      "created": "Ticket created.",
-      "updated": "Ticket updated.",
-      "deleted": "Ticket deleted.",
-      "statusChanged": "Status updated."
-    },
-    "noEvent": "Event not found"
+    "toolbar": {
+      "searchLabel": "Search tickets",
+      "searchPlaceholder": "Search by event, tier, venue or city",
+      "statusLabel": "Status",
+      "statusAll": "All",
+      "sortLabel": "Sort by",
+      "sortStartsAt": "Event date",
+      "sortPrice": "Price",
+      "sortCreatedAt": "Newest"
+    }
+  },
+  "myTickets": {
+    "heading": "Your tickets",
+    "introOne": "Show this code at the entrance. It admits one person, once.",
+    "introMany": "Show one code per person at the entrance. Each code admits one person, once.",
+    "loading": "Loading your tickets…",
+    "unavailable": "Your tickets could not be loaded right now. Reload the page.",
+    "none": "No tickets have been issued for this order yet.",
+    "sequence": "Ticket {index} of {total}",
+    "single": "Single admission",
+    "codeLabel": "Code",
+    "codeHint": "If the QR will not scan, give this code at the entrance.",
+    "qrAlt": "Ticket QR code, code {code}",
+    "copy": "Copy code",
+    "copied": "Copied",
+    "copyFailed": "Could not copy. Read the code off the screen.",
+    "badge": {
+      "valid": "Valid",
+      "used": "Already used",
+      "void": "Cancelled"
+    }
   },
   "media": {
     "title": "Images and videos",
@@ -284,7 +300,9 @@
     "decrease": "Remove one {tier} ticket",
     "holdNotice": "Your tickets are held for {minutes} minutes once you choose them.",
     "cancelled": "This event has been cancelled.",
-    "cancelledNoSales": "Sales are closed because the event was cancelled."
+    "cancelledNoSales": "Sales are closed because the event was cancelled.",
+    "serviceFee": "service fee",
+    "subtotal": "Tickets"
   },
   "checkout": {
     "title": "Checkout",
@@ -320,7 +338,6 @@
     "summary": "Order summary",
     "ticket": "Ticket",
     "total": "Total",
-    "noExtraFees": "No booking fees. The amount above is what you pay.",
     "heldUntil": "Reservation expires in",
     "holdExplainer": "Your tickets are already reserved. If the time runs out they go back on sale so no reservation stays stuck, and you can start again.",
     "reservingTitle": "Reserving your tickets",
@@ -341,7 +358,10 @@
     "releasing": "Releasing…",
     "loadingHolds": "Loading your reservations…",
     "unknownEvent": "Event unavailable",
-    "orderReference": "Order reference"
+    "orderReference": "Order reference",
+    "ticketsLine": "Tickets",
+    "serviceFee": "Service fee",
+    "feeIncluded": "The service fee is already in the total. Nothing is charged afterwards."
   },
   "eventAdmin": {
     "listTitle": "Events",
@@ -387,7 +407,8 @@
       "neighborhood": "Neighbourhood",
       "postalCode": "Postcode",
       "city": "City",
-      "uf": "State"
+      "uf": "State",
+      "salesMode": "How this event sells"
     },
     "placeholders": {
       "name": "Aurora Festival",
@@ -398,7 +419,8 @@
       "status": "A draft does not appear in the catalogue.",
       "description": "Line breaks are kept. HTML is not interpreted.",
       "endsAt": "Optional. Must be after the start.",
-      "postalCode": "A postcode makes the map position far more accurate."
+      "postalCode": "A postcode makes the map position far more accurate.",
+      "salesMode": "This decides what we ask for next."
     },
     "status": {
       "draft": "Draft",
@@ -448,6 +470,14 @@
       "hint": "Type the venue name or the street with its number, then pick from the list. Adjust the pin afterwards.",
       "empty": "No place found. Try adding the city.",
       "attribution": "Results from OpenStreetMap, via Photon"
+    },
+    "salesMode": {
+      "counted": "Ordinary tickets, by quantity",
+      "seated": "Assigned seats, with a row and a number"
+    },
+    "salesModeHint": {
+      "counted": "A party, a show, a festival. You say how many tickets exist and the buyer does not choose a place.",
+      "seated": "A theatre, an arena, a rodeo, a circus. You draw the room's plan and the buyer picks a chair."
     }
   },
   "categories": {
@@ -516,175 +546,237 @@
     "contact": "Contact the channel responsible for this document.",
     "operator": "Operator",
     "address": "Address",
-    "website": "Website"
+    "website": "Website",
+    "effective": "In force since"
   },
   "termsOfService": {
     "title": "Terms of Service",
-    "metaDescription": "Rules for using the Vozko Tickets platform.",
-    "intro": "These Terms govern access to and use of {productName}, a service provided by {legalName}. Read this document before creating an account or operating events.",
+    "metaDescription": "The rules between you, the event organizer and Vozko Tickets: purchase, payment, withdrawal, cancellation, entry and liability.",
+    "intro": "These Terms govern access to and use of {productName}, a service provided by {legalName}. They apply both to people buying a ticket and to people publishing an event, and the obligations specific to each are identified. Nothing here removes a right that the Brazilian Consumer Code or another mandatory rule of law gives you.",
     "sections": {
-      "acceptance": {
-        "title": "Acceptance and eligibility",
-        "content": "By creating an account, accessing or using {productName}, you confirm that you have read and accept these Terms and the Privacy Policy. If you act for a company or organizer, you confirm that you have authority to bind it.\n\nThe service is intended for people who are at least 18 and legally able to enter a contract. If you do not agree, do not use the platform."
+      "summary": {
+        "title": "Summary of the main points",
+        "content": "Art. 4, I of Decree 7.962/2013 requires the contract to be summarised before contracting, highlighting the clauses that limit rights. This summary serves that function and does not replace the full text.\n\n• We provide the selling technology. The event is produced by the organizer, who answers for it. Section 5 sets out the exact division.\n• The price shown at checkout is the total, and it has two parts: the ticket price, set by the organizer and owed to them, plus a service fee of 10 per cent on that amount, which is ours. Both appear on separate lines before you pay, and both come back in full on any refund.\n• Payment is by PIX. Your tickets are held for a limited time and return to sale if the reservation expires.\n• You have 7 days to withdraw from the purchase, counted from confirmation, with a full and immediate refund including any fee. That is art. 49 of the Consumer Code and there is no exception for proximity to the event.\n• If the event is cancelled, postponed or materially changed, the choice between keeping the ticket and taking a full refund is yours, not ours.\n• The account is for people aged 18 or over. A ticket for a minor is bought by an adult.\n• Concession tickets and other statutory benefits are configured by the organizer and verified by the organizer at the entrance. Bring proof of your entitlement.\n\n! Nothing in these Terms limits, excludes or reduces a right you hold under the Brazilian Consumer Code or another mandatory rule of law. Where a clause of these Terms conflicts with a protective rule, the rule prevails."
       },
-      "scope": {
-        "title": "Scope and platform role",
-        "content": "{productName} provides technology to register events, create ticket batches, control inventory and publish media. Order, payment, issuance, refund or check-in features form part of the service only when expressly enabled.\n\nUnless an offer clearly states otherwise, the platform is not the event organizer, producer, venue or ticket seller. The organizer is responsible for the event and its relationship with the buyer; the platform acts as a technology provider."
+      "identification": {
+        "title": "Supplier identification",
+        "content": "Art. 2 of Decree 7.962/2013 requires an e-commerce supplier to keep its full identification in a prominent and easily visible place. It is in the block at the foot of this page and in the footer of every page of the site.\n\n• Business and registered name: {legalName}, with the company registration number and physical address given in the identification block.\n• Electronic address for contractual contact: {supportEmail}.\n• Data protection officer channel: {dpoEmail}.\n• Corporate site: {siteUrl}.\n\nThe subject of the service is the provision of technology to publish events, create ticket tiers, control stock, take payment by PIX and record orders. The service is provided from Brazil, in Portuguese, English, German and Spanish, with prices in Brazilian reais.\n\nFor audiences in Germany and Spain, the information required by section 5 of the German Digital Services Act and by art. 10 of Spanish Law 34/2002 appears in the same identification block, permanently accessible."
+      },
+      "definitions": {
+        "title": "Definitions",
+        "content": "These terms have the same meaning here and in the Privacy Policy.\n\n• Platform: {productName}, including the website, the public event pages, the dashboard and the API serving those screens.\n• Organizer: the account holder who registers and publishes an event and answers for staging it.\n• Buyer: the person who acquires a ticket through the Platform.\n• Consumer: a buyer who acquires as an end user, to whom the Brazilian Consumer Code applies in full.\n• Tier: the ticket band created by the organizer, with its own price, quantity and sale status. It is what the dashboard calls a ticket.\n• Order: the record of the purchase, with the chosen tiers, the amounts, the payment status and the buyer's details.\n• Reservation: the temporary withdrawal of tickets from sale while the order is completed and paid.\n• Payment institution: the authorised institution that issues and settles the charge, named at checkout.\n• We: {legalName}. You: the person using the Platform, in whichever capacity they are using it."
+      },
+      "acceptance": {
+        "title": "Acceptance, capacity and effect",
+        "content": "By creating an account, accessing or using the Platform, you confirm that you have read and accept these Terms and the Privacy Policy. Both documents are reachable at any time from the footer and are presented, with a link, on the very screen where the account is created.\n\nThe account is for people aged at least 18 with civil capacity to contract. Age is verified against the date of birth given before a first purchase. A ticket intended for a minor is acquired by an adult on the minor's behalf, and that adult answers for the purchase.\n\nIf you act on behalf of a company or an organizer, you confirm that you have authority to bind it, and your acceptance binds it.\n\nUnder art. 46 of the Consumer Code, these Terms do not bind you if you were not given a prior opportunity to know their content. That is why the full text is public, with no account required, and is sent with the order confirmation in a medium that allows it to be stored and reproduced, as art. 4, IV of Decree 7.962/2013 requires."
+      },
+      "roles": {
+        "title": "What we do and what the organizer does",
+        "content": "The Platform is a technology supplier and a sales channel. It does not produce the event, is not a venue, does not engage the performers and does not run the door. The division below is factual and exists so that you know who to approach.\n\n| Subject | Who answers |\n| --- | --- |\n| Operation of the site, the checkout and the charge | Us |\n| The order record, the receipt and the purchase history | Us |\n| Account security and protection of the data we process as controller | Us |\n| The existence, content, date, venue and staging of the event | The organizer |\n| Price, tiers, stock and the conditions of the offer | The organizer |\n| Licences, permits, copyright, venue safety and insurance | The organizer |\n| Age rating and the rules on admission of minors | The organizer |\n| Concession tickets: categories, quota and verification at the entrance | The organizer |\n| Entry, searches, venue rules and conduct at the event | The organizer |\n| The event's refund policy and compliance with it | The organizer, with our operational support |\n\n! This division describes facts and allocates obligations between us and the organizer. It is not, and cannot be read as, an exclusion or reduction of our liability towards a consumer. Suppliers forming part of the same supply chain are jointly and severally liable to the consumer under arts. 7, sole paragraph, 18, 20 and 25 of the Consumer Code, and that is how we treat our position. If you are a consumer with a complaint, you may bring it to us, and we will resolve it and settle up with the organizer afterwards."
       },
       "accounts": {
-        "title": "Accounts and security",
-        "content": "You must provide accurate information, keep it current and protect your password, devices and account access. Credentials are personal; uncontrolled shared accounts are prohibited.\n\nNotify support immediately of unauthorized use. Actions from a valid session will be attributed to the account unless the law provides otherwise. We may request identity or authority verification to protect the service."
+        "title": "Account, credentials and security",
+        "content": "The account is created and accessed with a single-use code sent to your email address. You may afterwards set a password as a second way in, and you may verify a phone number in order to receive the code over WhatsApp. The code is personal, short-lived and attempt-limited.\n\nYou must give true information, keep it up to date and protect access to your email address, your phone and your password. Credentials are personal and must not be shared. We never ask for your sign-in code through any channel: anyone who does is not us, and you should not give it to them.\n\nTell {supportEmail} immediately if you suspect unauthorised use. We end open sessions and, where necessary, invalidate access. Acts carried out by a valid session are attributed to the account, except where there are signs of fraud or where the law provides otherwise.\n\nThe same identification document cannot be linked to more than one account, so that per-person limits are not circumvented with a second account.\n\nWe may require verification of identity or of authority to represent where there is consistent evidence of fraud, of use of another person's document, or of risk to the operation."
       },
       "organizer": {
-        "title": "Organizer obligations",
-        "content": "The organizer must hold the authorizations, licenses, rights and capacity needed to stage and promote each event. Price, batch, inventory, date, time, venue, age rating, accessibility, entry policy and all other offer conditions must remain accurate.\n\nThe organizer is responsible for delivering the event, supporting buyers, taxes, copyright, statutory discounts and other applicable rules. Material changes must be communicated to buyers clearly and promptly."
+        "title": "The organizer's obligations",
+        "content": "This section binds whoever publishes an event. Any account holder may publish, and publication does not imply selection, curation, approval or any prior verification by us of the event or the organizer.\n\nThe organizer represents and warrants that: it has the capacity and authority to stage and promote the event; it holds the licences, permits and authorisations required, including operating, fire safety and health permits where applicable; it holds or has licensed the copyright, neighbouring rights and image rights in the content it publishes and in the programme, including any payments owed to collective management bodies; and it complies with the employment, tax and accessibility law applicable to the event.\n\nThe organizer is responsible for keeping accurate and current the name, description, date, time, venue, price, tier, stock, age rating, accessibility conditions, entry policy and refund policy. Incorrect information in an offer is the responsibility of whoever published it, and an offer binds the party that made it, under arts. 30 and 35 of the Consumer Code.\n\nA material change to the event must be communicated to buyers clearly and in good time, and the organizer must inform us so that the support channels answer consistently. The organizer must keep sufficient funds to honour refunds, and indemnifies us for whatever we have to pay a consumer by reason of a fact attributable to the organizer, including costs, legal fees and administrative penalties.\n\nThe organizer may not publish a non-existent or unauthorised event, misleading information or unlawful content, and may not use a third party's trade mark, name or image without permission."
       },
-      "sales": {
-        "title": "Sales, tickets and consumers",
-        "content": "When public sales are enabled, the terms displayed at checkout form part of the offer. The organizer must comply with the Brazilian Consumer Protection Code, Decree No. 7,962/2013 and other rules governing e-commerce and events.\n\nA ticket grants the access described in the offer and may be subject to validation, per-person limits and previously disclosed anti-fraud rules. Cancellations, postponements and material changes must preserve buyers' statutory rights, including information and refunds where applicable. These Terms do not limit non-waivable consumer rights."
+      "catalogue": {
+        "title": "Publishing the event, tiers and stock",
+        "content": "The organizer registers the event, sets the venue and its map location, uploads images and video within the type, size and count limits shown in the dashboard, and creates as many tiers as it wishes, each with its own price, quantity and sale status.\n\nAn event begins as a draft and appears in the public area only once published. A tier sells only while it is on sale. Unpublishing an event removes it from the storefront and does not undo an order already paid: what has been sold remains owed to the buyer.\n\nThe Platform controls the stock of each tier and does not sell beyond the quantity available. A tier may sell out between your choosing it and completing the order, in which case the purchase does not complete and nothing is charged.\n\nThe conditions that govern your order are the ones published at the moment of purchase. Renaming a tier or changing its price afterwards does not alter an order already recorded."
+      },
+      "purchase": {
+        "title": "How a purchase works",
+        "content": "A purchase has two stages, and the first already takes the tickets out of sale for you.\n\n• You choose the tiers and quantities, and the tickets are reserved. The reservation is short and the page shows how long is left.\n• You confirm your details and the reservation is extended for the payment period. A PIX charge is generated, with a copy-and-paste code and a QR code.\n• You pay in your own bank application.\n• Once payment is confirmed, the order becomes paid and you receive an email confirmation with the receipt and the event details.\n\nIf the reservation expires before payment, the tickets return to sale and the order closes with nothing charged. You may try again, subject to availability.\n\nThere is a limit on open orders per account and on tickets reserved per tier, shown on screen when reached. To free one up, complete or release an existing reservation.\n\nBefore confirming, you review the order summary and may correct the details you entered, as art. 4, II of Decree 7.962/2013 requires. Confirmation that your acceptance was received is sent by email, together with the text of these Terms, as items III and IV of the same article require.\n\nThe ticket gives the right of access described in the offer, on the conditions set by the organizer and the venue. Proof of your purchase is the paid order and the emailed confirmation, which carry the order reference. Entry is checked by the organizer, who may require official photographic identification matching the name on the order."
       },
       "payments": {
-        "title": "Payments, fees and refunds",
-        "content": "While a payment module is not enabled, the platform does not receive buyer funds or store card data. Once enabled, the total price, fees, payment method, installments and receiving party will be disclosed before confirmation.\n\nPayments may be handled by a regulated partner and be subject to that partner's rules. The organizer must maintain sufficient balances and information for reversals, chargebacks and refunds. Nothing here excludes a refund or withdrawal right required by law."
+        "title": "Payment, price and what we never touch",
+        "content": "The payment method is PIX, issued and settled by a payment institution authorised to operate by the Central Bank of Brazil and named at checkout. That institution acts as an independent controller of payment data, under its own terms and privacy policy.\n\n! We never receive, transmit, process or store a card number, security code, magnetic stripe or chip data, banking password or banking credential. There is no card form in this application. Payment happens inside your own bank application, outside the Platform. We do not claim PCI-DSS certification, because we handle no card data and there is nothing to certify.\n\nThe price shown at checkout is the total payable, and it has two parts. The first is the ticket price, which the organizer sets and which is owed to them. The second is a service fee of 10 per cent calculated on that price, which is our remuneration for providing the Platform, processing the payment and keeping the record of the order. A ticket of R$ 100.00 is charged at R$ 110.00: the organizer receives the R$ 100.00 they set and the R$ 10.00 fee is ours. The fee is added to the price and not deducted from it, so the amount the organizer advertised is the amount the organizer receives.\n\nThe fee is calculated per ticket rather than on the order total, so that the price of one ticket multiplied by the quantity always equals the total charged. It is disclosed on the event page, before you choose, and again on a separate identified line in the order summary, before the payment step, in accordance with art. 2, IV and V of Decree 7.962/2013. In REsp 1.632.928 the Superior Court of Justice held that charging a fee on an internet ticket sale is lawful provided the amount is clear and accessible to the consumer, and that is the standard we follow: the obligation lies in the disclosure, and it is the disclosure we make prominently. A charge presented only inside a blind total is a practice we do not adopt.\n\nThere is no other charge of ours: we charge no delivery, printing, collection, issuing or instalment fee. The service fee is refunded in full, together with the ticket price, on every refund you are entitled to, including withdrawal under art. 49 of the Consumer Code and cancellation, postponement or material change of the event. We retain the fee in none of those cases.\n\nA change to the fee is a material change to these Terms and follows section 26: it is announced at least 30 days in advance and does not apply retroactively to a purchase already completed. The amount charged on your order is the one in force and displayed when you bought.\n\nA PIX refund is a return to the paying account, not a card reversal: there is no chargeback in PIX. We ask that the originating account be open to receive the return; if it has been closed, we will contact you at {supportEmail} to arrange another route. The time for the credit to arrive depends on the receiving institution.\n\nIf a payment arrives after a tier has sold out, the amount is refunded in full, because a ticket that no longer exists cannot be delivered."
       },
-      "integrations": {
-        "title": "Integrations, Vozko and APIs",
-        "content": "When enabled by the user, the service may connect with other Vozko products and third parties through APIs, webhooks, imports or connected accounts. This may include CRM, automation, payments, access control, analytics and communication channels. Each connection must be authorized and configured by someone entitled to do so.\n\nThe organizer is responsible for the source, quality, permissions and use of data sent or received. Integrations may have separate terms and may stop if a third party changes or withdraws its API. Do not access a third party's account, audience or channel without valid authorization."
+      "withdrawal": {
+        "title": "Right of withdrawal",
+        "content": "! You have 7 days to withdraw from the purchase, counted from confirmation of the order, without having to give a reason. That is art. 49 of the Brazilian Consumer Code, which applies to every contract made away from business premises, including over the internet. On withdrawal, the amounts paid are returned in full and immediately, monetarily updated, including any fee that was charged. There is no minimum notice before the event and no other condition: we impose no cut-off for proximity to the date.\n\nTo withdraw, write to {supportEmail} from the account's email address quoting the order reference, or use the withdrawal option in your order history where it is available in your account. We confirm receipt of the withdrawal request immediately and instruct the return on the same business day. The credit reaching your account depends on the receiving institution's timing.\n\nWithdrawal rescinds, at no cost, the contracts ancillary to that purchase, as art. 5 of Decree 7.962/2013 requires. No amount is retained as a fee.\n\nAfter the 7 days, the art. 49 right of withdrawal no longer applies, but your rights in the event of cancellation, postponement, material change or failure of the service remain in full, and they are in the next section.\n\nA different rule applies to consumers resident in the European Economic Area, which we state because it is less favourable and it would not be honest to omit it: the 14-day right of withdrawal does not apply to leisure services supplied on a specific date or period, which includes a ticket to an event with a fixed date, under art. 16(l) of Directive 2011/83/EU, section 312g(2) no. 9 of the German Civil Code and art. 103(l) of the Spanish consolidated consumer act. If you live in Brazil, the broader art. 49 applies, as described above."
       },
-      "communications": {
-        "title": "Notifications and marketing",
-        "content": "Future features may send confirmations, reminders, event changes, purchase recovery and campaigns by email, WhatsApp, SMS, push or other channels, including through Vozko. The organizer determines recipients, content, timing and grounds for each communication and generally acts as controller.\n\nThe organizer must be able to demonstrate consent or another suitable lawful basis, respect preferences and suppression lists, identify the sender, offer easy unsubscribe for marketing and follow the LGPD, consumer law and channel rules. Transactional messages must not disguise advertising. We may block campaigns showing signs of spam, fraud or recipient risk."
+      "cancellation": {
+        "title": "Cancellation, postponement and change of the event",
+        "content": "An offer binds the party that made it. If the event does not happen as offered, the choice among the statutory alternatives is yours, and not the organizer's or ours, under arts. 20 and 35 of the Consumer Code.\n\n| Situation | What you may choose |\n| --- | --- |\n| Event cancelled | full refund of the amount paid, monetarily updated |\n| Postponed, with a new date announced | keep the ticket for the new date, or a full refund |\n| Postponed with no new date | full refund |\n| Change of venue or city, or material change to the programme | keep the ticket, or a full refund |\n| Event only partly staged | proportional reduction of the price, or a refund |\n| A failure of ours in the sales service | re-performance of the service, an updated refund, or a proportional reduction |\n\nA refund covers the amount actually paid, not only the ticket's face value: where the failure is the supplier's, any fee charged also comes back. We do not impose credit, a voucher or a compulsory exchange in place of money. Law 14.046/2020, which during the pandemic allowed rebooking and credit instead of a refund, is no longer in force, and the general rules of the Consumer Code apply again in full.\n\nUnforeseeable events and force majeure may justify not staging the event and may remove any duty to compensate additional loss, but they do not extinguish the return of what you paid for something you did not receive.\n\nThe organizer must communicate the change and provide the funds for refunds. We operate the return and follow it to completion. If you are a consumer, you do not have to settle this between the two of us: contact {supportEmail} and we will handle it."
+      },
+      "meiaEntrada": {
+        "title": "Concession tickets and statutory benefits",
+        "content": "Law 12.933/2013 and its decree guarantee half-price admission to students, to people with disabilities and a companion where one is needed, and to low-income young people registered in the federal social register. The Elderly Persons Act, Law 10.741/2003, independently guarantees a 50 per cent discount and priority access to people aged 60 or over. State and municipal laws may widen the categories.\n\nThe Platform lets the organizer create reduced-price tiers, including half-price ones. The party that defines the categories, the price, the quantity set aside for the benefit and compliance with the statutory quota is the organizer, who represents and warrants that it does so in accordance with federal law and with the local law applicable to the municipality of the event.\n\n! Proof of entitlement is checked at the entrance to the event, by the organizer, and not at the point of purchase. Buy a concession ticket only if you belong to one of the categories and can prove it. If the condition is not proved, the organizer may require payment of the difference or refuse admission, and that consequence follows from the law creating the benefit, not from a condition imposed by us.\n\nThe documents accepted are those the rule on the benefit specifies, and the organizer should not demand any beyond them: a national-standard student identification card showing name, date of birth, photograph, institution, level of study and validity, for students; official photographic identification, for people aged 60 or over; documentary proof of the disability together with official photographic identification, and proof of the companion's role where applicable; and the national youth identity card together with official photographic identification, for low-income young people.\n\nWe do not collect, request or keep proof of entitlement, medical reports, certificates or accessibility documents. Those are presented at the door and stay with you.\n\nThe organizer answers to you and to consumer protection bodies for configuring the benefit and the quota correctly, and indemnifies us for any penalty arising from a configuration it made."
+      },
+      "entry": {
+        "title": "Entry to the event",
+        "content": "Entry is run by the organizer or by the venue. Bring the order reference, which appears in the emailed confirmation, and official photographic identification. The organizer may check that the name on the document matches the one on the order, and may refuse admission to anyone who cannot show entitlement.\n\nThe venue's rules, including opening times, searches, prohibited items, capacity and conduct, belong to the organizer and the venue, and you accept them on entering. Refusal of admission for breaching those rules, for intoxication, for carrying a prohibited item or for conduct endangering other people does not give rise to a refund.\n\nThe age rating and the rules on admission of children and adolescents are declared by the organizer and checked by the organizer at the door, in accordance with the Brazilian Child and Adolescent Act and any order of the local juvenile court. Check those conditions before buying: refusal of admission to a minor for breach of the declared rule is a situation the organizer must address, and we support that.\n\nAccessibility at the venue, including wheelchair spaces, companion seating and priority service, is an obligation of the organizer and the venue. If the offer advertised an accessibility condition that was not delivered, that is a failure to honour the offer, and section 12 applies."
+      },
+      "transfer": {
+        "title": "Transfer and resale",
+        "content": "The Platform does not currently offer a mechanism for transferring a ticket between people, nor an official resale channel. An order stays linked to the account that placed it and to the document recorded in it.\n\nYou may not resell a ticket bought here above its price, advertise it on a resale channel, or buy tickets in volume for resale. Automated buying, use of bots, creating multiple accounts and using another person's document to circumvent a per-person limit are prohibited.\n\nA ticket obtained or transferred in breach of this section may be invalidated, with the order cancelled and the amount returned to the original payer, and the account involved may be suspended. We do not cancel the ticket of somebody who bought in good faith without first attempting contact through the support channel.\n\nIf you need to transfer a ticket for a legitimate reason, write to {supportEmail} before the event. We assess it case by case with the organizer; there is no automatic right of transfer."
       },
       "acceptableUse": {
-        "title": "Acceptable use",
-        "content": "You may not use the service for fraud, money laundering, unlawful resale, unauthorized events, rights violations, illegal or misleading content, unlawful discrimination, malware, improper data collection, or interference with platform security and availability.\n\nYou may not bypass technical limits, test vulnerabilities without permission, automate access abusively, copy the service or use another party's mark without authorization. We may remove content and restrict operations to prevent harm, comply with law or investigate consistent signs of abuse."
+        "title": "Prohibited use",
+        "content": "It is prohibited to use the Platform for fraud, money laundering, unlawful resale, a non-existent or unauthorised event, infringement of a third party's rights, unlawful, misleading or discriminatory content, distribution of malware, or improper collection of data.\n\nIt is also prohibited to circumvent a technical limit, to test for vulnerabilities without prior written authorisation, to automate access abusively, to scrape content at scale, to overload the infrastructure, to copy the service, to use a third party's trade mark without permission, and to access another party's account, audience or channel without valid authorisation.\n\nWe may remove content, limit operations and suspend access in order to prevent harm, comply with the law or investigate consistent evidence of abuse, with notice and an opportunity to put things right where that is reasonable and the urgency allows.\n\nGood-faith security research is welcome at {supportEmail}: describe the finding, do not access third-party data beyond what is needed to demonstrate it, do not degrade the service, and give us a reasonable period before publishing. We do not treat a report made on those terms as a breach.\n\nDisputing a charge with your bank or with a consumer protection body is not prohibited use, and we will not treat it as a breach. Repeated use of disputes to obtain access without paying may, on the other hand, lead to invalidation of the order and review of the account."
       },
       "content": {
         "title": "Content and intellectual property",
-        "content": "You retain rights in names, descriptions, images and videos you upload. You grant {productName} a non-exclusive, worldwide license for the time needed to host, reproduce, technically adapt and display that content solely to operate, protect and improve the service.\n\nYou confirm that you hold all required permissions, including image, music and trademark rights. The software, Vozko identity, components, documentation and other platform materials remain protected and are not transferred to users."
+        "content": "The organizer keeps the rights in the name, description, images and video it uploads. On uploading, it grants us a non-exclusive, worldwide licence, for as long as necessary, to host, reproduce, resize, generate technical variants of and display that content, for the sole purpose of operating, protecting and improving the service, including in the public storefront, in the site's search results and in sharing previews.\n\nThe organizer warrants that it holds the necessary authorisations, including image rights of the people depicted, rights in musical and audiovisual works, and trade mark rights. Once content is deleted we stop displaying it; temporary copies in the delivery network may persist until they expire, and backups until they rotate normally.\n\nThe software, the visual identity, the interface components, the documentation and the Platform's other materials are ours or licensed to us, and nothing in these Terms transfers ownership of them. You are granted only the right to use the Platform in accordance with these Terms, personally, revocably and non-transferably.\n\nA suggestion or comment you send us unprompted about the product may be used by us without any obligation of payment or confidentiality, and without that reaching any of your personal data, which remains governed by the Privacy Policy."
+      },
+      "notice": {
+        "title": "Reporting content and irregular events",
+        "content": "To report a non-existent or fraudulent event, unlawful content, copyright infringement, or misuse of a trade mark or image, write to {supportEmail} naming the page, describing the problem and its legal ground and, if you are the rights holder, providing proof of title and your contact details.\n\nWe examine the report and act according to the seriousness and the clarity of the illegality. Obvious fraud, risk to people's safety, manifestly criminal content and infringement of children's and adolescents' rights are treated as priorities and may lead to immediate removal and suspension of the organizer. In other cases we notify the organizer, allow a period for a response, and then decide. We do not make every removal conditional on a court order: the liability regime for application providers was changed by the Federal Supreme Court in Themes 987 and 533 and by the subsequent regulation, and an extrajudicial notice is sufficient in the categories the law so provides.\n\nWe tell the author of the content about the removal and the reason, and they may submit a counter-notice to {supportEmail}. If the counter-notice shows the removal was unjustified, we restore the content and record the decision. An organizer that repeatedly posts unlawful content has its account closed.\n\nNothing in this section obliges us to monitor all published content in advance, nor removes the duty to act once we are notified."
+      },
+      "integrations": {
+        "title": "Integrations and third-party services",
+        "content": "The Platform uses third-party services in order to work, and it is honest to say exactly which and for what, rather than describing generic integrations.\n\n• An authorised payment institution, to issue and settle the PIX charge and process refunds.\n• A transactional email provider, to deliver the sign-in code, the charge notice and the confirmation.\n• Object storage and a delivery network, to hold and serve event images and video.\n• The Vozko platform, solely to deliver the sign-in code over WhatsApp when you choose that channel. The account, the approved message templates and the balance those messages are billed against belong to Vozko, not to this application.\n• Address and map services, to turn a postcode into an address, to autocomplete an address in the event form and to display the map on the public page.\n\nThere is today no contact synchronisation with a CRM, no forwarding of purchase events to a third-party system, no segment export, no automatic sending of data to a third-party system, and no public interface or integration key issued to organizers. If we begin to offer any of those, it will require enabling by a person with authority to do so, and the Privacy Policy will be updated first.\n\nA third-party service has its own terms and may be changed or discontinued by whoever provides it, which may affect a Platform function. We select suppliers, contract confidentiality and data protection obligations, and administer these integrations, but we do not control how those providers operate."
+      },
+      "communications": {
+        "title": "Messages and marketing",
+        "content": "Today we send only transactional messages: the sign-in code, the pending charge notice with the PIX code and the reservation deadline, and the payment confirmation. Those messages form part of performing the purchase and have no unsubscribe; to stop receiving them, the route is not to buy or to close the account.\n\nWe send no newsletter, promotion, basket recovery or message about an event you did not buy, and there is no marketing list on this Platform.\n\nIf an organizer comes to send communications to its own audience using a tool of ours, it is the controller of that communication and undertakes, to us and to the recipient, that: it has a valid legal basis for each recipient and each channel; it keeps and, on request, produces proof of consent with its date, source and the wording shown; it does not use a purchased, rented, scraped or third-party list; it does not reuse data from one event to promote another without a fresh basis; it identifies itself as the sender; it offers simple unsubscribe in marketing; it respects unsubscribes and block lists, including the national do-not-disturb register and the telecommunications regulator's rules; and, on WhatsApp, it follows Meta's Business Messaging Policy, including correct categorisation of the template among utility, authentication, service and marketing.\n\nWe may immediately suspend the sending of a campaign in the face of spam signals, a high complaint or block rate, fraud or risk to recipients, without that giving rise to liability on our part. The organizer indemnifies us for any penalty from an authority or from a channel provider arising from its instructions."
       },
       "privacy": {
-        "title": "Privacy and personal data",
-        "content": "Personal-data processing follows the Privacy Policy and applicable law, including Brazilian Law No. 13,709/2018 (LGPD). The organizer must establish a lawful basis, inform data subjects and handle rights concerning buyer or attendee data it places in or processes through the platform.\n\nEach party must apply suitable access controls and use data only for legitimate event-related purposes. Specific data-processing terms may supplement these rules in business contracts."
+        "title": "Personal data protection",
+        "content": "The processing of personal data is described in the Privacy Policy, which forms part of these Terms and sets out, purpose by purpose, the data processed, the legal basis, the recipients, the destination countries and the retention period. Where these Terms and the Privacy Policy conflict on data protection, the Policy prevails.\n\nThe division of roles is the one in section 3 of that Policy: we are the controller of what concerns the account, the order, payment and security; we are the processor of what the organizer registers about its own event and of the buyer data it consults in the dashboard; and there is joint controllership in the specific activity of contracting the ticket.\n\nAs processor we handle data on the organizer's documented instructions, as art. 39 of the LGPD requires, keep our own record of processing operations, maintain confidentiality, notify the organizer of an incident within 24 hours of confirmation, assist with responding to data subjects, and erase or return the data on termination, subject to statutory retention.\n\nThe organizer, as controller, is responsible for having a legal basis, presenting its own privacy notice, informing data subjects, answering rights requests, and not using data obtained through the Platform for an incompatible purpose. A business contract may supplement these rules with a specific data processing agreement, which will prevail over this section as to whatever it provides."
       },
       "availability": {
-        "title": "Availability and service changes",
-        "content": "We work to keep the service secure and available but do not promise uninterrupted or error-free operation. Maintenance, internet or supplier failures, force majeure and security measures may cause downtime.\n\nWe may fix, replace or discontinue features. When a material change affects an active operation, we will seek to give reasonable notice unless urgent security needs, legal duties or events beyond our control prevent it."
+        "title": "Availability and changes to the service",
+        "content": "We work to keep the service secure and available, and we do not promise uninterrupted or error-free operation. Maintenance, network failure, a supplier's unavailability, force majeure and security measures may cause interruption. Where an interruption is planned, we try to give notice beforehand and to choose the window of least impact.\n\nWe may correct, alter, replace or discontinue functions. A material change affecting a live operation is notified with reasonable advance warning, except in a security emergency, under a legal obligation, or on a fact beyond our control. We do not withdraw a function that a paid order depends on without offering an alternative or a refund.\n\nIf a failure of ours prevents a purchase from completing, nothing is charged; if a charge was taken, it is returned. If a failure of ours prevents access to an event whose ticket you paid for, section 12 applies."
       },
       "suspension": {
-        "title": "Suspension, termination and data",
-        "content": "We may suspend or terminate access for breach of these Terms, security risk, fraud, legal demand or non-payment of an agreed charge, with notice and a chance to cure where reasonable. A user may stop using the service and request account closure.\n\nBefore a planned closure, export the data you need. After termination, data may be deleted or anonymized under the Privacy Policy, subject to legal retention, fraud prevention, the exercise of rights and temporary backup copies."
-      },
-      "warranties": {
-        "title": "Warranties and third-party services",
-        "content": "The service is supplied as available and with commitments expressly stated in a contract. We do not guarantee commercial results, minimum sales, attendance, event suitability, or the conduct of organizers, buyers and third parties.\n\nIntegrations, storage, networks and payment processors may have separate terms. We do not control independent services, but we select suppliers and manage integrations under applicable legal and contractual duties."
+        "title": "Suspension and termination",
+        "content": "You may stop using the service whenever you wish and ask for the account to be closed at {supportEmail}. Closure does not cancel a paid order or an obligation already due, on either side.\n\nWe may suspend or terminate access in the event of breach of these Terms, risk to security, consistent evidence of fraud, a legal requirement, or non-payment of a contracted amount, with prior notice and an opportunity to put things right where that is reasonable and the urgency allows. Suspending an organizer does not suspend the rights of people who have already bought: in those cases we conduct the refund or the staging of the event according to the situation.\n\nBefore a planned closure, export what you need. After closure, the data is erased or anonymised in accordance with the Privacy Policy, subject to the statutory retention described there, including access logs, tax records and data needed to defend a legal claim.\n\nOnce the account is closed, the clauses that survive by their nature remain in force: intellectual property, limitations of liability to the extent the law admits them, data protection, and governing law and forum."
       },
       "liability": {
         "title": "Liability",
-        "content": "Each party is responsible for direct loss it causes through contractual or legal breach. To the fullest extent permitted by law, we are not liable for lost profits, indirect loss of opportunity, or harm caused solely by inaccurate organizer information, third-party conduct or events beyond reasonable control.\n\nAny agreed cap does not apply to willful misconduct, fraud, breach of confidentiality or data protection, intellectual property, personal injury, consumer rights or other liability that law does not allow to be limited."
+        "content": "! We do not limit, exclude or reduce our liability towards a consumer. Art. 51, I of the Consumer Code renders any clause that does so void as a matter of law, and we do not intend to write a void clause. If you are a consumer, there is no cap on compensation, no clause supplying the service as it stands, no waiver of rights and no limitation on access to the courts in these Terms.\n\nEach party is liable for the loss it causes by breach of contract or of the law. We are liable for the operation of the Platform, the order record, the charge and the security of the data we process. The organizer is liable for staging the event and for the obligations in section 7. Towards a consumer, however, we form part of the same supply chain as the organizer, and that is how we answer, with a right of recourse against the organizer for whatever we pay by reason of a fact attributable to it.\n\nWe do not guarantee commercial results, sales volume, attendance, the suitability of an event to a personal expectation, or the conduct of organizers, buyers and third parties.\n\nIn dealings with an organizer and with other users who are not consumers, and only there, we are not liable for lost profits, lost opportunity or indirect loss, nor for loss arising solely from incorrect information they supplied, from a third party's conduct, or from an event beyond reasonable control.\n\nNo limitation, in any relationship, reaches wilful misconduct, fraud, breach of confidentiality, breach of data protection, infringement of intellectual property, personal injury, consumer rights, or any other liability the law does not permit to be limited."
+      },
+      "support": {
+        "title": "Support, complaints and deadlines",
+        "content": "The support channel is {supportEmail}, for questions, information, complaints, withdrawal requests, cancellations and refunds. We confirm receipt of your request immediately, with a reference, and answer clearly and conclusively within 5 days, in accordance with art. 4 of Decree 7.962/2013. Data protection matters are handled through the data protection officer's channel, {dpoEmail}, within the periods set out in the Privacy Policy.\n\nWe try to resolve matters directly before any other route, and that is not a condition of your going elsewhere: you may approach at any time, without contacting us first, the Procon office of your state or municipality, the consumidor.gov.br platform, the small claims courts and the courts generally. No clause of these Terms conditions, limits or delays your access to those channels.\n\nA complaint about the staging of the event should also be addressed to the organizer, whose identification appears on the event page. If you get no answer from them, write to us and we will intermediate.\n\nA consumer resident in the European Union may use the alternative dispute resolution mechanisms available in their country. We are not bound to a specific conciliation body in Germany or Spain; if that changes, we will say so here."
       },
       "changes": {
         "title": "Changes to these Terms",
-        "content": "We may update these Terms to reflect legal, security or service changes. The version and date above identify the current text. Material changes will be communicated by suitable means before taking effect where required.\n\nContinued use after the effective date means acceptance, without prejudice to specific consent where needed. If you disagree with a material change, you may stop using the service before the new version takes effect."
+        "content": "The version and the two dates at the top of the page identify the text: the effective date is when the version began to apply, and the updated date is when the text last changed.\n\nA material change is communicated at least 30 days in advance, by email and by a notice in the product, before it takes effect, and applies only prospectively. A correction to wording, to a legal reference or to contact details may be published immediately.\n\n! A change to these Terms does not apply retroactively to a purchase already completed. The conditions applicable to your order are the ones in force when you bought, and that is the text we sent with the order confirmation.\n\nIf you do not agree with a material change, you may stop using the service and close the account before it takes effect, at no cost. Continued use after the effective date means acceptance of the updated text, and does not replace specific consent where that is required. We do not reserve a right to change unilaterally the content or quality of a service already contracted, which art. 51, XIII of the Consumer Code prohibits.\n\nPrevious versions are archived and supplied to anyone who asks at {supportEmail}, with a note of what changed."
+      },
+      "general": {
+        "title": "General provisions",
+        "content": "The invalidity or ineffectiveness of one clause does not affect the others, which remain valid, unless that would result in an excessive burden on either party, under art. 51, para. 2 of the Consumer Code.\n\nTolerating a breach of an obligation does not amount to a waiver, a novation or a change to what was agreed.\n\nYou may not assign your position under these Terms without our consent. We may assign ours in a corporate reorganisation or transfer of the operation, keeping the agreed conditions and the safeguards of the Privacy Policy, and with prior notice.\n\nWhere documents conflict, the order of precedence is: first, the applicable mandatory rule of law; then any specific data processing agreement signed in a business contract, as to data protection; then the Privacy Policy, as to data protection; then the specific conditions presented in an offer, as to that offer; and finally these Terms.\n\nThese Terms, the Privacy Policy and the conditions presented in an offer constitute the agreement between the parties as to use of the Platform, without prejudice to any business contract signed separately."
       },
       "law": {
-        "title": "Governing law and disputes",
-        "content": "These Terms are governed by the laws of the Federative Republic of Brazil. The parties will first seek an amicable solution through support before going to court.\n\nIn consumer relationships, the consumer's home forum and all applicable protections remain preserved. Otherwise, a forum agreed in a business contract will apply; without one, the courts of the operator's registered office will have jurisdiction unless mandatory law provides otherwise."
+        "title": "Governing law and forum",
+        "content": "These Terms are governed by the laws of the Federative Republic of Brazil.\n\n! If you are a consumer, you may bring proceedings in the forum of your own domicile, under art. 101, I of the Consumer Code. These Terms contain no exclusive forum selection against you, and no compulsory arbitration clause: art. 51, VII of the Consumer Code renders one void. Arbitration may be instituted only by genuine agreement reached after a dispute has arisen.\n\nIn relationships that are not consumer relationships, in particular with a corporate organizer, the forum is that of the operator's registered seat, unless a different forum is agreed in a business contract, and the parties may agree to arbitration.\n\nFor consumers habitually resident in the European Union, including Germany and Spain, the choice of Brazilian law does not remove from you the protection of the mandatory consumer protection rules of your country of habitual residence, under art. 6 of Regulation (EC) 593/2008, and you may sue and be sued in the courts of your domicile, under arts. 17 to 19 of Regulation (EU) 1215/2012.\n\nThe parties will seek an amicable solution through support before going to court, without that being a condition of access to justice."
       },
       "contact": {
         "title": "Contact",
-        "content": "Questions about these Terms, violation notices or account requests may be sent to {supportEmail}. Include enough information to identify the account and issue, but do not send passwords or financial data by email."
+        "content": "Contractual matters, orders, payments, refunds, withdrawal, content reports and complaints: {supportEmail}.\n\nExercising data protection rights and questions about the Privacy Policy: {dpoEmail}.\n\nThe operator's full identification, with registered name, company registration number and physical address, is in the block at the foot of this page and in the site footer. The corporate site is {siteUrl}.\n\nWhen you write, give the order reference and the account's email address, which is enough for us to find the case. Do not send a password, a full card number or a photograph of a document by email: we do not need that data and we do not ask for it."
       }
     }
   },
   "privacyPolicy": {
     "title": "Privacy Policy",
-    "metaDescription": "How Vozko Tickets collects, uses, shares and protects personal data.",
-    "intro": "This Policy explains how {legalName} processes personal data when providing {productName}, including the data we use, why, with whom we share it and how to exercise rights.",
+    "metaDescription": "What data Vozko Tickets processes, on what legal basis, who it is shared with, where it goes and how long it is kept.",
+    "intro": "This Policy describes how {legalName} processes personal data in {productName}: what we collect, why, on what legal basis, who we share it with, which countries it goes to and how long we keep it. It is written to be read, not merely accepted. The Portuguese text prevails for data subjects in Brazil.",
     "sections": {
-      "scope": {
-        "title": "Scope",
-        "content": "This Policy applies to the website, dashboard, APIs, support and features linked to the product. It covers account holders, organizer representatives and, when sales or check-in modules are enabled, buyers and attendees.\n\nIndependent sites, integrations and services follow their own policies. Specific notices in a flow apply to that processing and supplement this document."
+      "summary": {
+        "title": "One-minute summary",
+        "content": "This summary guides the reading. It does not replace the sections below, which are the ones that govern.\n\n• For the operation of your account, we are the controller. For the data an organizer enters about their own event, we are the processor and the organizer is the controller.\n• We ask for an email address to create the account and, before your first purchase, your full legal name, a tax identification document and your date of birth. The document is required to issue the PIX charge, to verify the minimum age and to stop two accounts sharing one document.\n• Tax identification, legal name, date of birth and phone number are stored encrypted. The event organizer does not see those fields.\n• We never receive a card number, a security code or a banking password. Payment is made by PIX, inside your own bank application.\n• We use no analytics, no advertising pixel, no profiling, and we do not sell data. There is no marketing cookie in this application.\n• We do not use your data to train artificial intelligence models.\n• You may exercise every right under the LGPD, and under the GDPR where it applies, by writing to {dpoEmail}."
+      },
+      "controller": {
+        "title": "Who the controller is and how to reach them",
+        "content": "The controller of the data processed to provide {productName} is {legalName}. Its registered name, company registration number and full address appear in the identification block at the foot of this document and in the footer of every page. The corporate site is {siteUrl}.\n\nThe channel for the data protection officer, required by art. 41 of the LGPD and by ANPD Resolution 18/2024, is {dpoEmail}. Use it to exercise rights, to ask about this Policy, to request the full text of the standard contractual clauses used for international transfers, or to raise a concern. The officer is named in the identification block and their name is given to anyone who asks through that channel.\n\nFor data subjects in the European Economic Area, the representative required by art. 27 of the GDPR is named in the identification block. The representative is not the data protection officer, holds a distinct function, and may be addressed in place of the controller by European authorities and by data subjects resident in the European Union.\n\nThis Policy covers the website, the public event pages, the organizer dashboard, the API serving those screens, and support. It does not cover an organizer's own website, the payment institution, which acts as an independent controller under its own terms, or any third-party service you reach from a link of ours."
       },
       "roles": {
-        "title": "Who processes the data",
-        "content": "{legalName} is the controller of data needed to create accounts, contract, secure and administer {productName}, provide support and meet our own duties.\n\nFor buyer, guest or staff data submitted by an organizer to run an event, the organizer is generally the controller and we act as processor under its instructions. We may be controller for security, fraud prevention, legally required records and our own obligations."
+        "title": "When we are controller and when we are processor",
+        "content": "Art. 9, VI of the LGPD requires it to be clear who answers for which processing. On this platform the role changes with the data, and the table below is the complete map.\n\n| Processing | Our role | Who decides the purpose |\n| --- | --- | --- |\n| Account, authentication, sign-in code, sessions | Controller | Us |\n| Tax identification required in order to buy | Controller | Us, under legal and contractual duty |\n| Order, PIX charge, refund, reconciliation | Controller | Us |\n| Security records, anti-fraud limits, access logs | Controller | Us |\n| Support and customer service | Controller | Us |\n| Event name, description, venue, prices and media | Processor | The organizer |\n| Buyer data the organizer consults in the dashboard | Processor | The organizer |\n| An organizer's own messaging to their audience | Processor | The organizer |\n| Payment data held at the payment institution | None: independent controller | The payment institution |\n\nWhere we are the processor, we handle the data on the organizer's documented instructions, as art. 39 of the LGPD requires, and we do not use it for an incompatible purpose of our own. If an instruction appears unlawful to us, we tell the organizer and may refuse it.\n\nThere is one activity where the decision is genuinely shared, and we would rather say so than leave it out: the ticket purchase contract itself. We define the checkout flow, the mandatory fields, the per-account limits and the transaction record; the organizer defines the event, the price and the entry conditions. In that specific activity, and only there, we are joint controllers with the organizer under art. 26 of the GDPR where it applies. The essence of the arrangement is this: we inform you at checkout and answer for the transaction data, the organizer informs you in its own notice and answers for the event, and you may exercise your rights against either of us without needing to know how the work is divided between us."
       },
       "data": {
-        "title": "Data we process",
-        "content": "• Account and contact: name, email, role, organization and language preferences.\n• Authentication and security: password stored only as a hash, session identifiers and hashes, IP address, browser, device, access dates and audit records.\n• Event and content: names, descriptions, venue, city, date, prices, inventory, status, uploaded images and videos. These materials may contain personal data selected by the organizer.\n• Support: messages, attachments, requests and support history.\n• Sales and admission, when enabled: order, ticket, payment status, refund, validation and check-in. Full card data stays with the payment processor, not the platform.\n• Technical: error and performance logs, network address and essential preferences saved in the browser."
+        "title": "What we process, why, on what basis and for how long",
+        "content": "This is the central table of this Policy. Each row is a purpose rather than merely a category, because legal basis is determined per purpose. The periods are the ones we apply; the retention section explains the exceptions that can extend them.\n\n| Data | Concrete examples | Purpose | LGPD basis | GDPR basis | Period |\n| --- | --- | --- | --- | --- | --- |\n| Account | email, display name, role, password stored irreversibly | create and authenticate the account | art. 7, V | art. 6(1)(b) | while the account exists |\n| Sign-in code | encrypted destination, code stored irreversibly, attempt count | prove the email address or phone number is yours | art. 7, V | art. 6(1)(b) | 10 minutes; the record is erased on use or expiry |\n| Tax identification | tax number or passport, legal name, date of birth | issue the PIX charge, verify the minimum age and stop two accounts sharing one document | art. 7, V and art. 7, II | art. 6(1)(b) and art. 6(1)(c) | while the account exists |\n| Phone number | number in international format, encrypted | send the sign-in code over WhatsApp when you choose that channel | art. 7, V | art. 6(1)(b) | while the account exists |\n| Session and security | IP address, browser identification, session identifier, access timestamps | keep you signed in and detect session misuse, abuse and fraud | art. 7, II and art. 7, IX | art. 6(1)(c) and art. 6(1)(f) | 6 months, under art. 15 of the Brazilian Internet Act |\n| Order and payment | items, amounts, status, charge identifier, buyer name, email and document, PIX code | sell the ticket, take payment, refund and evidence the transaction | art. 7, V and art. 7, II | art. 6(1)(b) and art. 6(1)(c) | 5 years from completion of the order |\n| Event and media | name, description, venue, dates, prices, stock, uploaded images and video | publish and run the event | art. 7, V, in the relationship with the organizer | art. 6(1)(b) | until the organizer deletes it or the account closes |\n| Messages | recipient, template used, the event that triggered the send, delivery result | send the sign-in code, the pending charge and the payment confirmation | art. 7, V | art. 6(1)(b) | 7 days after the send completes |\n| Support | messages, attachments and history you send us | answer you and document the answer | art. 7, V and art. 7, IX | art. 6(1)(b) and art. 6(1)(f) | 5 years |\n| Technical records | errors, performance counters, request identifier | keep the service running and diagnose faults | art. 7, IX | art. 6(1)(f) | 6 months |\n\n! Full name, identification document and date of birth are a condition of purchase: without them the PIX charge cannot be issued and the minimum age cannot be verified. We say this prominently because art. 9, para. 3 of the LGPD requires processing imposed as a condition of the service to be disclosed prominently, rather than buried in a list.\n\nYou do not need to give a name, a document or a date of birth to create an account and browse. You need them to complete a purchase. Declining has no consequence other than that the order cannot be completed."
       },
-      "collection": {
-        "title": "How we obtain data",
-        "content": "We receive data directly when you create an account, register an event, upload media, use features or contact support. We also generate technical and security data during use.\n\nOrganizers may provide staff data and, in enabled modules, buyer or attendee data. Authentication, payment, storage and infrastructure partners may return confirmations and identifiers needed to operate the service."
+      "sensitive": {
+        "title": "Sensitive data, and data we do not collect",
+        "content": "We do not ask for sensitive data within the meaning of art. 11 of the LGPD or art. 9 of the GDPR. We do not collect racial or ethnic origin, religious belief, political opinion, trade union membership, health data, sex life, genetic data or biometric data.\n\nA tax number, a passport number, a legal name and a date of birth are not sensitive data as legally defined, but they are high-value identifiers for fraud and we treat them with the care owed to sensitive data: they are encrypted at rest and the interface never displays the document in full.\n\n• We never receive a card number, security code, magnetic stripe or chip data, banking password or banking credential, at any point and by any route. There is no card form in this application.\n• We do not collect the home address of a natural person. The addresses we process are event venues, supplied by the organizer.\n• We do not use the browser geolocation interface and do not collect precise device location.\n• We do not collect children's data, and we do not process concession proof, medical reports, certificates or accessibility documents: that verification, where it happens, is carried out by the organizer at the venue entrance.\n• We do not perform facial recognition or any form of biometric identification.\n\nIf an organizer includes sensitive data in an event description or image, that is their decision, they are the controller of that content, and they answer for the corresponding legal basis."
       },
-      "purposes": {
-        "title": "How we use data",
-        "content": "• Create and authenticate accounts and maintain sessions and permissions.\n• Register and display events, batches, inventory and media.\n• Process orders, payments, issuance, refunds and check-in when those modules are enabled.\n• Provide support, answer requests and send operational communications.\n• Prevent fraud, abuse and incidents; audit actions and protect people.\n• Fix faults, measure performance and improve features.\n• Meet legal and regulatory duties and valid orders; bring or defend claims.\n\nWe do not sell personal data or use the dashboard for third-party behavioral advertising."
+      "sources": {
+        "title": "Where the data comes from",
+        "content": "Most of it comes from you, directly: when you create the account, when you complete your profile before a first purchase, when you register an event, when you upload an image and when you contact support.\n\nAnother part is generated by use, without your typing it: IP address, browser identification, access timestamp, error records and performance counters.\n\nWe receive data from third parties in three situations, and art. 14 of the GDPR requires the source to be disclosed:\n\n• From the payment institution: the status of the charge, its identifier and the settlement date.\n• From the organizer: the data they enter about the event and, where applicable, about their own team.\n• From address services: when you type a postcode or search for an address in the event form, the query goes to a public address service, which returns street, city and coordinates.\n\nWe do not buy lists, we do not enrich records with third-party data, and we do not use social login."
+      },
+      "cookies": {
+        "title": "Cookies and storage in your browser",
+        "content": "This application has no advertising cookie, no analytics cookie, no social network pixel and no third-party measurement script. There is no product telemetry, no session recording and no A/B testing tool. That is why there is no consent banner: there is no non-essential processing to consent to.\n\n| Name | Function | Type | Duration |\n| --- | --- | --- | --- |\n| accessToken | keep the session authenticated | necessary | 15 minutes |\n| refreshToken | renew the session without a new sign-in | necessary | 30 days |\n| userData | show your name, email and role in the interface | necessary, accessible to the page you open | 30 days |\n| NEXT_LOCALE | remember the language you chose | necessary | 1 year |\n| theme | remember light or dark mode, in local storage | functional | until you clear the browser |\n| dashboard preferences | remember the collapsed menu and the last area opened, in local storage | functional | until you clear the browser |\n\n! The userData cookie contains your name, your email address and your role, and is accessible to the page you open. The session cookies are not accessible to scripts.\n\nBlocking the necessary items prevents signing in and using the dashboard. If we ever introduce non-essential measurement or marketing, we will ask for consent first, with a clear way to refuse and to withdraw, following the ANPD guidance on cookies and, for anyone in the European Union, art. 5(3) of Directive 2002/58."
+      },
+      "browserCalls": {
+        "title": "Requests your browser makes to third parties",
+        "content": "Some screens load resources served by third parties. In those cases your browser speaks to them directly, and your IP address is visible to that third party even though we send them nothing. We would rather state this than leave it implicit.\n\n• The map on the public event page: map tiles are served by an open map provider. When you open an event page that has a location, your browser requests those tiles and the provider sees your IP address.\n• Address lookup in the event form: as an organizer types an address, queries go to a geocoding service, which sees the IP address of whoever is typing.\n• Postcode lookup: the query is addressed to a public address service, which sees the network address it comes from.\n\nTypefaces are served from our own domain rather than by an external provider, precisely so that reading a page does not generate a request to a third party.\n\nNone of these requests carries your name, your email address, your document or your account identifier."
       },
       "bases": {
-        "title": "Lawful bases",
-        "content": "Depending on context, we process data to perform a contract or preliminary steps; meet legal or regulatory duties; exercise rights in proceedings; protect life or safety; pursue legitimate interests after assessing necessity and impact; prevent fraud and protect credit; and, where stated, with consent.\n\nWhen we act as processor, the organizer-controller determines the lawful basis. Consent can be withdrawn, but withdrawal does not invalidate prior processing or affect processing supported by another lawful basis."
-      },
-      "integrations": {
-        "title": "Integrations and the Vozko ecosystem",
-        "content": "If an organizer connects the product to Vozko or another service, we may receive and send account and contact identifiers, purchase and check-in events, segments, preferences, integration keys, synchronization status and fields selected during setup. A flow starts only through authorized setup or when needed for a contracted feature.\n\nProducts and third parties may be processors or independent controllers depending on purpose. We will explain the relevant context during activation. Organizers must minimize fields, review permissions, protect API credentials and disconnect links that are no longer needed."
-      },
-      "communications": {
-        "title": "Notifications, campaigns and preferences",
-        "content": "When enabled, we process recipient and channel data, message content and template, the event triggering a send, consent or objection, suppression status, time, delivery, open, click, reply and failure data as supplied by the channel. This supports confirmations, reminders, operational alerts, purchase recovery and authorized marketing.\n\nThe organizer determines purpose and lawful basis for messages to its audience. We and Vozko may act as processors to deliver a campaign and as controllers for security, abuse prevention, billing and our own duties. Marketing must offer easy objection or unsubscribe; requests are propagated to connected systems where technically applicable."
+        "title": "Legal bases and the legitimate interest assessment",
+        "content": "The legal basis for each purpose is in the table in section 4. Performance of a contract covers most of the service; compliance with a legal obligation covers the retention of access logs and the tax and consumer-law periods; legitimate interest covers security, fraud prevention and technical maintenance.\n\nWhere we rely on legitimate interest, we have run the three-stage assessment set out in the ANPD guidance and in art. 6(1)(f) of the GDPR: the purpose is to keep the platform secure and available; the necessity follows from there being no less intrusive way to detect credential reuse, reservation abuse and payment fraud; and the balancing rests on concrete safeguards, namely that the data is minimal, the period is short, there is no profiling, there is no automated decision about personal characteristics, and there is no advertising use. You may object to any processing based on legitimate interest by writing to {dpoEmail}.\n\nWe do not rely on legitimate interest for marketing, because we do not carry out marketing through this platform. We do not rely on consent as a general basis for the service, because consent asked for something indispensable is not freely given. Where consent is the basis, it will be specific, prominent and revocable at any time, and withdrawal does not invalidate processing already carried out."
       },
       "sharing": {
-        "title": "Sharing and service providers",
-        "content": "We share only what is needed with providers of hosting, databases, media storage, content delivery, email, security monitoring, support and, when enabled, payments, ticket issuance, Vozko and providers of WhatsApp, SMS, push or other channels. Providers receive instructions and confidentiality and data-protection duties.\n\nWe may also share with the responsible organizer, group companies supporting operations, authorities under a valid duty or request, and in a corporate reorganization with suitable safeguards. We do not trade lists of people."
+        "title": "Who we share with, and who the processors are",
+        "content": "We share the minimum necessary, for a defined purpose, and we keep the list open. This is the complete set of suppliers that may process personal data on our behalf or as independent controllers.\n\n| Supplier | What it is for | Where it processes | Transfer mechanism |\n| --- | --- | --- | --- |\n| The payment institution named at checkout | issue and settle the PIX charge, process refunds | Brazil | not applicable |\n| Transactional email provider | send the sign-in code, the pending charge and the confirmation | United States | ANPD standard contractual clauses, Annex II to Resolution 19/2024 |\n| Media storage and delivery provider | hold and serve event images and video | United States and a global delivery network | ANPD standard contractual clauses, Annex II to Resolution 19/2024 |\n| Vozko platform | deliver the sign-in code over WhatsApp | Brazil | not applicable |\n| Postcode lookup service | turn a postcode into an address and coordinates | Brazil | not applicable |\n| Address geocoding service | autocomplete an address in the event form | European Union | adequacy decision, art. 33, I of the LGPD |\n| Map provider | serve the map tiles on the event page | European Union and a global network | adequacy decision, art. 33, I of the LGPD |\n| Application and database hosting | run the service | disclosed by the data protection officer on request | according to the hosting country |\n\nBeyond those, we share with the organizer responsible for the event, within the limits of section 3; with a public authority faced with a valid request; and, in a corporate reorganisation, with the successor, keeping the safeguards of this Policy.\n\nApplication access logs are handed over only under a court order, in the form required by arts. 10, 22 and 23 of the Brazilian Internet Act. A request from an authority that does not follow that form is refused. We do not sell, rent or assign a database of data subjects, and there is no sharing for third-party advertising.\n\nChanges to this list are published on this page together with a version update. To be told about changes before they take effect, write to {dpoEmail}."
       },
       "transfers": {
         "title": "International transfers",
-        "content": "Some providers may process or store data outside Brazil. We then use a mechanism permitted by the LGPD and suitable contractual, technical and organizational safeguards, taking ANPD rules into account.\n\nActual location depends on the infrastructure contracted for the environment. Further information on supplier categories can be requested from the data protection contact."
-      },
-      "cookies": {
-        "title": "Cookies and local storage",
-        "content": "We use cookies required for authentication, secure session renewal and basic account data. Browser access and refresh tokens are set as httpOnly cookies; language, theme, menu and navigation preferences may be kept in cookies or local storage.\n\nThese technologies are essential or functional and are not currently used for targeted advertising. If we add non-essential measurement or marketing, we will provide notice and consent controls where required. Blocking essential items may prevent login and dashboard use."
+        "content": "Some of the suppliers above process data outside Brazil. Art. 14 of ANPD Resolution 19/2024 requires those transfers to be described in plain and easily accessible language, which is what the table in the previous section does, column by column: where it goes, what for, and under which mechanism.\n\nThe form of the transfer is the sending of strictly necessary fields for the contracted function, for as long as the supplier performs it, for the specific purpose stated in the table. The current destination countries are the United States and countries of the European Union, together with the global content delivery network used to serve images and maps.\n\nFor destinations in the European Union and the European Economic Area the mechanism is an adequacy decision, under art. 33, I of the LGPD. Since ANPD Resolution 32/2026 and Commission Implementing Decision (EU) 2026/179, Brazil and the European Union recognise each other as adequate, and those transfers require no additional contractual clause. For all other destinations, including the United States, we adopt the ANPD standard contractual clauses in full and unaltered, as set out in Annex II to Resolution 19/2024, together with an assessment of the legal regime of the destination country.\n\nYou have the right to receive the full text of the clauses applicable to your situation. Write to {dpoEmail} and we will answer within 15 days, as art. 17 of that Resolution requires, subject to trade secrecy. Onward transfers, made by a supplier to a sub-processor of its own, are contractually subject to the same obligations and the same mechanism.\n\nYou may petition the ANPD about any transfer described here and, if you are in the European Union, the supervisory authority of your own country."
       },
       "retention": {
-        "title": "Retention and deletion",
-        "content": "We keep account and event data while the account is active and as needed to deliver the service. Sessions remain until they expire or are revoked; event content remains until user deletion or account closure, subject to queues and temporary backups.\n\nWe then delete or anonymize data unless needed for a legal duty, fraud prevention, audit, security, claims or a limitation period. Specific periods may vary by category, contract and enabled module."
+        "title": "Retention and erasure",
+        "content": "The periods by purpose are in the table in section 4. This section explains where they come from and what can extend them.\n\n| Data | Period | Ground |\n| --- | --- | --- |\n| Application access logs | 6 months | art. 15 of the Brazilian Internet Act, mandatory and confidential retention |\n| Order, payment and the corresponding invoice | 5 years | the reparation period of art. 27 of the Consumer Code, and tax periods |\n| Account and tax identification | while the account exists, and 5 years after the last purchase | performance of the contract and defence within the limitation period |\n| Sign-in code | 10 minutes, and erased on use | necessity |\n| Transactional message | 7 days after the send completes | necessity |\n| Security incident record | at least 5 years | art. 10 of ANPD Resolution 15/2024 |\n| Consent records, where any exist | for the relationship and the limitation period | art. 8, para. 2 of the LGPD, burden of proof |\n| Data processed as processor for an organizer | on their instructions, and erased or returned on termination | arts. 15 and 16 of the LGPD |\n\nOnce the period ends, the data is erased or anonymised. It may be kept beyond that only on the grounds in art. 16 of the LGPD: compliance with a legal or regulatory obligation, the regular exercise of rights including in legal proceedings, and exclusive use by the controller in anonymised form. Fraud prevention and the investigation of an incident also support retention, for the duration of the investigation.\n\nBackups may hold a record for a short interval after erasure, until those media rotate normally. Deleted media leaves storage immediately but may remain reachable through the content delivery network until the temporary copy expires."
       },
       "security": {
         "title": "Security",
-        "content": "We use technical and organizational measures proportionate to risk, including access controls, hashed passwords, protected and rotated session tokens, upload type and size restrictions, logical separation, backups and environment-appropriate monitoring.\n\nNo system is invulnerable. Users should use strong passwords, restrict access and report suspicious activity. Do not send passwords, complete card details or sensitive documents through unsolicited channels."
-      },
-      "rights": {
-        "title": "Your data rights",
-        "content": "Under the LGPD, you may request confirmation and access; correction; information on sharing; anonymization, blocking or deletion of unnecessary or unlawfully processed data; portability as regulated; deletion of consent-based data; information about withholding consent; withdrawal; objection; and review of automated decisions where applicable.\n\nSend requests to {dpoEmail}. We may verify identity and context to prevent fraud. Requests are free, subject to legal time limits and justified retention or refusal grounds. You may also petition the ANPD and consumer-protection bodies."
-      },
-      "organizerData": {
-        "title": "Organizer-controlled data",
-        "content": "If a request concerns a purchase, invitation or attendance at a specific event, the organizer normally determines the purpose and should be contacted first. We will forward or support the request when acting as processor.\n\nOrganizers must provide their own privacy notice, collect only what is needed, set retention and a lawful basis, handle rights and avoid using platform data for incompatible purposes."
-      },
-      "children": {
-        "title": "Children and teenagers",
-        "content": "Administrative accounts are for people aged 18 or over. The platform does not seek to collect children's data directly to create accounts.\n\nEvents may admit children or teenagers. The organizer must then inform guardians, apply the child's best interests, obtain specific and prominent consent where required, and limit collection to what is strictly necessary under the LGPD and the Brazilian Child and Adolescent Statute."
+        "content": "We apply technical and administrative security measures proportionate to the risk, as art. 46 of the LGPD and art. 32 of the GDPR require. In terms that matter to you, this is what is committed.\n\n• A password and a sign-in code are never stored in readable form, only irreversibly. The sign-in code has a short validity, an attempt limit and a send limit.\n• Identification document, legal name, date of birth and phone number are encrypted at rest. The interface never displays the document in full, and the event organizer has no access to those fields.\n• Account access runs through a session with a fixed duration, which can be revoked, and traffic is protected by TLS.\n• We apply attempt and usage limits to contain abuse, account enumeration and fraud.\n• Media upload is restricted to defined types and sizes.\n• We store no card data, banking password or banking credential.\n\nWe do not claim ISO 27001 certification or a SOC 2 report, because we do not hold them. No system is invulnerable: use a strong password, do not reuse credentials, and tell {dpoEmail} about suspicious activity. We never send a request for a password, a full document number or banking data by email or message, and we never ask for your sign-in code: anyone who does is not us."
       },
       "incidents": {
         "title": "Security incidents",
-        "content": "We assess and respond to confirmed incidents. When a personal-data incident may cause relevant risk or harm, the responsible controller will notify the ANPD and affected people within the deadlines and with the content required by current regulation.\n\nWhen we act as processor, we will notify the organizer-controller without undue delay and assist with assessment, containment and applicable notices."
+        "content": "An incident, as defined in art. 3, XII of ANPD Resolution 15/2024, is a confirmed adverse event affecting the confidentiality, integrity, availability or authenticity of personal data.\n\nWhere an incident may give rise to relevant risk or damage within the meaning of art. 5 of that Resolution, we notify the ANPD and the affected data subjects within 3 business days of confirming that personal data was affected. The communication to the data subject is written in plain language and, wherever possible, delivered individually and directly, and it states the nature of the data, the risks and possible impacts, the measures taken, the date we became aware, and the contact for the data protection officer. Because we hold tax identification documents and payment references, our working assumption is that the threshold of relevant risk will be met in most cases, rather than the reverse.\n\nWhere data subjects in the European Union are affected, we notify the competent supervisory authority within 72 hours under art. 33 of the GDPR, and we inform the data subjects where there is a high risk, under art. 34.\n\nWe keep a register of every incident, including those not communicated and the reasons for not communicating them, for at least 5 years, as art. 10 of the same Resolution requires.\n\nWhere an incident affects data for which we are the processor, we notify the controlling organizer without undue delay and in any event within 24 hours of confirmation, so that they can meet their own deadline, and we assist with containment, investigation and any communications owed."
+      },
+      "automated": {
+        "title": "Automated decisions and profiling",
+        "content": "Art. 20 of the LGPD and art. 13(2)(f) of the GDPR require you to know what automation affects you. It is this: a reservation expires when its time runs out and the tickets return to sale; there is a cap on open orders per account and on reserved tickets per tier; one identification document cannot be linked to two accounts; and the order status follows the payment institution's confirmation of the charge.\n\nThese rules apply the same criterion to everyone, consider only data from the transaction itself, and do not assess you. There is no credit scoring, no risk score based on personal characteristics, no behavioural profiling, no targeted advertising and no automated decision evaluating your personality, your behaviour or your economic situation within the meaning of art. 20 of the LGPD and art. 22 of the GDPR.\n\nEven so, if one of those automatic rules affects you and you want it reviewed, write to {dpoEmail}. A person examines the case, states the criterion applied and, where appropriate, undoes the effect. You do not need to demonstrate an error in order to ask for the review.\n\nWe do not use personal data processed on this platform to train, fine-tune or evaluate any artificial intelligence model, whether our own or a third party's."
+      },
+      "rights": {
+        "title": "Your rights and how to exercise them",
+        "content": "Art. 18 of the LGPD guarantees the rights below, and art. 9, VII requires them to be listed expressly rather than by cross-reference. For anyone in the European Union, arts. 15 to 22 of the GDPR guarantee equivalent rights, with the differences noted.\n\n| Right | What it means | Response time |\n| --- | --- | --- |\n| Confirmation and access | learn whether we process your data and obtain a copy | immediately in simplified form, or a full statement within 15 days |\n| Correction | correct incomplete, inaccurate or out-of-date data | 15 days |\n| Anonymisation, blocking or erasure | as to data that is unnecessary, excessive or processed unlawfully | 15 days |\n| Portability | receive the data in a structured format, or have it sent to another supplier | 15 days, under the applicable regulation |\n| Erasure of data processed on consent | delete what rested on your consent alone | 15 days |\n| Information about sharing | learn who we share with and why | 15 days |\n| Information about refusing consent | learn what happens if you decline | immediately |\n| Withdrawal of consent | withdraw consent, without retroactive effect | immediately |\n| Objection | object to processing based on legitimate interest or on a consent exemption | 15 days |\n| Review of an automated decision | ask for a person to review it | 15 days |\n| Restriction of processing, under the GDPR | limit use while accuracy or an objection is being resolved | 1 month, extendable by 2 |\n\nSend the request to {dpoEmail}. It is free of charge. We may ask for additional information to confirm that you are who you say you are, but only what is strictly necessary: we do not ask for a photograph of a document or a selfie in order to answer an access request. If we refuse, in whole or in part, we state the ground and what you can do next.\n\nAn erasure request does not reach what the law requires us to keep: access logs for the statutory period, tax and accounting records, data needed to defend a legal claim, and incident records. In those cases we erase what can be erased and explain what remains, for how long and on what ground.\n\nYou may complain directly to the Brazilian data protection authority, to consumer protection bodies including Procon and the consumidor.gov.br platform, and, if you are in the European Union, to the supervisory authority of your country of residence under art. 77 of the GDPR. Complaining to an authority does not depend on contacting us first, but starting at {dpoEmail} is almost always faster."
+      },
+      "communications": {
+        "title": "Messages we send",
+        "content": "Today we send exactly three kinds of message, all transactional, each triggered by something you did:\n\n• the sign-in code, by email or WhatsApp, when you ask to sign in;\n• the pending charge notice, with the PIX code and the reservation deadline, when you complete an order;\n• the payment confirmation, with the receipt and the event details, when the charge settles.\n\nWe send no newsletter, no promotion, no abandoned-basket recovery and no message about an event you did not buy. There is no marketing list on this platform and therefore nothing to unsubscribe from.\n\n! A transactional message has no unsubscribe. It is part of performing the purchase: without the sign-in code you cannot get in, and without the confirmation you have no receipt. If you do not want to receive them, the route is not to complete the purchase, or to close the account.\n\nIf we ever begin sending marketing communications, they will depend on a specific and prominent indication from you, will carry one-click unsubscribe in every message, will respect the Brazilian do-not-disturb register and the telecommunications regulator's rules, and the consent will be revocable at any time. Marketing over WhatsApp will additionally follow Meta's Business Messaging Policy, including correct categorisation of the message template. None of this is active, and this Policy will be updated before it is.\n\nWhere an organizer sends communications to their own audience using a tool of ours, they are the controller of that communication, they answer for the legal basis covering each recipient, and we act as processor."
+      },
+      "children": {
+        "title": "Children and adolescents",
+        "content": "An account on this platform is for people aged 18 or over. The age is genuinely checked against the date of birth given before a first purchase, not by a tick box: anyone under 18 cannot complete the registration that enables purchasing.\n\nThat choice is deliberate. A ticket for a minor is bought by an adult on their behalf, which is how the door works in any case. As a result we do not process children's or adolescents' data in order to operate accounts, and we do not depend on the guardian consent required by art. 14, para. 1 of the LGPD, nor on the age of consent in art. 8 of the GDPR, nor on the guardian-linked account regime of Law 15.211/2025.\n\nWe do not, under any circumstances, carry out profiling, segmentation or targeted advertising towards anyone identified as under 18.\n\nEvents may admit children and adolescents, and that is the organizer's decision. The organizer is responsible for declaring the age rating, the rule on accompaniment by a guardian and any requirement for judicial authorisation, for disclosing them before purchase and for verifying them at the entrance, in accordance with the Brazilian Child and Adolescent Act. If an organizer collects a minor's data in order to run the event, they are the controller of that data, must observe the child's best interest and must present their own privacy notice.\n\nA legal guardian who wishes to access, correct or erase a minor's data that has reached us may write to {dpoEmail}, and the request is handled as a priority."
+      },
+      "organizerData": {
+        "title": "Data under the organizer's control",
+        "content": "Where your request concerns a specific event, a guest list or your attendance at an event, the party deciding the purpose is normally the organizer, and the request should go to them first. Their privacy notice is what governs that processing.\n\nIf you come to us anyway, we forward the request to the organizer within 5 business days and tell you that we have done so, identifying them. Where we act as processor, we give the technical assistance needed for them to answer you. None of this removes your right to address us about what is ours, nor, in the jointly controlled activity described in section 3, your right to bring the request against either of us.\n\nThe organizer, for their part, undertakes in the Terms of Service to present their own privacy notice, to collect only what is necessary, to have a legal basis, to set retention, to answer data subjects, and not to use data obtained through the platform for a purpose incompatible with the one that justified it."
+      },
+      "photography": {
+        "title": "Photography and filming at the event",
+        "content": "Recording image and sound at the venue is the activity of the organizer or of whoever they authorise, and not ours. The organizer is the controller of that processing, sets the legal basis, answers for signage at the venue and for advance notice to the public, and answers to a heightened standard where a child or adolescent appears.\n\nThe platform stores and serves the images and video the organizer uploads to promote the event. In that role we are the processor: we do not choose the content, we do not recognise people and we do not index faces.\n\nIf you appear in an image published on an event page and want it removed, write to {dpoEmail} naming the page and, if you can, the position in the image. We remove it or forward the request to the organizer according to each party's role, and we tell you what was done. Image rights are protected by art. 20 of the Brazilian Civil Code and, as to minors, by art. 17 of the Child and Adolescent Act, independently of whether there is a legal basis for the rest of the processing."
+      },
+      "regional": {
+        "title": "Regional notes",
+        "content": "The service is operated from Brazil, charges in Brazilian reais and uses PIX as its payment method. The LGPD is the primary regime.\n\nFor data subjects in the European Economic Area, including Germany, the GDPR applies to the extent that we offer the service to you: the legal bases in the corresponding column of the table in section 4 apply, as do the art. 27 representative named in the identification block, the rights in arts. 15 to 22, the one-month period extendable by two under art. 12(3), and the right to complain to the supervisory authority of your own country under art. 77. Because we have no establishment in the European Union, there is no lead authority and no one-stop shop: the competent authority is the one in your own country of residence.\n\nFor data subjects in Spain and in Spanish-speaking Latin America, the Spanish version of this Policy is the reference text, and the Spanish data protection agency is the competent authority for residents of Spain.\n\nWe publish this Policy in Portuguese, English, German and Spanish. The Portuguese version is authoritative for data subjects in Brazil, as art. 31 of the Consumer Code requires. For consumers resident in Germany and Spain, the version in that country's language prevails, and no language precedence clause removes from you the protection of the mandatory law of your country of habitual residence."
       },
       "changes": {
         "title": "Changes to this Policy",
-        "content": "We may update this Policy for changes in the product, suppliers or law. The version and date above identify the current text. Material changes will be highlighted by appropriate means and we will request new consent where necessary.\n\nPrevious versions may be requested from the data protection contact. We recommend reviewing this document periodically."
+        "content": "The version and the two dates at the top of the page identify the text: the effective date is when the version began to apply, and the updated date is when the text last changed. The two do not necessarily coincide, and the effective one governs.\n\nA material change, such as a new purpose, a new legal basis, a new supplier with access to personal data, a new destination country or a longer retention period, is announced at least 30 days in advance, by email to account holders and by a notice in the product, before it takes effect. A correction to wording, to a legal reference or to contact details may be published immediately.\n\nIf a change would mean processing for a purpose incompatible with the one that justified collection, we will tell you in advance and prominently, and you may withdraw consent or object, under art. 9, para. 2 of the LGPD.\n\nPrevious versions are archived and supplied to anyone who asks at {dpoEmail}, together with a note of what changed between them."
       },
       "contact": {
-        "title": "Controller and data protection contact",
-        "content": "The privacy channel for {legalName} is {dpoEmail}. Use it to exercise rights, ask about this Policy or report a personal-data concern. The institutional website is {siteUrl}.\n\nBefore sending, avoid attaching passwords, card details or complete identity documents. Provide only what is needed to locate the relationship and verify your identity securely."
+        "title": "Identification, contact and complaint channels",
+        "content": "Controller: {legalName}. The full registered name, the company registration number and the physical address appear in the block at the foot of this page and in the site footer, in compliance with art. 2 of Decree 7.962/2013. Corporate site: {siteUrl}.\n\n• Data protection officer, for exercising rights and for questions about this Policy: {dpoEmail}.\n• Support and contractual matters, including orders, payments and refunds: {supportEmail}.\n• Representative in the European Union under art. 27 of the GDPR: named in the identification block at the foot of this page.\n\nAuthorities and external channels you may approach directly: the Brazilian National Data Protection Authority, through its official channels; the Procon office of your state or municipality; the consumidor.gov.br platform; the data protection supervisory authority of your country if you live in the European Union; and the Spanish data protection agency if you live in Spain.\n\nWhen you write, describe the request and the context, and do not attach a password, a full card number or a photograph of a document: we do not need any of that to locate your relationship with us, and asking for excessive data in order to answer a privacy request would be the obvious contradiction."
       }
     }
   },
   "orders": {
-    "title": "My orders",
-    "description": "Your purchases, payments and refunds.",
+    "title": "My tickets",
+    "description": "Your tickets and your purchase history.",
     "filterLabel": "Filter orders by status",
     "filters": {
+      "active": "Current",
       "all": "All",
       "pending_payment": "Awaiting payment",
       "paid": "Paid",
@@ -715,7 +807,33 @@
     "pagination": "Orders pagination",
     "showing": "Showing {first}–{last} of {total}",
     "previous": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "refund": {
+      "title": "Cancel and get a refund",
+      "action": "Request a refund",
+      "submitting": "Sending…",
+      "confirm": "Confirm refund request",
+      "cancel": "Back",
+      "amount": "You get {amount} back",
+      "feeIncluded": "The service fee is included.",
+      "until": "You can cancel until {date}.",
+      "noteLabel": "Want to tell us why? (optional)",
+      "notePlaceholder": "I can no longer go",
+      "approved": "Refund approved. The money returns to the same Pix within 3 business days.",
+      "pending": "Request sent. The organiser will review it.",
+      "failed": "The refund could not be requested.",
+      "statusPending": "Refund under review",
+      "statusApproved": "Refund approved",
+      "statusRejected": "Refund declined",
+      "refusals": {
+        "window_closed": "The 7-day cancellation window has passed.",
+        "too_close_to_event": "The event is less than 48 hours away, so it can no longer be cancelled.",
+        "not_paid": "This order was never paid.",
+        "already_refunded": "This order has already been refunded.",
+        "event_passed": "This event has already happened.",
+        "request_open": "A refund request is already in progress."
+      }
+    }
   },
   "eventManager": {
     "notFound": "Event not found",
@@ -756,7 +874,8 @@
     "errors": {
       "tierStatus": "The tier could not be changed."
     },
-    "manage": "Manage"
+    "manage": "Manage",
+    "viewReport": "Report"
   },
   "signIn": {
     "reason": {
@@ -800,7 +919,7 @@
       "legalNameHint": "As it appears on the document; it is the name checked at the door.",
       "birthDate": "Date of birth",
       "submit": "Continue",
-      "privacy": "We ask for these because Brazilian law requires a document to sell tickets: half-price admission is capped per CPF and a PIX charge cannot be issued without one. They are stored encrypted, are never shown to the event organiser, and are not used for advertising. Details in the Privacy Policy."
+      "privacy": "We ask for these details because the PIX charge cannot be issued without the payer's document, because the minimum age of 18 is checked against the date of birth, and because one document cannot open two accounts. The document, legal name and date of birth are stored encrypted, are not shown to the event organizer and are not used for advertising. Details in the Privacy Policy."
     },
     "phone": {
       "title": "Almost there",
@@ -826,5 +945,453 @@
       "skip": "Not now, continue without one",
       "weak": "Use at least 8 characters, with an upper case, a lower case and a number."
     }
+  },
+  "audience": {
+    "title": "About you (optional)",
+    "why": "Helps the organiser understand who comes to their events. Answering is optional and changes nothing about your purchase.",
+    "gender": "Gender",
+    "city": "City",
+    "uf": "State",
+    "unanswered": "Rather not answer",
+    "genders": {
+      "female": "Female",
+      "male": "Male",
+      "non_binary": "Non-binary",
+      "other": "Other",
+      "undisclosed": "Prefer not to say"
+    }
+  },
+  "reports": {
+    "title": "Event report",
+    "subtitle": "Who bought, and what came in.",
+    "loadFailed": "The report could not be loaded.",
+    "empty": "No sales for this event yet.",
+    "emptyHint": "The numbers appear as soon as the first payment is confirmed.",
+    "notInformed": "Not given",
+    "export": "Export",
+    "exportCsv": "Download spreadsheet (CSV)",
+    "totals": {
+      "orders": "Orders",
+      "tickets": "Tickets",
+      "buyers": "Buyers",
+      "net": "You receive",
+      "refunded": "Refunded",
+      "netHint": "The face value of the tickets. The service fee is charged separately, on top.",
+      "buyersHint": "Distinct accounts. Somebody who bought twice counts once."
+    },
+    "breakdowns": {
+      "gender": "By gender",
+      "age": "By age",
+      "uf": "By state",
+      "city": "By city",
+      "tier": "By ticket",
+      "day": "By date"
+    },
+    "columns": {
+      "gender": "Gender",
+      "age": "Age",
+      "uf": "State",
+      "city": "City",
+      "tier": "Ticket",
+      "day": "Date",
+      "orders": "Orders",
+      "tickets": "Tickets",
+      "net": "Value",
+      "share": "Share"
+    },
+    "ageBrackets": {
+      "up_to_18": "18 and under",
+      "19_23": "19 to 23",
+      "24_28": "24 to 28",
+      "29_33": "29 to 33",
+      "34_38": "34 to 38",
+      "39_43": "39 to 43",
+      "44_48": "44 to 48",
+      "49_53": "49 to 53",
+      "54_58": "54 to 58",
+      "59_plus": "59 and over",
+      "unknown": "Not given"
+    }
+  },
+  "attendees": {
+    "title": "Attendees",
+    "subtitle": "Who bought a ticket for this event.",
+    "search": "Search by name or email",
+    "empty": "No attendees yet.",
+    "emptyFiltered": "No attendees match these filters.",
+    "loadFailed": "The list could not be loaded.",
+    "export": "Export attendees",
+    "showing": "{shown} of {total}",
+    "loadMore": "Load more",
+    "allTiers": "All tickets",
+    "privacy": "The document is masked, and the date of birth and phone number are not shown: you need to check people in at the door, not keep anybody's ID number.",
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "document": "Document",
+      "gender": "Gender",
+      "age": "Age",
+      "city": "City",
+      "uf": "State",
+      "tier": "Ticket",
+      "quantity": "Qty",
+      "paid": "Total paid",
+      "purchasedAt": "Purchased",
+      "status": "Status"
+    },
+    "status": {
+      "all": "Paid and refunded",
+      "paid": "Paid only",
+      "refunded": "Refunded only",
+      "labels": {
+        "paid": "Paid",
+        "refunded": "Refunded",
+        "refund_required": "Refund pending"
+      }
+    }
+  },
+  "refunds": {
+    "inboxTitle": "Refund requests",
+    "inboxSubtitle": "What is waiting on your decision.",
+    "empty": "No refund requests.",
+    "loadFailed": "Refund requests could not be loaded.",
+    "pendingCount": "{count, plural, =0 {None pending} one {1 pending} other {# pending}}",
+    "approve": "Approve",
+    "reject": "Decline",
+    "approving": "Approving…",
+    "rejecting": "Declining…",
+    "approved": "Refund approved. The payout is queued.",
+    "rejected": "Request declined.",
+    "decisionFailed": "The decision could not be recorded.",
+    "noteLabel": "Note (optional)",
+    "notePlaceholder": "Explain the decision to the buyer",
+    "order": "Order",
+    "amount": "Amount to return",
+    "requestedAt": "Requested",
+    "decidedBy": "Decided by",
+    "autoApproved": "Approved automatically by the policy",
+    "autoApprovedHint": "Inside the statutory cooling-off window, or a cancelled event: it cannot be declined.",
+    "statuses": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Declined"
+    },
+    "reasons": {
+      "buyer_withdrawal": "Buyer changed their mind",
+      "event_cancelled": "Event cancelled",
+      "organiser_goodwill": "Organiser goodwill",
+      "operator": "Support action"
+    }
+  },
+  "door": {
+    "title": "Entrance",
+    "subtitle": "Scan the ticket's QR or type the code. Each code admits one person, once.",
+    "loadingEvents": "Loading your events…",
+    "noEventsTitle": "No published events",
+    "noEventsBody": "The entrance works on published events. Publish an event to start validating tickets.",
+    "pickTitle": "Which entrance are you on?",
+    "changeEvent": "Change event",
+    "ready": "Ready to scan",
+    "readyHint": "Point the camera at the ticket's QR, or type the code below.",
+    "checking": "Checking…",
+    "codeLabel": "Ticket code",
+    "codePlaceholder": "XXXX-XXXX-XXXX",
+    "codeHint": "12 characters. It checks itself once complete.",
+    "cameraOpen": "Scan with the camera",
+    "cameraClose": "Close camera",
+    "cameraDenied": "No camera access. Type the code to carry on.",
+    "transportError": "No connection",
+    "transportErrorHint": "The server could not be reached. Try again.",
+    "usedAt": "Already entered at {when}",
+    "countersTitle": "Entrance",
+    "countersShare": "{share}% in",
+    "in": "in",
+    "left": "to come",
+    "outcome": {
+      "admitted": "Let them in",
+      "already_admitted": "Already used",
+      "void": "Cancelled",
+      "wrong_event": "Another event",
+      "not_paid": "Not paid",
+      "unknown": "Not found",
+      "malformed": "Invalid code"
+    },
+    "cameraNoDevice": "No camera available on this device. Type the code above, which always works.",
+    "cameraStarting": "Opening the camera…",
+    "pickHint": "Search by name, venue or city. Only published events appear here.",
+    "searchPlaceholder": "Search events",
+    "searchLabel": "Search events by name, venue or city",
+    "noMatchTitle": "No events found",
+    "noMatchBody": "Adjust the search, or clear it to see all of your published events.",
+    "range": "{from}–{to} of {total}",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "seating": {
+    "loading": "Loading the seat map…",
+    "loadFailed": "The seat map could not be loaded. Reload the page.",
+    "stage": "Stage",
+    "seatName": "Row {row}, seat {seat}",
+    "proceed": "{count, plural, one {Continue with 1 seat} other {Continue with # seats}}",
+    "refused": "{count, plural, one {Seat {seats} was just taken by somebody else. The rest are still yours.} other {Seats {seats} were just taken by other people. The rest are still yours.}}",
+    "best": {
+      "title": "Best available",
+      "hint": "We pick the best seats together, nearest the stage. Or choose them yourself on the map below.",
+      "seats": "{count, plural, one {1 seat} other {# seats}}",
+      "accessible": "I need an accessible seat",
+      "accessibleHint": "A wheelchair space, reduced mobility or a seat built for obese persons. These are held back and never offered to somebody who does not need one."
+    },
+    "sectors": {
+      "title": "Choose a sector",
+      "choose": "Choose a sector to see its seats.",
+      "available": "{count, plural, one {1 seat free} other {# seats free}}",
+      "soldOut": "Sold out"
+    },
+    "status": {
+      "available": "free",
+      "taken": "taken",
+      "blocked": "unavailable"
+    },
+    "kind": {
+      "standard": "standard",
+      "wheelchair": "wheelchair space",
+      "companion": "companion seat",
+      "reduced_mobility": "reduced mobility",
+      "obese": "seat for obese persons",
+      "restricted_view": "restricted view"
+    },
+    "legend": {
+      "available": "Free",
+      "selected": "Yours",
+      "taken": "Taken",
+      "accessible": "Accessible"
+    },
+    "selection": {
+      "title": "Your seats",
+      "empty": "No seats chosen yet.",
+      "remove": "Remove row {row}, seat {seat}"
+    },
+    "total": {
+      "tickets": "{count, plural, one {1 ticket} other {# tickets}}",
+      "fee": "Service fee",
+      "total": "Total"
+    },
+    "arena": "Arena"
+  },
+  "layoutStudio": {
+    "loading": "Loading…",
+    "failed": "That could not be completed.",
+    "save": "Save room",
+    "saving": "Saving…",
+    "saved": "Room saved.",
+    "publish": "Publish",
+    "published": "Layout published.",
+    "adjustments": "Adjustments",
+    "state": {
+      "unsaved": "Unsaved",
+      "draft": "Draft",
+      "published": "Published",
+      "archived": "Archived"
+    },
+    "venue": {
+      "label": "Venue",
+      "none": "Choose a venue",
+      "add": "New venue",
+      "prompt": "Venue name"
+    },
+    "layout": {
+      "label": "Layout",
+      "none": "Choose a layout",
+      "add": "New layout",
+      "prompt": "Layout name",
+      "choose": "Choose a venue and a layout to start drawing the room.",
+      "frozenExplained": "This layout is already selling on an event and cannot be changed: re-lettering the rows now would change the room under a night that already has tickets out. Create a new version to change it."
+    },
+    "canvas": {
+      "count": "{seats} seats",
+      "updating": "Updating the room…",
+      "drawing": "Drawing…",
+      "failed": "The room cannot be drawn with these values.",
+      "collision": "{count, plural, one {A piece is on top of another. Move them apart to save.} other {# pieces are on top of each other. Move them apart to save.}}"
+    },
+    "inspector": {
+      "none": "Click a piece on the plan to adjust it."
+    },
+    "namePlaceholder": {
+      "linear": "Stalls A",
+      "arc": "Stand B",
+      "tables": "Box floor",
+      "standing": "Standing",
+      "booth": "Box 1",
+      "stage": "Stage",
+      "arena": "Arena"
+    },
+    "count": {
+      "rows": "{rows} rows · {seats} seats",
+      "tables": "{tables} tables · {seats} seats",
+      "capacity": "{capacity} people",
+      "marker": "Drawn only, not sold"
+    },
+    "fields": {
+      "name": "Section name",
+      "nameHint": "This is what a buyer sees on the map.",
+      "rows": "Rows",
+      "seatsPerRow": "Per row",
+      "tables": "Tables",
+      "seatsPerTable": "Per table",
+      "tablesPerRow": "Tables per row",
+      "firstTable": "First table",
+      "capacity": "Capacity",
+      "radius": "Distance",
+      "skips": "Aisles",
+      "skipsHint": "Empty positions, comma separated.",
+      "rowLabels": "Rows",
+      "firstRow": "Starts at",
+      "numbering": "Numbering",
+      "curve": "Curve",
+      "curveHint": "Zero is a straight block.",
+      "seatPitch": "Seat spacing",
+      "side": "Where the stand sits",
+      "sideHint": "Which side of the arena, seen from above on the map.",
+      "arcWidth": "How far round it goes",
+      "radiusHint": "From the edge of the arena to the first row.",
+      "width": "Width",
+      "depth": "Depth",
+      "diameter": "Diameter",
+      "rowsNumbered": "Past 24 rows, so the rows are numbered now."
+    },
+    "capacityHint": {
+      "standing": "How many people the floor holds.",
+      "booth": "How many people this box admits."
+    },
+    "rowLabels": {
+      "letters": "Letters (A, B, C)",
+      "numbers": "Numbers (1, 2, 3)"
+    },
+    "numbering": {
+      "sequential": "1 to n",
+      "odd_even": "Odd and even from the centre"
+    },
+    "numberingHint": {
+      "sequential": "The common case.",
+      "odd_even": "Older houses: odds one side of the centre aisle, evens the other."
+    },
+    "compliance": {
+      "title": "Accessibility is short",
+      "ok": "Accessibility met",
+      "okLong": "Against {capacity} places, the layout meets the accessibility quotas.",
+      "short": "Accessibility short",
+      "basis": "Against {capacity} places, per Decreto 5.296/2004 (art. 23, as amended by Decreto 9.404/2018).",
+      "missing": "{count, plural, one {# {kind} seat missing} other {# {kind} seats missing}}",
+      "wheelchair": "wheelchair space",
+      "companion": "companion",
+      "reducedMobility": "reduced mobility",
+      "obese": "obese-person",
+      "how": "Mark the seats in the section form. The liability is the organiser's.",
+      "fix": "Mark the seats for me",
+      "fixHint": "We take the back row, outward from the middle, with a companion seat beside each wheelchair space. You can move any of them afterwards by clicking the map."
+    },
+    "mode": {
+      "label": "What a click does",
+      "move": "Move blocks",
+      "mark": "Mark seats",
+      "kindLabel": "Seat kind to mark"
+    },
+    "kind": {
+      "standard": "Standard",
+      "wheelchair": "Wheelchair",
+      "companion": "Companion",
+      "reduced_mobility": "Reduced mobility",
+      "obese": "Obese",
+      "restricted_view": "Restricted view"
+    },
+    "side": {
+      "top": "Top",
+      "right": "Right",
+      "bottom": "Bottom",
+      "left": "Left",
+      "full": "All the way round"
+    },
+    "arcWidth": {
+      "quarter": "A quarter of the way round",
+      "third": "A third of the way round",
+      "half": "Half the way round"
+    },
+    "undo": "Undo",
+    "redo": "Redo",
+    "remove": "Remove piece",
+    "palette": {
+      "title": "Pieces",
+      "hint": "Drag one onto the plan, or click to drop it in the middle.",
+      "shortcuts": "Ctrl+C copy · Ctrl+V paste · Ctrl+D duplicate · Ctrl+Z undo"
+    },
+    "empty": {
+      "title": "Build the room",
+      "hint": "Drag a piece from the side onto the plan. Start with the stage or the arena, then put the rows around it."
+    },
+    "legend": {
+      "title": "Legend"
+    },
+    "piece": {
+      "linear": "Straight rows",
+      "arc": "Curved rows",
+      "tables": "Round tables",
+      "standing": "Standing floor",
+      "booth": "Box",
+      "stage": "Stage",
+      "arena": "Arena"
+    },
+    "pieceHint": {
+      "linear": "Theatre, cinema, auditorium. Rows facing the stage.",
+      "arc": "Rodeo, gym, stadium. Curved rows around the centre.",
+      "tables": "Tables with seats around them. Dinners, galas.",
+      "standing": "Sold by quantity, with no named seats.",
+      "booth": "Sold whole, to a group. Drop one for each box.",
+      "stage": "Where the stage is. It sells nothing: it orients the buyer.",
+      "arena": "The floor the show happens on. It sells nothing."
+    },
+    "defaultName": {
+      "linear": "Seating",
+      "arc": "Stand",
+      "tables": "Tables",
+      "standing": "Standing",
+      "booth": "Box",
+      "stage": "Stage",
+      "arena": "Arena"
+    },
+    "area": {
+      "unit": "1 unit"
+    }
+  },
+  "eventSeating": {
+    "title": "Reserved seats",
+    "loading": "Loading…",
+    "failed": "That could not be completed.",
+    "hint": "Choose the layout and say what each section costs. Seats are then sold with a row and a number.",
+    "venue": "Venue",
+    "layout": "Layout",
+    "layoutHint": "Published layouts only.",
+    "pricing": "Price per section",
+    "pricingHint": "One tier per section. A section with no tier is not sold this night.",
+    "notSold": "Do not sell",
+    "bind": "Put the seats on sale",
+    "binding": "Putting on sale…",
+    "bound": "{seats} seats on sale.",
+    "needsTier": "Create at least one tier first: the tier is what sets each section's price.",
+    "needsPricing": "Choose a tier for at least one section.",
+    "oneWay": "Once on sale, this night's layout cannot be swapped: the seats can be held and printed on somebody's ticket.",
+    "live": "{seats} seats on sale across {sectors} sections.",
+    "liveLocked": "This night's layout can no longer be swapped. To sell a different room, create another event.",
+    "noVenue": "You have not drawn a venue yet.",
+    "noPublished": "This venue has no published layout. Publish one in the studio to sell from it.",
+    "goToStudio": "Open layouts and seats",
+    "closed": "Does this event sell numbered seats — a row and a chair, like a theatre or an arena? For ordinary tickets, nothing is needed here.",
+    "open": "Use assigned seats",
+    "confirmTitle": "Put the seats on sale?",
+    "confirmBody": "{seats} seats across {sectors} sectors, from the plan {layout}.",
+    "oneWayShort": "This cannot be undone once a seat has been held.",
+    "unpricedWarning": "{count, plural, one {Sector {sectors} has no tier and will not be sold tonight.} other {Sectors {sectors} have no tier and will not be sold tonight.}}",
+    "unreachable": "We could not load your venues and plans just now. That does not mean you have none.",
+    "retry": "Try again"
   }
 }

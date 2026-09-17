@@ -8,6 +8,7 @@ import type {
   EventMedia,
   EventPage,
   EventQuery,
+  EventSalesMode,
   EventStatus,
   EventSummary,
 } from "./types";
@@ -44,6 +45,8 @@ export interface EventInput {
     latitude?: number;
     longitude?: number;
   };
+  /** How this event sells: by quantity, or with a row and a seat number. */
+  salesMode: EventSalesMode;
   /** ISO 8601 with an offset. */
   startsAt: string;
   endsAt?: string;

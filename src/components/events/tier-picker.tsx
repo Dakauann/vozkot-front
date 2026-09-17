@@ -47,6 +47,15 @@ export function TierPicker({
   );
 
   const total = selected.reduce((sum, entry) => sum + entry.tier.priceCents * entry.quantity, 0);
+  // The fee across the basket, from the per-ticket figure the server priced.
+  // Summed from the unit rather than computed from the subtotal, for the same
+  // reason the server does it that way: a fee taken on the total can differ by
+  // a centavo from the sum of the lines, and this panel has to agree with the
+  // order that follows it.
+  const totalFee = selected.reduce(
+    (sum, entry) => sum + (entry.tier.feeCents ?? 0) * entry.quantity,
+    0,
+  );
   const count = selected.reduce((sum, entry) => sum + entry.quantity, 0);
   const currency = tiers[0]?.currency ?? "BRL";
 
@@ -126,6 +135,16 @@ export function TierPicker({
                   <p className="mt-1 text-sm font-semibold text-healthy-ink">
                     {tier.priceCents === 0 ? t("free") : formatMoney(tier.priceCents, locale, tier.currency)}
                   </p>
+                  {/* Named on the tier itself, where the buyer first reads a
+                      price, rather than saved for the checkout. A total that
+                      appears only at the last step is the single largest cause
+                      of an abandoned cart. */}
+                  {tier.feeCents ? (
+                    <p className="text-xs text-muted-foreground">
+                      {"+ "}
+                      {formatMoney(tier.feeCents, locale, tier.currency)} {t("serviceFee")}
+                    </p>
+                  ) : null}
                   {/* Scarcity only when it is true and useful. "3 left" moves
                       people; "487 left" is noise. */}
                   {!soldOut && tier.available <= 10 ? (
@@ -176,10 +195,26 @@ export function TierPicker({
       </ul>
 
       <div className="border-t border-border bg-muted p-4">
+        {totalFee > 0 ? (
+          <div className="mb-2 flex flex-col gap-1 border-b border-border pb-2">
+            <div className="flex items-baseline justify-between">
+              <span className="text-xs text-muted-foreground">{t("subtotal")}</span>
+              <span className="text-xs tabular-nums text-muted-foreground">
+                {formatMoney(total, locale, currency)}
+              </span>
+            </div>
+            <div className="flex items-baseline justify-between">
+              <span className="text-xs text-muted-foreground">{t("serviceFee")}</span>
+              <span className="text-xs tabular-nums text-muted-foreground">
+                {formatMoney(totalFee, locale, currency)}
+              </span>
+            </div>
+          </div>
+        ) : null}
         <div className="flex items-baseline justify-between">
           <span className="text-sm text-muted-foreground">{t("total")}</span>
           <span className="font-display text-lg font-semibold tabular-nums text-card-foreground">
-            {formatMoney(total, locale, currency)}
+            {formatMoney(total + totalFee, locale, currency)}
           </span>
         </div>
 

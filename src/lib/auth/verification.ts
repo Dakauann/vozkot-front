@@ -2,6 +2,7 @@
 
 import { apiFetch } from "@/lib/api/client";
 import type { User } from "@/lib/auth/types";
+import type { Gender } from "@/lib/reports/types";
 
 /** What the server says after a code goes out. */
 export interface Started {
@@ -22,6 +23,14 @@ export interface ProfileState {
   birthDate?: string;
   phoneMask?: string;
   phoneVerified: boolean;
+  /**
+   * What the buyer volunteered about themselves. All three are optional and
+   * come back as they were sent: an empty value means "not answered", which is
+   * a real state and not a missing one.
+   */
+  gender?: Gender | "";
+  city?: string;
+  uf?: string;
 }
 
 /**
@@ -74,6 +83,15 @@ export interface ProfileInput {
   document: string;
   legalName: string;
   birthDate: string;
+  /**
+   * Optional, and they must stay optional. They are asked for because an
+   * organiser needs to know who came to their event; nobody should have to
+   * answer that to buy a ticket, so an empty string is a valid value and is
+   * sent as one rather than omitted.
+   */
+  gender?: Gender | "";
+  city?: string;
+  uf?: string;
 }
 
 export function saveProfile(input: ProfileInput) {

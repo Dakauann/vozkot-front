@@ -9,6 +9,7 @@ import { EventImage, coverImage } from "@/components/events/event-image";
 import {
   ArrowSquareOut,
   CalendarBlank,
+  ChartBar,
   CircleNotch,
   Eye,
   MapPin,
@@ -19,6 +20,7 @@ import {
   SealCheck,
   Storefront,
 } from "@/components/icons";
+import { EventSeatingPanel } from "@/components/seating/event-seating-panel";
 import { TicketStatusChip } from "@/components/tickets/ticket-status-chip";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
@@ -64,7 +66,11 @@ export function EventManager({ eventId }: { eventId: string }) {
         listTickets({ eventId, limit: 100, sort: "price" }),
       ]);
       if (cancelled) return;
-      if (found.error || !found.data) {
+      // A failed tier read is NOT an event with no tiers. Falling through to
+      // the empty state rendered "this event has no tiers yet" over a network
+      // error, in confident copy, with a button to create the first one — so
+      // both reads are judged before either result is committed.
+      if (found.error || !found.data || page.error) {
         setFailed(true);
         return;
       }
@@ -171,6 +177,12 @@ export function EventManager({ eventId }: { eventId: string }) {
                 {t("viewOrders")}
               </Link>
             </Button>
+            <Button asChild size="sm" variant="outline">
+              <Link href={`/events/${event.id}/report`}>
+                <ChartBar className="h-3.5 w-3.5" aria-hidden />
+                {t("viewReport")}
+              </Link>
+            </Button>
             {event.status === "published" ? (
               <Button asChild size="sm" variant="outline">
                 <a href={`/${locale}/eventos/${event.slug}`} target="_blank" rel="noopener noreferrer">
@@ -202,6 +214,21 @@ export function EventManager({ eventId }: { eventId: string }) {
           hint={t("stats.revenueHint")}
         />
       </section>
+
+      {/* Reserved seating, offered rather than presented.
+          It lives on this page and not in the event form because binding needs
+          an event that EXISTS and tiers to point the blocks at, neither of
+          which a create form has. Without it the studio was a drawing tool
+          whose output could never be sold — and unfolded on every event page it
+          was a wall of apparatus about a feature most events do not use, so it
+          asks first and takes one line until it is wanted. */}
+      <div className="border-t border-border pt-5">
+        <EventSeatingPanel
+          eventId={event.id}
+          tiers={tiers}
+          salesMode={event.salesMode ?? "counted"}
+        />
+      </div>
 
       <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
         <section aria-labelledby="tiers-heading" className="min-w-0">

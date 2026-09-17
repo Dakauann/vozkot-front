@@ -10,10 +10,13 @@ import {
   Check,
   Gear,
   Headset,
-  Invoice,
+  Plus,
   Question,
   Receipt,
+  SquaresFour,
+  Stack,
   Storefront,
+  UserCircle,
   UserCheck,
   X,
 } from "@/components/icons";
@@ -28,6 +31,9 @@ import { Link, usePathname } from "@/i18n/routing";
 import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/auth-context";
+import { useIsomorphicLayoutEffect } from "@/hooks/use-isomorphic-layout-effect";
+import { useIsOrganizer } from "@/lib/events/organizer";
+import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import type { Icon, IconProps } from "@/components/icons";
 
@@ -45,17 +51,6 @@ type NavIcon = Icon | React.ComponentType<IconProps>;
 const OPEN_ITEMS_KEY = "dashboard-open-families";
 /** Which section families the operator left open. */
 const OPEN_FAMILIES_KEY = "dashboard-open-nav-families";
-
-/**
- * useLayoutEffect on the client, useEffect on the server.
- *
- * The restore below has to land BEFORE the browser paints, or the spine paints
- * collapsed and then visibly jumps open. useLayoutEffect does exactly that, but
- * React warns when it runs during SSR, so it is swapped for the passive version
- * there (where it does nothing anyway).
- */
-const useIsomorphicLayoutEffect =
-  typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect;
 
 /**
  * A Set of open keys that survives a refresh, collapsed by default.
@@ -123,6 +118,19 @@ function usePersistentOpenSet(storageKey: string, initial?: () => Set<string>) {
   return [open, toggle] as const;
 }
 
+/**
+ * Who a row or a product is for.
+ *
+ * `organizer` is not a role. The backend knows `admin` and `user` only, and an
+ * account becomes an organizer by owning an event, so this is resolved from
+ * data by `useIsOrganizer`. Absent means everyone.
+ *
+ * It decides VISIBILITY IN THE SPINE, nothing else. Every organizer surface is
+ * authorized in its own usecase against the actor's ownership, so this is a
+ * question of what to offer, never of what to allow.
+ */
+export type Audience = "organizer";
+
 export interface NavItem {
   icon: NavIcon;
   /** A key under the `nav` namespace; the row translates it at render. */
@@ -130,6 +138,8 @@ export interface NavItem {
   href: string;
   /** Hidden from anyone whose role is not admin. */
   admin?: boolean;
+  /** Hidden from anyone this row is not for. Absent means everyone. */
+  audience?: Audience;
   children?: NavItem[];
   /** The section this row is legended under. Rows with no family run loose. */
   family?: string;
@@ -141,6 +151,8 @@ export interface Product {
   descriptionKey: string;
   icon: NavIcon;
   navItems: NavItem[];
+  /** Hidden from anyone this context is not for. Absent means everyone. */
+  audience?: Audience;
 }
 
 export interface DashboardSidebarProps {
@@ -150,19 +162,33 @@ export interface DashboardSidebarProps {
 }
 
 /*
- * The starter's navigation.
+ * The starter's navigation, and its two audiences.
  *
  * Deliberately its own, not Vozko's. The chrome around it is identical because
  * the two products share a visual system; the rows are not, because Vozkot
  * carries none of Vozko's CRM, messaging or billing.
  *
- * A "ticket" here is an INGRESSO, admission to an event, which is why the rows
- * read tickets, check-in and orders rather than queue, assignee and resolution.
- * The two senses of the word collide in English and share nothing else.
+ * A "ticket" here is an INGRESSO, admission to an event. The two senses of the
+ * word collide in English and share nothing else, which is why the organizer's
+ * batches are called tiers ("lotes") throughout and "ingressos" is reserved
+ * for what a buyer holds.
  *
  * Rows hold KEYS, not words. The label is resolved where it is drawn, so the
  * spine is translated by the same catalogue as the rest of the app instead of
  * carrying a second, English-only copy of the product's vocabulary.
+ *
+ * The spine used to offer every account the organizer's console: events, tier
+ * management, the door scanner and sales reports. Five of its six rows were
+ * tools for running an event, and somebody who had only ever BOUGHT a ticket
+ * was handed all of them, each opening onto nothing they owned. That is also
+ * how the "601 lotes" report happened: the navigation never distinguished a
+ * buyer from an organizer, so neither did anything downstream of it.
+ *
+ * So the account context comes LAST in this list but FIRST for a buyer: the
+ * organizer contexts are filtered out for them, which leaves `account` as
+ * products[0] and therefore the landing context. An organizer lands on the box
+ * office, which is where their work is, and their own purchases are one switch
+ * away rather than mixed in with their sales.
  */
 export const defaultProducts: Product[] = [
   {
@@ -170,15 +196,23 @@ export const defaultProducts: Product[] = [
     nameKey: "product",
     descriptionKey: "productDescription",
     icon: Storefront,
+    audience: "organizer",
     navItems: [
       // Events first: an event is what a buyer browses to, and the tiers under
       // it are what they buy. The spine should read in that order.
       { icon: CalendarBlank, labelKey: "events", href: "/events", family: "operations" },
-      { icon: Receipt, labelKey: "tickets", href: "/dashboard", family: "operations" },
+      // "Lotes", not "Ingressos". This screen manages the BATCHES an organizer
+      // puts on sale; the buyer's own ingressos live under the account
+      // context. Naming both of them "Ingressos" is what made the spine
+      // unreadable, because the word then meant two different things one row
+      // apart.
+      { icon: Stack, labelKey: "tiers", href: "/dashboard", family: "operations" },
       { icon: UserCheck, labelKey: "checkIn", href: "/check-in", family: "operations" },
-      { icon: Invoice, labelKey: "orders", href: "/orders", family: "operations" },
-      { icon: Question, labelKey: "help", href: "/help", family: "support" },
-      { icon: Headset, labelKey: "contact", href: "/support", family: "support" },
+      // Reserved seating. Under operations rather than in its own context: a
+      // room is drawn as part of putting an event on sale, not as a separate
+      // job, and an organiser who never sells a numbered seat simply never
+      // opens it.
+      { icon: SquaresFour, labelKey: "layouts", href: "/venues", family: "operations" },
     ],
   },
   {
@@ -186,15 +220,45 @@ export const defaultProducts: Product[] = [
     nameKey: "insights",
     descriptionKey: "insightsDescription",
     icon: ChartBar,
+    audience: "organizer",
     navItems: [
       { icon: ChartBar, labelKey: "reports", href: "/reports", family: "insights" },
     ],
   },
+  {
+    id: "account",
+    nameKey: "account",
+    descriptionKey: "accountDescription",
+    icon: UserCircle,
+    navItems: [
+      { icon: Receipt, labelKey: "myTickets", href: "/orders", family: "account" },
+    ],
+  },
+];
+
+/**
+ * Rows every context carries.
+ *
+ * Help is not the property of one context. An organizer looking for it from
+ * the box office should not have to switch contexts to find it, and putting a
+ * second copy in each product's own list would be two places to keep right.
+ */
+export const globalNavItems: NavItem[] = [
+  { icon: Question, labelKey: "help", href: "/help", family: "support" },
+  { icon: Headset, labelKey: "contact", href: "/support", family: "support" },
 ];
 
 export const adminNavItems: NavItem[] = [
   { icon: Gear, labelKey: "settings", href: "/settings", admin: true },
 ];
+
+/** The contexts this viewer is offered, in order. */
+export function productsFor(products: Product[], isOrganizer: boolean): Product[] {
+  const visible = products.filter((product) => !product.audience || isOrganizer);
+  // Never nothing: an account with no contexts would render an empty spine and
+  // no way out of it.
+  return visible.length > 0 ? visible : products.slice(-1);
+}
 
 const mobileContainerVariants: Variants = {
   hidden: { x: "-100%" },
@@ -358,6 +422,39 @@ function ProductSwitcher({
           document.body,
         )
       : null;
+
+  // One context is not a choice.
+  //
+  // A buyer is offered only the account context, and a menu that opens to show
+  // the row already showing is a control that does nothing: it invites a tap,
+  // costs a tap, and returns the viewer to where they started. So the switcher
+  // becomes a plain heading, and the space it occupies still reads as the
+  // spine's title rather than going blank.
+  if (products.length < 2) {
+    if (!isExpanded) {
+      return (
+        <div
+          className="flex size-9 items-center justify-center text-muted-foreground"
+          title={t(currentProduct.nameKey)}
+        >
+          <Icon className="size-[18px]" weight="regular" aria-hidden="true" />
+          <span className="sr-only">{t(currentProduct.nameKey)}</span>
+        </div>
+      );
+    }
+    return (
+      <div className="flex h-9 w-full items-center gap-2 px-2">
+        <Icon
+          className="size-[18px] shrink-0 text-muted-foreground"
+          weight="regular"
+          aria-hidden="true"
+        />
+        <span className="min-w-0 flex-1 truncate text-sm font-semibold text-foreground">
+          {t(currentProduct.nameKey)}
+        </span>
+      </div>
+    );
+  }
 
   // The rail form: a square tile, lit only while its menu is open. No accent
   // fill at rest, because in this system the accent means "current", and the
@@ -695,13 +792,21 @@ function GroupedNavItems({
  * control lives on the bar, so it needs no footer of its own.
  */
 export function DashboardSidebar({
-  products,
+  products: allProducts,
   adminNavItems: adminItems = [],
   className,
 }: DashboardSidebarProps) {
   const pathname = usePathname();
+  const t = useTranslations("nav");
   const { user } = useAuth();
   const isAdmin = user?.role === "admin";
+  // Unknown counts as "buyer": offering the smaller, certain spine and adding
+  // to it is better than offering tools and taking them away.
+  const isOrganizer = useIsOrganizer() === true;
+  const products = React.useMemo(
+    () => productsFor(allProducts, isOrganizer),
+    [allProducts, isOrganizer],
+  );
 
   const { isCollapsed, isMobileOpen, setMobileOpen } = useSidebar();
 
@@ -716,26 +821,50 @@ export function DashboardSidebar({
     setMobileOpen(false);
   }, [pathname, setMobileOpen]);
 
-  const restoreId = React.useRef<string | null>(null);
-  const [currentProduct, setCurrentProduct] = React.useState<Product>(products[0]);
+  // The selected ID is the state; the product is DERIVED from it against the
+  // contexts currently on offer.
+  //
+  // That ordering is what makes a changing set of contexts safe. The set grows
+  // and shrinks under the viewer -- the organizer answer arrives after the
+  // first paint, and deleting a last event turns an organizer back into a
+  // buyer -- and a derived product simply falls back to the first context on
+  // offer. Holding the product itself in state would leave the spine pointing
+  // at a context no longer in the switcher, reachable by nothing.
+  const [selectedId, setSelectedId] = React.useState<string | null>(null);
 
   useIsomorphicLayoutEffect(() => {
     try {
-      restoreId.current = localStorage.getItem("dashboard-selected-product");
+      setSelectedId(localStorage.getItem("dashboard-selected-product"));
     } catch {
-      restoreId.current = null;
+      // Private mode or blocked site data: the first context on offer is a
+      // perfectly good default.
     }
-    const saved = products.find((p) => p.id === restoreId.current);
-    if (saved) setCurrentProduct(saved);
-  }, [products]);
+  }, []);
 
-  React.useEffect(() => {
+  const currentProduct =
+    products.find((product) => product.id === selectedId) ?? products[0];
+
+  // Written ON THE CLICK, never from an effect mirroring currentProduct.
+  //
+  // This is the bug that made tabbing away and back move the operator to a
+  // different context. currentProduct is DERIVED, and it falls back to
+  // products[0] whenever the selected context is not in the list yet — which
+  // is every remount, because the organizer answer arrives a moment after the
+  // first paint and until then the only context on offer is the account one.
+  // An effect that persisted that value could not tell "the operator chose
+  // this" from "we defaulted because nothing had loaded", so the fallback
+  // overwrote a real choice and the next render honoured it.
+  //
+  // Storage records a CHOICE, and a choice only happens here.
+  // usePersistentOpenSet above guards the same hazard with didRestore.
+  const setCurrentProduct = React.useCallback((product: Product) => {
+    setSelectedId(product.id);
     try {
-      localStorage.setItem("dashboard-selected-product", currentProduct.id);
+      localStorage.setItem("dashboard-selected-product", product.id);
     } catch {
       // Ignore localStorage errors
     }
-  }, [currentProduct]);
+  }, []);
 
   // Sections start OPEN. A collapsed default meant a first-time operator was
   // shown two section legends and no rows at all, which reads as navigation
@@ -743,11 +872,14 @@ export function DashboardSidebar({
   const allFamilies = React.useMemo(
     () =>
       new Set(
-        products
-          .flatMap((product) => product.navItems.map((item) => item.family))
+        [
+          ...allProducts.flatMap((product) => product.navItems),
+          ...globalNavItems,
+        ]
+          .map((item) => item.family)
           .filter((family): family is string => Boolean(family)),
       ),
-    [products],
+    [allProducts],
   );
 
   // Per-row accordions stay collapsed: those are sub-pages of one row, and the
@@ -782,7 +914,7 @@ export function DashboardSidebar({
 
       <div className="scrollbar-sleek min-h-0 flex-1 overflow-y-auto overflow-x-hidden">
         <GroupedNavItems
-          items={currentProduct.navItems}
+          items={[...currentProduct.navItems, ...globalNavItems]}
           isExpanded={isExpanded || mobile}
           onToggle={toggleItem}
           openItems={openItems}
@@ -810,6 +942,47 @@ export function DashboardSidebar({
               isAdmin={isAdmin}
             />
           </>
+        )}
+
+        {/* The way in.
+            A buyer is shown no organizer rows, so without this there is no
+            route from the app to selling anything at all: they would have to
+            already know /events/new exists. It is an ACTION, not a
+            destination, which is why it is a button in its own strip rather
+            than a nav row wearing a plus. */}
+        {!isOrganizer && (
+          <div
+            className={cn(
+              "mt-2 border-t border-border pb-2 pt-3",
+              isExpanded || mobile ? "px-2" : "px-1.5",
+            )}
+          >
+            <Button
+              asChild
+              size={isExpanded || mobile ? "lg" : "icon"}
+              // A square tile in the rail, a full-width button when open: the
+              // rail is 52px wide, so a stretched button there would read as a
+              // bar rather than a control.
+              className={isExpanded || mobile ? "w-full" : "size-9"}
+            >
+              <Link
+                href="/events/new"
+                title={isExpanded || mobile ? undefined : t("createEvent")}
+              >
+                <Plus className="size-4 shrink-0" weight="bold" aria-hidden="true" />
+                {isExpanded || mobile ? (
+                  <span className="ml-1.5 truncate">{t("createEvent")}</span>
+                ) : (
+                  <span className="sr-only">{t("createEvent")}</span>
+                )}
+              </Link>
+            </Button>
+            {(isExpanded || mobile) && (
+              <p className="mt-2 px-1 text-xs leading-5 text-muted-foreground">
+                {t("createEventHint")}
+              </p>
+            )}
+          </div>
         )}
       </div>
     </>

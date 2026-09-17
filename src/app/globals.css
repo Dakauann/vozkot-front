@@ -453,3 +453,37 @@
   .event-hero-enter,
   .event-hero-media-enter { animation: none; }
 }
+
+/* The door's one authored moment.
+ *
+ * The verdict panel settles in from slightly small and blurred. It is the only
+ * animation on that screen, and it exists for a specific reason: a doorperson
+ * scanning twenty people a minute has to be able to tell a NEW answer from the
+ * one still on screen, and motion is the difference they read without looking
+ * properly. Two identical verdicts in a row therefore have to play it twice,
+ * which is why the component remounts the panel per scan.
+ *
+ * Exponential ease-out, 220ms, from an already-visible default: the panel is
+ * never invisible, so a browser that drops the animation shows the answer
+ * immediately rather than an empty box.
+ */
+@keyframes vk-verdict-enter {
+  from {
+    transform: scale(0.965);
+    filter: blur(6px);
+    opacity: 0.55;
+  }
+  to {
+    transform: none;
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+.vk-verdict {
+  animation: vk-verdict-enter 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vk-verdict { animation: none; }
+}

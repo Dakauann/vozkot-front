@@ -12,6 +12,7 @@ import {
   Phone,
 } from "@/components/icons";
 import { Link } from "@/i18n/routing";
+import { AudienceFields, emptyAudience, type AudienceValue } from "@/components/auth/audience-fields";
 import { Field, SelectField } from "@/components/ui/field";
 import ElevatedInput from "@/components/elevated-design/elevated-input";
 import { useAuth } from "@/contexts/auth-context";
@@ -602,6 +603,10 @@ function IdentityStep({ onSaved }: { onSaved: () => void }) {
     legalName: "",
     birthDate: "",
   });
+  // Kept beside the identity block rather than inside it, because the two are
+  // governed by different rules: the block above is required by law and gates
+  // the purchase, this is volunteered and gates nothing.
+  const [audience, setAudience] = React.useState<AudienceValue>(emptyAudience);
   const [busy, setBusy] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
@@ -612,7 +617,7 @@ function IdentityStep({ onSaved }: { onSaved: () => void }) {
     submitEvent.preventDefault();
     setBusy(true);
     setError(null);
-    const { data, error: failed } = await saveProfile(form);
+    const { data, error: failed } = await saveProfile({ ...form, ...audience });
     setBusy(false);
     if (failed || !data) {
       setError(failed?.message ?? t("errors.profile"));
@@ -673,6 +678,10 @@ function IdentityStep({ onSaved }: { onSaved: () => void }) {
         autoComplete="bday"
         required
       />
+
+      <div className="border-t border-border pt-3">
+        <AudienceFields value={audience} onChange={setAudience} idPrefix="identity" />
+      </div>
 
       <Failure message={error} />
       <Primary busy={busy} disabled={!complete}>

@@ -20,6 +20,18 @@
 export interface IntentLine {
   ticketId: string;
   quantity: number;
+  /**
+   * The named chairs, for a reserved event. Absent for counted stock.
+   *
+   * Carried in the URL for the same reason everything else here is: choosing
+   * seats happens before a sign-in, and a buyer who picked FILA K 11 and 12
+   * and then signed in must not come back to an empty chart.
+   *
+   * Nothing about them is trusted. Each id names a row the server re-reads,
+   * and the claim is scoped to the event AND the tier, so a hand-edited seat
+   * id either names a chair of this tier or claims nothing.
+   */
+  seatIds?: string[];
 }
 
 export interface CheckoutIntent {
@@ -82,19 +94,52 @@ function parseLines(raw: string | undefined): IntentLine[] | null {
   const lines: IntentLine[] = [];
   const seen = new Set<string>();
   for (const pair of trimmed.split(",")) {
-    const separator = pair.lastIndexOf(":");
+    // `tkt_a:2` for counted stock, `tkt_a:2@ste_1+ste_2` for named chairs.
+    //
+    // The seats hang off an "@" and NOT off a third colon, because a tier id
+    // may legitimately contain a colon — there are tests for exactly that, and
+    // they are why the quantity below is still found with lastIndexOf rather
+    // than by splitting. Everything is parsed from the RIGHT, where the
+    // structure is known, leaving whatever is left as the id.
+    //
+    // The seats stay welded to the tier that prices them, for the same reason
+    // the quantity is: a mangled link must be unparseable rather than wrong,
+    // and a seat attached to the wrong tier is exactly "wrong".
+    let rest = pair;
+    let seatIds: string[] | undefined;
+    const at = pair.lastIndexOf("@");
+    if (at >= 0) {
+      rest = pair.slice(0, at);
+      seatIds = pair
+        .slice(at + 1)
+        .split("+")
+        .map((id) => id.trim())
+        .filter((id) => id !== "");
+      if (seatIds.length === 0) return null;
+      // Two links naming the same chair twice is one that has been edited or
+      // merged. Refused rather than de-duplicated: the quantity beside it would
+      // then disagree, and guessing which the buyer meant is how somebody ends
+      // up paying for a seat they did not choose.
+      if (new Set(seatIds).size !== seatIds.length) return null;
+    }
+
+    const separator = rest.lastIndexOf(":");
     if (separator <= 0) return null;
-    const ticketId = pair.slice(0, separator).trim();
-    const quantity = Number(pair.slice(separator + 1));
+    const ticketId = rest.slice(0, separator).trim();
+    const quantity = Number(rest.slice(separator + 1));
     if (!ticketId) return null;
     if (!Number.isInteger(quantity) || quantity < 1) return null;
+    // A seated line whose seat count disagrees with its quantity is a link that
+    // lost part of itself. The server refuses it too, and for the same reason:
+    // either number could be the one the buyer meant.
+    if (seatIds && seatIds.length !== quantity) return null;
     // A tier named twice is a link that has been edited or merged, and the
     // honest response is to refuse it rather than to guess which number was
     // meant. The server merges duplicates it is sent; the URL should not carry
     // any.
     if (seen.has(ticketId)) return null;
     seen.add(ticketId);
-    lines.push({ ticketId, quantity });
+    lines.push(seatIds ? { ticketId, quantity, seatIds } : { ticketId, quantity });
   }
 
   if (lines.length === 0 || lines.length > MAX_LINES) return null;
@@ -124,7 +169,13 @@ export function totalQuantity(lines: IntentLine[]): number {
 /** Renders an intent back into query parameters. */
 export function intentParams(intent: CheckoutIntent): URLSearchParams {
   const params = new URLSearchParams({
-    [ITEMS_PARAM]: intent.lines.map((line) => `${line.ticketId}:${line.quantity}`).join(","),
+    [ITEMS_PARAM]: intent.lines
+      .map((line) =>
+        line.seatIds && line.seatIds.length > 0
+          ? `${line.ticketId}:${line.quantity}@${line.seatIds.join("+")}`
+          : `${line.ticketId}:${line.quantity}`,
+      )
+      .join(","),
   });
   if (intent.eventSlug) params.set("event", intent.eventSlug);
   return params;

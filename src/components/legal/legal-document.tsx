@@ -12,10 +12,165 @@ import { useLocale, useTranslations } from "next-intl";
 
 type LegalNamespace = "termsOfService" | "privacyPolicy";
 
+/**
+ * The little markup language the message catalogues are written in.
+ *
+ * A clause is one string per language, so whatever structure it needs has to
+ * survive inside that string. Four block kinds, told apart by their first
+ * character, and a blank line between blocks:
+ *
+ *   plain text  a paragraph
+ *   • line      one bullet per line
+ *   | a | b |   a table, first row is the header
+ *   ! text      a highlighted box
+ *
+ * The last one is not decoration. CDC art. 54 §4 requires a clause that limits
+ * a consumer's rights to be written "com destaque", legible and immediately
+ * comprehensible, and a box is how that reads on a screen.
+ */
+const BLOCK_SEPARATOR = /\n\s*\n/;
+const BULLET = "•";
+
+function splitBlocks(content: string): string[] {
+  return content
+    .split(BLOCK_SEPARATOR)
+    .map((block) => block.trim())
+    .filter((block) => block.length > 0);
+}
+
+function parseRow(row: string): string[] {
+  return row
+    .replace(/^\s*\|/, "")
+    .replace(/\|\s*$/, "")
+    .split("|")
+    .map((cell) => cell.trim());
+}
+
+function LegalBlock({ block }: { block: string }) {
+  if (block.startsWith("|")) return <LegalTable block={block} />;
+  if (block.startsWith("!")) return <LegalCallout block={block} />;
+  if (block.startsWith(BULLET)) return <LegalList block={block} />;
+  return (
+    <p className="max-w-[72ch] text-base leading-7 text-muted-foreground">
+      {block}
+    </p>
+  );
+}
+
+function LegalList({ block }: { block: string }) {
+  const items = block
+    .split("\n")
+    .map((item) => item.replace(/^\s*•\s*/, "").trim())
+    .filter((item) => item.length > 0);
+
+  return (
+    <ul className="max-w-[72ch] space-y-2">
+      {items.map((item) => (
+        <li
+          key={item}
+          className="flex gap-2.5 text-base leading-7 text-muted-foreground"
+        >
+          <span
+            className="mt-[0.72rem] size-1 shrink-0 rounded-full bg-primary"
+            aria-hidden="true"
+          />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * A rights-limiting clause, boxed rather than shouted.
+ *
+ * Not upper case: art. 54 §3 wants "caracteres ostensivos e legíveis" in the
+ * same breath as it sets a size floor, and a wall of capitals is measurably
+ * harder to read than the sentence it replaced.
+ */
+function LegalCallout({ block }: { block: string }) {
+  const text = block.replace(/^!\s*/, "");
+  return (
+    <div className="max-w-[72ch] rounded-[--radius] border-l-[3px] border-primary bg-primary-subtle px-4 py-3">
+      <p className="text-base font-medium leading-7 text-foreground">{text}</p>
+    </div>
+  );
+}
+
+/**
+ * The data/purpose/basis/retention matrix and its siblings.
+ *
+ * A real table with a header row, because "for as long as necessary" prose is
+ * exactly what GDPR art. 13(2)(a) and LGPD art. 9, II refuse to accept, and
+ * because a screen reader has to be able to tell which column a cell is in.
+ * It scrolls sideways on a phone rather than reflowing: a retention period
+ * that has drifted away from the data category it belongs to is worse than a
+ * scrollbar.
+ */
+function LegalTable({ block }: { block: string }) {
+  const rows = block
+    .split("\n")
+    .map((row) => row.trim())
+    .filter((row) => row.startsWith("|"))
+    // A markdown-style divider row carries no content.
+    .filter((row) => !/^\|[\s|:-]*$/.test(row))
+    .map(parseRow);
+
+  if (rows.length === 0) return null;
+  const [header, ...body] = rows;
+
+  return (
+    <div className="max-w-full overflow-x-auto rounded-[--radius] border border-border">
+      <table className="w-full min-w-[34rem] border-collapse text-left text-sm">
+        <thead className="bg-muted">
+          <tr>
+            {header.map((cell) => (
+              <th
+                key={cell}
+                scope="col"
+                className="border-b border-border px-3 py-2.5 align-top font-semibold text-foreground"
+              >
+                {cell}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {body.map((row, rowIndex) => (
+            <tr key={rowIndex} className="odd:bg-card">
+              {row.map((cell, cellIndex) =>
+                cellIndex === 0 ? (
+                  <th
+                    key={cellIndex}
+                    scope="row"
+                    className="border-b border-border px-3 py-2.5 align-top font-medium leading-6 text-foreground last:border-0"
+                  >
+                    {cell}
+                  </th>
+                ) : (
+                  <td
+                    key={cellIndex}
+                    className="border-b border-border px-3 py-2.5 align-top leading-6 text-muted-foreground"
+                  >
+                    {cell}
+                  </td>
+                ),
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export interface LegalDocumentProps {
   namespace: LegalNamespace;
   sections: readonly string[];
   version: string;
+  /** When this version started binding. */
+  effectiveDate: string;
+  /** When the text last changed. Not the same date, and reviewers check both. */
   lastUpdated: string;
 }
 
@@ -23,6 +178,7 @@ export function LegalDocument({
   namespace,
   sections,
   version,
+  effectiveDate,
   lastUpdated,
 }: LegalDocumentProps) {
   const t = useTranslations(namespace);
@@ -54,10 +210,14 @@ export function LegalDocument({
         200,
     ),
   );
-  const formattedDate = new Date(`${lastUpdated}T00:00:00`).toLocaleDateString(
-    locale,
-    { day: "numeric", month: "long", year: "numeric" },
-  );
+  const formatDate = (value: string) =>
+    new Date(`${value}T00:00:00`).toLocaleDateString(locale, {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  const formattedEffective = formatDate(effectiveDate);
+  const formattedUpdated = formatDate(lastUpdated);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -95,7 +255,7 @@ export function LegalDocument({
             <h1 className="mt-5 font-display text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">
               {t("title")}
             </h1>
-            <p className="mt-3 max-w-[70ch] text-sm leading-6 text-muted-foreground">
+            <p className="mt-3 max-w-[70ch] text-base leading-7 text-muted-foreground">
               {t("intro", values)}
             </p>
             <dl className="mt-6 flex flex-wrap gap-x-10 gap-y-3">
@@ -104,8 +264,12 @@ export function LegalDocument({
                 <dd className="mt-1 font-display text-sm font-semibold">{version}</dd>
               </div>
               <div>
+                <dt className="text-xs font-medium text-muted-foreground">{common("effective")}</dt>
+                <dd className="mt-1 text-sm font-medium">{formattedEffective}</dd>
+              </div>
+              <div>
                 <dt className="text-xs font-medium text-muted-foreground">{common("updated")}</dt>
-                <dd className="mt-1 text-sm font-medium">{formattedDate}</dd>
+                <dd className="mt-1 text-sm font-medium">{formattedUpdated}</dd>
               </div>
               <div>
                 <dt className="text-xs font-medium text-muted-foreground">{common("reading")}</dt>
@@ -168,23 +332,10 @@ export function LegalDocument({
                     </span>
                     {clause.title}
                   </h2>
-                  <div className="mt-3 space-y-3">
-                    {clause.content.split("\n\n").map((paragraph, index) =>
-                      paragraph.startsWith("•") ? (
-                        <ul key={index} className="max-w-[72ch] space-y-2">
-                          {paragraph.split("\n").map((item) => (
-                            <li key={item} className="flex gap-2.5 text-sm leading-6 text-muted-foreground">
-                              <span className="mt-[0.68rem] size-1 shrink-0 rounded-full bg-primary" aria-hidden="true" />
-                              <span>{item.replace(/^•\s*/, "")}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p key={index} className="max-w-[72ch] text-sm leading-6 text-muted-foreground">
-                          {paragraph}
-                        </p>
-                      ),
-                    )}
+                  <div className="mt-4 space-y-4">
+                    {splitBlocks(clause.content).map((block, index) => (
+                      <LegalBlock key={index} block={block} />
+                    ))}
                   </div>
                 </section>
               ))}

@@ -33,7 +33,20 @@ export function AuthGate({ children }: { children: ReactNode }) {
     }
   }, [isAuthenticated, isLoading, pathname, router, serverError]);
 
-  if (isLoading) {
+  // The spinner is for the FIRST check only, when nobody is known yet.
+  //
+  // `isLoading` is also true during a background revalidation — the auth
+  // context re-checks the session on `visibilitychange` and on `online` — and
+  // swapping the app for a spinner then UNMOUNTS the whole shell. Everything
+  // the shell was holding goes with it: which context the operator was in,
+  // which nav sections were open, whether the rail was collapsed, the scroll
+  // position, and any half-filled form under it. Tabbing away to check an
+  // email and coming back would move them somewhere else.
+  //
+  // A revalidation that finds the session gone still lands correctly: `user`
+  // becomes null, `isAuthenticated` goes false, and the effect above redirects
+  // to the sign-in.
+  if (isLoading && !isAuthenticated) {
     return (
       <div className="grid min-h-screen place-items-center bg-background text-muted-foreground">
         <CircleNotch className="size-5 animate-spin" aria-label={t("checking")} />

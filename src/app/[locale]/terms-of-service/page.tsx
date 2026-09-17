@@ -3,28 +3,53 @@ import { LegalDocument } from "@/components/legal/legal-document";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 
+/**
+ * Document order, which is also the numbering the anchors carry.
+ *
+ * Never reorder an existing entry: a clause that changes number between
+ * versions is a clause nobody can cite. New sections go at the end of the
+ * block they belong to.
+ *
+ * The order is not arbitrary either. The pre-contractual summary comes first
+ * because Decreto 7.962/2013 art. 4, I wants it before contracting rather than
+ * after the fine print, and withdrawal sits immediately before cancellation
+ * because those are the two sections a buyer arrives looking for.
+ */
 const SECTIONS = [
+  "summary",
+  "identification",
+  "definitions",
   "acceptance",
-  "scope",
+  "roles",
   "accounts",
   "organizer",
-  "sales",
+  "catalogue",
+  "purchase",
   "payments",
-  "integrations",
-  "communications",
+  "withdrawal",
+  "cancellation",
+  "meiaEntrada",
+  "entry",
+  "transfer",
   "acceptableUse",
   "content",
+  "notice",
+  "integrations",
+  "communications",
   "privacy",
   "availability",
   "suspension",
-  "warranties",
   "liability",
+  "support",
   "changes",
+  "general",
   "law",
   "contact",
 ] as const;
 
-const LAST_UPDATED = "2026-09-13";
+const VERSION = "2.1";
+const EFFECTIVE_DATE = "2026-09-16";
+const LAST_UPDATED = "2026-09-16";
 
 export async function generateMetadata({
   params,
@@ -48,17 +73,18 @@ export default async function TermsOfServicePage({
   // its parent's messages rather than merging with them, so this one has to
   // carry the shared namespaces too. That is the trade the root layout is
   // making: these two routes ship everything, and every other route on the site
-  // stops shipping ~22 KB of legal text it never renders.
+  // stops shipping the legal text it never renders.
   const messages = await getMessages();
 
   return (
     <NextIntlClientProvider messages={messages}>
-    <LegalDocument
-      namespace="termsOfService"
-      sections={SECTIONS}
-      version="1.0"
-      lastUpdated={LAST_UPDATED}
-    />
+      <LegalDocument
+        namespace="termsOfService"
+        sections={SECTIONS}
+        version={VERSION}
+        effectiveDate={EFFECTIVE_DATE}
+        lastUpdated={LAST_UPDATED}
+      />
     </NextIntlClientProvider>
   );
 }

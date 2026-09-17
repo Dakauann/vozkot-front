@@ -278,7 +278,14 @@ function Purchase({
         return;
       }
 
-      const lines = intent.lines.map(({ ticketId, quantity }) => ({ ticketId, quantity }));
+      // Seats travel through, when there are any. The server derives the
+      // quantity from them and refuses a line where the two disagree, so
+      // sending both is the check rather than a duplication.
+      const lines = intent.lines.map(({ ticketId, quantity, seatIds }) =>
+        seatIds && seatIds.length > 0
+          ? { ticketId, quantity, seatIds }
+          : { ticketId, quantity },
+      );
       let { data, error: failed } = await reserveCheckout({ items: lines }, idempotencyKey);
 
       // The cookie was there and the API refused it anyway. Ask for a real
@@ -518,6 +525,9 @@ function OrderSummary({
         key: item.ticketId,
         title: item.ticketTitle,
         quantity: item.quantity,
+        // The FACE value. The service fee is its own line below, because a
+        // buyer comparing this panel against the prices on the event page must
+        // find the same numbers here.
         totalCents: item.totalCents,
         currency: order.currency,
       }))
@@ -601,6 +611,29 @@ function OrderSummary({
       </ul>
 
       <div className="border-t border-border bg-muted px-5 py-4">
+        {/* The split, shown BEFORE the total and only once the order is priced.
+            A total that is larger than the prices the buyer just chose, with no
+            line accounting for the difference, is the single largest cause of
+            abandoned checkouts — so the fee is named, not absorbed. The preview
+            cannot show it: the fee is the server's to compute, and guessing it
+            here would risk quoting a number the charge then contradicts. */}
+        {priced && order.serviceFeeCents > 0 ? (
+          <div className="mb-3 flex flex-col gap-1 border-b border-border pb-3">
+            <div className="flex items-baseline justify-between">
+              <span className="text-xs text-muted-foreground">{t("ticketsLine")}</span>
+              <span className="text-xs tabular-nums text-muted-foreground">
+                {formatMoney(order.subtotalCents, locale, order.currency)}
+              </span>
+            </div>
+            <div className="flex items-baseline justify-between">
+              <span className="text-xs text-muted-foreground">{t("serviceFee")}</span>
+              <span className="text-xs tabular-nums text-muted-foreground">
+                {formatMoney(order.serviceFeeCents, locale, order.currency)}
+              </span>
+            </div>
+          </div>
+        ) : null}
+
         <div className="flex items-baseline justify-between">
           <span className="text-sm text-muted-foreground">{t("total")}</span>
           {priced ? (
@@ -615,9 +648,12 @@ function OrderSummary({
             <span className="h-6 w-24 animate-pulse rounded bg-accent-hover" aria-hidden />
           )}
         </div>
-        {/* Said plainly, because a total that grows at the last step is the
-            single largest cause of abandoned checkouts. */}
-        <p className="mt-1 text-xs text-muted-foreground">{t("noExtraFees")}</p>
+        {/* Only once the fee is real. Promising "nothing more to pay" beside an
+            indicative total would be a promise about a number we have not
+            computed yet. */}
+        {priced && order.serviceFeeCents > 0 ? (
+          <p className="mt-1 text-xs text-muted-foreground">{t("feeIncluded")}</p>
+        ) : null}
 
         {order ? (
           <>

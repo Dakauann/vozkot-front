@@ -3,29 +3,43 @@ import { LegalDocument } from "@/components/legal/legal-document";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 
+/**
+ * Document order, which is also the numbering the anchors carry.
+ *
+ * Never reorder an existing entry: support macros, procurement redlines and
+ * the organizer's own notice all deep-link to `#retention` and `#rights`, and
+ * a clause that changes number between versions is a clause nobody can cite.
+ * New sections go at the end of the block they belong to.
+ */
 const SECTIONS = [
-  "scope",
+  "summary",
+  "controller",
   "roles",
   "data",
-  "collection",
-  "purposes",
+  "sensitive",
+  "sources",
+  "cookies",
+  "browserCalls",
   "bases",
-  "integrations",
-  "communications",
   "sharing",
   "transfers",
-  "cookies",
   "retention",
   "security",
-  "rights",
-  "organizerData",
-  "children",
   "incidents",
+  "automated",
+  "rights",
+  "communications",
+  "children",
+  "organizerData",
+  "photography",
+  "regional",
   "changes",
   "contact",
 ] as const;
 
-const LAST_UPDATED = "2026-09-13";
+const VERSION = "2.0";
+const EFFECTIVE_DATE = "2026-09-16";
+const LAST_UPDATED = "2026-09-16";
 
 export async function generateMetadata({
   params,
@@ -49,17 +63,18 @@ export default async function PrivacyPolicyPage({
   // its parent's messages rather than merging with them, so this one has to
   // carry the shared namespaces too. That is the trade the root layout is
   // making: these two routes ship everything, and every other route on the site
-  // stops shipping ~22 KB of legal text it never renders.
+  // stops shipping the legal text it never renders.
   const messages = await getMessages();
 
   return (
     <NextIntlClientProvider messages={messages}>
-    <LegalDocument
-      namespace="privacyPolicy"
-      sections={SECTIONS}
-      version="1.0"
-      lastUpdated={LAST_UPDATED}
-    />
+      <LegalDocument
+        namespace="privacyPolicy"
+        sections={SECTIONS}
+        version={VERSION}
+        effectiveDate={EFFECTIVE_DATE}
+        lastUpdated={LAST_UPDATED}
+      />
     </NextIntlClientProvider>
   );
 }

@@ -9,14 +9,39 @@ import { CalendarBlank, MapPin, Receipt } from "@/components/icons";
 import { OrderStatusChip } from "@/components/orders/order-status-chip";
 import type { Locale } from "@/i18n/config";
 import { Link } from "@/i18n/routing";
+import { RefundAction } from "@/components/orders/refund-action";
+import { TicketWallet } from "@/components/admissions/ticket-wallet";
 import { cancelOrder, listOrders, type Order } from "@/lib/checkout/api";
 import { formatLongDateTime, formatMoney } from "@/lib/format";
 
 const PAGE_SIZE = 20;
 
 /** The status tabs, in the order a buyer thinks about them. */
-const FILTERS = ["all", "pending_payment", "paid", "refund_required"] as const;
-type Filter = (typeof FILTERS)[number];
+/**
+ * The views this page offers, and what each one asks the server for.
+ *
+ * "active" leads and is the default. An abandoned checkout is persisted as an
+ * `expired` order, so a list of everything is mostly carts nobody finished --
+ * one real ticket behind six dead holds, which is what this page looked like.
+ * The dead ones are still reachable under "all", because a buyer who wants to
+ * know what happened to an order deserves an answer.
+ *
+ * Note what "active" is NOT: paid alone. An order awaiting payment is the one
+ * with a deadline, and the single most common reason somebody opens this page
+ * is the PIX code they closed by accident. Defaulting to paid would hide
+ * exactly that, so the default is everything still alive -- paid, awaiting
+ * payment, and owed a refund.
+ */
+const VIEWS = {
+  active: ["paid", "pending_payment", "refund_required"],
+  pending_payment: ["pending_payment"],
+  paid: ["paid"],
+  refund_required: ["refund_required"],
+  all: [],
+} as const;
+
+const FILTERS = Object.keys(VIEWS) as Filter[];
+type Filter = keyof typeof VIEWS;
 
 /**
  * What the buyer has bought, and what is still waiting on them.
@@ -36,7 +61,7 @@ export function OrderList() {
   // Scoped to one night when arriving from that event's own page. Read once:
   // it is where the visitor came FROM, not something this screen changes.
   const [eventId] = useState(() => params.get("event")?.trim() ?? "");
-  const [filter, setFilter] = useState<Filter>("all");
+  const [filter, setFilter] = useState<Filter>("active");
   const [offset, setOffset] = useState(0);
 
   return (
@@ -122,7 +147,7 @@ function OrdersPage({
     let cancelled = false;
     void (async () => {
       const { data, error: failed } = await listOrders({
-        status: filter === "all" ? undefined : filter,
+        status: VIEWS[filter],
         eventId: eventId || undefined,
         limit: PAGE_SIZE,
         offset,
@@ -156,7 +181,12 @@ function OrdersPage({
       ) : page === null ? (
         <OrderSkeletons />
       ) : orders.length === 0 ? (
-        <Empty filtered={filter !== "all"} />
+        // "Filtered" only for the narrow views. An empty "active" list is
+        // the ordinary case of somebody who has not bought anything yet, and
+        // telling them nothing matches their filter -- a filter they never
+        // chose, being the default -- would be both wrong and a dead end,
+        // where the plain empty state carries the route to the catalogue.
+        <Empty filtered={filter !== "active" && filter !== "all"} />
       ) : (
         <ul className="flex flex-col gap-3">
           {orders.map((order) => (
@@ -247,6 +277,19 @@ function OrderRow({
         <OrderStatusChip status={order.status} className="mt-1" />
       </div>
 
+      {/* The ticket leads, on a paid order.
+          This page is opened in a queue far more often than at a desk, so the
+          QR goes first and the receipt -- dates, lines, totals, actions --
+          follows it. Nothing is issued before the money arrives, hence the
+          guard: on an unpaid order this would render an empty state exactly
+          where a buyer is looking for a QR, and the thing that leads there is
+          the pay button below, which is the one with a deadline. */}
+      {order.status === "paid" ? (
+        <div className="border-b border-border px-4 py-4">
+          <TicketWallet orderId={order.id} />
+        </div>
+      ) : null}
+
       <div className="grid gap-4 px-4 py-3 sm:grid-cols-[minmax(0,1fr)_auto]">
         <div className="min-w-0 text-sm text-muted-foreground">
           {order.event ? (
@@ -280,9 +323,21 @@ function OrderRow({
         </div>
 
         <div className="flex flex-col items-start gap-2 sm:items-end">
-          <p className="font-display text-lg font-semibold tabular-nums text-card-foreground">
-            {formatMoney(order.totalCents, locale, order.currency)}
-          </p>
+          <div className="text-right">
+            <p className="font-display text-lg font-semibold tabular-nums text-card-foreground">
+              {formatMoney(order.totalCents, locale, order.currency)}
+            </p>
+            {/* The split, once there is one. A buyer looking at a past order and
+                comparing it with the ticket price needs to find the difference
+                named rather than have to work it out. */}
+            {order.serviceFeeCents > 0 ? (
+              <p className="text-xs tabular-nums text-muted-foreground">
+                {formatMoney(order.subtotalCents, locale, order.currency)}
+                {" + "}
+                {formatMoney(order.serviceFeeCents, locale, order.currency)}
+              </p>
+            ) : null}
+          </div>
           <div className="flex flex-wrap gap-2">
             {payable ? (
               <Link
@@ -310,6 +365,9 @@ function OrderRow({
                 {t("viewEvent")}
               </Link>
             ) : null}
+            {/* Renders nothing unless the order was actually paid: an unpaid
+                hold is cancelled, which is the button above, not refunded. */}
+            <RefundAction order={order} onChanged={onChanged} />
           </div>
         </div>
       </div>

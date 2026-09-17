@@ -34,8 +34,14 @@ export function PublicNavbar() {
 
   // Selling needs a session and then a destination; buying needs only the
   // session, and whatever asked for it carries on by itself.
+  //
+  // The destination is /events, the TOP of the organizer hierarchy, not the
+  // tier console under it. Tiers hang off an event, so somebody arriving with
+  // no events at all landed on a page that could not show them anything and
+  // offered no way forward; the events page answers both cases, with their
+  // events or with an empty state that has "new event" on it.
   const sell = async () => {
-    if (await requireAuth()) router.push("/dashboard");
+    if (await requireAuth()) router.push("/events");
   };
 
   return (
@@ -68,7 +74,7 @@ export function PublicNavbar() {
           {isAuthenticated ? (
             <>
               <NavLink href="/orders">{nav("myTickets")}</NavLink>
-              <NavLink href="/dashboard">{nav("organiser")}</NavLink>
+              <NavLink href="/events">{nav("organiser")}</NavLink>
             </>
           ) : (
             <>

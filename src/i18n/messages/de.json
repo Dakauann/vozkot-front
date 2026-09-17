@@ -29,17 +29,23 @@
     "sections": {
       "operations": "Ticketverkauf",
       "support": "Support",
-      "insights": "Auswertungen"
+      "insights": "Auswertungen",
+      "account": "Mein Konto"
     },
     "events": "Veranstaltungen",
-    "tickets": "Tickets",
     "checkIn": "Einlass",
-    "orders": "Bestellungen",
     "reports": "Berichte",
     "help": "Hilfecenter",
     "contact": "Kontakt",
     "settings": "Einstellungen",
-    "admin": "Verwaltung"
+    "admin": "Verwaltung",
+    "account": "Mein Konto",
+    "accountDescription": "Ihre Tickets und Bestellungen",
+    "tiers": "Kontingente",
+    "myTickets": "Meine Tickets",
+    "createEvent": "Veranstaltung erstellen",
+    "createEventHint": "Veröffentlichen Sie eine Veranstaltung und verkaufen Sie Tickets.",
+    "layouts": "Sitzpläne"
   },
   "navbar": {
     "toggleSidebar": "Seitenleiste umschalten",
@@ -73,20 +79,93 @@
       "title": "Tickets",
       "description": "Kontingente im Verkauf, Bestand und Medien jeder Veranstaltung."
     },
-    "summary": {
-      "batches": "{count, plural, =0 {keine Kontingente} one {# Kontingent} other {# Kontingente}}",
-      "available": "{count, number} Tickets verfügbar",
-      "potential": "{value} im Bestand"
+    "noEvent": "Veranstaltung nicht gefunden",
+    "actions": {
+      "create": "Neues Ticket",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "backToList": "Zurück zu den Tickets",
+      "publish": "Kontingent veröffentlichen",
+      "backToDraft": "Zurück zum Entwurf",
+      "cancelSale": "Verkauf beenden"
     },
-    "toolbar": {
-      "searchPlaceholder": "Nach Veranstaltung, Kontingent, Ort oder Stadt suchen",
-      "searchLabel": "Tickets durchsuchen",
-      "sortLabel": "Sortieren nach",
-      "sortStartsAt": "Veranstaltungsdatum",
-      "sortCreatedAt": "Zuletzt erstellt",
-      "sortPrice": "Niedrigster Preis",
-      "statusLabel": "Nach Status filtern",
-      "statusAll": "Alle"
+    "delete": {
+      "title": "Dieses Kontingent löschen?",
+      "body": "Das Kontingent „{title}“ von {event} wird aus dem Verkauf genommen und kann nicht wiederhergestellt werden. Bereits verkaufte Tickets bleiben gültig.",
+      "confirm": "Kontingent löschen"
+    },
+    "detail": {
+      "stock": "Bestand",
+      "stockValue": "{sold} von {total} verkauft",
+      "revenue": "Erlös im Bestand",
+      "remaining": "{count, plural, =0 {keine übrig} one {# Ticket übrig} other {# Tickets übrig}}"
+    },
+    "empty": {
+      "title": "Noch keine Kontingente",
+      "body": "Kontingente legen Preis, Menge und Verkaufsstatus je Veranstaltung fest. Erstellen Sie das erste, um zu verkaufen.",
+      "action": "Erstes Kontingent erstellen"
+    },
+    "emptyFiltered": {
+      "title": "Keine Kontingente gefunden",
+      "body": "Kein Kontingent passt zur aktuellen Suche und zu den Filtern. Passen Sie die Begriffe an oder setzen Sie die Filter zurück.",
+      "action": "Filter zurücksetzen"
+    },
+    "error": {
+      "title": "Tickets konnten nicht geladen werden",
+      "body": "Das Laden Ihrer Kontingente ist fehlgeschlagen. Versuchen Sie es in einem Moment erneut."
+    },
+    "feedback": {
+      "created": "Kontingent erstellt.",
+      "updated": "Kontingent aktualisiert.",
+      "deleted": "Kontingent gelöscht.",
+      "statusChanged": "Status des Kontingents aktualisiert."
+    },
+    "fields": {
+      "title": "Name des Kontingents",
+      "description": "Beschreibung",
+      "event": "Veranstaltung",
+      "price": "Preis",
+      "quantity": "Menge",
+      "status": "Status",
+      "startsAt": "Datum der Veranstaltung",
+      "venue": "Ort"
+    },
+    "form": {
+      "createTitle": "Neues Ticket",
+      "createSubtitle": "Legen Sie Preis, Menge und Status dieses Kontingents fest.",
+      "editTitle": "Ticket bearbeiten",
+      "editSubtitle": "Ändern Sie Preis, Menge und Status dieses Kontingents.",
+      "backToTickets": "Zurück zu den Tickets",
+      "titlePlaceholder": "Stehplatz, VIP, Ermäßigt…",
+      "descriptionPlaceholder": "Was ist in diesem Kontingent enthalten?",
+      "priceHint": "Was Sie für jedes verkaufte Ticket erhalten.",
+      "quantityHint": "Insgesamt verfügbare Tickets in diesem Kontingent.",
+      "sections": {
+        "event": "Veranstaltung",
+        "sale": "Verkauf"
+      },
+      "errors": {
+        "title": "Geben Sie den Namen des Kontingents an.",
+        "event": "Wählen Sie die Veranstaltung dieses Kontingents.",
+        "price": "Geben Sie einen gültigen Preis an.",
+        "quantity": "Geben Sie eine Menge größer als null an."
+      },
+      "submitCreate": "Ticket erstellen",
+      "submitEdit": "Änderungen speichern",
+      "submitting": "Wird gespeichert…",
+      "mediaPartial": "{count, plural, one {# Datei konnte nicht hochgeladen werden} other {# Dateien konnten nicht hochgeladen werden}}",
+      "uploadingMedia": "Medien werden hochgeladen… {done} von {total}",
+      "mediaHint": "JPG, PNG oder WebP, je bis 5 MB. Das erste Bild ist das Titelbild.",
+      "mediaQueued": "{count, plural, =0 {keine Medien} one {# Datei in der Warteschlange} other {# Dateien in der Warteschlange}}",
+      "loading": "Ticket wird geladen…",
+      "notFound": "Ticket nicht gefunden."
+    },
+    "list": {
+      "showing": "{shown} von {total}",
+      "loadMore": "Mehr laden",
+      "loadingMore": "Wird geladen…",
+      "selectHint": "Wählen Sie ein Kontingent, um die Details zu sehen.",
+      "stock": "{sold} von {total} verkauft"
     },
     "status": {
       "draft": "Entwurf",
@@ -94,105 +173,42 @@
       "sold_out": "Ausverkauft",
       "cancelled": "Storniert"
     },
-    "fields": {
-      "event": "Veranstaltung",
-      "title": "Kontingent",
-      "description": "Beschreibung",
-      "price": "Preis",
-      "quantity": "Menge",
-      "status": "Status",
-      "sold": "Verkauft",
-      "available": "Verfügbar",
-      "createdAt": "Erstellt",
-      "updatedAt": "Aktualisiert"
+    "summary": {
+      "batches": "{count, plural, =0 {keine Kontingente} one {# Kontingent} other {# Kontingente}}",
+      "available": "{count, plural, one {# Ticket verfügbar} other {# Tickets verfügbar}}",
+      "potential": "{value} im Bestand"
     },
-    "list": {
-      "columnTicket": "Kontingent",
-      "columnStatus": "Status",
-      "columnPrice": "Preis",
-      "stock": "{sold} von {total} verkauft",
-      "showing": "{shown} von {total}",
-      "loadMore": "Mehr laden",
-      "loadingMore": "Wird geladen…",
-      "selectHint": "Wähle ein Kontingent, um die Details zu sehen."
-    },
-    "empty": {
-      "title": "Noch keine Tickets",
-      "body": "Lege das erste Kontingent an, um eine Veranstaltung in den Verkauf zu geben. Starte als Entwurf und veröffentliche später.",
-      "action": "Ticket anlegen"
-    },
-    "emptyFiltered": {
-      "title": "Keine Treffer",
-      "body": "Kein Kontingent passt zu diesen Filtern.",
-      "action": "Filter zurücksetzen"
-    },
-    "error": {
-      "title": "Tickets konnten nicht geladen werden",
-      "body": "Versuche es in einem Moment erneut."
-    },
-    "actions": {
-      "create": "Neues Ticket",
-      "edit": "Bearbeiten",
-      "delete": "Löschen",
-      "publish": "In den Verkauf geben",
-      "backToDraft": "Zurück zum Entwurf",
-      "markSoldOut": "Als ausverkauft markieren",
-      "cancelSale": "Verkauf stornieren",
-      "more": "Weitere Aktionen",
-      "backToList": "Zurück zur Liste"
-    },
-    "delete": {
-      "title": "Dieses Ticket löschen?",
-      "body": "Das Kontingent {title} von {event} wird entfernt, samt aller hochgeladenen Bilder und Videos. Das lässt sich nicht rückgängig machen.",
-      "confirm": "Ticket löschen",
-      "deleting": "Wird gelöscht…"
-    },
-    "detail": {
-      "stock": "Bestand",
-      "stockValue": "{sold} von {total} verkauft",
-      "remaining": "{count, number} übrig",
-      "revenue": "Möglicher Umsatz",
-      "doors": "Einlass",
-      "gallery": "Bilder und Videos"
-    },
-    "form": {
-      "createTitle": "Neues Ticket",
-      "createSubtitle": "Ein Kontingent gehört zu einer Veranstaltung und hat eigenen Preis und Bestand.",
-      "editTitle": "Ticket bearbeiten",
-      "editSubtitle": "Änderungen gelten für die folgenden Verkäufe.",
-      "titlePlaceholder": "Premium-Stehplatz",
-      "descriptionPlaceholder": "Wozu dieses Kontingent Zutritt gibt.",
-      "priceHint": "In Real. 0 für ein Freiticket.",
-      "quantityHint": "Gesamtzahl der Tickets in diesem Kontingent.",
-      "submitCreate": "Ticket anlegen",
-      "submitEdit": "Änderungen speichern",
-      "submitting": "Wird gespeichert…",
-      "errors": {
-        "event": "Wähle die Veranstaltung für dieses Kontingent",
-        "title": "Gib den Namen des Kontingents an.",
-        "price": "Der Preis darf nicht negativ sein.",
-        "quantity": "Die Menge muss größer als null sein."
-      },
-      "backToTickets": "Zurück zu den Tickets",
-      "sections": {
-        "event": "Kontingent",
-        "sale": "Verkauf"
-      },
-      "mediaHint": "Die Dateien werden hochgeladen, sobald das Ticket angelegt ist.",
-      "mediaQueued": "{count, plural, =0 {keine Dateien in der Warteschlange} one {# Datei in der Warteschlange} other {# Dateien in der Warteschlange}}",
-      "uploadingMedia": "{done} von {total} werden hochgeladen…",
-      "mediaPartial": "Ticket angelegt, aber {count, plural, one {# Datei konnte nicht hochgeladen werden} other {# Dateien konnten nicht hochgeladen werden}}.",
-      "loading": "Ticket wird geladen…",
-      "notFound": "Ticket nicht gefunden.",
-      "pickEvent": "Veranstaltung auswählen"
-    },
-    "feedback": {
-      "created": "Ticket angelegt.",
-      "updated": "Ticket aktualisiert.",
-      "deleted": "Ticket gelöscht.",
-      "statusChanged": "Status aktualisiert."
-    },
-    "noEvent": "Veranstaltung nicht gefunden"
+    "toolbar": {
+      "searchLabel": "Tickets suchen",
+      "searchPlaceholder": "Nach Veranstaltung, Kontingent, Ort oder Stadt suchen",
+      "statusLabel": "Status",
+      "statusAll": "Alle",
+      "sortLabel": "Sortieren nach",
+      "sortStartsAt": "Datum der Veranstaltung",
+      "sortPrice": "Preis",
+      "sortCreatedAt": "Neueste"
+    }
+  },
+  "myTickets": {
+    "heading": "Ihre Tickets",
+    "introOne": "Zeigen Sie diesen Code am Einlass. Er gilt für einen einzigen Eintritt.",
+    "introMany": "Zeigen Sie am Einlass einen Code pro Person. Jeder Code gilt für einen einzigen Eintritt.",
+    "loading": "Ihre Tickets werden geladen…",
+    "unavailable": "Ihre Tickets konnten gerade nicht geladen werden. Laden Sie die Seite neu.",
+    "none": "Für diese Bestellung sind noch keine Tickets ausgestellt.",
+    "sequence": "Ticket {index} von {total}",
+    "single": "Einzeleintritt",
+    "codeLabel": "Code",
+    "codeHint": "Lässt sich der QR nicht lesen, nennen Sie diesen Code am Einlass.",
+    "qrAlt": "QR-Code des Tickets, Code {code}",
+    "copy": "Code kopieren",
+    "copied": "Kopiert",
+    "copyFailed": "Kopieren nicht möglich. Lesen Sie den Code vom Bildschirm ab.",
+    "badge": {
+      "valid": "Gültig",
+      "used": "Bereits benutzt",
+      "void": "Storniert"
+    }
   },
   "media": {
     "title": "Bilder und Videos",
@@ -284,7 +300,9 @@
     "decrease": "Ein {tier}-Ticket entfernen",
     "holdNotice": "Deine Tickets werden nach der Auswahl {minutes} Minuten lang reserviert.",
     "cancelled": "Diese Veranstaltung wurde abgesagt.",
-    "cancelledNoSales": "Der Verkauf ist beendet, da die Veranstaltung abgesagt wurde."
+    "cancelledNoSales": "Der Verkauf ist beendet, da die Veranstaltung abgesagt wurde.",
+    "serviceFee": "Servicegebühr",
+    "subtotal": "Tickets"
   },
   "checkout": {
     "title": "Kasse",
@@ -320,7 +338,6 @@
     "summary": "Bestellübersicht",
     "ticket": "Ticket",
     "total": "Gesamt",
-    "noExtraFees": "Keine zusätzlichen Gebühren. Der Betrag oben ist der Endpreis.",
     "heldUntil": "Reservierung läuft ab in",
     "holdExplainer": "Deine Tickets sind bereits reserviert. Läuft die Zeit ab, gehen sie zurück in den Verkauf, damit keine Reservierung hängen bleibt, du kannst dann neu beginnen.",
     "reservingTitle": "Tickets werden reserviert",
@@ -341,7 +358,10 @@
     "releasing": "Wird freigegeben…",
     "loadingHolds": "Reservierungen werden geladen…",
     "unknownEvent": "Event nicht verfügbar",
-    "orderReference": "Bestellnummer"
+    "orderReference": "Bestellnummer",
+    "ticketsLine": "Tickets",
+    "serviceFee": "Servicegebühr",
+    "feeIncluded": "Die Servicegebühr ist bereits im Gesamtbetrag enthalten. Danach wird nichts berechnet."
   },
   "eventAdmin": {
     "listTitle": "Veranstaltungen",
@@ -387,7 +407,8 @@
       "neighborhood": "Stadtteil",
       "postalCode": "PLZ",
       "city": "Stadt",
-      "uf": "Bundesstaat"
+      "uf": "Bundesstaat",
+      "salesMode": "Wie diese Veranstaltung verkauft"
     },
     "placeholders": {
       "name": "Aurora Festival",
@@ -398,7 +419,8 @@
       "status": "Ein Entwurf erscheint nicht im Katalog.",
       "description": "Zeilenumbrüche bleiben erhalten. HTML wird nicht ausgewertet.",
       "endsAt": "Optional. Muss nach dem Beginn liegen.",
-      "postalCode": "Mit Postleitzahl wird die Position auf der Karte deutlich genauer."
+      "postalCode": "Mit Postleitzahl wird die Position auf der Karte deutlich genauer.",
+      "salesMode": "Das entscheidet, was wir als Nächstes fragen."
     },
     "status": {
       "draft": "Entwurf",
@@ -448,6 +470,14 @@
       "hint": "Namen des Orts oder Straße mit Hausnummer eingeben und aus der Liste wählen. Danach die Markierung anpassen.",
       "empty": "Kein Ort gefunden. Versuche es mit der Stadt.",
       "attribution": "Ergebnisse von OpenStreetMap, über Photon"
+    },
+    "salesMode": {
+      "counted": "Normale Tickets, nach Menge",
+      "seated": "Zugewiesene Plätze, mit Reihe und Nummer"
+    },
+    "salesModeHint": {
+      "counted": "Party, Konzert, Festival. Sie legen fest, wie viele Tickets es gibt, und der Käufer wählt keinen Platz.",
+      "seated": "Theater, Arena, Rodeo, Zirkus. Sie zeichnen den Saalplan, und der Käufer wählt einen Stuhl."
     }
   },
   "categories": {
@@ -516,175 +546,237 @@
     "contact": "Wenden Sie sich an die für dieses Dokument zuständige Stelle.",
     "operator": "Betreiber",
     "address": "Anschrift",
-    "website": "Website"
+    "website": "Website",
+    "effective": "In Kraft seit"
   },
   "termsOfService": {
     "title": "Nutzungsbedingungen",
-    "metaDescription": "Regeln für die Nutzung der Vozko-Tickets-Plattform.",
-    "intro": "Diese Bedingungen regeln den Zugang zu und die Nutzung von {productName}, einem Dienst von {legalName}. Lesen Sie dieses Dokument, bevor Sie ein Konto erstellen oder Veranstaltungen betreiben.",
+    "metaDescription": "Die Regeln zwischen Ihnen, dem Veranstalter und Vozko Tickets: Kauf, Zahlung, Widerruf, Absage, Einlass und Haftung.",
+    "intro": "Diese Bedingungen regeln den Zugang zu und die Nutzung von {productName}, einem Dienst von {legalName}. Sie gelten sowohl für Personen, die ein Ticket kaufen, als auch für Personen, die eine Veranstaltung veröffentlichen, und die jeweils besonderen Pflichten sind gekennzeichnet. Nichts hierin nimmt Ihnen ein Recht, das das brasilianische Verbraucherschutzgesetz oder eine andere zwingende Rechtsnorm gewährt.",
     "sections": {
-      "acceptance": {
-        "title": "Annahme und Berechtigung",
-        "content": "Mit Erstellung eines Kontos, Zugriff auf oder Nutzung von {productName} bestätigen Sie, diese Bedingungen und die Datenschutzerklärung gelesen und akzeptiert zu haben. Handeln Sie für ein Unternehmen oder einen Veranstalter, bestätigen Sie Ihre Vertretungsbefugnis.\n\nDer Dienst richtet sich an Personen ab 18 Jahren, die Verträge schließen dürfen. Wenn Sie nicht zustimmen, nutzen Sie die Plattform nicht."
+      "summary": {
+        "title": "Zusammenfassung der wichtigsten Punkte",
+        "content": "Art. 4 Nr. I des Dekrets 7.962/2013 verlangt, den Vertrag vor Vertragsschluss zusammenzufassen und die rechtsbeschränkenden Klauseln hervorzuheben. Diese Zusammenfassung erfüllt diese Funktion und ersetzt den vollständigen Text nicht.\n\n• Wir stellen die Verkaufstechnik bereit. Die Veranstaltung wird vom Veranstalter durchgeführt, der für sie einsteht. Abschnitt 5 enthält die genaue Aufteilung.\n• Der im Kaufvorgang angezeigte Preis ist der Gesamtbetrag und besteht aus zwei Teilen: dem Ticketpreis, den der Veranstalter festlegt und der ihm zusteht, und einer Servicegebühr von 10 Prozent auf diesen Betrag, die uns zusteht. Beide erscheinen vor der Zahlung in eigenen Zeilen, und beide werden bei jeder Rückzahlung vollständig zurückgezahlt.\n• Die Zahlung erfolgt per PIX. Ihre Tickets sind für eine begrenzte Zeit reserviert und gehen zurück in den Verkauf, wenn die Reservierung abläuft.\n• Sie haben 7 Tage, um vom Kauf zurückzutreten, gerechnet ab der Bestätigung, mit vollständiger und unverzüglicher Rückzahlung einschließlich etwaiger Gebühren. Das ist Art. 49 des Verbraucherschutzgesetzes, und es gibt keine Ausnahme wegen Nähe zur Veranstaltung.\n• Wird die Veranstaltung abgesagt, verlegt oder wesentlich geändert, liegt die Wahl zwischen dem Behalten des Tickets und einer vollständigen Rückzahlung bei Ihnen, nicht bei uns.\n• Das Konto ist für Personen ab 18 Jahren. Ein Ticket für eine minderjährige Person wird von einer erwachsenen Person gekauft.\n• Ermäßigte Tickets und andere gesetzliche Vergünstigungen werden vom Veranstalter eingerichtet und von ihm am Einlass geprüft. Bringen Sie den Nachweis Ihrer Berechtigung mit.\n\n! Nichts in diesen Bedingungen beschränkt, schließt aus oder mindert ein Recht, das Ihnen nach dem brasilianischen Verbraucherschutzgesetz oder einer anderen zwingenden Rechtsnorm zusteht. Steht eine Klausel dieser Bedingungen im Widerspruch zu einer Schutznorm, gilt die Norm."
       },
-      "scope": {
-        "title": "Umfang und Rolle der Plattform",
-        "content": "{productName} stellt Technologie bereit, um Veranstaltungen anzulegen, Ticketkontingente zu erstellen, Bestände zu verwalten und Medien zu veröffentlichen. Bestell-, Zahlungs-, Ausgabe-, Erstattungs- oder Check-in-Funktionen gehören nur zum Dienst, wenn sie ausdrücklich aktiviert sind.\n\nSofern ein Angebot nichts anderes klar ausweist, ist die Plattform weder Veranstalter, Produzent, Veranstaltungsort noch Ticketverkäufer. Der Veranstalter verantwortet Veranstaltung und Käuferbeziehung; die Plattform ist Technologieanbieter."
+      "identification": {
+        "title": "Anbieterkennzeichnung",
+        "content": "Art. 2 des Dekrets 7.962/2013 verpflichtet einen Anbieter im elektronischen Geschäftsverkehr, seine vollständige Kennzeichnung an hervorgehobener und leicht sichtbarer Stelle bereitzuhalten. Sie steht im Block am Ende dieser Seite und in der Fußzeile jeder Seite der Website.\n\n• Geschäfts- und Firmenname: {legalName}, mit der im Identifikationsblock angegebenen Registernummer und physischen Anschrift.\n• Elektronische Adresse für vertraglichen Kontakt: {supportEmail}.\n• Kanal des Datenschutzbeauftragten: {dpoEmail}.\n• Unternehmensseite: {siteUrl}.\n\nGegenstand des Dienstes ist die Bereitstellung von Technik, um Veranstaltungen zu veröffentlichen, Ticketkategorien anzulegen, Bestand zu steuern, Zahlungen per PIX anzunehmen und Aufträge zu erfassen. Der Dienst wird aus Brasilien erbracht, auf Portugiesisch, Englisch, Deutsch und Spanisch, mit Preisen in brasilianischen Real.\n\nFür das Publikum in Deutschland und Spanien stehen die nach § 5 des Digitale-Dienste-Gesetzes und nach Art. 10 des spanischen Gesetzes 34/2002 erforderlichen Angaben im selben, dauerhaft zugänglichen Identifikationsblock."
+      },
+      "definitions": {
+        "title": "Begriffsbestimmungen",
+        "content": "Diese Begriffe haben hier und in der Datenschutzerklärung dieselbe Bedeutung.\n\n• Plattform: {productName}, einschließlich der Website, der öffentlichen Veranstaltungsseiten, des Dashboards und der diese Ansichten bedienenden Schnittstelle.\n• Veranstalter: der Kontoinhaber, der eine Veranstaltung anlegt und veröffentlicht und für deren Durchführung einsteht.\n• Käufer: die Person, die über die Plattform ein Ticket erwirbt.\n• Verbraucher: ein Käufer, der als Endnutzer erwirbt und auf den das brasilianische Verbraucherschutzgesetz vollständig anwendbar ist.\n• Kategorie: die vom Veranstalter angelegte Ticketstufe mit eigenem Preis, eigener Menge und eigenem Verkaufsstatus. Sie ist das, was das Dashboard Ticket nennt.\n• Auftrag: die Erfassung des Kaufs mit den gewählten Kategorien, den Beträgen, dem Zahlungsstatus und den Angaben des Käufers.\n• Reservierung: die vorübergehende Herausnahme von Tickets aus dem Verkauf, während der Auftrag abgeschlossen und bezahlt wird.\n• Zahlungsinstitut: das zugelassene Institut, das die Zahlungsanforderung erstellt und ausführt und im Kaufvorgang benannt wird.\n• Wir: {legalName}. Sie: die Person, die die Plattform nutzt, in der jeweiligen Eigenschaft."
+      },
+      "acceptance": {
+        "title": "Annahme, Geschäftsfähigkeit und Wirkung",
+        "content": "Mit dem Anlegen eines Kontos, dem Zugriff auf die Plattform oder deren Nutzung bestätigen Sie, diese Bedingungen und die Datenschutzerklärung gelesen zu haben und anzunehmen. Beide Dokumente sind jederzeit über die Fußzeile erreichbar und werden mit Verlinkung auf genau der Ansicht angezeigt, auf der das Konto angelegt wird.\n\nDas Konto ist für Personen ab 18 Jahren mit Geschäftsfähigkeit bestimmt. Das Alter wird gegen das vor dem ersten Kauf angegebene Geburtsdatum geprüft. Ein für eine minderjährige Person bestimmtes Ticket wird von einer erwachsenen Person in deren Namen erworben, und diese steht für den Kauf ein.\n\nHandeln Sie für ein Unternehmen oder einen Veranstalter, bestätigen Sie, zur Bindung befugt zu sein, und Ihre Annahme bindet dieses.\n\nNach Art. 46 des Verbraucherschutzgesetzes binden diese Bedingungen Sie nicht, wenn Ihnen keine vorherige Gelegenheit gegeben wurde, ihren Inhalt zur Kenntnis zu nehmen. Deshalb ist der vollständige Text ohne Konto öffentlich und wird mit der Auftragsbestätigung in einem Medium übersandt, das Speicherung und Wiedergabe erlaubt, wie Art. 4 Nr. IV des Dekrets 7.962/2013 es verlangt."
+      },
+      "roles": {
+        "title": "Was wir tun und was der Veranstalter tut",
+        "content": "Die Plattform ist Technikanbieter und Vertriebsweg. Sie produziert die Veranstaltung nicht, ist keine Spielstätte, engagiert die Künstler nicht und betreibt den Einlass nicht. Die folgende Aufteilung ist tatsächlicher Natur und besteht, damit Sie wissen, an wen Sie sich wenden.\n\n| Gegenstand | Wer einsteht |\n| --- | --- |\n| Betrieb der Website, des Kaufvorgangs und der Zahlungsanforderung | Wir |\n| Auftragserfassung, Beleg und Kaufhistorie | Wir |\n| Kontosicherheit und Schutz der Daten, für die wir Verantwortliche sind | Wir |\n| Bestehen, Inhalt, Datum, Ort und Durchführung der Veranstaltung | Der Veranstalter |\n| Preis, Kategorien, Bestand und Bedingungen des Angebots | Der Veranstalter |\n| Lizenzen, Genehmigungen, Urheberrecht, Sicherheit des Orts und Versicherung | Der Veranstalter |\n| Altersfreigabe und Regeln zum Einlass Minderjähriger | Der Veranstalter |\n| Ermäßigte Tickets: Kategorien, Quote und Prüfung am Einlass | Der Veranstalter |\n| Einlass, Kontrollen, Hausordnung und Verhalten bei der Veranstaltung | Der Veranstalter |\n| Rückzahlungsregelung der Veranstaltung und ihre Einhaltung | Der Veranstalter, mit unserer betrieblichen Unterstützung |\n\n! Diese Aufteilung beschreibt Tatsachen und verteilt Pflichten zwischen uns und dem Veranstalter. Sie ist kein Ausschluss und keine Minderung unserer Haftung gegenüber einem Verbraucher und darf nicht so gelesen werden. Anbieter, die derselben Lieferkette angehören, haften dem Verbraucher gesamtschuldnerisch nach Art. 7 einziger Absatz, 18, 20 und 25 des Verbraucherschutzgesetzes, und so verstehen wir unsere Stellung. Sind Sie Verbraucher und haben eine Beschwerde, können Sie sie an uns richten; wir lösen sie und rechnen anschließend mit dem Veranstalter ab."
       },
       "accounts": {
-        "title": "Konten und Sicherheit",
-        "content": "Sie müssen richtige Angaben machen, diese aktuell halten und Passwort, Geräte und Kontozugriff schützen. Zugangsdaten sind persönlich; unkontrolliert geteilte Konten sind untersagt.\n\nMelden Sie unbefugte Nutzung sofort dem Support. Handlungen in einer gültigen Sitzung werden dem Konto zugerechnet, soweit das Gesetz nichts anderes bestimmt. Zum Schutz des Dienstes können wir Identität oder Vertretungsmacht prüfen."
+        "title": "Konto, Zugangsdaten und Sicherheit",
+        "content": "Das Konto wird mit einem einmal verwendbaren Code angelegt und aufgerufen, der an Ihre E-Mail-Adresse gesendet wird. Sie können anschließend ein Passwort als zweiten Zugangsweg setzen und eine Telefonnummer bestätigen, um den Code über WhatsApp zu erhalten. Der Code ist persönlich, kurzlebig und in der Zahl der Versuche begrenzt.\n\nSie müssen zutreffende Angaben machen, sie aktuell halten und den Zugang zu Ihrer E-Mail-Adresse, Ihrem Telefon und Ihrem Passwort schützen. Zugangsdaten sind persönlich und dürfen nicht geteilt werden. Wir fragen Ihren Anmeldecode über keinen Kanal ab: Wer das tut, sind nicht wir, und Sie sollten ihn nicht herausgeben.\n\nMelden Sie {supportEmail} unverzüglich, wenn Sie unbefugte Nutzung vermuten. Wir beenden offene Sitzungen und entziehen erforderlichenfalls den Zugang. Handlungen aus einer wirksamen Sitzung werden dem Konto zugerechnet, außer bei Anzeichen für Betrug oder wenn das Gesetz etwas anderes bestimmt.\n\nDasselbe Ausweisdokument kann nicht mit mehr als einem Konto verknüpft werden, damit Grenzen pro Person nicht mit einem zweiten Konto umgangen werden.\n\nWir können eine Überprüfung der Identität oder der Vertretungsbefugnis verlangen, wenn schlüssige Anzeichen für Betrug, für die Nutzung eines fremden Dokuments oder für ein Risiko für den Betrieb vorliegen."
       },
       "organizer": {
         "title": "Pflichten des Veranstalters",
-        "content": "Der Veranstalter muss über alle Genehmigungen, Lizenzen, Rechte und Fähigkeiten zur Durchführung und Bewerbung verfügen. Preis, Kontingent, Bestand, Datum, Zeit, Ort, Altersfreigabe, Barrierefreiheit, Einlassregeln und alle weiteren Angebotsbedingungen müssen korrekt sein.\n\nEr verantwortet Durchführung, Käufersupport, Steuern, Urheberrechte, gesetzliche Ermäßigungen und sonstige Vorschriften. Wesentliche Änderungen sind Käufern klar und rechtzeitig mitzuteilen."
+        "content": "Dieser Abschnitt bindet, wer eine Veranstaltung veröffentlicht. Jeder Kontoinhaber kann veröffentlichen, und eine Veröffentlichung bedeutet keine Auswahl, Kuratierung, Genehmigung oder vorherige Prüfung der Veranstaltung oder des Veranstalters durch uns.\n\nDer Veranstalter erklärt und gewährleistet, dass er die Fähigkeit und Befugnis hat, die Veranstaltung durchzuführen und zu bewerben; dass er die erforderlichen Lizenzen, Genehmigungen und Erlaubnisse besitzt, einschließlich Betriebs-, Brandschutz- und gesundheitsrechtlicher Genehmigungen, soweit anwendbar; dass er die Urheber-, Leistungsschutz- und Bildrechte an den veröffentlichten Inhalten und am Programm besitzt oder lizenziert hat, einschließlich der an Verwertungsgesellschaften geschuldeten Zahlungen; und dass er das für die Veranstaltung geltende Arbeits-, Steuer- und Barrierefreiheitsrecht einhält.\n\nDer Veranstalter ist dafür verantwortlich, Name, Beschreibung, Datum, Uhrzeit, Ort, Preis, Kategorie, Bestand, Altersfreigabe, Barrierefreiheitsbedingungen, Einlassregelung und Rückzahlungsregelung zutreffend und aktuell zu halten. Unzutreffende Angaben in einem Angebot fallen in die Verantwortung dessen, der sie veröffentlicht hat, und ein Angebot bindet die Partei, die es gemacht hat, nach Art. 30 und 35 des Verbraucherschutzgesetzes.\n\nEine wesentliche Änderung der Veranstaltung ist den Käufern klar und rechtzeitig mitzuteilen, und der Veranstalter muss uns unterrichten, damit die Supportkanäle einheitlich antworten. Der Veranstalter muss ausreichende Mittel bereithalten, um Rückzahlungen zu erfüllen, und stellt uns frei von allem, was wir einem Verbraucher aufgrund eines ihm zurechenbaren Umstands zahlen müssen, einschließlich Kosten, Anwaltshonoraren und behördlichen Sanktionen.\n\nDer Veranstalter darf keine nicht bestehende oder nicht genehmigte Veranstaltung, keine irreführenden Angaben und keine rechtswidrigen Inhalte veröffentlichen und darf Marke, Name oder Bild Dritter nicht ohne Erlaubnis nutzen."
       },
-      "sales": {
-        "title": "Verkauf, Tickets und Verbraucher",
-        "content": "Ist der öffentliche Verkauf aktiviert, werden die beim Kauf angezeigten Bedingungen Teil des Angebots. Der Veranstalter muss das brasilianische Verbraucherschutzgesetz, Dekret Nr. 7.962/2013 und weitere Regeln für E-Commerce und Veranstaltungen beachten.\n\nEin Ticket gewährt den beschriebenen Zugang und kann einer Prüfung, Mengenbegrenzung und zuvor mitgeteilten Betrugsregeln unterliegen. Absagen, Verschiebungen und wesentliche Änderungen müssen gesetzliche Käuferrechte einschließlich Information und Erstattung wahren. Unabdingbare Verbraucherrechte werden nicht eingeschränkt."
+      "catalogue": {
+        "title": "Veröffentlichung der Veranstaltung, Kategorien und Bestand",
+        "content": "Der Veranstalter legt die Veranstaltung an, bestimmt Ort und Kartenposition, lädt Bilder und Videos innerhalb der im Dashboard angezeigten Grenzen für Typ, Größe und Anzahl hoch und legt beliebig viele Kategorien an, jede mit eigenem Preis, eigener Menge und eigenem Verkaufsstatus.\n\nEine Veranstaltung beginnt als Entwurf und erscheint im öffentlichen Bereich erst nach der Veröffentlichung. Eine Kategorie verkauft nur, solange sie im Verkauf ist. Das Zurückziehen einer Veranstaltung entfernt sie aus der Auslage und macht einen bereits bezahlten Auftrag nicht rückgängig: Was verkauft wurde, bleibt dem Käufer geschuldet.\n\nDie Plattform steuert den Bestand jeder Kategorie und verkauft nicht über die verfügbare Menge hinaus. Eine Kategorie kann zwischen Ihrer Auswahl und dem Abschluss des Auftrags ausverkauft sein; in diesem Fall kommt der Kauf nicht zustande und es wird nichts belastet.\n\nFür Ihren Auftrag gelten die im Moment des Kaufs veröffentlichten Bedingungen. Das nachträgliche Umbenennen einer Kategorie oder eine Preisänderung ändert einen bereits erfassten Auftrag nicht."
+      },
+      "purchase": {
+        "title": "Wie ein Kauf abläuft",
+        "content": "Ein Kauf hat zwei Stufen, und die erste nimmt die Tickets für Sie bereits aus dem Verkauf.\n\n• Sie wählen Kategorien und Mengen, und die Tickets werden reserviert. Die Reservierung ist kurz, und die Seite zeigt die verbleibende Zeit.\n• Sie bestätigen Ihre Angaben, und die Reservierung wird um die Zahlungsfrist verlängert. Es wird eine PIX-Zahlungsanforderung mit Kopiercode und QR-Code erstellt.\n• Sie zahlen in Ihrer eigenen Banking-App.\n• Nach Bestätigung der Zahlung wird der Auftrag bezahlt, und Sie erhalten per E-Mail die Bestätigung mit Beleg und Veranstaltungsdaten.\n\nLäuft die Reservierung vor der Zahlung ab, gehen die Tickets zurück in den Verkauf und der Auftrag wird ohne Belastung geschlossen. Sie können es erneut versuchen, soweit verfügbar.\n\nEs gibt eine Grenze für offene Aufträge je Konto und für reservierte Tickets je Kategorie, die bei Erreichen angezeigt wird. Schließen Sie eine bestehende Reservierung ab oder geben Sie sie frei, um Platz zu schaffen.\n\nVor dem Bestätigen prüfen Sie die Auftragsübersicht und können die eingegebenen Angaben berichtigen, wie Art. 4 Nr. II des Dekrets 7.962/2013 es verlangt. Die Bestätigung des Zugangs Ihrer Annahme wird per E-Mail zusammen mit dem Text dieser Bedingungen übersandt, wie Nr. III und IV desselben Artikels es verlangen.\n\nDas Ticket gewährt das im Angebot beschriebene Zugangsrecht, unter den Bedingungen des Veranstalters und des Orts. Nachweis Ihres Kaufs sind der bezahlte Auftrag und die per E-Mail übersandte Bestätigung, die die Auftragsnummer enthalten. Der Einlass wird vom Veranstalter geprüft, der ein amtliches Lichtbilddokument verlangen kann, das mit dem Namen im Auftrag übereinstimmt."
       },
       "payments": {
-        "title": "Zahlungen, Gebühren und Erstattungen",
-        "content": "Solange kein Zahlungsmodul aktiviert ist, nimmt die Plattform keine Käufergelder entgegen und speichert keine Kartendaten. Nach Aktivierung werden Gesamtpreis, Gebühren, Zahlungsart, Raten und Zahlungsempfänger vor Bestätigung angezeigt.\n\nZahlungen können durch einen regulierten Partner nach dessen Regeln verarbeitet werden. Der Veranstalter muss ausreichende Mittel und Angaben für Rückbuchungen, Chargebacks und Erstattungen vorhalten. Gesetzlich verlangte Erstattungs- oder Widerrufsrechte bleiben bestehen."
+        "title": "Zahlung, Preis und was wir nie berühren",
+        "content": "Das Zahlungsmittel ist PIX, erstellt und ausgeführt von einem von der brasilianischen Zentralbank zugelassenen Zahlungsinstitut, das im Kaufvorgang benannt wird. Dieses Institut handelt als unabhängiger Verantwortlicher der Zahlungsdaten, unter eigenen Bedingungen und eigener Datenschutzerklärung.\n\n! Wir erhalten, übertragen, verarbeiten und speichern keine Kartennummer, keine Prüfziffer, keine Magnetstreifen- oder Chipdaten, kein Bankpasswort und keine Bankzugangsdaten. In dieser Anwendung gibt es kein Kartenformular. Die Zahlung erfolgt in Ihrer eigenen Banking-App, außerhalb der Plattform. Wir behaupten keine PCI-DSS-Zertifizierung, weil wir keine Kartendaten verarbeiten und es nichts zu zertifizieren gibt.\n\nDer im Kaufvorgang angezeigte Preis ist der zu zahlende Gesamtbetrag und besteht aus zwei Teilen. Der erste ist der Ticketpreis, den der Veranstalter festlegt und der ihm zusteht. Der zweite ist eine Servicegebühr von 10 Prozent, berechnet auf diesen Preis, die unsere Vergütung für die Bereitstellung der Plattform, die Abwicklung der Zahlung und die Führung des Auftragsdatensatzes ist. Ein Ticket zu R$ 100,00 wird mit R$ 110,00 belastet: Der Veranstalter erhält die von ihm festgelegten R$ 100,00, und die Gebühr von R$ 10,00 steht uns zu. Die Gebühr wird zum Preis hinzugerechnet und nicht von ihm abgezogen, sodass der vom Veranstalter angekündigte Betrag der Betrag ist, den er erhält.\n\nDie Gebühr wird je Ticket und nicht auf die Auftragssumme berechnet, damit der Preis eines Tickets multipliziert mit der Menge immer dem belasteten Gesamtbetrag entspricht. Sie wird auf der Veranstaltungsseite vor der Auswahl und erneut in einer eigenen, benannten Zeile der Auftragsübersicht vor dem Zahlungsschritt ausgewiesen, entsprechend Art. 2 Nr. IV und V des Dekrets 7.962/2013. Der brasilianische Oberste Gerichtshof hat in REsp 1.632.928 entschieden, dass die Erhebung einer Gebühr beim Ticketverkauf über das Internet zulässig ist, sofern der Betrag klar und zugänglich ist; das ist der Maßstab, dem wir folgen: Die Pflicht liegt in der Information, und diese erfüllen wir ausdrücklich. Ein Entgelt, das nur in einem undurchsichtigen Gesamtbetrag erscheint, ist eine Praxis, die wir nicht anwenden.\n\nWeitere Entgelte von uns gibt es nicht: Wir erheben kein Zustell-, Druck-, Abhol-, Ausstellungs- und kein Ratenentgelt. Die Servicegebühr wird zusammen mit dem Ticketpreis bei jeder Rückzahlung, auf die Sie Anspruch haben, vollständig zurückgezahlt, einschließlich des Rücktritts nach Art. 49 des Verbraucherschutzgesetzes und der Absage, Verlegung oder wesentlichen Änderung der Veranstaltung. In keinem dieser Fälle behalten wir die Gebühr.\n\nEine Änderung der Gebühr ist eine wesentliche Änderung dieser Bedingungen und folgt Abschnitt 26: Sie wird mindestens 30 Tage im Voraus angekündigt und wirkt nicht rückwirkend auf einen bereits abgeschlossenen Kauf. Für Ihren Auftrag gilt der Betrag, der beim Kauf in Kraft war und angezeigt wurde.\n\nEine PIX-Rückzahlung ist eine Rückführung auf das zahlende Konto und keine Kartenrückbuchung: Bei PIX gibt es keine Rückbuchung im Kartensinne. Wir bitten, dass das Ursprungskonto zur Entgegennahme geöffnet ist; ist es geschlossen, melden wir uns unter {supportEmail}, um einen anderen Weg zu vereinbaren. Der Zeitpunkt der Gutschrift richtet sich nach dem empfangenden Institut.\n\nGeht eine Zahlung nach dem Ausverkauf einer Kategorie ein, wird der Betrag vollständig zurückgezahlt, weil ein nicht mehr bestehendes Ticket nicht geliefert werden kann."
       },
-      "integrations": {
-        "title": "Integrationen, Vozko und APIs",
-        "content": "Nach Aktivierung durch den Nutzer kann sich der Dienst über APIs, Webhooks, Importe oder verbundene Konten mit weiteren Vozko-Produkten und Dritten verbinden. Dazu können CRM, Automatisierung, Zahlung, Zugangskontrolle, Analyse und Kommunikationskanäle gehören. Jede Verbindung muss von einer befugten Person autorisiert und eingerichtet werden.\n\nDer Veranstalter verantwortet Herkunft, Qualität, Berechtigungen und Nutzung gesendeter oder empfangener Daten. Integrationen können eigenen Bedingungen unterliegen und enden, wenn ein Dritter seine API ändert oder einstellt. Greifen Sie nicht ohne gültige Erlaubnis auf fremde Konten, Zielgruppen oder Kanäle zu."
+      "withdrawal": {
+        "title": "Widerrufs- und Rücktrittsrecht",
+        "content": "! Sie haben 7 Tage, um vom Kauf zurückzutreten, gerechnet ab der Bestätigung des Auftrags, ohne Begründung. Das ist Art. 49 des brasilianischen Verbraucherschutzgesetzes, der für jeden außerhalb von Geschäftsräumen geschlossenen Vertrag gilt, auch über das Internet. Bei Rücktritt werden die gezahlten Beträge vollständig und unverzüglich, monetär angepasst, zurückgezahlt, einschließlich etwaiger erhobener Gebühren. Es gibt keine Mindestfrist vor der Veranstaltung und keine weitere Bedingung: Wir setzen keine Grenze wegen Nähe zum Termin.\n\nZum Rücktritt schreiben Sie von der E-Mail-Adresse des Kontos an {supportEmail} unter Angabe der Auftragsnummer oder nutzen die Rücktrittsoption in Ihrer Auftragshistorie, soweit sie in Ihrem Konto verfügbar ist. Wir bestätigen den Zugang des Rücktrittsverlangens unverzüglich und veranlassen die Rückführung am selben Werktag. Die Gutschrift auf Ihrem Konto richtet sich nach den Fristen des empfangenden Instituts.\n\nDer Rücktritt beendet ohne Kosten die zu diesem Kauf gehörenden Nebenverträge, wie Art. 5 des Dekrets 7.962/2013 es verlangt. Es wird kein Betrag als Gebühr zurückbehalten.\n\nNach den 7 Tagen gilt das Rücktrittsrecht aus Art. 49 nicht mehr, doch Ihre Rechte bei Absage, Verlegung, wesentlicher Änderung oder Leistungsstörung bestehen vollständig weiter und stehen im nächsten Abschnitt.\n\nFür Verbraucher mit Wohnsitz im Europäischen Wirtschaftsraum gilt eine abweichende Regel, die wir nennen, weil sie ungünstiger ist und ein Auslassen nicht redlich wäre: Das Widerrufsrecht von 14 Tagen gilt nicht für Freizeitdienstleistungen, die zu einem bestimmten Zeitpunkt oder Zeitraum erbracht werden, worunter ein Ticket für eine terminierte Veranstaltung fällt, nach Art. 16 Buchst. l der Richtlinie 2011/83/EU, § 312g Abs. 2 Nr. 9 BGB und Art. 103 Buchst. l des spanischen Verbrauchergesetzbuchs. Wohnen Sie in Brasilien, gilt der weitergehende Art. 49 wie oben beschrieben."
       },
-      "communications": {
-        "title": "Benachrichtigungen und Marketing",
-        "content": "Künftige Funktionen können Bestätigungen, Erinnerungen, Veranstaltungsänderungen, Kaufwiederaufnahme und Kampagnen per E-Mail, WhatsApp, SMS, Push oder anderen Kanälen senden, auch über Vozko. Der Veranstalter bestimmt Empfänger, Inhalt, Zeitpunkt und Grundlage und ist grundsätzlich Verantwortlicher.\n\nEr muss Einwilligung oder eine andere geeignete Grundlage nachweisen, Präferenzen und Sperrlisten beachten, den Absender nennen, einfache Marketing-Abmeldung bieten und LGPD, Verbraucher- sowie Kanalregeln einhalten. Transaktionsnachrichten dürfen Werbung nicht verschleiern. Kampagnen mit Spam-, Betrugs- oder Risikosignalen können wir sperren."
+      "cancellation": {
+        "title": "Absage, Verlegung und Änderung der Veranstaltung",
+        "content": "Ein Angebot bindet die Partei, die es gemacht hat. Findet die Veranstaltung nicht wie angeboten statt, liegt die Wahl unter den gesetzlichen Möglichkeiten bei Ihnen und nicht beim Veranstalter oder bei uns, nach Art. 20 und 35 des Verbraucherschutzgesetzes.\n\n| Sachverhalt | Was Sie wählen können |\n| --- | --- |\n| Veranstaltung abgesagt | vollständige Rückzahlung des gezahlten Betrags, monetär angepasst |\n| Verlegt, mit angekündigtem neuen Termin | das Ticket für den neuen Termin behalten oder vollständige Rückzahlung |\n| Verlegt ohne neuen Termin | vollständige Rückzahlung |\n| Änderung des Orts oder der Stadt oder wesentliche Programmänderung | das Ticket behalten oder vollständige Rückzahlung |\n| Veranstaltung nur teilweise durchgeführt | anteilige Preisminderung oder Rückzahlung |\n| Leistungsstörung auf unserer Seite im Verkaufsdienst | erneute Leistungserbringung, angepasste Rückzahlung oder anteilige Minderung |\n\nEine Rückzahlung umfasst den tatsächlich gezahlten Betrag und nicht nur den Nennwert des Tickets: Liegt die Störung beim Anbieter, kommt auch eine erhobene Gebühr zurück. Wir setzen kein Guthaben, keinen Gutschein und keinen Zwangsumtausch an die Stelle von Geld. Das Gesetz 14.046/2020, das während der Pandemie Umbuchung und Guthaben anstelle einer Rückzahlung erlaubte, gilt nicht mehr, und die allgemeinen Regeln des Verbraucherschutzgesetzes gelten wieder vollständig.\n\nZufall und höhere Gewalt können die Nichtdurchführung rechtfertigen und eine Pflicht zum Ersatz weiteren Schadens entfallen lassen, heben aber die Rückzahlung dessen nicht auf, was Sie für eine nicht erhaltene Leistung gezahlt haben.\n\nDer Veranstalter muss die Änderung mitteilen und die Mittel für Rückzahlungen bereitstellen. Wir führen die Rückführung durch und verfolgen sie bis zum Abschluss. Sind Sie Verbraucher, müssen Sie das nicht zwischen uns beiden klären: Wenden Sie sich an {supportEmail}, und wir übernehmen."
+      },
+      "meiaEntrada": {
+        "title": "Ermäßigte Tickets und gesetzliche Vergünstigungen",
+        "content": "Das Gesetz 12.933/2013 und das zugehörige Dekret gewährleisten den halben Eintrittspreis für Studierende, für Menschen mit Behinderung und erforderlichenfalls eine Begleitperson sowie für einkommensschwache junge Menschen, die im staatlichen Sozialregister eingetragen sind. Das Gesetz über ältere Menschen, Gesetz 10.741/2003, gewährleistet eigenständig 50 Prozent Nachlass und vorrangigen Zugang für Personen ab 60 Jahren. Landes- und Gemeindegesetze können die Kategorien erweitern.\n\nDie Plattform erlaubt dem Veranstalter, Kategorien mit reduziertem Preis anzulegen, auch ermäßigte. Wer die Kategorien, den Preis, die für die Vergünstigung zurückgehaltene Menge und die Einhaltung der gesetzlichen Quote festlegt, ist der Veranstalter, der erklärt und gewährleistet, dies nach Bundesrecht und nach dem für die Gemeinde der Veranstaltung geltenden örtlichen Recht zu tun.\n\n! Der Nachweis der Berechtigung wird am Einlass der Veranstaltung durch den Veranstalter geprüft und nicht beim Kauf. Kaufen Sie ein ermäßigtes Ticket nur, wenn Sie einer der Kategorien angehören und dies nachweisen können. Wird die Voraussetzung nicht nachgewiesen, kann der Veranstalter die Zahlung der Differenz verlangen oder den Zutritt verweigern; diese Folge ergibt sich aus dem die Vergünstigung begründenden Gesetz und nicht aus einer von uns gesetzten Bedingung.\n\nAnerkannt werden die Dokumente, die die Regelung zur Vergünstigung vorsieht, und der Veranstalter soll keine weiteren verlangen: ein Studierendenausweis im nationalen Standard mit Name, Geburtsdatum, Lichtbild, Einrichtung, Bildungsstufe und Gültigkeit für Studierende; ein amtliches Lichtbilddokument für Personen ab 60 Jahren; ein Nachweis der Behinderung nebst amtlichem Lichtbilddokument sowie gegebenenfalls ein Nachweis der Begleitrolle; und der nationale Jugendausweis nebst amtlichem Lichtbilddokument für einkommensschwache junge Menschen.\n\nWir erheben, verlangen und speichern keine Berechtigungsnachweise, Gutachten, Bescheinigungen oder Barrierefreiheitsdokumente. Diese werden am Einlass vorgezeigt und bleiben bei Ihnen.\n\nDer Veranstalter steht Ihnen und den Verbraucherschutzstellen für die zutreffende Einrichtung der Vergünstigung und der Quote ein und stellt uns von Sanktionen frei, die aus einer von ihm vorgenommenen Einrichtung entstehen."
+      },
+      "entry": {
+        "title": "Einlass zur Veranstaltung",
+        "content": "Der Einlass wird vom Veranstalter oder von der Spielstätte betrieben. Bringen Sie die Auftragsnummer mit, die in der per E-Mail übersandten Bestätigung steht, sowie ein amtliches Lichtbilddokument. Der Veranstalter kann prüfen, ob der Name im Dokument mit dem im Auftrag übereinstimmt, und kann Personen den Zutritt verweigern, die ihre Berechtigung nicht nachweisen.\n\nDie Regeln der Spielstätte, einschließlich Öffnungszeiten, Kontrollen, verbotener Gegenstände, Kapazität und Verhalten, gehören dem Veranstalter und der Spielstätte, und Sie nehmen sie mit dem Zutritt an. Eine Zutrittsverweigerung wegen Verstoßes gegen diese Regeln, wegen Trunkenheit, wegen Mitführens eines verbotenen Gegenstands oder wegen Verhaltens, das andere gefährdet, begründet keine Rückzahlung.\n\nAltersfreigabe und Regeln zum Einlass von Kindern und Jugendlichen werden vom Veranstalter angegeben und von ihm am Einlass geprüft, entsprechend dem brasilianischen Kinder- und Jugendgesetz und einer etwaigen Anordnung des örtlichen Jugendgerichts. Prüfen Sie diese Bedingungen vor dem Kauf: Eine Zutrittsverweigerung gegenüber einer minderjährigen Person wegen Verstoßes gegen die angegebene Regel ist ein Sachverhalt, den der Veranstalter zu behandeln hat, und wir unterstützen dabei.\n\nBarrierefreiheit vor Ort, einschließlich Rollstuhlplätzen, Begleitplätzen und vorrangiger Betreuung, ist Pflicht des Veranstalters und der Spielstätte. Wurde im Angebot eine Barrierefreiheitsbedingung beworben, die nicht erbracht wurde, ist das eine Nichteinhaltung des Angebots, und Abschnitt 12 gilt."
+      },
+      "transfer": {
+        "title": "Übertragung und Weiterverkauf",
+        "content": "Die Plattform bietet derzeit keinen Mechanismus zur Übertragung eines Tickets zwischen Personen und keinen offiziellen Weiterverkauf. Ein Auftrag bleibt mit dem Konto verknüpft, das ihn erteilt hat, und mit dem darin erfassten Dokument.\n\nSie dürfen ein hier gekauftes Ticket nicht über Preis weiterverkaufen, nicht auf einem Weiterverkaufskanal anbieten und Tickets nicht in Mengen zum Weiterverkauf erwerben. Automatisiertes Kaufen, Einsatz von Bots, Anlegen mehrerer Konten und Nutzung eines fremden Dokuments zur Umgehung einer Grenze pro Person sind verboten.\n\nEin unter Verstoß gegen diesen Abschnitt erlangtes oder übertragenes Ticket kann für ungültig erklärt werden, wobei der Auftrag storniert und der Betrag an den ursprünglichen Zahler zurückgeführt wird, und das beteiligte Konto kann gesperrt werden. Wir stornieren das Ticket einer gutgläubig kaufenden Person nicht, ohne zuvor eine Kontaktaufnahme über den Supportkanal zu versuchen.\n\nMüssen Sie ein Ticket aus einem berechtigten Grund übertragen, schreiben Sie vor der Veranstaltung an {supportEmail}. Wir prüfen es im Einzelfall mit dem Veranstalter; einen automatischen Anspruch auf Übertragung gibt es nicht."
       },
       "acceptableUse": {
-        "title": "Zulässige Nutzung",
-        "content": "Untersagt ist die Nutzung für Betrug, Geldwäsche, rechtswidrigen Weiterverkauf, ungenehmigte Veranstaltungen, Rechtsverletzungen, illegale oder irreführende Inhalte, rechtswidrige Diskriminierung, Schadsoftware, unzulässige Datenerhebung oder Eingriffe in Sicherheit und Verfügbarkeit.\n\nTechnische Grenzen dürfen nicht umgangen, Schwachstellen nicht ohne Erlaubnis getestet, Zugriffe nicht missbräuchlich automatisiert, der Dienst nicht kopiert und fremde Marken nicht ohne Erlaubnis genutzt werden. Zur Schadensabwehr, Rechtsbefolgung oder Untersuchung belastbarer Missbrauchshinweise dürfen wir Inhalte entfernen und Vorgänge beschränken."
+        "title": "Verbotene Nutzung",
+        "content": "Verboten ist die Nutzung der Plattform für Betrug, Geldwäsche, rechtswidrigen Weiterverkauf, eine nicht bestehende oder nicht genehmigte Veranstaltung, die Verletzung von Rechten Dritter, rechtswidrige, irreführende oder diskriminierende Inhalte, die Verbreitung von Schadsoftware oder die unzulässige Erhebung von Daten.\n\nVerboten ist ferner, eine technische Grenze zu umgehen, ohne vorherige schriftliche Erlaubnis auf Schwachstellen zu testen, Zugriffe missbräuchlich zu automatisieren, Inhalte in großem Umfang auszulesen, die Infrastruktur zu überlasten, den Dienst zu kopieren, eine Marke Dritter ohne Erlaubnis zu nutzen und ohne wirksame Erlaubnis auf Konto, Publikum oder Kanal Dritter zuzugreifen.\n\nWir können Inhalte entfernen, Vorgänge beschränken und Zugang sperren, um Schaden zu verhüten, das Gesetz zu erfüllen oder schlüssige Anzeichen für Missbrauch aufzuklären, mit Hinweis und Gelegenheit zur Abhilfe, soweit dies angemessen ist und die Dringlichkeit es erlaubt.\n\nSicherheitsforschung in gutem Glauben ist unter {supportEmail} willkommen: Beschreiben Sie den Befund, greifen Sie nicht über das zur Demonstration Erforderliche hinaus auf Daten Dritter zu, beeinträchtigen Sie den Dienst nicht und geben Sie uns eine angemessene Frist vor einer Veröffentlichung. Eine so erstattete Meldung behandeln wir nicht als Verstoß.\n\nEine Zahlungsbeanstandung bei Ihrer Bank oder bei einer Verbraucherschutzstelle ist keine verbotene Nutzung, und wir behandeln sie nicht als Verstoß. Die wiederholte Nutzung von Beanstandungen, um Zutritt ohne Zahlung zu erlangen, kann hingegen zur Ungültigkeit des Auftrags und zur Überprüfung des Kontos führen."
       },
       "content": {
         "title": "Inhalte und geistiges Eigentum",
-        "content": "Sie behalten Rechte an hochgeladenen Namen, Beschreibungen, Bildern und Videos. Sie gewähren {productName} eine nicht ausschließliche, weltweite Lizenz für die notwendige Dauer, diese Inhalte ausschließlich zum Betrieb, Schutz und zur Verbesserung des Dienstes zu hosten, zu vervielfältigen, technisch anzupassen und anzuzeigen.\n\nSie bestätigen alle nötigen Rechte, einschließlich Bild-, Musik- und Markenrechten. Software, Vozko-Identität, Komponenten, Dokumentation und weitere Plattformmaterialien bleiben geschützt und werden nicht übertragen."
+        "content": "Der Veranstalter behält die Rechte an Namen, Beschreibung, Bildern und Videos, die er hochlädt. Mit dem Hochladen räumt er uns eine nicht ausschließliche, weltweite Lizenz für die erforderliche Dauer ein, diesen Inhalt zu hosten, zu vervielfältigen, in der Größe anzupassen, technische Varianten davon zu erzeugen und anzuzeigen, zum alleinigen Zweck, den Dienst zu betreiben, zu schützen und zu verbessern, einschließlich in der öffentlichen Auslage, in den Suchergebnissen der Website und in Vorschauen beim Teilen.\n\nDer Veranstalter gewährleistet, die erforderlichen Erlaubnisse zu besitzen, einschließlich der Bildrechte der abgebildeten Personen, der Rechte an Musik- und audiovisuellen Werken und der Markenrechte. Nach der Löschung eines Inhalts stellen wir die Anzeige ein; vorübergehende Kopien im Auslieferungsnetz können bis zu ihrem Ablauf bestehen bleiben, Sicherungskopien bis zur regulären Rotation.\n\nDie Software, das Erscheinungsbild, die Oberflächenkomponenten, die Dokumentation und die weiteren Materialien der Plattform gehören uns oder sind an uns lizenziert, und nichts in diesen Bedingungen überträgt das Eigentum daran. Ihnen wird nur das Recht eingeräumt, die Plattform nach diesen Bedingungen zu nutzen, persönlich, widerruflich und nicht übertragbar.\n\nEin Vorschlag oder Kommentar, den Sie uns unaufgefordert zum Produkt senden, darf von uns ohne Pflicht zu Vergütung oder Vertraulichkeit genutzt werden, ohne dass dies personenbezogene Daten von Ihnen erfasst, für die weiterhin die Datenschutzerklärung gilt."
+      },
+      "notice": {
+        "title": "Meldung von Inhalten und unlauteren Veranstaltungen",
+        "content": "Um eine nicht bestehende oder betrügerische Veranstaltung, rechtswidrige Inhalte, eine Urheberrechtsverletzung oder den Missbrauch einer Marke oder eines Bildes zu melden, schreiben Sie an {supportEmail} und nennen Sie die Seite, beschreiben Sie das Problem und seine rechtliche Grundlage und fügen Sie, wenn Sie Rechteinhaber sind, einen Nachweis der Rechtsinhaberschaft und Ihre Kontaktdaten bei.\n\nWir prüfen die Meldung und handeln nach Schwere und Eindeutigkeit der Rechtswidrigkeit. Offensichtlicher Betrug, Gefahr für die Sicherheit von Personen, offenkundig strafbare Inhalte und Verletzungen von Rechten von Kindern und Jugendlichen werden vorrangig behandelt und können zur unverzüglichen Entfernung und zur Sperrung des Veranstalters führen. In anderen Fällen unterrichten wir den Veranstalter, gewähren eine Frist zur Stellungnahme und entscheiden dann. Wir machen nicht jede Entfernung von einer richterlichen Anordnung abhängig: Das Haftungsregime für Anwendungsanbieter wurde vom brasilianischen Bundesgerichtshof in den Themen 987 und 533 und durch die nachfolgende Regelung geändert, und in den vom Gesetz bestimmten Kategorien genügt eine außergerichtliche Meldung.\n\nWir teilen dem Urheber des Inhalts die Entfernung und den Grund mit, und er kann unter {supportEmail} eine Gegendarstellung einreichen. Zeigt die Gegendarstellung, dass die Entfernung nicht gerechtfertigt war, stellen wir den Inhalt wieder her und dokumentieren die Entscheidung. Einem Veranstalter, der wiederholt rechtswidrige Inhalte einstellt, wird das Konto geschlossen.\n\nNichts in diesem Abschnitt verpflichtet uns zur vorherigen Überwachung aller veröffentlichten Inhalte und nimmt uns nicht die Pflicht zu handeln, sobald wir eine Meldung erhalten."
+      },
+      "integrations": {
+        "title": "Integrationen und Dienste Dritter",
+        "content": "Die Plattform nutzt zum Betrieb Dienste Dritter, und es ist redlich, genau zu sagen, welche und wofür, statt allgemeine Integrationen zu beschreiben.\n\n• Ein zugelassenes Zahlungsinstitut, um die PIX-Zahlungsanforderung zu erstellen und auszuführen und Rückzahlungen abzuwickeln.\n• Ein Anbieter für Transaktions-E-Mail, um Anmeldecode, Zahlungsmitteilung und Bestätigung zuzustellen.\n• Objektspeicher und ein Auslieferungsnetz, um Bilder und Videos der Veranstaltung zu speichern und auszuliefern.\n• Die Vozko-Plattform, allein um den Anmeldecode über WhatsApp zuzustellen, wenn Sie diesen Kanal wählen. Das Konto, die genehmigten Nachrichtenvorlagen und das Guthaben, über das diese Nachrichten abgerechnet werden, gehören Vozko und nicht dieser Anwendung.\n• Adress- und Kartendienste, um eine Postleitzahl in eine Adresse umzuwandeln, eine Adresse im Veranstaltungsformular zu vervollständigen und die Karte auf der öffentlichen Seite anzuzeigen.\n\nEs gibt derzeit keinen Kontaktabgleich mit einem Kundensystem, keine Weitergabe von Kaufereignissen an ein System Dritter, keinen Export von Segmenten, keine automatische Übersendung von Daten an ein System Dritter und keine öffentliche Schnittstelle und keinen Integrationsschlüssel für Veranstalter. Sollten wir eine davon anbieten, setzt sie die Freigabe durch eine dazu befugte Person voraus, und die Datenschutzerklärung wird vorher aktualisiert.\n\nEin Dienst Dritter hat eigene Bedingungen und kann von seinem Anbieter geändert oder eingestellt werden, was eine Funktion der Plattform beeinträchtigen kann. Wir wählen Dienstleister aus, vereinbaren Vertraulichkeits- und Datenschutzpflichten und verwalten diese Integrationen, steuern aber nicht deren Betrieb."
+      },
+      "communications": {
+        "title": "Nachrichten und Marketing",
+        "content": "Heute senden wir nur transaktionsbezogene Nachrichten: den Anmeldecode, die Mitteilung über die offene Zahlungsanforderung mit PIX-Code und Reservierungsfrist und die Zahlungsbestätigung. Diese Nachrichten sind Teil der Durchführung des Kaufs und haben keine Abbestellung; um sie nicht zu erhalten, ist der Weg, nicht zu kaufen oder das Konto zu schließen.\n\nWir senden keinen Newsletter, keine Werbung, keine Kauferinnerung und keine Nachricht zu einer Veranstaltung, die Sie nicht gekauft haben, und es gibt auf dieser Plattform keine Marketingliste.\n\nSendet ein Veranstalter Mitteilungen an sein eigenes Publikum über ein Werkzeug von uns, ist er Verantwortlicher dieser Mitteilung und verpflichtet sich uns und dem Empfänger gegenüber, dass: er für jeden Empfänger und jeden Kanal eine wirksame Rechtsgrundlage hat; er den Einwilligungsnachweis mit Datum, Quelle und angezeigtem Wortlaut aufbewahrt und auf Verlangen vorlegt; er keine gekaufte, gemietete, ausgelesene oder von Dritten stammende Liste nutzt; er Daten einer Veranstaltung nicht ohne neue Grundlage zur Bewerbung einer anderen wiederverwendet; er sich als Absender kenntlich macht; er im Marketing eine einfache Abbestellung anbietet; er Abbestellungen und Sperrlisten achtet, einschließlich des nationalen Werbewiderspruchsregisters und der Vorgaben der Telekommunikationsbehörde; und er auf WhatsApp die Meta-Richtlinien für geschäftliche Nachrichten einhält, einschließlich der zutreffenden Einordnung der Vorlage zwischen Nutzen, Authentifizierung, Service und Marketing.\n\nWir können den Versand einer Kampagne bei Spam-Anzeichen, hoher Beschwerde- oder Sperrquote, Betrug oder Gefahr für Empfänger unverzüglich aussetzen, ohne dass dies eine Haftung unserer Seite begründet. Der Veranstalter stellt uns von behördlichen Sanktionen und Strafen eines Kanalanbieters frei, die auf seinen Weisungen beruhen."
       },
       "privacy": {
-        "title": "Datenschutz und personenbezogene Daten",
-        "content": "Die Verarbeitung folgt der Datenschutzerklärung und anwendbarem Recht, insbesondere dem brasilianischen Gesetz Nr. 13.709/2018 (LGPD). Der Veranstalter muss eine Rechtsgrundlage haben, Betroffene informieren und Rechte zu Käufer- oder Teilnehmerdaten erfüllen, die er über die Plattform verarbeitet.\n\nBeide Parteien müssen angemessene Zugriffskontrollen anwenden und Daten nur für legitime Veranstaltungszwecke nutzen. Unternehmensverträge können besondere Auftragsverarbeitungsregeln ergänzen."
+        "title": "Schutz personenbezogener Daten",
+        "content": "Die Verarbeitung personenbezogener Daten ist in der Datenschutzerklärung beschrieben, die Teil dieser Bedingungen ist und zweckweise die verarbeiteten Daten, die Rechtsgrundlage, die Empfänger, die Zielländer und die Speicherfrist darlegt. Widersprechen sich diese Bedingungen und die Datenschutzerklärung im Datenschutz, gilt die Erklärung.\n\nDie Rollenaufteilung ist die aus Abschnitt 3 dieser Erklärung: Wir sind Verantwortliche für das, was Konto, Auftrag, Zahlung und Sicherheit betrifft; wir sind Auftragsverarbeiter für das, was der Veranstalter zu seiner eigenen Veranstaltung erfasst, und für die Käuferdaten, die er im Dashboard einsieht; und in der besonderen Tätigkeit des Ticketvertragsschlusses besteht gemeinsame Verantwortlichkeit.\n\nAls Auftragsverarbeiter verarbeiten wir Daten nach den dokumentierten Weisungen des Veranstalters, wie Art. 39 des brasilianischen Datenschutzgesetzes es verlangt, führen ein eigenes Verzeichnis der Verarbeitungsvorgänge, wahren Vertraulichkeit, benachrichtigen den Veranstalter über einen Vorfall innerhalb von 24 Stunden nach Bestätigung, unterstützen bei der Beantwortung von Anliegen betroffener Personen und löschen oder geben die Daten bei Beendigung zurück, vorbehaltlich gesetzlicher Aufbewahrung.\n\nDer Veranstalter ist als Verantwortlicher dafür zuständig, eine Rechtsgrundlage zu haben, seine eigene Datenschutzerklärung vorzulegen, betroffene Personen zu unterrichten, Rechtsverlangen zu bescheiden und über die Plattform erlangte Daten nicht für einen unvereinbaren Zweck zu nutzen. Ein Unternehmensvertrag kann diese Regeln durch eine besondere Vereinbarung zur Auftragsverarbeitung ergänzen, die diesem Abschnitt in ihrem Regelungsgehalt vorgeht."
       },
       "availability": {
-        "title": "Verfügbarkeit und Änderungen",
-        "content": "Wir bemühen uns um einen sicheren, verfügbaren Dienst, garantieren jedoch keinen unterbrechungs- oder fehlerfreien Betrieb. Wartung, Internet- oder Lieferantenausfälle, höhere Gewalt und Sicherheitsmaßnahmen können Ausfälle verursachen.\n\nFunktionen können korrigiert, ersetzt oder eingestellt werden. Betrifft eine wesentliche Änderung einen laufenden Betrieb, bemühen wir uns um angemessene Vorankündigung, außer bei dringender Sicherheit, Rechtspflicht oder Ereignissen außerhalb unserer Kontrolle."
+        "title": "Verfügbarkeit und Änderungen des Dienstes",
+        "content": "Wir arbeiten daran, den Dienst sicher und verfügbar zu halten, und versprechen keinen unterbrechungsfreien oder fehlerfreien Betrieb. Wartung, Netzstörungen, die Nichtverfügbarkeit eines Dienstleisters, höhere Gewalt und Sicherheitsmaßnahmen können zu Unterbrechungen führen. Ist eine Unterbrechung geplant, versuchen wir, vorher zu informieren und das Fenster mit der geringsten Auswirkung zu wählen.\n\nWir können Funktionen berichtigen, ändern, ersetzen oder einstellen. Eine wesentliche Änderung, die einen laufenden Vorgang betrifft, wird mit angemessener Vorlaufzeit angekündigt, außer in einem Sicherheitsnotfall, aufgrund einer gesetzlichen Pflicht oder wegen eines Umstands außerhalb unserer Kontrolle. Wir entfernen keine Funktion, von der ein bezahlter Auftrag abhängt, ohne eine Alternative oder eine Rückzahlung anzubieten.\n\nVerhindert eine Störung auf unserer Seite den Abschluss eines Kaufs, wird nichts belastet; wurde belastet, wird zurückgezahlt. Verhindert eine Störung auf unserer Seite den Zutritt zu einer Veranstaltung, deren Ticket Sie bezahlt haben, gilt Abschnitt 12."
       },
       "suspension": {
-        "title": "Sperrung, Beendigung und Daten",
-        "content": "Wir können den Zugang bei Verstoß, Sicherheitsrisiko, Betrug, rechtlicher Anordnung oder Nichtzahlung vereinbarter Entgelte sperren oder beenden; soweit angemessen mit Hinweis und Abhilfemöglichkeit. Nutzer können die Nutzung einstellen und Kontoschließung verlangen.\n\nExportieren Sie vor einer geplanten Schließung benötigte Daten. Danach können Daten gemäß Datenschutzerklärung gelöscht oder anonymisiert werden, vorbehaltlich gesetzlicher Aufbewahrung, Betrugsabwehr, Rechtsausübung und temporärer Sicherungen."
-      },
-      "warranties": {
-        "title": "Gewährleistung und Drittdienste",
-        "content": "Der Dienst wird nach Verfügbarkeit und mit ausdrücklich vertraglich übernommenen Zusagen erbracht. Wir garantieren weder Geschäftserfolg, Mindestumsatz, Teilnahme, Eignung der Veranstaltung noch das Verhalten von Veranstaltern, Käufern oder Dritten.\n\nIntegrationen, Speicher, Netze und Zahlungsabwickler können eigene Bedingungen haben. Unabhängige Dienste kontrollieren wir nicht; Anbieterwahl und Integration erfolgen jedoch nach anwendbaren rechtlichen und vertraglichen Pflichten."
+        "title": "Sperrung und Beendigung",
+        "content": "Sie können die Nutzung jederzeit einstellen und die Schließung des Kontos unter {supportEmail} verlangen. Die Schließung hebt einen bezahlten Auftrag und eine bereits fällige Pflicht auf keiner Seite auf.\n\nWir können den Zugang sperren oder beenden bei Verstoß gegen diese Bedingungen, bei Sicherheitsrisiko, bei schlüssigen Anzeichen für Betrug, aufgrund einer gesetzlichen Anforderung oder bei Nichtzahlung eines vereinbarten Betrags, mit vorheriger Ankündigung und Gelegenheit zur Abhilfe, soweit dies angemessen ist und die Dringlichkeit es erlaubt. Die Sperrung eines Veranstalters sperrt nicht die Rechte derjenigen, die bereits gekauft haben: In diesen Fällen führen wir die Rückzahlung oder die Durchführung der Veranstaltung je nach Lage durch.\n\nExportieren Sie vor einer geplanten Schließung, was Sie benötigen. Nach der Schließung werden die Daten nach der Datenschutzerklärung gelöscht oder anonymisiert, vorbehaltlich der dort beschriebenen gesetzlichen Aufbewahrung, einschließlich Zugriffsprotokollen, steuerlichen Aufzeichnungen und zur Rechtsverteidigung erforderlichen Daten.\n\nNach Schließung des Kontos bleiben die ihrer Natur nach fortgeltenden Klauseln in Kraft: geistiges Eigentum, Haftungsbeschränkungen im gesetzlich zulässigen Umfang, Datenschutz sowie anwendbares Recht und Gerichtsstand."
       },
       "liability": {
         "title": "Haftung",
-        "content": "Jede Partei haftet für direkte Schäden aus eigener Vertrags- oder Rechtsverletzung. Soweit gesetzlich zulässig, haften wir nicht für entgangenen Gewinn, mittelbaren Chancenverlust oder Schäden, die ausschließlich durch falsche Veranstalterangaben, Dritte oder Ereignisse außerhalb zumutbarer Kontrolle entstehen.\n\nVereinbarte Grenzen gelten nicht bei Vorsatz, Betrug, Verletzung von Vertraulichkeit oder Datenschutz, geistigem Eigentum, Personenschäden, Verbraucherrechten oder sonstiger gesetzlich unbeschränkbarer Haftung."
+        "content": "! Wir beschränken, schließen und mindern unsere Haftung gegenüber einem Verbraucher nicht. Art. 51 Nr. I des Verbraucherschutzgesetzes macht jede solche Klausel von Rechts wegen nichtig, und wir beabsichtigen nicht, eine nichtige Klausel zu schreiben. Sind Sie Verbraucher, gibt es in diesen Bedingungen keine Haftungsobergrenze, keine Klausel über die Leistung im vorhandenen Zustand, keinen Rechtsverzicht und keine Beschränkung des Zugangs zu den Gerichten.\n\nJede Partei haftet für den Schaden, den sie durch Vertrags- oder Rechtsverstoß verursacht. Wir haften für den Betrieb der Plattform, die Auftragserfassung, die Zahlungsanforderung und die Sicherheit der von uns verarbeiteten Daten. Der Veranstalter haftet für die Durchführung der Veranstaltung und für die Pflichten aus Abschnitt 7. Gegenüber einem Verbraucher gehören wir jedoch derselben Lieferkette wie der Veranstalter an, und so stehen wir ein, mit Rückgriffsrecht gegen ihn für alles, was wir aufgrund eines ihm zurechenbaren Umstands zahlen.\n\nWir gewährleisten keinen geschäftlichen Erfolg, kein Verkaufsvolumen, keinen Besuch, keine Eignung einer Veranstaltung für eine persönliche Erwartung und kein Verhalten von Veranstaltern, Käufern und Dritten.\n\nIm Verhältnis zu einem Veranstalter und zu anderen Nutzern, die keine Verbraucher sind, und nur dort, haften wir nicht für entgangenen Gewinn, entgangene Gelegenheit oder mittelbaren Schaden und nicht für Schäden, die allein auf von ihnen gemachten unzutreffenden Angaben, auf dem Verhalten Dritter oder auf einem Umstand außerhalb angemessener Kontrolle beruhen.\n\nKeine Beschränkung erfasst in irgendeinem Verhältnis Vorsatz, Betrug, Verletzung der Vertraulichkeit, Verletzung des Datenschutzes, Verletzung geistigen Eigentums, Personenschäden, Verbraucherrechte oder eine andere Haftung, deren Beschränkung das Gesetz nicht zulässt."
+      },
+      "support": {
+        "title": "Support, Beschwerden und Fristen",
+        "content": "Der Supportkanal ist {supportEmail}, für Fragen, Auskünfte, Beschwerden, Rücktrittsverlangen, Stornierungen und Rückzahlungen. Wir bestätigen den Zugang Ihres Anliegens unverzüglich mit einer Vorgangsnummer und antworten klar und abschließend innerhalb von 5 Tagen, entsprechend Art. 4 des Dekrets 7.962/2013. Datenschutzangelegenheiten werden über den Kanal des Datenschutzbeauftragten, {dpoEmail}, innerhalb der in der Datenschutzerklärung genannten Fristen behandelt.\n\nWir versuchen, Angelegenheiten vor jedem anderen Weg unmittelbar zu lösen, und das ist keine Voraussetzung dafür, sich anderswohin zu wenden: Sie können sich jederzeit und ohne vorherige Kontaktaufnahme mit uns an die Procon-Stelle Ihres Bundesstaats oder Ihrer Gemeinde, an die Plattform consumidor.gov.br, an die Bagatellgerichte und allgemein an die Gerichte wenden. Keine Klausel dieser Bedingungen bedingt, beschränkt oder verzögert Ihren Zugang zu diesen Wegen.\n\nEine Beschwerde über die Durchführung der Veranstaltung ist auch an den Veranstalter zu richten, dessen Kennzeichnung auf der Veranstaltungsseite steht. Erhalten Sie von ihm keine Antwort, schreiben Sie uns, und wir vermitteln.\n\nEin in der Europäischen Union wohnhafter Verbraucher kann die in seinem Land verfügbaren Verfahren zur alternativen Streitbeilegung nutzen. Wir sind an keine bestimmte Schlichtungsstelle in Deutschland oder Spanien gebunden; sollte sich das ändern, teilen wir es hier mit."
       },
       "changes": {
         "title": "Änderungen dieser Bedingungen",
-        "content": "Wir können diese Bedingungen an Rechts-, Sicherheits- oder Dienständerungen anpassen. Version und Datum oben kennzeichnen den gültigen Text. Wesentliche Änderungen werden, soweit erforderlich, vor Wirksamwerden angemessen mitgeteilt.\n\nFortgesetzte Nutzung nach Inkrafttreten gilt als Annahme, unbeschadet einer nötigen gesonderten Einwilligung. Lehnen Sie eine wesentliche Änderung ab, können Sie die Nutzung vor Wirksamwerden beenden."
+        "content": "Die Version und die beiden Daten am Seitenkopf bezeichnen den Text: Das Datum des Inkrafttretens ist der Zeitpunkt, ab dem die Version gilt, und das Aktualisierungsdatum ist der Zeitpunkt der letzten Textänderung.\n\nEine wesentliche Änderung wird mindestens 30 Tage im Voraus per E-Mail und durch einen Hinweis im Produkt mitgeteilt, bevor sie wirksam wird, und gilt nur für die Zukunft. Eine Korrektur von Formulierungen, Rechtsverweisen oder Kontaktdaten kann unmittelbar veröffentlicht werden.\n\n! Eine Änderung dieser Bedingungen wirkt nicht rückwirkend auf einen bereits abgeschlossenen Kauf. Für Ihren Auftrag gelten die Bedingungen, die beim Kauf in Kraft waren, und das ist der Text, den wir mit der Auftragsbestätigung übersandt haben.\n\nStimmen Sie einer wesentlichen Änderung nicht zu, können Sie die Nutzung einstellen und das Konto vor deren Wirksamwerden kostenfrei schließen. Eine weitere Nutzung nach dem Inkrafttreten bedeutet Annahme des aktualisierten Textes und ersetzt keine besondere Einwilligung, wo diese erforderlich ist. Wir behalten uns kein Recht vor, Inhalt oder Qualität eines bereits beauftragten Dienstes einseitig zu ändern, was Art. 51 Nr. XIII des Verbraucherschutzgesetzes verbietet.\n\nFrühere Fassungen werden archiviert und jeder Person, die unter {supportEmail} fragt, mit einem Hinweis auf die Änderungen zur Verfügung gestellt."
+      },
+      "general": {
+        "title": "Allgemeine Bestimmungen",
+        "content": "Die Unwirksamkeit oder Nichtigkeit einer Klausel berührt die übrigen nicht, die wirksam bleiben, es sei denn, daraus ergäbe sich eine übermäßige Belastung für eine der Parteien, nach Art. 51 § 2 des Verbraucherschutzgesetzes.\n\nDas Hinnehmen eines Pflichtverstoßes bedeutet keinen Verzicht, keine Novation und keine Änderung des Vereinbarten.\n\nSie dürfen Ihre Stellung aus diesen Bedingungen nicht ohne unsere Zustimmung übertragen. Wir dürfen unsere bei einer Umstrukturierung oder Übertragung des Betriebs übertragen, unter Beibehaltung der vereinbarten Bedingungen und der Garantien der Datenschutzerklärung und mit vorheriger Ankündigung.\n\nBei Widersprüchen zwischen Dokumenten gilt die Rangfolge: erstens die anwendbare zwingende Rechtsnorm; sodann eine in einem Unternehmensvertrag geschlossene besondere Vereinbarung zur Auftragsverarbeitung, im Datenschutz; sodann die Datenschutzerklärung, im Datenschutz; sodann die in einem Angebot dargestellten besonderen Bedingungen, für dieses Angebot; und schließlich diese Bedingungen.\n\nDiese Bedingungen, die Datenschutzerklärung und die in einem Angebot dargestellten Bedingungen bilden die Vereinbarung der Parteien über die Nutzung der Plattform, unbeschadet eines gesondert geschlossenen Unternehmensvertrags."
       },
       "law": {
-        "title": "Anwendbares Recht und Streitigkeiten",
-        "content": "Es gilt das Recht der Föderativen Republik Brasilien. Die Parteien bemühen sich vor einem Gerichtsverfahren um eine einvernehmliche Lösung über den Support.\n\nBei Verbraucherverhältnissen bleiben der Gerichtsstand am Wohnsitz des Verbrauchers und alle Schutzrechte gewahrt. Sonst gilt ein unternehmerisch vereinbarter Gerichtsstand; fehlt er, sind vorbehaltlich zwingenden Rechts die Gerichte am Sitz des Betreibers zuständig."
+        "title": "Anwendbares Recht und Gerichtsstand",
+        "content": "Diese Bedingungen unterliegen dem Recht der Föderativen Republik Brasilien.\n\n! Sind Sie Verbraucher, können Sie Verfahren am Gerichtsstand Ihres eigenen Wohnsitzes einleiten, nach Art. 101 Nr. I des Verbraucherschutzgesetzes. Diese Bedingungen enthalten keine ausschließliche Gerichtsstandswahl gegen Sie und keine Klausel über eine zwingende Schiedsvereinbarung: Art. 51 Nr. VII des Verbraucherschutzgesetzes macht eine solche nichtig. Ein Schiedsverfahren kann nur durch echte Vereinbarung nach Entstehen einer Streitigkeit begründet werden.\n\nIn Verhältnissen, die keine Verbraucherverhältnisse sind, insbesondere mit einem Veranstalter in Unternehmensform, ist der Gerichtsstand der Sitz der Betreiberin, sofern nicht in einem Unternehmensvertrag ein anderer Gerichtsstand vereinbart ist, und die Parteien können ein Schiedsverfahren vereinbaren.\n\nFür Verbraucher mit gewöhnlichem Aufenthalt in der Europäischen Union, einschließlich Deutschlands und Spaniens, nimmt Ihnen die Wahl brasilianischen Rechts nicht den Schutz der zwingenden verbraucherschützenden Vorschriften Ihres Landes des gewöhnlichen Aufenthalts, nach Art. 6 der Verordnung (EG) 593/2008, und Sie können vor den Gerichten Ihres Wohnsitzes klagen und verklagt werden, nach Art. 17 bis 19 der Verordnung (EU) 1215/2012.\n\nDie Parteien suchen vor Anrufung der Gerichte eine gütliche Lösung über den Support, ohne dass dies Voraussetzung für den Zugang zur Justiz ist."
       },
       "contact": {
         "title": "Kontakt",
-        "content": "Fragen zu diesen Bedingungen, Verletzungshinweise oder Kontoanfragen senden Sie an {supportEmail}. Geben Sie genug zur Zuordnung von Konto und Anliegen an, aber senden Sie keine Passwörter oder Finanzdaten per E-Mail."
+        "content": "Vertragliche Angelegenheiten, Aufträge, Zahlungen, Rückzahlungen, Rücktritt, Inhaltsmeldungen und Beschwerden: {supportEmail}.\n\nAusübung von Datenschutzrechten und Fragen zur Datenschutzerklärung: {dpoEmail}.\n\nDie vollständige Kennzeichnung der Betreiberin mit Firmenname, Registernummer und physischer Anschrift steht im Block am Ende dieser Seite und in der Fußzeile der Website. Die Unternehmensseite ist {siteUrl}.\n\nGeben Sie beim Schreiben die Auftragsnummer und die E-Mail-Adresse des Kontos an; das genügt, um den Fall zu finden. Senden Sie kein Passwort, keine vollständige Kartennummer und kein Ausweisfoto per E-Mail: Wir brauchen diese Daten nicht und fragen sie nicht ab."
       }
     }
   },
   "privacyPolicy": {
     "title": "Datenschutzerklärung",
-    "metaDescription": "Wie Vozko Tickets personenbezogene Daten erhebt, nutzt, weitergibt und schützt.",
-    "intro": "Diese Erklärung beschreibt, wie {legalName} bei Bereitstellung von {productName} personenbezogene Daten verarbeitet: welche Daten, zu welchen Zwecken, mit wem sie geteilt werden und wie Rechte ausgeübt werden.",
+    "metaDescription": "Welche Daten Vozko Tickets verarbeitet, auf welcher Rechtsgrundlage, mit wem sie geteilt werden, wohin sie gehen und wie lange sie gespeichert bleiben.",
+    "intro": "Diese Erklärung beschreibt, wie {legalName} personenbezogene Daten in {productName} verarbeitet: was wir erheben, warum, auf welcher Rechtsgrundlage, mit wem wir sie teilen, in welche Länder sie gelangen und wie lange wir sie speichern. Sie ist zum Lesen geschrieben, nicht nur zum Akzeptieren. Für betroffene Personen in Brasilien ist die portugiesische Fassung maßgeblich.",
     "sections": {
-      "scope": {
-        "title": "Geltungsbereich",
-        "content": "Diese Erklärung gilt für Website, Dashboard, APIs, Support und verbundene Produktfunktionen. Sie umfasst Kontoinhaber, Veranstaltervertreter und, bei aktivierten Verkaufs- oder Check-in-Modulen, Käufer und Teilnehmer.\n\nUnabhängige Websites, Integrationen und Dienste haben eigene Richtlinien. Besondere Hinweise in einem Ablauf gelten für diese Verarbeitung und ergänzen dieses Dokument."
+      "summary": {
+        "title": "Zusammenfassung in einer Minute",
+        "content": "Diese Zusammenfassung dient der Orientierung. Sie ersetzt nicht die folgenden Abschnitte, die allein maßgeblich sind.\n\n• Für den Betrieb Ihres Kontos sind wir Verantwortliche. Für die Daten, die ein Veranstalter zu seiner eigenen Veranstaltung einträgt, sind wir Auftragsverarbeiter und der Veranstalter ist Verantwortlicher.\n• Für die Kontoerstellung fragen wir eine E-Mail-Adresse ab und vor dem ersten Kauf Ihren vollständigen Namen, ein Steueridentifikationsdokument und Ihr Geburtsdatum. Das Dokument ist erforderlich, um die PIX-Zahlungsanforderung zu erstellen, das Mindestalter zu prüfen und zu verhindern, dass zwei Konten dasselbe Dokument nutzen.\n• Steuernummer, rechtlicher Name, Geburtsdatum und Telefonnummer werden verschlüsselt gespeichert. Der Veranstalter sieht diese Felder nicht.\n• Wir erhalten niemals eine Kartennummer, eine Prüfziffer oder ein Bankpasswort. Die Zahlung erfolgt per PIX in Ihrer eigenen Banking-App.\n• Wir verwenden keine Analyse-Werkzeuge, kein Werbe-Pixel, kein Profiling, und wir verkaufen keine Daten. In dieser Anwendung gibt es kein Marketing-Cookie.\n• Wir verwenden Ihre Daten nicht, um Modelle künstlicher Intelligenz zu trainieren.\n• Sie können alle Rechte nach dem brasilianischen Datenschutzgesetz und, soweit anwendbar, nach der DSGVO unter {dpoEmail} ausüben."
+      },
+      "controller": {
+        "title": "Wer Verantwortlicher ist und wie Sie ihn erreichen",
+        "content": "Verantwortliche für die zur Bereitstellung von {productName} verarbeiteten Daten ist {legalName}. Firmenname, Registernummer und vollständige Anschrift stehen im Identifikationsblock am Ende dieses Dokuments und in der Fußzeile jeder Seite. Die Unternehmensseite ist {siteUrl}.\n\nDer Kanal zum Datenschutzbeauftragten, den Art. 41 des brasilianischen Datenschutzgesetzes und die ANPD-Resolution 18/2024 verlangen, ist {dpoEmail}. Nutzen Sie ihn, um Rechte auszuüben, Fragen zu dieser Erklärung zu stellen, den vollständigen Text der für internationale Übermittlungen verwendeten Standardvertragsklauseln anzufordern oder ein Anliegen zu melden. Der Beauftragte ist im Identifikationsblock benannt, und sein Name wird jeder Person mitgeteilt, die über diesen Kanal fragt.\n\nFür betroffene Personen im Europäischen Wirtschaftsraum ist der nach Art. 27 DSGVO erforderliche Vertreter im Identifikationsblock benannt. Der Vertreter ist nicht der Datenschutzbeauftragte, nimmt eine andere Funktion wahr und kann von europäischen Behörden und von in der Europäischen Union ansässigen betroffenen Personen anstelle des Verantwortlichen in Anspruch genommen werden.\n\nDiese Erklärung gilt für die Website, die öffentlichen Veranstaltungsseiten, das Veranstalter-Dashboard, die diese Ansichten bedienende Schnittstelle und den Support. Sie gilt nicht für die eigene Website eines Veranstalters, für das Zahlungsinstitut, das als unabhängiger Verantwortlicher unter eigenen Bedingungen handelt, und nicht für Dienste Dritter, die Sie über einen Link von uns erreichen."
       },
       "roles": {
-        "title": "Verantwortlichkeiten",
-        "content": "{legalName} ist Verantwortlicher für Daten, die zur Kontoerstellung, Vertragsabwicklung, Sicherung und Verwaltung von {productName}, Support und Erfüllung eigener Pflichten nötig sind.\n\nBei Käufer-, Gast- oder Teamdaten, die ein Veranstalter zur Durchführung eingibt, ist meist der Veranstalter Verantwortlicher und wir verarbeiten auf seine Weisung. Für Sicherheit, Betrugsabwehr, gesetzliche Aufzeichnungen und eigene Pflichten können wir Verantwortlicher sein."
+        "title": "Wann wir Verantwortliche und wann wir Auftragsverarbeiter sind",
+        "content": "Art. 9 Nr. VI des brasilianischen Datenschutzgesetzes verlangt Klarheit darüber, wer für welche Verarbeitung einsteht. Auf dieser Plattform wechselt die Rolle mit den Daten, und die folgende Tabelle ist die vollständige Übersicht.\n\n| Verarbeitung | Unsere Rolle | Wer den Zweck bestimmt |\n| --- | --- | --- |\n| Konto, Authentifizierung, Anmeldecode, Sitzungen | Verantwortliche | Wir |\n| Für den Kauf erforderliche Steueridentifikation | Verantwortliche | Wir, aufgrund gesetzlicher und vertraglicher Pflicht |\n| Auftrag, PIX-Zahlungsanforderung, Rückzahlung, Abstimmung | Verantwortliche | Wir |\n| Sicherheitsaufzeichnungen, Betrugsgrenzen, Zugriffsprotokolle | Verantwortliche | Wir |\n| Support und Kundenbetreuung | Verantwortliche | Wir |\n| Name, Beschreibung, Ort, Preise und Medien der Veranstaltung | Auftragsverarbeiter | Der Veranstalter |\n| Käuferdaten, die der Veranstalter im Dashboard einsieht | Auftragsverarbeiter | Der Veranstalter |\n| Eigene Kommunikation des Veranstalters an sein Publikum | Auftragsverarbeiter | Der Veranstalter |\n| Zahlungsdaten beim Zahlungsinstitut | Keine: unabhängiger Verantwortlicher | Das Zahlungsinstitut |\n\nSoweit wir Auftragsverarbeiter sind, verarbeiten wir die Daten nach den dokumentierten Weisungen des Veranstalters, wie Art. 39 des brasilianischen Datenschutzgesetzes es verlangt, und nutzen sie nicht für einen unvereinbaren eigenen Zweck. Erscheint uns eine Weisung rechtswidrig, teilen wir dies dem Veranstalter mit und können sie verweigern.\n\nEs gibt eine Tätigkeit, bei der die Entscheidung tatsächlich geteilt ist, und wir sagen es lieber, als es auszulassen: den Kaufvertrag über das Ticket selbst. Wir bestimmen den Kaufablauf, die Pflichtfelder, die Grenzen pro Konto und den Transaktionsdatensatz; der Veranstalter bestimmt die Veranstaltung, den Preis und die Einlassbedingungen. In dieser besonderen Tätigkeit, und nur dort, sind wir gemeinsam mit dem Veranstalter Verantwortliche nach Art. 26 DSGVO, soweit dieser anwendbar ist. Der wesentliche Inhalt der Vereinbarung ist dieser: Wir informieren Sie im Kaufvorgang und stehen für die Transaktionsdaten ein, der Veranstalter informiert Sie in seiner eigenen Erklärung und steht für die Veranstaltung ein, und Sie können Ihre Rechte gegenüber jedem von uns beiden ausüben, ohne wissen zu müssen, wie die Arbeit zwischen uns aufgeteilt ist."
       },
       "data": {
-        "title": "Verarbeitete Daten",
-        "content": "• Konto und Kontakt: Name, E-Mail, Rolle, Organisation und Spracheinstellungen.\n• Authentifizierung und Sicherheit: Passwort nur als Hash, Sitzungskennungen und -Hashes, IP-Adresse, Browser, Gerät, Zugriffszeit und Prüfprotokolle.\n• Veranstaltung und Inhalte: Namen, Beschreibungen, Ort, Stadt, Datum, Preise, Bestand, Status, Bilder und Videos. Diese können vom Veranstalter gewählte Personendaten enthalten.\n• Support: Nachrichten, Anhänge, Anfragen und Verlauf.\n• Verkauf und Einlass, wenn aktiviert: Bestellung, Ticket, Zahlungsstatus, Erstattung, Prüfung und Check-in. Vollständige Kartendaten bleiben beim Zahlungsabwickler.\n• Technik: Fehler- und Leistungsprotokolle, Netzwerkadresse und im Browser gespeicherte wesentliche Einstellungen."
+        "title": "Was wir verarbeiten, warum, auf welcher Grundlage und wie lange",
+        "content": "Dies ist die zentrale Tabelle dieser Erklärung. Jede Zeile ist ein Zweck und nicht bloß eine Kategorie, weil sich die Rechtsgrundlage je Zweck bestimmt. Die Fristen sind die von uns angewandten; der Abschnitt zur Speicherung erläutert die Ausnahmen, die sie verlängern können.\n\n| Daten | Konkrete Beispiele | Zweck | Grundlage im brasilianischen Recht | Grundlage in der DSGVO | Frist |\n| --- | --- | --- | --- | --- | --- |\n| Konto | E-Mail, Anzeigename, Rolle, unumkehrbar gespeichertes Passwort | Konto anlegen und authentifizieren | Art. 7 Nr. V | Art. 6 Abs. 1 lit. b | solange das Konto besteht |\n| Anmeldecode | verschlüsseltes Ziel, unumkehrbar gespeicherter Code, Versuchszähler | nachweisen, dass die E-Mail-Adresse oder Telefonnummer Ihnen gehört | Art. 7 Nr. V | Art. 6 Abs. 1 lit. b | 10 Minuten; der Datensatz wird bei Nutzung oder Ablauf gelöscht |\n| Steueridentifikation | Steuernummer oder Passnummer, rechtlicher Name, Geburtsdatum | PIX-Zahlungsanforderung erstellen, Mindestalter prüfen und zwei Konten mit einem Dokument verhindern | Art. 7 Nr. V und Art. 7 Nr. II | Art. 6 Abs. 1 lit. b und lit. c | solange das Konto besteht |\n| Telefonnummer | Nummer im internationalen Format, verschlüsselt | Anmeldecode über WhatsApp senden, wenn Sie diesen Kanal wählen | Art. 7 Nr. V | Art. 6 Abs. 1 lit. b | solange das Konto besteht |\n| Sitzung und Sicherheit | IP-Adresse, Browserkennung, Sitzungskennung, Zugriffszeitpunkte | angemeldet bleiben und missbräuchliche Sitzungsnutzung, Missbrauch und Betrug erkennen | Art. 7 Nr. II und Art. 7 Nr. IX | Art. 6 Abs. 1 lit. c und lit. f | 6 Monate nach Art. 15 des brasilianischen Internetgesetzes |\n| Auftrag und Zahlung | Positionen, Beträge, Status, Kennung der Zahlungsanforderung, Name, E-Mail und Dokument des Käufers, PIX-Code | Ticket verkaufen, Zahlung annehmen, rückzahlen und den Vorgang belegen | Art. 7 Nr. V und Art. 7 Nr. II | Art. 6 Abs. 1 lit. b und lit. c | 5 Jahre ab Abschluss des Auftrags |\n| Veranstaltung und Medien | Name, Beschreibung, Ort, Daten, Preise, Bestand, hochgeladene Bilder und Videos | Veranstaltung veröffentlichen und betreiben | Art. 7 Nr. V im Verhältnis zum Veranstalter | Art. 6 Abs. 1 lit. b | bis zur Löschung durch den Veranstalter oder Kontoschließung |\n| Nachrichten | Empfänger, verwendete Vorlage, auslösendes Ereignis, Zustellergebnis | Anmeldecode, offene Zahlungsanforderung und Zahlungsbestätigung senden | Art. 7 Nr. V | Art. 6 Abs. 1 lit. b | 7 Tage nach Abschluss des Versands |\n| Support | Nachrichten, Anhänge und Verlauf, die Sie uns senden | antworten und die Antwort dokumentieren | Art. 7 Nr. V und Art. 7 Nr. IX | Art. 6 Abs. 1 lit. b und lit. f | 5 Jahre |\n| Technische Aufzeichnungen | Fehler, Leistungszähler, Anfragekennung | Dienst betriebsfähig halten und Störungen eingrenzen | Art. 7 Nr. IX | Art. 6 Abs. 1 lit. f | 6 Monate |\n\n! Vollständiger Name, Ausweisdokument und Geburtsdatum sind Voraussetzung für einen Kauf: ohne sie kann die PIX-Zahlungsanforderung nicht erstellt und das Mindestalter nicht geprüft werden. Wir sagen dies hervorgehoben, weil Art. 9 § 3 des brasilianischen Datenschutzgesetzes verlangt, eine als Bedingung des Dienstes auferlegte Verarbeitung hervorgehoben offenzulegen und nicht in einer Aufzählung zu verstecken.\n\nFür ein Konto und zum Stöbern brauchen Sie weder Namen noch Dokument noch Geburtsdatum anzugeben. Für den Abschluss eines Kaufs brauchen Sie sie. Eine Ablehnung hat keine andere Folge, als dass der Auftrag nicht abgeschlossen werden kann."
       },
-      "collection": {
-        "title": "Herkunft der Daten",
-        "content": "Wir erhalten Daten direkt bei Kontoerstellung, Veranstaltungsanlage, Medienupload, Funktionsnutzung oder Supportkontakt. Technische und Sicherheitsdaten entstehen bei der Nutzung.\n\nVeranstalter können Teamdaten und in aktivierten Modulen Käufer- oder Teilnehmerdaten liefern. Authentifizierungs-, Zahlungs-, Speicher- und Infrastrukturpartner können nötige Bestätigungen und Kennungen zurückgeben."
+      "sensitive": {
+        "title": "Sensible Daten und Daten, die wir nicht erheben",
+        "content": "Wir fragen keine sensiblen Daten im Sinne von Art. 11 des brasilianischen Datenschutzgesetzes und Art. 9 DSGVO ab. Wir erheben keine rassische oder ethnische Herkunft, keine religiöse Überzeugung, keine politische Meinung, keine Gewerkschaftszugehörigkeit, keine Gesundheitsdaten, keine Daten zum Sexualleben, keine genetischen und keine biometrischen Daten.\n\nSteuernummer, Passnummer, rechtlicher Name und Geburtsdatum sind rechtlich keine sensiblen Daten, aber sie sind für Betrug hochwertige Kennungen, und wir behandeln sie mit der Sorgfalt, die sensiblen Daten geschuldet ist: Sie werden im Ruhezustand verschlüsselt, und die Oberfläche zeigt das Dokument nie vollständig an.\n\n• Wir erhalten zu keinem Zeitpunkt und über keinen Weg eine Kartennummer, Prüfziffer, Magnetstreifen- oder Chipdaten, ein Bankpasswort oder Bankzugangsdaten. In dieser Anwendung gibt es kein Kartenformular.\n• Wir erheben keine Wohnanschrift natürlicher Personen. Die von uns verarbeiteten Anschriften sind Veranstaltungsorte, angegeben vom Veranstalter.\n• Wir nutzen die Standortschnittstelle des Browsers nicht und erheben keinen genauen Gerätestandort.\n• Wir erheben keine Daten von Kindern und verarbeiten keine Ermäßigungsnachweise, Gutachten, Bescheinigungen oder Barrierefreiheitsdokumente: Diese Prüfung nimmt, wo sie stattfindet, der Veranstalter am Einlass vor.\n• Wir führen keine Gesichtserkennung und keine sonstige biometrische Identifizierung durch.\n\nNimmt ein Veranstalter sensible Daten in eine Veranstaltungsbeschreibung oder ein Bild auf, ist das seine Entscheidung, er ist Verantwortlicher dieses Inhalts und steht für die entsprechende Rechtsgrundlage ein."
       },
-      "purposes": {
-        "title": "Verwendungszwecke",
-        "content": "• Konten erstellen und authentifizieren, Sitzungen und Rechte verwalten.\n• Veranstaltungen, Kontingente, Bestand und Medien erfassen und anzeigen.\n• Bei aktivierten Modulen Bestellungen, Zahlungen, Ausgabe, Erstattung und Check-in verarbeiten.\n• Support leisten, Anfragen beantworten und Betriebsmitteilungen senden.\n• Betrug, Missbrauch und Vorfälle verhindern, Handlungen prüfen und Personen schützen.\n• Fehler beheben, Leistung messen und Funktionen verbessern.\n• Rechtliche und regulatorische Pflichten sowie gültige Anordnungen erfüllen; Ansprüche ausüben oder verteidigen.\n\nWir verkaufen keine personenbezogenen Daten und nutzen das Dashboard nicht für verhaltensbasierte Drittwerbung."
-      },
-      "bases": {
-        "title": "Rechtsgrundlagen",
-        "content": "Je nach Kontext verarbeiten wir zur Vertragserfüllung oder vorvertraglichen Maßnahme; zur Erfüllung rechtlicher oder regulatorischer Pflichten; Rechtsausübung in Verfahren; Schutz von Leben oder Sicherheit; für berechtigte Interessen nach Notwendigkeits- und Folgenprüfung; Betrugsprävention und Kreditschutz; und, wenn angegeben, mit Einwilligung.\n\nAls Auftragsverarbeiter bestimmt der Veranstalter die Grundlage. Einwilligung kann widerrufen werden; frühere oder anderweitig gestützte Verarbeitung bleibt unberührt."
-      },
-      "integrations": {
-        "title": "Integrationen und Vozko-Ökosystem",
-        "content": "Verbindet ein Veranstalter das Produkt mit Vozko oder einem anderen Dienst, können wir Konto- und Kontaktkennungen, Kauf- und Check-in-Ereignisse, Segmente, Präferenzen, Integrationsschlüssel, Synchronisierungsstatus und bei Einrichtung gewählte Felder senden und empfangen. Ein Fluss startet nur autorisiert oder wenn für eine gebuchte Funktion nötig.\n\nProdukte und Dritte können je nach Zweck Auftragsverarbeiter oder eigenständige Verantwortliche sein. Den maßgeblichen Kontext erklären wir bei Aktivierung. Veranstalter müssen Felder minimieren, Rechte prüfen, API-Zugangsdaten schützen und unnötige Verbindungen trennen."
-      },
-      "communications": {
-        "title": "Benachrichtigungen, Kampagnen und Präferenzen",
-        "content": "Nach Aktivierung verarbeiten wir Empfänger- und Kanaldaten, Inhalt und Vorlage, auslösendes Ereignis, Einwilligung oder Widerspruch, Sperrstatus, Zeit, Zustellung, Öffnung, Klick, Antwort und Fehler, soweit der Kanal dies liefert. So ermöglichen wir Bestätigungen, Erinnerungen, Betriebswarnungen, Kaufwiederaufnahme und erlaubtes Marketing.\n\nDer Veranstalter bestimmt Zweck und Grundlage von Nachrichten an sein Publikum. Wir und Vozko können zur Kampagnenausführung Auftragsverarbeiter und für Sicherheit, Missbrauchsabwehr, Abrechnung und eigene Pflichten Verantwortliche sein. Marketing muss einfachen Widerspruch oder Abmeldung bieten; Anfragen werden soweit technisch möglich an verbundene Systeme übertragen."
-      },
-      "sharing": {
-        "title": "Weitergabe und Dienstleister",
-        "content": "Wir teilen nur erforderliche Daten mit Anbietern für Hosting, Datenbank, Medienspeicher, Inhaltsauslieferung, E-Mail, Sicherheitsüberwachung, Support und, wenn aktiviert, Zahlung, Ticketausgabe, Vozko und Anbietern von WhatsApp, SMS, Push oder anderen Kanälen. Sie erhalten Weisungen und Vertraulichkeits- und Datenschutzpflichten.\n\nWeitergabe ist auch an den zuständigen Veranstalter, unterstützende Konzernunternehmen, Behörden bei gültiger Pflicht oder Anfrage und bei Umstrukturierungen mit Schutzmaßnahmen möglich. Personenlisten werden nicht gehandelt."
-      },
-      "transfers": {
-        "title": "Internationale Übermittlungen",
-        "content": "Einige Anbieter können Daten außerhalb Brasiliens verarbeiten oder speichern. Dann nutzen wir einen nach LGPD zulässigen Mechanismus und angemessene vertragliche, technische und organisatorische Garantien unter Beachtung der ANPD-Regeln.\n\nDer tatsächliche Ort hängt von der Infrastruktur des jeweiligen Umfelds ab. Weitere Informationen zu Anbieterkategorien können beim Datenschutzkontakt angefragt werden."
+      "sources": {
+        "title": "Woher die Daten kommen",
+        "content": "Der größte Teil kommt unmittelbar von Ihnen: beim Anlegen des Kontos, beim Vervollständigen des Profils vor dem ersten Kauf, beim Anlegen einer Veranstaltung, beim Hochladen eines Bildes und bei Kontakt mit dem Support.\n\nEin weiterer Teil entsteht durch die Nutzung, ohne dass Sie ihn eingeben: IP-Adresse, Browserkennung, Zugriffszeitpunkt, Fehleraufzeichnungen und Leistungszähler.\n\nIn drei Fällen erhalten wir Daten von Dritten, und Art. 14 DSGVO verlangt die Angabe der Quelle:\n\n• Vom Zahlungsinstitut: Status der Zahlungsanforderung, deren Kennung und das Ausführungsdatum.\n• Vom Veranstalter: die Daten, die er zur Veranstaltung und gegebenenfalls zu seinem Team einträgt.\n• Von Adressdiensten: Wenn Sie eine Postleitzahl eingeben oder im Veranstaltungsformular eine Adresse suchen, geht die Abfrage an einen öffentlichen Adressdienst, der Straße, Stadt und Koordinaten zurückgibt.\n\nWir kaufen keine Listen, wir reichern Datensätze nicht mit Daten Dritter an und wir nutzen keine Anmeldung über soziale Netzwerke."
       },
       "cookies": {
-        "title": "Cookies und lokaler Speicher",
-        "content": "Wir nutzen notwendige Cookies für Anmeldung, sichere Sitzungserneuerung und grundlegende Kontodaten. Zugriffs- und Erneuerungstoken werden als httpOnly-Cookies gesetzt; Sprache, Theme, Menü und Navigation können in Cookies oder lokalem Speicher liegen.\n\nDies sind wesentliche oder funktionale Techniken, derzeit nicht für zielgerichtete Werbung. Bei nicht wesentlicher Messung oder Werbung informieren wir und bieten nötige Einwilligungssteuerung. Blockieren wesentlicher Elemente kann Anmeldung und Nutzung verhindern."
+        "title": "Cookies und Speicherung in Ihrem Browser",
+        "content": "Diese Anwendung hat kein Werbe-Cookie, kein Analyse-Cookie, kein Pixel eines sozialen Netzwerks und kein Messskript Dritter. Es gibt keine Produkttelemetrie, keine Sitzungsaufzeichnung und kein Werkzeug für A/B-Tests. Deshalb gibt es kein Einwilligungsbanner: Es gibt keine nicht notwendige Verarbeitung, in die eingewilligt werden könnte.\n\n| Name | Funktion | Art | Dauer |\n| --- | --- | --- | --- |\n| accessToken | die Sitzung authentifiziert halten | notwendig | 15 Minuten |\n| refreshToken | die Sitzung ohne neue Anmeldung erneuern | notwendig | 30 Tage |\n| userData | Ihren Namen, Ihre E-Mail und Ihre Rolle anzeigen | notwendig, für die geöffnete Seite zugänglich | 30 Tage |\n| NEXT_LOCALE | die gewählte Sprache merken | notwendig | 1 Jahr |\n| theme | helles oder dunkles Erscheinungsbild merken, im lokalen Speicher | funktional | bis Sie den Browser leeren |\n| Dashboard-Einstellungen | eingeklapptes Menü und zuletzt geöffneten Bereich merken, im lokalen Speicher | funktional | bis Sie den Browser leeren |\n\n! Das Cookie userData enthält Ihren Namen, Ihre E-Mail-Adresse und Ihre Rolle und ist für die von Ihnen geöffnete Seite zugänglich. Die Sitzungscookies sind für Skripte nicht zugänglich.\n\nWerden die notwendigen Elemente blockiert, ist eine Anmeldung und die Nutzung des Dashboards nicht möglich. Sollten wir je nicht notwendige Messung oder Marketing einführen, holen wir vorher eine Einwilligung ein, mit klarer Möglichkeit zur Ablehnung und zum Widerruf, entsprechend den ANPD-Leitlinien zu Cookies und, für Personen in der Europäischen Union, Art. 5 Abs. 3 der Richtlinie 2002/58."
+      },
+      "browserCalls": {
+        "title": "Anfragen, die Ihr Browser an Dritte stellt",
+        "content": "Einige Ansichten laden Inhalte, die von Dritten bereitgestellt werden. In diesen Fällen spricht Ihr Browser unmittelbar mit ihnen, und Ihre IP-Adresse ist für diesen Dritten sichtbar, obwohl wir ihm nichts senden. Wir erklären das lieber, als es unausgesprochen zu lassen.\n\n• Die Karte auf der öffentlichen Veranstaltungsseite: Die Kartenausschnitte werden von einem offenen Kartenanbieter bereitgestellt. Öffnen Sie eine Veranstaltungsseite mit Ortsangabe, fordert Ihr Browser diese Ausschnitte ab, und der Anbieter sieht Ihre IP-Adresse.\n• Adresssuche im Veranstaltungsformular: Tippt ein Veranstalter eine Adresse, gehen Abfragen an einen Geokodierungsdienst, der die IP-Adresse der tippenden Person sieht.\n• Postleitzahlenabfrage: Die Abfrage richtet sich an einen öffentlichen Adressdienst, der die Netzadresse sieht, von der sie ausgeht.\n\nSchriftarten werden von unserer eigenen Domain bereitgestellt und nicht von einem externen Anbieter, gerade damit das Lesen einer Seite keine Anfrage an Dritte auslöst.\n\nKeine dieser Anfragen enthält Ihren Namen, Ihre E-Mail-Adresse, Ihr Dokument oder Ihre Kontokennung."
+      },
+      "bases": {
+        "title": "Rechtsgrundlagen und die Abwägung berechtigter Interessen",
+        "content": "Die Rechtsgrundlage jedes Zwecks steht in der Tabelle in Abschnitt 4. Die Vertragserfüllung deckt den größten Teil des Dienstes; die Erfüllung einer rechtlichen Pflicht deckt die Speicherung von Zugriffsprotokollen sowie steuer- und verbraucherrechtliche Fristen; das berechtigte Interesse deckt Sicherheit, Betrugsprävention und technische Instandhaltung.\n\nWo wir uns auf ein berechtigtes Interesse stützen, haben wir die dreistufige Prüfung nach den ANPD-Leitlinien und Art. 6 Abs. 1 lit. f DSGVO durchgeführt: Der Zweck ist, die Plattform sicher und verfügbar zu halten; die Erforderlichkeit folgt daraus, dass es kein weniger eingriffsintensives Mittel gibt, Wiederverwendung von Zugangsdaten, Missbrauch von Reservierungen und Zahlungsbetrug zu erkennen; und die Abwägung stützt sich auf konkrete Garantien, nämlich darauf, dass die Daten minimal sind, die Frist kurz ist, kein Profiling erfolgt, keine automatisierte Entscheidung über persönliche Merkmale getroffen wird und keine werbliche Nutzung stattfindet. Sie können jeder auf ein berechtigtes Interesse gestützten Verarbeitung unter {dpoEmail} widersprechen.\n\nWir stützen kein Marketing auf ein berechtigtes Interesse, weil wir über diese Plattform kein Marketing betreiben. Wir stützen den Dienst nicht allgemein auf eine Einwilligung, weil eine Einwilligung in etwas Unverzichtbares nicht freiwillig ist. Wo eine Einwilligung die Grundlage ist, wird sie bestimmt, hervorgehoben und jederzeit widerruflich sein, und ein Widerruf berührt die bereits erfolgte Verarbeitung nicht."
+      },
+      "sharing": {
+        "title": "Mit wem wir teilen und wer die Auftragsverarbeiter sind",
+        "content": "Wir teilen das Notwendige zu einem bestimmten Zweck und halten die Liste offen. Dies ist die vollständige Aufstellung der Dienstleister, die personenbezogene Daten in unserem Auftrag oder als unabhängige Verantwortliche verarbeiten können.\n\n| Dienstleister | Wofür | Wo verarbeitet wird | Übermittlungsmechanismus |\n| --- | --- | --- | --- |\n| Das im Kaufvorgang benannte Zahlungsinstitut | PIX-Zahlungsanforderung erstellen und ausführen, Rückzahlungen abwickeln | Brasilien | nicht anwendbar |\n| Anbieter für Transaktions-E-Mail | Anmeldecode, offene Zahlungsanforderung und Bestätigung senden | Vereinigte Staaten | ANPD-Standardvertragsklauseln, Anhang II der Resolution 19/2024 |\n| Anbieter für Medienspeicherung und Auslieferung | Bilder und Videos der Veranstaltung speichern und ausliefern | Vereinigte Staaten und globales Auslieferungsnetz | ANPD-Standardvertragsklauseln, Anhang II der Resolution 19/2024 |\n| Vozko-Plattform | Anmeldecode über WhatsApp zustellen | Brasilien | nicht anwendbar |\n| Dienst für Postleitzahlenabfrage | Postleitzahl in Adresse und Koordinaten umwandeln | Brasilien | nicht anwendbar |\n| Dienst für Adress-Geokodierung | Adresse im Veranstaltungsformular vervollständigen | Europäische Union | Angemessenheitsbeschluss, Art. 33 Nr. I des brasilianischen Datenschutzgesetzes |\n| Kartenanbieter | Kartenausschnitte auf der Veranstaltungsseite ausliefern | Europäische Union und globales Netz | Angemessenheitsbeschluss, Art. 33 Nr. I des brasilianischen Datenschutzgesetzes |\n| Hosting von Anwendung und Datenbank | den Dienst betreiben | auf Anfrage durch den Datenschutzbeauftragten mitgeteilt | je nach Hosting-Land |\n\nDarüber hinaus teilen wir mit dem für die Veranstaltung verantwortlichen Veranstalter in den Grenzen von Abschnitt 3, mit einer Behörde bei einem wirksamen Ersuchen und, bei einer Umstrukturierung, mit dem Rechtsnachfolger unter Beibehaltung der Garantien dieser Erklärung.\n\nZugriffsprotokolle werden nur auf richterliche Anordnung herausgegeben, in der von Art. 10, 22 und 23 des brasilianischen Internetgesetzes verlangten Form. Ein behördliches Ersuchen, das diese Form nicht einhält, wird abgelehnt. Wir verkaufen, vermieten und übertragen keine Datenbestände betroffener Personen, und es gibt keine Weitergabe für Werbung Dritter.\n\nÄnderungen dieser Liste werden auf dieser Seite zusammen mit einer Versionsaktualisierung veröffentlicht. Um vor Wirksamwerden über Änderungen informiert zu werden, schreiben Sie an {dpoEmail}."
+      },
+      "transfers": {
+        "title": "Internationale Übermittlung",
+        "content": "Einige der oben genannten Dienstleister verarbeiten Daten außerhalb Brasiliens. Art. 14 der ANPD-Resolution 19/2024 verlangt, diese Übermittlungen in einfacher und leicht zugänglicher Sprache zu beschreiben, was die Tabelle im vorigen Abschnitt spaltenweise leistet: wohin, wofür und mit welchem Mechanismus.\n\nDie Form der Übermittlung ist die Übersendung der für die beauftragte Funktion unbedingt erforderlichen Felder, für die Dauer der Leistungserbringung, zu dem in der Tabelle genannten bestimmten Zweck. Die derzeitigen Zielländer sind die Vereinigten Staaten und Länder der Europäischen Union sowie das globale Auslieferungsnetz für Bilder und Karten.\n\nFür Ziele in der Europäischen Union und im Europäischen Wirtschaftsraum ist der Mechanismus ein Angemessenheitsbeschluss nach Art. 33 Nr. I des brasilianischen Datenschutzgesetzes. Seit der ANPD-Resolution 32/2026 und dem Durchführungsbeschluss (EU) 2026/179 erkennen Brasilien und die Europäische Union einander als angemessen an, und diese Übermittlungen erfordern keine zusätzliche Vertragsklausel. Für alle anderen Ziele, einschließlich der Vereinigten Staaten, verwenden wir die ANPD-Standardvertragsklauseln vollständig und unverändert nach Anhang II der Resolution 19/2024, zusammen mit einer Bewertung der Rechtslage des Ziellandes.\n\nSie haben das Recht, den vollständigen Text der für Ihren Fall geltenden Klauseln zu erhalten. Schreiben Sie an {dpoEmail}, und wir antworten innerhalb von 15 Tagen, wie Art. 17 dieser Resolution es verlangt, vorbehaltlich von Geschäftsgeheimnissen. Weiterübermittlungen eines Dienstleisters an einen eigenen Unterauftragsverarbeiter unterliegen vertraglich denselben Pflichten und demselben Mechanismus.\n\nSie können sich zu jeder hier beschriebenen Übermittlung an die brasilianische Datenschutzbehörde und, wenn Sie in der Europäischen Union sind, an die Aufsichtsbehörde Ihres Landes wenden."
       },
       "retention": {
         "title": "Speicherung und Löschung",
-        "content": "Konto- und Veranstaltungsdaten bleiben bei aktivem Konto und solange zur Leistung nötig. Sitzungen bleiben bis Ablauf oder Widerruf; Veranstaltungsinhalte bis Nutzerlöschung oder Kontoschließung, vorbehaltlich Warteschlangen und temporärer Sicherungen.\n\nDanach löschen oder anonymisieren wir, außer Daten sind für Rechtspflicht, Betrugsabwehr, Prüfung, Sicherheit, Ansprüche oder Verjährung nötig. Fristen variieren nach Kategorie, Vertrag und Modul."
+        "content": "Die Fristen je Zweck stehen in der Tabelle in Abschnitt 4. Dieser Abschnitt erläutert, woher sie kommen und was sie verlängern kann.\n\n| Daten | Frist | Grundlage |\n| --- | --- | --- |\n| Zugriffsprotokolle der Anwendung | 6 Monate | Art. 15 des brasilianischen Internetgesetzes, verpflichtende und vertrauliche Speicherung |\n| Auftrag, Zahlung und zugehöriger Beleg | 5 Jahre | Wiedergutmachungsfrist des Art. 27 des Verbraucherschutzgesetzes und steuerliche Fristen |\n| Konto und Steueridentifikation | solange das Konto besteht, und 5 Jahre nach dem letzten Kauf | Vertragserfüllung und Verteidigung innerhalb der Verjährungsfrist |\n| Anmeldecode | 10 Minuten, gelöscht bei Nutzung | Erforderlichkeit |\n| Transaktionsnachricht | 7 Tage nach Abschluss des Versands | Erforderlichkeit |\n| Aufzeichnung eines Sicherheitsvorfalls | mindestens 5 Jahre | Art. 10 der ANPD-Resolution 15/2024 |\n| Einwilligungsnachweise, soweit vorhanden | für die Dauer der Beziehung und der Verjährungsfrist | Art. 8 § 2 des brasilianischen Datenschutzgesetzes, Beweislast |\n| Als Auftragsverarbeiter für einen Veranstalter verarbeitete Daten | nach seinen Weisungen, gelöscht oder zurückgegeben bei Beendigung | Art. 15 und 16 des brasilianischen Datenschutzgesetzes |\n\nNach Ablauf der Frist werden die Daten gelöscht oder anonymisiert. Eine längere Aufbewahrung ist nur in den Fällen des Art. 16 des brasilianischen Datenschutzgesetzes möglich: Erfüllung einer rechtlichen oder regulatorischen Pflicht, reguläre Rechtsausübung einschließlich in Verfahren, und ausschließliche Nutzung durch den Verantwortlichen in anonymisierter Form. Betrugsprävention und die Aufklärung eines Vorfalls tragen die Aufbewahrung ebenfalls, für die Dauer der Aufklärung.\n\nSicherungskopien können einen Datensatz nach der Löschung für ein kurzes Intervall halten, bis diese Medien regulär rotieren. Gelöschte Medien verlassen den Speicher unmittelbar, können aber über das Auslieferungsnetz erreichbar bleiben, bis die vorübergehende Kopie abläuft."
       },
       "security": {
         "title": "Sicherheit",
-        "content": "Wir setzen risikogerechte technische und organisatorische Maßnahmen ein: Zugriffskontrolle, gehashte Passwörter, geschützte und rotierte Sitzungstoken, Upload-Typ- und Größenlimits, logische Trennung, Sicherungen und umgebungsgerechte Überwachung.\n\nKein System ist unverwundbar. Nutzen Sie starke Passwörter, beschränken Sie Zugriffe und melden Sie Verdächtiges. Senden Sie keine Passwörter, vollständigen Kartendaten oder sensiblen Dokumente über unaufgeforderte Kanäle."
-      },
-      "rights": {
-        "title": "Rechte betroffener Personen",
-        "content": "Nach LGPD können Sie Bestätigung und Zugang, Berichtigung, Auskunft zur Weitergabe, Anonymisierung, Sperrung oder Löschung unnötiger oder rechtswidrig verarbeiteter Daten, regulierte Übertragbarkeit, Löschung einwilligungsbasierter Daten, Information zu Folgen verweigerter Einwilligung, Widerruf, Widerspruch und gegebenenfalls Prüfung automatisierter Entscheidungen verlangen.\n\nSenden Sie Anfragen an {dpoEmail}. Zur Betrugsabwehr können wir Identität und Kontext prüfen. Anfragen sind kostenlos, vorbehaltlich gesetzlicher Fristen und begründeter Aufbewahrung oder Ablehnung. Sie können sich auch an ANPD und Verbraucherschutzstellen wenden."
-      },
-      "organizerData": {
-        "title": "Vom Veranstalter kontrollierte Daten",
-        "content": "Betrifft eine Anfrage Kauf, Einladung oder Besuch einer bestimmten Veranstaltung, bestimmt meist der Veranstalter den Zweck und sollte zuerst kontaktiert werden. Als Auftragsverarbeiter leiten wir Anfragen weiter oder unterstützen.\n\nVeranstalter müssen eigene Datenschutzhinweise bieten, nur Erforderliches erheben, Aufbewahrung und Grundlage bestimmen, Rechte erfüllen und Plattformdaten nicht zweckwidrig nutzen."
-      },
-      "children": {
-        "title": "Kinder und Jugendliche",
-        "content": "Verwaltungskonten sind für Personen ab 18 Jahren. Die Plattform will nicht direkt Daten von Kindern zur Kontoerstellung erheben.\n\nVeranstaltungen können Minderjährige zulassen. Der Veranstalter muss Sorgeberechtigte informieren, das Kindeswohl beachten, wo nötig besondere und hervorgehobene Einwilligung einholen und die Erhebung nach LGPD und brasilianischem Kinder- und Jugendstatut auf das Notwendige begrenzen."
+        "content": "Wir wenden technische und administrative Sicherheitsmaßnahmen an, die dem Risiko angemessen sind, wie Art. 46 des brasilianischen Datenschutzgesetzes und Art. 32 DSGVO es verlangen. In Begriffen, die für Sie zählen, ist dies das Zugesagte.\n\n• Passwort und Anmeldecode werden nie in lesbarer Form gespeichert, sondern nur unumkehrbar. Der Anmeldecode hat eine kurze Gültigkeit, eine Versuchsgrenze und eine Sendegrenze.\n• Ausweisdokument, rechtlicher Name, Geburtsdatum und Telefonnummer werden im Ruhezustand verschlüsselt. Die Oberfläche zeigt das Dokument nie vollständig an, und der Veranstalter hat keinen Zugang zu diesen Feldern.\n• Der Kontozugang erfolgt über eine befristete Sitzung, die widerrufen werden kann, und der Datenverkehr ist durch TLS geschützt.\n• Wir wenden Versuchs- und Nutzungsgrenzen an, um Missbrauch, das Ausspähen von Konten und Betrug einzudämmen.\n• Der Medien-Upload ist auf bestimmte Typen und Größen beschränkt.\n• Wir speichern keine Kartendaten, kein Bankpasswort und keine Bankzugangsdaten.\n\nWir behaupten keine Zertifizierung nach ISO 27001 und keinen SOC-2-Bericht, weil wir sie nicht haben. Kein System ist unverwundbar: Verwenden Sie ein starkes Passwort, nutzen Sie Zugangsdaten nicht mehrfach und melden Sie auffällige Aktivität an {dpoEmail}. Wir versenden nie eine Aufforderung zur Angabe eines Passworts, einer vollständigen Dokumentnummer oder von Bankdaten per E-Mail oder Nachricht, und wir fragen nie Ihren Anmeldecode ab: Wer das tut, sind nicht wir."
       },
       "incidents": {
         "title": "Sicherheitsvorfälle",
-        "content": "Wir bewerten und bearbeiten bestätigte Vorfälle. Kann ein Vorfall mit personenbezogenen Daten ein relevantes Risiko oder einen Schaden verursachen, meldet der Verantwortliche ihn der ANPD und Betroffenen innerhalb der geltenden Fristen und mit vorgeschriebenem Inhalt.\n\nAls Auftragsverarbeiter informieren wir den Veranstalter ohne unangemessene Verzögerung und unterstützen Prüfung, Eindämmung und Mitteilungen."
+        "content": "Ein Vorfall ist nach Art. 3 Nr. XII der ANPD-Resolution 15/2024 ein bestätigtes nachteiliges Ereignis, das die Vertraulichkeit, Integrität, Verfügbarkeit oder Authentizität personenbezogener Daten betrifft.\n\nKann ein Vorfall ein erhebliches Risiko oder einen erheblichen Schaden im Sinne von Art. 5 dieser Resolution verursachen, benachrichtigen wir die brasilianische Datenschutzbehörde und die betroffenen Personen innerhalb von 3 Werktagen ab der Bestätigung, dass personenbezogene Daten betroffen waren. Die Mitteilung an die betroffene Person erfolgt in einfacher Sprache und, soweit möglich, einzeln und unmittelbar, und sie nennt die Art der Daten, die Risiken und möglichen Folgen, die getroffenen Maßnahmen, den Zeitpunkt unserer Kenntnis und den Kontakt des Datenschutzbeauftragten. Da wir Steueridentifikationsdokumente und Zahlungsreferenzen halten, gehen wir in der Arbeitsannahme davon aus, dass die Schwelle des erheblichen Risikos in den meisten Fällen erreicht ist, und nicht umgekehrt.\n\nSind betroffene Personen in der Europäischen Union betroffen, benachrichtigen wir die zuständige Aufsichtsbehörde innerhalb von 72 Stunden nach Art. 33 DSGVO und unterrichten die betroffenen Personen bei hohem Risiko nach Art. 34.\n\nWir führen ein Verzeichnis aller Vorfälle, einschließlich der nicht mitgeteilten und der Gründe für die Nichtmitteilung, für mindestens 5 Jahre, wie Art. 10 derselben Resolution es verlangt.\n\nBetrifft ein Vorfall Daten, für die wir Auftragsverarbeiter sind, benachrichtigen wir den verantwortlichen Veranstalter unverzüglich und jedenfalls innerhalb von 24 Stunden nach Bestätigung, damit er seine eigene Frist einhalten kann, und unterstützen ihn bei Eindämmung, Aufklärung und geschuldeten Mitteilungen."
+      },
+      "automated": {
+        "title": "Automatisierte Entscheidungen und Profiling",
+        "content": "Art. 20 des brasilianischen Datenschutzgesetzes und Art. 13 Abs. 2 lit. f DSGVO verlangen, dass Sie wissen, welche Automatisierung Sie betrifft. Sie ist diese: Eine Reservierung läuft ab, wenn ihre Zeit endet, und die Tickets gehen zurück in den Verkauf; es gibt eine Grenze offener Aufträge je Konto und reservierter Tickets je Kategorie; ein Ausweisdokument kann nicht mit zwei Konten verknüpft werden; und der Auftragsstatus folgt der Bestätigung der Zahlung durch das Zahlungsinstitut.\n\nDiese Regeln wenden auf alle dasselbe Kriterium an, berücksichtigen nur Daten des Vorgangs selbst und bewerten Sie nicht. Es gibt kein Kredit-Scoring, keinen Risikowert auf Grundlage persönlicher Merkmale, kein verhaltensbezogenes Profiling, keine zielgerichtete Werbung und keine automatisierte Entscheidung, die Ihre Persönlichkeit, Ihr Verhalten oder Ihre wirtschaftliche Lage im Sinne von Art. 20 des brasilianischen Datenschutzgesetzes und Art. 22 DSGVO bewertet.\n\nWenn Sie dennoch von einer dieser automatischen Regeln betroffen sind und eine Überprüfung wünschen, schreiben Sie an {dpoEmail}. Ein Mensch prüft den Fall, nennt das angewandte Kriterium und hebt die Wirkung gegebenenfalls auf. Sie müssen keinen Fehler nachweisen, um die Überprüfung zu verlangen.\n\nWir verwenden auf dieser Plattform verarbeitete personenbezogene Daten nicht, um Modelle künstlicher Intelligenz zu trainieren, nachzujustieren oder zu bewerten, weder eigene noch die Dritter."
+      },
+      "rights": {
+        "title": "Ihre Rechte und wie Sie sie ausüben",
+        "content": "Art. 18 des brasilianischen Datenschutzgesetzes gewährleistet die folgenden Rechte, und Art. 9 Nr. VII verlangt, sie ausdrücklich aufzuführen und nicht nur zu verweisen. Für Personen in der Europäischen Union gewährleisten Art. 15 bis 22 DSGVO gleichwertige Rechte, mit den angegebenen Unterschieden.\n\n| Recht | Was es bedeutet | Antwortfrist |\n| --- | --- | --- |\n| Bestätigung und Auskunft | erfahren, ob wir Ihre Daten verarbeiten, und eine Kopie erhalten | unmittelbar in vereinfachter Form oder vollständige Erklärung innerhalb von 15 Tagen |\n| Berichtigung | unvollständige, unrichtige oder veraltete Daten berichtigen | 15 Tage |\n| Anonymisierung, Sperrung oder Löschung | bei nicht erforderlichen, übermäßigen oder rechtswidrig verarbeiteten Daten | 15 Tage |\n| Datenübertragbarkeit | die Daten strukturiert erhalten oder an einen anderen Anbieter übermitteln lassen | 15 Tage, nach der anwendbaren Regelung |\n| Löschung einwilligungsbasierter Daten | löschen, was allein auf Ihrer Einwilligung beruhte | 15 Tage |\n| Auskunft über Weitergabe | erfahren, mit wem wir teilen und warum | 15 Tage |\n| Auskunft über die Folgen einer Ablehnung | erfahren, was geschieht, wenn Sie ablehnen | unmittelbar |\n| Widerruf der Einwilligung | die Einwilligung zurücknehmen, ohne Rückwirkung | unmittelbar |\n| Widerspruch | einer auf berechtigtes Interesse oder eine Einwilligungsausnahme gestützten Verarbeitung widersprechen | 15 Tage |\n| Überprüfung einer automatisierten Entscheidung | die Prüfung durch einen Menschen verlangen | 15 Tage |\n| Einschränkung der Verarbeitung, nach der DSGVO | die Nutzung einschränken, solange Richtigkeit oder Widerspruch geklärt werden | 1 Monat, um 2 verlängerbar |\n\nSenden Sie das Verlangen an {dpoEmail}. Es ist kostenfrei. Wir können zusätzliche Angaben verlangen, um zu prüfen, dass Sie die genannte Person sind, aber nur das unbedingt Erforderliche: Wir verlangen für ein Auskunftsverlangen kein Ausweisfoto und kein Selbstbildnis. Lehnen wir ganz oder teilweise ab, nennen wir den Grund und was Sie anschließend tun können.\n\nEin Löschverlangen erfasst nicht, was das Gesetz uns zu speichern auferlegt: Zugriffsprotokolle für die gesetzliche Frist, steuerliche und buchhalterische Aufzeichnungen, zur Rechtsverteidigung erforderliche Daten und Vorfallaufzeichnungen. In diesen Fällen löschen wir das Löschbare und erläutern, was bleibt, wie lange und auf welcher Grundlage.\n\nSie können sich unmittelbar bei der brasilianischen Datenschutzbehörde, bei Verbraucherschutzstellen einschließlich Procon und der Plattform consumidor.gov.br und, wenn Sie in der Europäischen Union sind, bei der Aufsichtsbehörde Ihres Wohnsitzlandes nach Art. 77 DSGVO beschweren. Eine Beschwerde bei einer Behörde setzt keine vorherige Kontaktaufnahme mit uns voraus, aber der Weg über {dpoEmail} ist fast immer schneller."
+      },
+      "communications": {
+        "title": "Nachrichten, die wir senden",
+        "content": "Heute senden wir genau drei Arten von Nachrichten, alle transaktionsbezogen und jede durch eine Handlung von Ihnen ausgelöst:\n\n• den Anmeldecode, per E-Mail oder WhatsApp, wenn Sie sich anmelden möchten;\n• die Mitteilung über die offene Zahlungsanforderung, mit dem PIX-Code und der Reservierungsfrist, wenn Sie einen Auftrag abschließen;\n• die Zahlungsbestätigung, mit dem Belegt und den Veranstaltungsdaten, wenn die Zahlung ausgeführt ist.\n\nWir senden keinen Newsletter, keine Werbung, keine Erinnerung an einen abgebrochenen Kauf und keine Nachricht zu einer Veranstaltung, die Sie nicht gekauft haben. Es gibt auf dieser Plattform keine Marketingliste und daher nichts abzubestellen.\n\n! Eine transaktionsbezogene Nachricht hat keine Abbestellung. Sie ist Teil der Durchführung des Kaufs: ohne den Anmeldecode kommen Sie nicht hinein, und ohne die Bestätigung haben Sie keinen Beleg. Wenn Sie sie nicht erhalten möchten, ist der Weg, den Kauf nicht abzuschließen oder das Konto zu schließen.\n\nSollten wir je Marketingnachrichten senden, setzen sie eine bestimmte und hervorgehobene Erklärung von Ihnen voraus, enthalten in jeder Nachricht eine Abbestellung mit einem Klick, achten das brasilianische Werbewiderspruchsregister und die Vorgaben der Telekommunikationsbehörde, und die Einwilligung ist jederzeit widerruflich. Marketing über WhatsApp folgt zusätzlich den Meta-Richtlinien für geschäftliche Nachrichten, einschließlich der zutreffenden Einordnung der Nachrichtenvorlage. Nichts davon ist aktiv, und diese Erklärung wird vorher aktualisiert.\n\nSendet ein Veranstalter Mitteilungen an sein eigenes Publikum über ein Werkzeug von uns, ist er Verantwortlicher dieser Mitteilung, steht für die Rechtsgrundlage jedes Empfängers ein, und wir handeln als Auftragsverarbeiter."
+      },
+      "children": {
+        "title": "Kinder und Jugendliche",
+        "content": "Ein Konto auf dieser Plattform ist für Personen ab 18 Jahren. Das Alter wird tatsächlich gegen das vor dem ersten Kauf angegebene Geburtsdatum geprüft, nicht über ein Kontrollkästchen: Wer unter 18 ist, kann die Registrierung, die den Kauf freischaltet, nicht abschließen.\n\nDiese Wahl ist bewusst getroffen. Ein Ticket für eine minderjährige Person wird von einer erwachsenen Person in deren Namen gekauft, was am Einlass ohnehin so gehandhabt wird. Damit verarbeiten wir zum Betrieb von Konten keine Daten von Kindern oder Jugendlichen und sind nicht auf die Einwilligung der Erziehungsberechtigten nach Art. 14 § 1 des brasilianischen Datenschutzgesetzes, auf das Einwilligungsalter nach Art. 8 DSGVO oder auf das Regime der mit einem Erziehungsberechtigten verknüpften Konten des Gesetzes 15.211/2025 angewiesen.\n\nWir betreiben unter keinen Umständen Profiling, Segmentierung oder zielgerichtete Werbung gegenüber Personen, die als unter 18 Jahre alt erkennbar sind.\n\nVeranstaltungen können Kinder und Jugendliche zulassen, und dies entscheidet der Veranstalter. Er ist dafür verantwortlich, die Altersfreigabe, die Regel zur Begleitung durch eine erziehungsberechtigte Person und ein etwaiges Erfordernis einer gerichtlichen Genehmigung anzugeben, sie vor dem Kauf offenzulegen und am Einlass zu prüfen, entsprechend dem brasilianischen Kinder- und Jugendgesetz. Erhebt ein Veranstalter Daten einer minderjährigen Person zum Betrieb der Veranstaltung, ist er Verantwortlicher dieser Daten, muss das Kindeswohl beachten und seine eigene Datenschutzerklärung vorlegen.\n\nEine erziehungsberechtigte Person, die Daten einer minderjährigen Person, die zu uns gelangt sind, einsehen, berichtigen oder löschen lassen möchte, kann an {dpoEmail} schreiben; das Verlangen wird vorrangig behandelt."
+      },
+      "organizerData": {
+        "title": "Daten unter der Kontrolle des Veranstalters",
+        "content": "Betrifft Ihr Verlangen eine bestimmte Veranstaltung, eine Gästeliste oder Ihre Teilnahme an einer Veranstaltung, ist es in der Regel der Veranstalter, der den Zweck bestimmt, und das Verlangen sollte zuerst an ihn gehen. Seine Datenschutzerklärung ist für diese Verarbeitung maßgeblich.\n\nWenden Sie sich dennoch an uns, leiten wir das Verlangen innerhalb von 5 Werktagen an den Veranstalter weiter und teilen Ihnen unter Benennung des Veranstalters mit, dass wir es getan haben. Soweit wir Auftragsverarbeiter sind, leisten wir die technische Unterstützung, die er für seine Antwort braucht. Dies nimmt Ihnen nicht das Recht, uns hinsichtlich unserer eigenen Verarbeitung anzusprechen, und in der in Abschnitt 3 beschriebenen gemeinsam verantworteten Tätigkeit nicht das Recht, das Verlangen gegenüber jedem von uns beiden zu erheben.\n\nDer Veranstalter übernimmt seinerseits in den Nutzungsbedingungen die Pflicht, seine eigene Datenschutzerklärung vorzulegen, nur das Erforderliche zu erheben, eine Rechtsgrundlage zu haben, Speicherfristen festzulegen, betroffene Personen zu bescheiden und über die Plattform erlangte Daten nicht für einen mit dem rechtfertigenden Zweck unvereinbaren Zweck zu nutzen."
+      },
+      "photography": {
+        "title": "Fotografie und Filmaufnahmen bei der Veranstaltung",
+        "content": "Bild- und Tonaufnahmen am Veranstaltungsort sind Tätigkeit des Veranstalters oder der von ihm beauftragten Person und nicht unsere. Der Veranstalter ist Verantwortlicher dieser Verarbeitung, bestimmt die Rechtsgrundlage, steht für die Beschilderung vor Ort und die vorherige Unterrichtung des Publikums ein und haftet in verstärktem Maß, wenn Kinder oder Jugendliche abgebildet sind.\n\nDie Plattform speichert und liefert die Bilder und Videos aus, die der Veranstalter zur Bewerbung der Veranstaltung hochlädt. In dieser Rolle sind wir Auftragsverarbeiter: Wir wählen den Inhalt nicht aus, wir erkennen keine Personen und wir indexieren keine Gesichter.\n\nErscheinen Sie auf einem Bild, das auf einer Veranstaltungsseite veröffentlicht ist, und möchten Sie die Entfernung, schreiben Sie an {dpoEmail} und nennen Sie die Seite und, wenn möglich, die Stelle im Bild. Wir entfernen es oder leiten das Verlangen entsprechend der jeweiligen Rolle an den Veranstalter weiter und teilen Ihnen mit, was geschehen ist. Das Recht am eigenen Bild ist durch Art. 20 des brasilianischen Zivilgesetzbuchs und, bei Minderjährigen, durch Art. 17 des Kinder- und Jugendgesetzes geschützt, unabhängig davon, ob für die übrige Verarbeitung eine Rechtsgrundlage besteht."
+      },
+      "regional": {
+        "title": "Regionale Hinweise",
+        "content": "Der Dienst wird aus Brasilien betrieben, rechnet in brasilianischen Real ab und nutzt PIX als Zahlungsmittel. Das brasilianische Datenschutzgesetz ist das vorrangige Regime.\n\nFür betroffene Personen im Europäischen Wirtschaftsraum, einschließlich Deutschlands, gilt die DSGVO, soweit wir Ihnen den Dienst anbieten: Es gelten die Rechtsgrundlagen der entsprechenden Spalte der Tabelle in Abschnitt 4, der im Identifikationsblock benannte Vertreter nach Art. 27, die Rechte aus Art. 15 bis 22, die Frist von einem Monat mit Verlängerung um zwei nach Art. 12 Abs. 3 und das Recht auf Beschwerde bei der Aufsichtsbehörde Ihres Landes nach Art. 77. Da wir keine Niederlassung in der Europäischen Union haben, gibt es keine federführende Behörde und keine einheitliche Anlaufstelle: Zuständig ist die Behörde Ihres eigenen Wohnsitzlandes.\n\nFür betroffene Personen in Spanien und im spanischsprachigen Lateinamerika ist die spanische Fassung dieser Erklärung der Bezugstext, und für in Spanien Wohnhafte ist die spanische Datenschutzagentur die zuständige Behörde.\n\nWir veröffentlichen diese Erklärung auf Portugiesisch, Englisch, Deutsch und Spanisch. Die portugiesische Fassung ist für betroffene Personen in Brasilien maßgeblich, wie Art. 31 des Verbraucherschutzgesetzes es verlangt. Für Verbraucher mit Wohnsitz in Deutschland und Spanien ist die Fassung in der Sprache des jeweiligen Landes maßgeblich, und keine Sprachvorrangklausel nimmt Ihnen den Schutz des zwingenden Rechts Ihres Landes des gewöhnlichen Aufenthalts."
       },
       "changes": {
         "title": "Änderungen dieser Erklärung",
-        "content": "Wir können diese Erklärung bei Produkt-, Anbieter- oder Rechtsänderungen aktualisieren. Version und Datum oben zeigen den gültigen Text. Wesentliche Änderungen werden geeignet hervorgehoben; nötigenfalls holen wir neue Einwilligung ein.\n\nFrühere Fassungen können beim Datenschutzkontakt angefordert werden. Prüfen Sie dieses Dokument regelmäßig."
+        "content": "Die Version und die beiden Daten am Seitenkopf bezeichnen den Text: Das Datum des Inkrafttretens ist der Zeitpunkt, ab dem die Version gilt, und das Aktualisierungsdatum ist der Zeitpunkt der letzten Textänderung. Beide müssen nicht zusammenfallen, und maßgeblich ist die geltende Fassung.\n\nEine wesentliche Änderung, etwa ein neuer Zweck, eine neue Rechtsgrundlage, ein neuer Dienstleister mit Zugang zu personenbezogenen Daten, ein neues Zielland oder eine längere Speicherfrist, wird mindestens 30 Tage im Voraus per E-Mail an Kontoinhaber und durch einen Hinweis im Produkt angekündigt, bevor sie wirksam wird. Eine Korrektur von Formulierungen, Rechtsverweisen oder Kontaktdaten kann unmittelbar veröffentlicht werden.\n\nWürde eine Änderung eine Verarbeitung zu einem mit dem Erhebungszweck unvereinbaren Zweck bedeuten, teilen wir dies vorher und hervorgehoben mit, und Sie können die Einwilligung widerrufen oder widersprechen, nach Art. 9 § 2 des brasilianischen Datenschutzgesetzes.\n\nFrühere Fassungen werden archiviert und jeder Person, die unter {dpoEmail} fragt, zusammen mit einem Hinweis auf die Änderungen zur Verfügung gestellt."
       },
       "contact": {
-        "title": "Verantwortlicher und Datenschutzkontakt",
-        "content": "Der Datenschutzkontakt von {legalName} ist {dpoEmail}. Nutzen Sie ihn für Rechte, Fragen zu dieser Erklärung oder Datenschutzbedenken. Die Unternehmenswebsite ist {siteUrl}.\n\nSenden Sie keine Passwörter, Karten oder vollständigen Dokumente. Geben Sie nur das Nötige an, um die Beziehung zuzuordnen und Ihre Identität sicher zu prüfen."
+        "title": "Identifikation, Kontakt und Beschwerdewege",
+        "content": "Verantwortliche: {legalName}. Der vollständige Firmenname, die Registernummer und die physische Anschrift stehen im Block am Ende dieser Seite und in der Fußzeile der Website, in Erfüllung von Art. 2 des Dekrets 7.962/2013. Unternehmensseite: {siteUrl}.\n\n• Datenschutzbeauftragter, für die Ausübung von Rechten und Fragen zu dieser Erklärung: {dpoEmail}.\n• Support und vertragliche Angelegenheiten, einschließlich Aufträge, Zahlungen und Rückzahlungen: {supportEmail}.\n• Vertreter in der Europäischen Union nach Art. 27 DSGVO: benannt im Identifikationsblock am Ende dieser Seite.\n\nBehörden und externe Stellen, an die Sie sich unmittelbar wenden können: die brasilianische Datenschutzbehörde über ihre offiziellen Kanäle; die Procon-Stelle Ihres Bundesstaats oder Ihrer Gemeinde; die Plattform consumidor.gov.br; die Datenschutzaufsichtsbehörde Ihres Landes, wenn Sie in der Europäischen Union leben; und die spanische Datenschutzagentur, wenn Sie in Spanien leben.\n\nBeschreiben Sie beim Schreiben das Verlangen und den Zusammenhang und fügen Sie kein Passwort, keine vollständige Kartennummer und kein Ausweisfoto bei: Wir brauchen das nicht, um Ihre Beziehung zu uns zu finden, und für ein Datenschutzverlangen übermäßige Daten zu verlangen wäre der offensichtliche Widerspruch."
       }
     }
   },
   "orders": {
-    "title": "Meine Bestellungen",
-    "description": "Deine Käufe, Zahlungen und Erstattungen.",
+    "title": "Meine Tickets",
+    "description": "Ihre Tickets und Ihre Bestellhistorie.",
     "filterLabel": "Bestellungen nach Status filtern",
     "filters": {
+      "active": "Aktuell",
       "all": "Alle",
       "pending_payment": "Zahlung ausstehend",
       "paid": "Bezahlt",
@@ -715,7 +807,33 @@
     "pagination": "Seitennavigation der Bestellungen",
     "showing": "{first}–{last} von {total}",
     "previous": "Zurück",
-    "next": "Weiter"
+    "next": "Weiter",
+    "refund": {
+      "title": "Stornieren und Erstattung erhalten",
+      "action": "Erstattung anfragen",
+      "submitting": "Wird gesendet…",
+      "confirm": "Erstattungsanfrage bestätigen",
+      "cancel": "Zurück",
+      "amount": "Du bekommst {amount} zurück",
+      "feeIncluded": "Die Servicegebühr ist enthalten.",
+      "until": "Du kannst bis zum {date} stornieren.",
+      "noteLabel": "Möchtest du den Grund nennen? (optional)",
+      "notePlaceholder": "Ich kann doch nicht kommen",
+      "approved": "Erstattung genehmigt. Das Geld kommt innerhalb von 3 Werktagen über dasselbe Pix zurück.",
+      "pending": "Anfrage gesendet. Die Veranstalterin prüft sie.",
+      "failed": "Die Erstattung konnte nicht angefragt werden.",
+      "statusPending": "Erstattung wird geprüft",
+      "statusApproved": "Erstattung genehmigt",
+      "statusRejected": "Erstattung abgelehnt",
+      "refusals": {
+        "window_closed": "Die 7-tägige Widerrufsfrist ist abgelaufen.",
+        "too_close_to_event": "Das Event ist in weniger als 48 Stunden, eine Stornierung ist nicht mehr möglich.",
+        "not_paid": "Diese Bestellung wurde nie bezahlt.",
+        "already_refunded": "Diese Bestellung wurde bereits erstattet.",
+        "event_passed": "Dieses Event hat bereits stattgefunden.",
+        "request_open": "Es läuft bereits eine Erstattungsanfrage."
+      }
+    }
   },
   "eventManager": {
     "notFound": "Event nicht gefunden",
@@ -756,7 +874,8 @@
     "errors": {
       "tierStatus": "Die Kategorie konnte nicht geändert werden."
     },
-    "manage": "Verwalten"
+    "manage": "Verwalten",
+    "viewReport": "Bericht"
   },
   "signIn": {
     "reason": {
@@ -800,7 +919,7 @@
       "legalNameHint": "Wie im Dokument, dieser Name wird am Einlass geprüft.",
       "birthDate": "Geburtsdatum",
       "submit": "Weiter",
-      "privacy": "Wir fragen danach, weil das brasilianische Recht für den Ticketverkauf ein Dokument verlangt: die Ermäßigung ist pro CPF begrenzt und ohne Dokument lässt sich keine PIX-Zahlung ausstellen. Die Angaben werden verschlüsselt gespeichert, dem Veranstalter nie gezeigt und nicht für Werbung genutzt. Details in der Datenschutzerklärung."
+      "privacy": "Wir fragen diese Angaben ab, weil die PIX-Zahlungsanforderung ohne das Dokument des Zahlenden nicht erstellt werden kann, weil das Mindestalter von 18 Jahren gegen das Geburtsdatum geprüft wird und weil ein Dokument nicht zwei Konten eröffnen kann. Dokument, rechtlicher Name und Geburtsdatum werden verschlüsselt gespeichert, dem Veranstalter nicht angezeigt und nicht für Werbung genutzt. Näheres in der Datenschutzerklärung."
     },
     "phone": {
       "title": "Fast geschafft",
@@ -826,5 +945,453 @@
       "skip": "Jetzt nicht, ohne Passwort fortfahren",
       "weak": "Mindestens 8 Zeichen, mit Groß- und Kleinbuchstabe und Ziffer."
     }
+  },
+  "audience": {
+    "title": "Über dich (optional)",
+    "why": "Hilft der Veranstalterin zu verstehen, wer zu ihren Events kommt. Die Angabe ist freiwillig und ändert nichts an deinem Kauf.",
+    "gender": "Geschlecht",
+    "city": "Stadt",
+    "uf": "Bundesstaat",
+    "unanswered": "Lieber nicht angeben",
+    "genders": {
+      "female": "Weiblich",
+      "male": "Männlich",
+      "non_binary": "Nicht-binär",
+      "other": "Divers",
+      "undisclosed": "Keine Angabe"
+    }
+  },
+  "reports": {
+    "title": "Event-Bericht",
+    "subtitle": "Wer gekauft hat und was eingegangen ist.",
+    "loadFailed": "Der Bericht konnte nicht geladen werden.",
+    "empty": "Für dieses Event gibt es noch keine Verkäufe.",
+    "emptyHint": "Die Zahlen erscheinen, sobald die erste Zahlung bestätigt ist.",
+    "notInformed": "Keine Angabe",
+    "export": "Export",
+    "exportCsv": "Tabelle herunterladen (CSV)",
+    "totals": {
+      "orders": "Bestellungen",
+      "tickets": "Tickets",
+      "buyers": "Käufer",
+      "net": "Du erhältst",
+      "refunded": "Erstattet",
+      "netHint": "Der Nennwert der Tickets. Die Servicegebühr wird separat obendrauf berechnet.",
+      "buyersHint": "Eindeutige Konten. Wer zweimal gekauft hat, zählt einmal."
+    },
+    "breakdowns": {
+      "gender": "Nach Geschlecht",
+      "age": "Nach Alter",
+      "uf": "Nach Bundesstaat",
+      "city": "Nach Stadt",
+      "tier": "Nach Ticket",
+      "day": "Nach Datum"
+    },
+    "columns": {
+      "gender": "Geschlecht",
+      "age": "Alter",
+      "uf": "Bundesstaat",
+      "city": "Stadt",
+      "tier": "Ticket",
+      "day": "Datum",
+      "orders": "Bestellungen",
+      "tickets": "Tickets",
+      "net": "Wert",
+      "share": "Anteil"
+    },
+    "ageBrackets": {
+      "up_to_18": "Bis 18 Jahre",
+      "19_23": "19 bis 23 Jahre",
+      "24_28": "24 bis 28 Jahre",
+      "29_33": "29 bis 33 Jahre",
+      "34_38": "34 bis 38 Jahre",
+      "39_43": "39 bis 43 Jahre",
+      "44_48": "44 bis 48 Jahre",
+      "49_53": "49 bis 53 Jahre",
+      "54_58": "54 bis 58 Jahre",
+      "59_plus": "59 Jahre und älter",
+      "unknown": "Keine Angabe"
+    }
+  },
+  "attendees": {
+    "title": "Teilnehmende",
+    "subtitle": "Wer ein Ticket für dieses Event gekauft hat.",
+    "search": "Nach Name oder E-Mail suchen",
+    "empty": "Noch keine Teilnehmenden.",
+    "emptyFiltered": "Keine Teilnehmenden passen zu diesen Filtern.",
+    "loadFailed": "Die Liste konnte nicht geladen werden.",
+    "export": "Teilnehmende exportieren",
+    "showing": "{shown} von {total}",
+    "loadMore": "Mehr laden",
+    "allTiers": "Alle Tickets",
+    "privacy": "Das Ausweisdokument wird maskiert, Geburtsdatum und Telefonnummer werden nicht angezeigt: du musst am Einlass Personen prüfen, nicht deren Ausweisnummern speichern.",
+    "columns": {
+      "name": "Name",
+      "email": "E-Mail",
+      "document": "Dokument",
+      "gender": "Geschlecht",
+      "age": "Alter",
+      "city": "Stadt",
+      "uf": "Bundesstaat",
+      "tier": "Ticket",
+      "quantity": "Anz.",
+      "paid": "Gesamt bezahlt",
+      "purchasedAt": "Kauf",
+      "status": "Status"
+    },
+    "status": {
+      "all": "Bezahlt und erstattet",
+      "paid": "Nur bezahlt",
+      "refunded": "Nur erstattet",
+      "labels": {
+        "paid": "Bezahlt",
+        "refunded": "Erstattet",
+        "refund_required": "Erstattung offen"
+      }
+    }
+  },
+  "refunds": {
+    "inboxTitle": "Erstattungsanfragen",
+    "inboxSubtitle": "Was auf deine Entscheidung wartet.",
+    "empty": "Keine Erstattungsanfragen.",
+    "loadFailed": "Die Erstattungsanfragen konnten nicht geladen werden.",
+    "pendingCount": "{count, plural, =0 {Keine offen} one {1 offen} other {# offen}}",
+    "approve": "Genehmigen",
+    "reject": "Ablehnen",
+    "approving": "Wird genehmigt…",
+    "rejecting": "Wird abgelehnt…",
+    "approved": "Erstattung genehmigt. Die Auszahlung ist eingereiht.",
+    "rejected": "Anfrage abgelehnt.",
+    "decisionFailed": "Die Entscheidung konnte nicht gespeichert werden.",
+    "noteLabel": "Notiz (optional)",
+    "notePlaceholder": "Erkläre dem Käufer die Entscheidung",
+    "order": "Bestellung",
+    "amount": "Zu erstattender Betrag",
+    "requestedAt": "Angefragt am",
+    "decidedBy": "Entschieden von",
+    "autoApproved": "Automatisch durch die Richtlinie genehmigt",
+    "autoApprovedHint": "Innerhalb der gesetzlichen Widerrufsfrist, oder abgesagtes Event: eine Ablehnung ist nicht möglich.",
+    "statuses": {
+      "pending": "Offen",
+      "approved": "Genehmigt",
+      "rejected": "Abgelehnt"
+    },
+    "reasons": {
+      "buyer_withdrawal": "Widerruf des Käufers",
+      "event_cancelled": "Event abgesagt",
+      "organiser_goodwill": "Kulanz der Veranstalterin",
+      "operator": "Support-Aktion"
+    }
+  },
+  "door": {
+    "title": "Einlass",
+    "subtitle": "Lesen Sie den QR des Tickets oder geben Sie den Code ein. Jeder Code gilt für einen einzigen Eintritt.",
+    "loadingEvents": "Ihre Veranstaltungen werden geladen…",
+    "noEventsTitle": "Keine veröffentlichten Veranstaltungen",
+    "noEventsBody": "Der Einlass arbeitet mit veröffentlichten Veranstaltungen. Veröffentlichen Sie eine, um Tickets zu prüfen.",
+    "pickTitle": "An welchem Einlass stehen Sie?",
+    "changeEvent": "Veranstaltung wechseln",
+    "ready": "Bereit zum Lesen",
+    "readyHint": "Richten Sie die Kamera auf den QR des Tickets, oder geben Sie den Code unten ein.",
+    "checking": "Wird geprüft…",
+    "codeLabel": "Ticketcode",
+    "codePlaceholder": "XXXX-XXXX-XXXX",
+    "codeHint": "12 Zeichen. Die Prüfung startet von selbst, sobald der Code vollständig ist.",
+    "cameraOpen": "Mit der Kamera lesen",
+    "cameraClose": "Kamera schließen",
+    "cameraDenied": "Kein Kamerazugriff. Geben Sie den Code ein, um weiterzumachen.",
+    "transportError": "Keine Verbindung",
+    "transportErrorHint": "Der Server war nicht erreichbar. Versuchen Sie es erneut.",
+    "usedAt": "Bereits eingetreten am {when}",
+    "countersTitle": "Einlass",
+    "countersShare": "{share}% anwesend",
+    "in": "eingetreten",
+    "left": "ausstehend",
+    "outcome": {
+      "admitted": "Einlass frei",
+      "already_admitted": "Bereits benutzt",
+      "void": "Storniert",
+      "wrong_event": "Andere Veranstaltung",
+      "not_paid": "Nicht bezahlt",
+      "unknown": "Nicht gefunden",
+      "malformed": "Ungültiger Code"
+    },
+    "cameraNoDevice": "Auf diesem Gerät ist keine Kamera verfügbar. Geben Sie den Code oben ein; das funktioniert immer.",
+    "cameraStarting": "Kamera wird geöffnet…",
+    "pickHint": "Suchen Sie nach Name, Ort oder Stadt. Hier erscheinen nur veröffentlichte Veranstaltungen.",
+    "searchPlaceholder": "Veranstaltungen suchen",
+    "searchLabel": "Veranstaltungen nach Name, Ort oder Stadt suchen",
+    "noMatchTitle": "Keine Veranstaltungen gefunden",
+    "noMatchBody": "Passen Sie die Suche an oder leeren Sie sie, um alle veröffentlichten Veranstaltungen zu sehen.",
+    "range": "{from}–{to} von {total}",
+    "previous": "Zurück",
+    "next": "Weiter"
+  },
+  "seating": {
+    "loading": "Der Sitzplan wird geladen…",
+    "loadFailed": "Der Sitzplan konnte nicht geladen werden. Laden Sie die Seite neu.",
+    "stage": "Bühne",
+    "seatName": "Reihe {row}, Platz {seat}",
+    "proceed": "{count, plural, one {Mit 1 Platz fortfahren} other {Mit # Plätzen fortfahren}}",
+    "refused": "{count, plural, one {Platz {seats} wurde gerade von jemand anderem genommen. Die übrigen bleiben Ihnen.} other {Die Plätze {seats} wurden gerade von anderen genommen. Die übrigen bleiben Ihnen.}}",
+    "best": {
+      "title": "Beste verfügbare",
+      "hint": "Wir wählen die besten zusammenhängenden Plätze, möglichst nah zur Bühne. Oder wählen Sie selbst im Plan unten.",
+      "seats": "{count, plural, one {1 Platz} other {# Plätze}}",
+      "accessible": "Ich brauche einen barrierefreien Platz",
+      "accessibleHint": "Rollstuhlplatz, eingeschränkte Mobilität oder ein Sitz für übergewichtige Personen. Diese Plätze bleiben reserviert und werden niemandem angeboten, der sie nicht braucht."
+    },
+    "sectors": {
+      "title": "Bereich wählen",
+      "choose": "Wählen Sie einen Bereich, um die Plätze zu sehen.",
+      "available": "{count, plural, one {1 Platz frei} other {# Plätze frei}}",
+      "soldOut": "Ausverkauft"
+    },
+    "status": {
+      "available": "frei",
+      "taken": "belegt",
+      "blocked": "nicht verfügbar"
+    },
+    "kind": {
+      "standard": "Standard",
+      "wheelchair": "Rollstuhlplatz",
+      "companion": "Begleitplatz",
+      "reduced_mobility": "eingeschränkte Mobilität",
+      "obese": "Sitz für übergewichtige Personen",
+      "restricted_view": "eingeschränkte Sicht"
+    },
+    "legend": {
+      "available": "Frei",
+      "selected": "Ihr Platz",
+      "taken": "Belegt",
+      "accessible": "Barrierefrei"
+    },
+    "selection": {
+      "title": "Ihre Plätze",
+      "empty": "Noch keine Plätze gewählt.",
+      "remove": "Reihe {row}, Platz {seat} entfernen"
+    },
+    "total": {
+      "tickets": "{count, plural, one {1 Ticket} other {# Tickets}}",
+      "fee": "Servicegebühr",
+      "total": "Gesamt"
+    },
+    "arena": "Arena"
+  },
+  "layoutStudio": {
+    "loading": "Wird geladen…",
+    "failed": "Das konnte nicht abgeschlossen werden.",
+    "save": "Saal speichern",
+    "saving": "Wird gespeichert…",
+    "saved": "Saal gespeichert.",
+    "publish": "Veröffentlichen",
+    "published": "Sitzplan veröffentlicht.",
+    "adjustments": "Feineinstellungen",
+    "state": {
+      "unsaved": "Nicht gespeichert",
+      "draft": "Entwurf",
+      "published": "Veröffentlicht",
+      "archived": "Archiviert"
+    },
+    "venue": {
+      "label": "Spielort",
+      "none": "Spielort wählen",
+      "add": "Neuer Spielort",
+      "prompt": "Name des Spielorts"
+    },
+    "layout": {
+      "label": "Sitzplan",
+      "none": "Sitzplan wählen",
+      "add": "Neuer Sitzplan",
+      "prompt": "Name des Sitzplans",
+      "choose": "Wählen Sie einen Spielort und einen Sitzplan, um den Saal zu zeichnen.",
+      "frozenExplained": "Dieser Sitzplan verkauft bereits für eine Veranstaltung und kann nicht geändert werden: die Reihen jetzt neu zu benennen würde den Saal unter einem Abend ändern, für den schon Tickets draußen sind. Erstellen Sie eine neue Version."
+    },
+    "canvas": {
+      "count": "{seats} Plätze",
+      "updating": "Saal wird aktualisiert…",
+      "drawing": "Wird gezeichnet…",
+      "failed": "Mit diesen Werten lässt sich der Saal nicht zeichnen.",
+      "collision": "{count, plural, one {Ein Baustein liegt auf einem anderen. Zum Speichern auseinanderziehen.} other {# Bausteine liegen übereinander. Zum Speichern auseinanderziehen.}}"
+    },
+    "inspector": {
+      "none": "Klicken Sie im Plan auf einen Baustein, um ihn anzupassen."
+    },
+    "namePlaceholder": {
+      "linear": "Parkett A",
+      "arc": "Tribüne B",
+      "tables": "Logenebene",
+      "standing": "Stehplatz",
+      "booth": "Loge 1",
+      "stage": "Bühne",
+      "arena": "Arena"
+    },
+    "count": {
+      "rows": "{rows} Reihen · {seats} Plätze",
+      "tables": "{tables} Tische · {seats} Plätze",
+      "capacity": "{capacity} Personen",
+      "marker": "Nur gezeichnet, nicht verkauft"
+    },
+    "fields": {
+      "name": "Name des Bereichs",
+      "nameHint": "Das sieht ein Käufer auf dem Plan.",
+      "rows": "Reihen",
+      "seatsPerRow": "Pro Reihe",
+      "tables": "Tische",
+      "seatsPerTable": "Pro Tisch",
+      "tablesPerRow": "Tische pro Zeile",
+      "firstTable": "Erster Tisch",
+      "capacity": "Kapazität",
+      "radius": "Abstand",
+      "skips": "Gänge",
+      "skipsHint": "Leere Positionen, mit Komma getrennt.",
+      "rowLabels": "Reihen",
+      "firstRow": "Beginnt bei",
+      "numbering": "Nummerierung",
+      "curve": "Krümmung",
+      "curveHint": "Null ist ein gerader Block.",
+      "seatPitch": "Platzabstand",
+      "side": "Wo die Tribüne steht",
+      "sideHint": "Welche Seite der Arena, von oben auf dem Plan.",
+      "arcWidth": "Wie weit sie herumreicht",
+      "radiusHint": "Vom Rand der Arena bis zur ersten Reihe.",
+      "width": "Breite",
+      "depth": "Tiefe",
+      "diameter": "Durchmesser",
+      "rowsNumbered": "Über 24 Reihen, daher werden die Reihen jetzt numeriert."
+    },
+    "capacityHint": {
+      "standing": "Wie viele Personen der Bereich aufnimmt.",
+      "booth": "Wie viele Personen diese Loge aufnimmt."
+    },
+    "rowLabels": {
+      "letters": "Buchstaben (A, B, C)",
+      "numbers": "Zahlen (1, 2, 3)"
+    },
+    "numbering": {
+      "sequential": "1 bis n",
+      "odd_even": "Ungerade und gerade von der Mitte"
+    },
+    "numberingHint": {
+      "sequential": "Der übliche Fall.",
+      "odd_even": "Ältere Häuser: ungerade auf einer Seite des Mittelgangs, gerade auf der anderen."
+    },
+    "compliance": {
+      "title": "Barrierefreiheit fehlt",
+      "ok": "Barrierefreiheit erfüllt",
+      "okLong": "Bezogen auf {capacity} Plätze erfüllt der Sitzplan die Quoten.",
+      "short": "Barrierefreiheit unvollständig",
+      "basis": "Bezogen auf {capacity} Plätze, nach Decreto 5.296/2004 (Art. 23, Fassung des Decreto 9.404/2018).",
+      "missing": "{count, plural, one {# Platz {kind} fehlt} other {# Plätze {kind} fehlen}}",
+      "wheelchair": "Rollstuhlplatz",
+      "companion": "Begleitplatz",
+      "reducedMobility": "eingeschränkte Mobilität",
+      "obese": "für übergewichtige Personen",
+      "how": "Markieren Sie die Plätze im Bereichsformular. Die Verantwortung liegt beim Veranstalter.",
+      "fix": "Plätze für mich markieren",
+      "fixHint": "Wir nehmen die letzte Reihe, von den Enden zur Mitte, mit einem Begleitplatz neben jedem Rollstuhlplatz. Danach können Sie jeden davon per Klick auf den Plan ändern."
+    },
+    "mode": {
+      "label": "Was ein Klick tut",
+      "move": "Blöcke bewegen",
+      "mark": "Plätze markieren",
+      "kindLabel": "Zu markierende Platzart"
+    },
+    "kind": {
+      "standard": "Standard",
+      "wheelchair": "Rollstuhl",
+      "companion": "Begleitung",
+      "reduced_mobility": "Eingeschränkte Mobilität",
+      "obese": "Übergewichtig",
+      "restricted_view": "Eingeschränkte Sicht"
+    },
+    "side": {
+      "top": "Oben",
+      "right": "Rechts",
+      "bottom": "Unten",
+      "left": "Links",
+      "full": "Ganz herum"
+    },
+    "arcWidth": {
+      "quarter": "Ein Viertel herum",
+      "third": "Ein Drittel herum",
+      "half": "Halb herum"
+    },
+    "undo": "Rückgängig",
+    "redo": "Wiederholen",
+    "remove": "Baustein entfernen",
+    "palette": {
+      "title": "Bausteine",
+      "hint": "Auf den Plan ziehen, oder klicken, um ihn mittig abzulegen.",
+      "shortcuts": "Strg+C kopieren · Strg+V einfügen · Strg+D duplizieren · Strg+Z zurück"
+    },
+    "empty": {
+      "title": "Den Saal bauen",
+      "hint": "Ziehen Sie einen Baustein von der Seite auf den Plan. Beginnen Sie mit der Bühne oder der Arena, dann die Reihen ringsum."
+    },
+    "legend": {
+      "title": "Legende"
+    },
+    "piece": {
+      "linear": "Gerade Reihen",
+      "arc": "Gebogene Reihen",
+      "tables": "Runde Tische",
+      "standing": "Stehplätze",
+      "booth": "Loge",
+      "stage": "Bühne",
+      "arena": "Arena"
+    },
+    "pieceHint": {
+      "linear": "Theater, Kino, Hörsaal. Reihen zur Bühne hin.",
+      "arc": "Rodeo, Halle, Stadion. Gebogene Reihen um die Mitte.",
+      "tables": "Tische mit Plätzen ringsum. Dinner, Gala.",
+      "standing": "Nach Menge verkauft, ohne festen Platz.",
+      "booth": "Als Ganzes verkauft, an eine Gruppe. Eine pro Loge ablegen.",
+      "stage": "Wo die Bühne steht. Verkauft nichts: sie orientiert.",
+      "arena": "Die Fläche, auf der gespielt wird. Verkauft nichts."
+    },
+    "defaultName": {
+      "linear": "Parkett",
+      "arc": "Tribüne",
+      "tables": "Tische",
+      "standing": "Stehplätze",
+      "booth": "Loge",
+      "stage": "Bühne",
+      "arena": "Arena"
+    },
+    "area": {
+      "unit": "1 Einheit"
+    }
+  },
+  "eventSeating": {
+    "title": "Reservierte Plätze",
+    "loading": "Wird geladen…",
+    "failed": "Das konnte nicht abgeschlossen werden.",
+    "hint": "Wählen Sie den Sitzplan und legen Sie fest, was jeder Bereich kostet. Plätze werden dann mit Reihe und Nummer verkauft.",
+    "venue": "Spielort",
+    "layout": "Sitzplan",
+    "layoutHint": "Nur veröffentlichte Sitzpläne.",
+    "pricing": "Preis pro Bereich",
+    "pricingHint": "Ein Kontingent pro Bereich. Ein Bereich ohne Kontingent wird an diesem Abend nicht verkauft.",
+    "notSold": "Nicht verkaufen",
+    "bind": "Plätze in den Verkauf geben",
+    "binding": "Wird freigegeben…",
+    "bound": "{seats} Plätze im Verkauf.",
+    "needsTier": "Erstellen Sie zuerst ein Kontingent: es legt den Preis jedes Bereichs fest.",
+    "needsPricing": "Wählen Sie für mindestens einen Bereich ein Kontingent.",
+    "oneWay": "Nach der Freigabe kann der Sitzplan dieses Abends nicht getauscht werden: die Plätze können reserviert und auf ein Ticket gedruckt werden.",
+    "live": "{seats} Plätze im Verkauf in {sectors} Bereichen.",
+    "liveLocked": "Der Sitzplan dieses Abends kann nicht mehr getauscht werden. Für einen anderen Saal erstellen Sie eine weitere Veranstaltung.",
+    "noVenue": "Sie haben noch keinen Spielort gezeichnet.",
+    "noPublished": "Dieser Spielort hat keinen veröffentlichten Sitzplan. Veröffentlichen Sie einen im Studio.",
+    "goToStudio": "Sitzpläne öffnen",
+    "closed": "Verkauft diese Veranstaltung numerierte Plätze, also Reihe und Sitz wie im Theater oder in einer Arena? Für normale Tickets ist hier nichts zu tun.",
+    "open": "Plätze zuweisen",
+    "confirmTitle": "Die Plätze in den Verkauf geben?",
+    "confirmBody": "{seats} Plätze in {sectors} Sektoren, aus dem Plan {layout}.",
+    "oneWayShort": "Das ist nicht mehr rückgängig zu machen, sobald ein Platz reserviert wurde.",
+    "unpricedWarning": "{count, plural, one {Sektor {sectors} hat kein Kontingent und wird heute nicht verkauft.} other {Die Sektoren {sectors} haben kein Kontingent und werden heute nicht verkauft.}}",
+    "unreachable": "Ihre Orte und Pläne ließen sich gerade nicht laden. Das heißt nicht, dass Sie keine haben.",
+    "retry": "Erneut versuchen"
   }
 }

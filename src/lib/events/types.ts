@@ -11,6 +11,21 @@
 export type EventStatus = "draft" | "published" | "cancelled";
 
 /**
+ * How an event sells: by the number, or by the chair.
+ *
+ * `counted` is a quantity — a party, a pista, a festival, where the tier's own
+ * quantity is the whole inventory. `seated` is stock with an identity: fila K,
+ * poltrona 12.
+ *
+ * It is the organiser's DECLARATION and not the authority on anything. Whether
+ * a night actually has seats is answered by the seats themselves. This exists
+ * because the interface has to know before that is decidable — a create form
+ * cannot bind a plan, but it can ask, and the answer is what stops every screen
+ * afterwards from guessing.
+ */
+export type EventSalesMode = "counted" | "seated";
+
+/**
  * The fixed taxonomy, in the order the filter row offers it.
  *
  * What is NOT here matters as much as what is: "free" and "online" are filters,
@@ -93,6 +108,8 @@ export interface EventSummary {
   startsAt: string;
   endsAt?: string;
   status: EventStatus;
+  /** How this event means to sell. Absent on older records, which were counted. */
+  salesMode?: EventSalesMode;
   media: EventMedia[];
   createdAt: string;
   updatedAt: string;
@@ -118,7 +135,18 @@ export interface TicketTier {
   eventId: string;
   title: string;
   description: string;
+  /** The FACE value the organiser set: their share, and what a listing shows. */
   priceCents: number;
+  /**
+   * The service fee on ONE ticket, and what the buyer actually pays for it.
+   *
+   * Both come from the server, priced by the same fee the checkout will apply,
+   * so the event page and the order can never quote different numbers. Absent
+   * on older responses, hence optional; a missing fee renders as no fee, which
+   * is exactly right for a deployment that charges none.
+   */
+  feeCents?: number;
+  totalCents?: number;
   currency: string;
   quantity: number;
   sold: number;

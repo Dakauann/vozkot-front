@@ -137,9 +137,18 @@ export function TicketForm({ ticket, eventId = "" }: TicketFormProps) {
       toast.success(isEdit ? t("feedback.updated") : t("feedback.created"));
     }
 
-    // Back to the catalogue with this ticket already selected, so the operator
-    // sees the record they just wrote rather than an unfiltered list.
-    router.push({ pathname: "/", query: { ticket: saved.id } });
+    // Back to where the tier came FROM.
+    //
+    // A tier created from an event's own page belongs to that night, and the
+    // organiser is mid-setup on it: throwing them to the global catalogue cost
+    // them a navigation every time and, worse, routed them away from the page
+    // that asks whether the event has assigned seats. A tier created from the
+    // catalogue still returns to the catalogue, with the record selected.
+    if (eventId) {
+      router.push(`/events/${eventId}`);
+    } else {
+      router.push({ pathname: "/", query: { ticket: saved.id } });
+    }
   }
 
   const busy = pending || uploading !== null;

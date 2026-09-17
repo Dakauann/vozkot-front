@@ -8,8 +8,12 @@ export interface OrderItem {
   /** The tier's name as it was when the order was placed, not as it is now. */
   ticketTitle: string;
   quantity: number;
+  /** The FACE value: the organiser's price, and their share of this line. */
   unitPriceCents: number;
   totalCents: number;
+  /** The service fee on top, per ticket and for the line. */
+  unitFeeCents: number;
+  feeCents: number;
 }
 
 /** The night an order is for. Absent when the event has since been removed. */
@@ -33,6 +37,16 @@ export interface Order {
   quantity: number;
   buyerName: string;
   buyerEmail: string;
+  /**
+   * `subtotalCents` is the tickets, `serviceFeeCents` is the charge on top, and
+   * `totalCents` is what the buyer pays — always the sum of the two.
+   *
+   * All three come from the server. The split cannot be derived here: the rate
+   * that produced it is deliberately not sent, because an old order was charged
+   * an old one and recomputing it would rewrite what somebody already paid.
+   */
+  subtotalCents: number;
+  serviceFeeCents: number;
   totalCents: number;
   currency: string;
   status:
@@ -61,13 +75,36 @@ export interface Order {
     pixQrCodeBase64?: string;
   };
   event?: OrderEvent;
+  /**
+   * The cancellation state, present on a listing when a request is already in
+   * flight. The full eligibility — including the deadline — is fetched per
+   * order from /refund-eligibility when the buyer opens one.
+   */
+  refund?: {
+    requestable: boolean;
+    until?: string;
+    refusal?: string;
+    status?: "pending" | "approved" | "rejected";
+    requestId?: string;
+  };
   paidAt?: string;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface ReserveInput {
-  items: { ticketId: string; quantity: number }[];
+  items: {
+    ticketId: string;
+    quantity: number;
+    /**
+     * The named chairs, for a reserved event. Omitted for counted stock.
+     *
+     * Their presence is what makes the line seated. The server derives the
+     * quantity from them and refuses a line where the two disagree, so sending
+     * both is a consistency check rather than a duplication.
+     */
+    seatIds?: string[];
+  }[];
 }
 
 export interface ConfirmInput {
@@ -130,10 +167,25 @@ export interface OrderPage {
 
 /** The buyer's own orders, newest first. */
 export function listOrders(
-  query: { status?: string; eventId?: string; limit?: number; offset?: number } = {},
+  query: {
+    /**
+     * One status, or several.
+     *
+     * Several are sent as a REPEATED `status` parameter, which is what the API
+     * reads and what URLSearchParams already produces with `append`. A comma
+     * list would mean inventing an encoding on both sides for a thing the URL
+     * spec already expresses.
+     */
+    status?: string | readonly string[];
+    eventId?: string;
+    limit?: number;
+    offset?: number;
+  } = {},
 ) {
   const params = new URLSearchParams();
-  if (query.status) params.set("status", query.status);
+  for (const status of typeof query.status === "string" ? [query.status] : (query.status ?? [])) {
+    if (status) params.append("status", status);
+  }
   if (query.eventId) params.set("eventId", query.eventId);
   if (query.limit !== undefined) params.set("limit", String(query.limit));
   if (query.offset) params.set("offset", String(query.offset));

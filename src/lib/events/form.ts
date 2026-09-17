@@ -1,7 +1,13 @@
 import { fromDateTimeLocalValue, toDateTimeLocalValue } from "@/lib/format";
 
 import type { EventInput } from "./admin-api";
-import { EVENT_CATEGORIES, type EventCategory, type EventStatus, type EventSummary } from "./types";
+import {
+  EVENT_CATEGORIES,
+  type EventCategory,
+  type EventSalesMode,
+  type EventStatus,
+  type EventSummary,
+} from "./types";
 
 /**
  * The event form's rules, with no React in them.
@@ -23,6 +29,7 @@ export interface EventFormState {
   description: string;
   category: EventCategory;
   status: EventStatus;
+  salesMode: EventSalesMode;
   /** `datetime-local` wall-clock values, not ISO instants. */
   startsAt: string;
   endsAt: string;
@@ -59,6 +66,10 @@ export function emptyEventForm(): EventFormState {
     // Draft, always. An event created straight into the catalogue is one that
     // goes on sale before anyone has checked the date, the venue or the price.
     status: "draft",
+    // Counted, because most events are. A default that matches the majority is
+    // a question most organisers never have to think about, and the one who
+    // does is looking for it.
+    salesMode: "counted",
     startsAt: "",
     endsAt: "",
     venue: "",
@@ -77,6 +88,7 @@ export function eventFormFrom(event: EventSummary): EventFormState {
     description: event.description,
     category: event.category,
     status: event.status,
+    salesMode: event.salesMode ?? "counted",
     startsAt: toDateTimeLocalValue(event.startsAt),
     endsAt: event.endsAt ? toDateTimeLocalValue(event.endsAt) : "",
     venue: event.location.venue,
@@ -158,6 +170,7 @@ export function validateEventForm(
       description: state.description.trim(),
       category: state.category,
       status: state.status,
+      salesMode: state.salesMode,
       startsAt,
       // Omitted rather than sent empty: the field is a nullable timestamp, and
       // "" is not a timestamp.

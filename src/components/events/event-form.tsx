@@ -9,8 +9,10 @@ import { LocationFields, type LocationValue } from "@/components/events/location
 import { StagedMediaPicker, useStagedMedia } from "@/components/tickets/staged-media";
 import { Button } from "@/components/ui/button";
 import { Field, SelectField, TextAreaField, TextField } from "@/components/ui/field";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Link, useRouter } from "@/i18n/routing";
 import { createEvent, updateEvent, uploadEventMedia } from "@/lib/events/admin-api";
+import { forgetOrganizerState } from "@/lib/events/organizer";
 import {
   emptyEventForm,
   eventFormFrom,
@@ -23,6 +25,7 @@ import {
 import {
   EVENT_CATEGORIES,
   type EventCategory,
+  type EventSalesMode,
   type EventStatus,
   type EventSummary,
 } from "@/lib/events/types";
@@ -99,6 +102,15 @@ export function EventForm({ event }: { event: EventSummary | null }) {
 
     const saved = result.data;
 
+    if (!isEdit) {
+      // The moment this account became an organizer. The spine decides which
+      // contexts to offer from a cached count of owned events, so without
+      // this the buyer who just created their first event keeps the buyer
+      // navigation until the next full reload -- having just been told the
+      // event was created.
+      forgetOrganizerState();
+    }
+
     if (staged.length > 0) {
       setUploading({ done: 0, total: staged.length });
       for (const [index, entry] of staged.entries()) {
@@ -114,7 +126,15 @@ export function EventForm({ event }: { event: EventSummary | null }) {
     }
 
     toast.success(isEdit ? t("saved") : t("created"));
-    router.push(`/events/${saved.id}/edit`);
+    // To the event, not back to the form that made it.
+    //
+    // This was `/events/{id}/edit`, which answered "you made a thing" by
+    // showing the thing's form again — and, worse, routed around the only page
+    // that asks whether the event has assigned seats. An organiser could create
+    // an event and three tiers without the product ever mentioning seating.
+    // The event list already prefers the manager and says so in a comment; this
+    // was the one place that disagreed.
+    router.push(`/events/${saved.id}`);
     router.refresh();
   }
 
@@ -174,19 +194,65 @@ export function EventForm({ event }: { event: EventSummary | null }) {
             </SelectField>
           </Field>
 
-          <Field id="event-status" label={t("fields.status")} hint={t("hints.status")}>
-            <SelectField
-              id="event-status"
-              value={form.status}
-              onChange={(e) => set("status", e.target.value as EventStatus)}
+          {/* Only when editing. Every new event is a draft by design, so on a
+              create form this control existed only to let somebody get it
+              wrong — and "Cancelado" let them create an event that is born
+              dead, with the publish toggle permanently disabled and no path
+              back. */}
+          {isEdit ? (
+            <Field id="event-status" label={t("fields.status")} hint={t("hints.status")}>
+              <SelectField
+                id="event-status"
+                value={form.status}
+                onChange={(e) => set("status", e.target.value as EventStatus)}
+              >
+                {(["draft", "published", "cancelled"] as EventStatus[]).map((status) => (
+                  <option key={status} value={status}>
+                    {t(`status.${status}`)}
+                  </option>
+                ))}
+              </SelectField>
+            </Field>
+          ) : null}
+
+          {/* How this event sells.
+              The ONLY seating decision a create form can make: binding a plan
+              needs an event that already exists and tiers to price the sectors
+              with, and this form has neither. But it can ask — and without the
+              answer every screen afterwards has to guess where to send
+              somebody, which is how a theatre booking ended up selling
+              unnumbered tickets because nothing said otherwise. */}
+          <fieldset className="sm:col-span-2">
+            <legend className="text-sm font-medium text-foreground">
+              {t("fields.salesMode")}
+            </legend>
+            <p className="mt-0.5 max-w-[68ch] text-xs leading-5 text-muted-foreground">
+              {t("hints.salesMode")}
+            </p>
+            <RadioGroup
+              value={form.salesMode}
+              onValueChange={(value) => set("salesMode", value as EventSalesMode)}
+              className="mt-2.5 gap-2.5"
             >
-              {(["draft", "published", "cancelled"] as EventStatus[]).map((status) => (
-                <option key={status} value={status}>
-                  {t(`status.${status}`)}
-                </option>
+              {(["counted", "seated"] as EventSalesMode[]).map((mode) => (
+                <div key={mode} className="flex items-start gap-2.5">
+                  <RadioGroupItem
+                    value={mode}
+                    id={`event-sales-${mode}`}
+                    className="mt-[0.1875rem] shrink-0"
+                  />
+                  <label htmlFor={`event-sales-${mode}`} className="min-w-0 cursor-pointer">
+                    <span className="block text-sm font-medium text-foreground">
+                      {t(`salesMode.${mode}`)}
+                    </span>
+                    <span className="block max-w-[64ch] text-xs leading-5 text-muted-foreground">
+                      {t(`salesModeHint.${mode}`)}
+                    </span>
+                  </label>
+                </div>
               ))}
-            </SelectField>
-          </Field>
+            </RadioGroup>
+          </fieldset>
 
           <Field
             id="event-description"

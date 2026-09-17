@@ -29,17 +29,23 @@
     "sections": {
       "operations": "Bilheteria",
       "support": "Suporte",
-      "insights": "Análises"
+      "insights": "Análises",
+      "account": "Minha conta"
     },
     "events": "Eventos",
-    "tickets": "Ingressos",
     "checkIn": "Check-in",
-    "orders": "Pedidos",
     "reports": "Relatórios",
     "help": "Central de ajuda",
     "contact": "Contato",
     "settings": "Configurações",
-    "admin": "Administração"
+    "admin": "Administração",
+    "account": "Minha conta",
+    "accountDescription": "Seus ingressos e pedidos",
+    "tiers": "Lotes",
+    "myTickets": "Meus ingressos",
+    "createEvent": "Criar evento",
+    "createEventHint": "Publique um evento e comece a vender ingressos.",
+    "layouts": "Plantas"
   },
   "navbar": {
     "toggleSidebar": "Alternar o menu lateral",
@@ -73,20 +79,93 @@
       "title": "Ingressos",
       "description": "Lotes à venda, estoque e mídias de cada evento."
     },
-    "summary": {
-      "batches": "{count, plural, =0 {nenhum lote} one {# lote} other {# lotes}}",
-      "available": "{count, number} ingressos disponíveis",
-      "potential": "{value} em estoque"
+    "noEvent": "Evento não encontrado",
+    "actions": {
+      "create": "Novo ingresso",
+      "edit": "Editar",
+      "delete": "Excluir",
+      "backToList": "Voltar aos ingressos",
+      "publish": "Publicar lote",
+      "backToDraft": "Voltar para rascunho",
+      "cancelSale": "Cancelar venda"
     },
-    "toolbar": {
-      "searchPlaceholder": "Buscar por evento, lote, local ou cidade",
-      "searchLabel": "Buscar ingressos",
-      "sortLabel": "Ordenar por",
-      "sortStartsAt": "Data do evento",
-      "sortCreatedAt": "Criados recentemente",
-      "sortPrice": "Menor preço",
-      "statusLabel": "Filtrar por status",
-      "statusAll": "Todos"
+    "delete": {
+      "title": "Excluir este lote?",
+      "body": "O lote “{title}”, de {event}, sai da venda e não pode ser recuperado. Ingressos já vendidos continuam válidos.",
+      "confirm": "Excluir lote"
+    },
+    "detail": {
+      "stock": "Estoque",
+      "stockValue": "{sold} de {total} vendidos",
+      "revenue": "Receita em estoque",
+      "remaining": "{count, plural, =0 {nenhum restante} one {# ingresso restante} other {# ingressos restantes}}"
+    },
+    "empty": {
+      "title": "Nenhum lote criado",
+      "body": "Os lotes definem preço, quantidade e situação de venda de cada evento. Crie o primeiro para começar a vender.",
+      "action": "Criar primeiro lote"
+    },
+    "emptyFiltered": {
+      "title": "Nenhum lote encontrado",
+      "body": "Nenhum lote corresponde à busca e aos filtros atuais. Ajuste os termos ou limpe os filtros.",
+      "action": "Limpar filtros"
+    },
+    "error": {
+      "title": "Não foi possível carregar os ingressos",
+      "body": "Houve uma falha ao buscar seus lotes. Tente novamente em alguns instantes."
+    },
+    "feedback": {
+      "created": "Lote criado.",
+      "updated": "Lote atualizado.",
+      "deleted": "Lote excluído.",
+      "statusChanged": "Situação do lote atualizada."
+    },
+    "fields": {
+      "title": "Nome do lote",
+      "description": "Descrição",
+      "event": "Evento",
+      "price": "Preço",
+      "quantity": "Quantidade",
+      "status": "Situação",
+      "startsAt": "Data do evento",
+      "venue": "Local"
+    },
+    "form": {
+      "createTitle": "Novo ingresso",
+      "createSubtitle": "Defina preço, quantidade e situação deste lote.",
+      "editTitle": "Editar ingresso",
+      "editSubtitle": "Altere preço, quantidade e situação deste lote.",
+      "backToTickets": "Voltar aos ingressos",
+      "titlePlaceholder": "Pista, Camarote, Meia-entrada…",
+      "descriptionPlaceholder": "O que está incluído neste lote?",
+      "priceHint": "Valor que você recebe por ingresso vendido.",
+      "quantityHint": "Total de ingressos disponíveis neste lote.",
+      "sections": {
+        "event": "Evento",
+        "sale": "Venda"
+      },
+      "errors": {
+        "title": "Informe o nome do lote.",
+        "event": "Selecione o evento deste lote.",
+        "price": "Informe um preço válido.",
+        "quantity": "Informe uma quantidade maior que zero."
+      },
+      "submitCreate": "Criar ingresso",
+      "submitEdit": "Salvar alterações",
+      "submitting": "Salvando…",
+      "mediaPartial": "{count, plural, one {# mídia não pôde ser enviada} other {# mídias não puderam ser enviadas}}",
+      "uploadingMedia": "Enviando mídias… {done} de {total}",
+      "mediaHint": "JPG, PNG ou WebP, até 5 MB cada. A primeira imagem é a capa.",
+      "mediaQueued": "{count, plural, =0 {nenhuma mídia} one {# mídia na fila} other {# mídias na fila}}",
+      "loading": "Carregando ingresso…",
+      "notFound": "Ingresso não encontrado."
+    },
+    "list": {
+      "showing": "{shown} de {total}",
+      "loadMore": "Carregar mais",
+      "loadingMore": "Carregando…",
+      "selectHint": "Selecione um lote para ver os detalhes.",
+      "stock": "{sold} de {total} vendidos"
     },
     "status": {
       "draft": "Rascunho",
@@ -94,105 +173,42 @@
       "sold_out": "Esgotado",
       "cancelled": "Cancelado"
     },
-    "fields": {
-      "event": "Evento",
-      "title": "Lote",
-      "description": "Descrição",
-      "price": "Preço",
-      "quantity": "Quantidade",
-      "status": "Status",
-      "sold": "Vendidos",
-      "available": "Disponíveis",
-      "createdAt": "Criado em",
-      "updatedAt": "Atualizado em"
+    "summary": {
+      "batches": "{count, plural, =0 {nenhum lote} one {# lote} other {# lotes}}",
+      "available": "{count, plural, one {# ingresso disponível} other {# ingressos disponíveis}}",
+      "potential": "{value} em estoque"
     },
-    "list": {
-      "columnTicket": "Lote",
-      "columnStatus": "Status",
-      "columnPrice": "Preço",
-      "stock": "{sold} de {total} vendidos",
-      "showing": "{shown} de {total}",
-      "loadMore": "Carregar mais",
-      "loadingMore": "Carregando…",
-      "selectHint": "Selecione um lote para ver os detalhes."
-    },
-    "empty": {
-      "title": "Nenhum ingresso ainda",
-      "body": "Crie o primeiro lote para colocar um evento à venda. Você pode começar como rascunho e publicar depois.",
-      "action": "Criar ingresso"
-    },
-    "emptyFiltered": {
-      "title": "Nenhum resultado",
-      "body": "Nenhum lote corresponde a esses filtros.",
-      "action": "Limpar filtros"
-    },
-    "error": {
-      "title": "Não foi possível carregar os ingressos",
-      "body": "Tente de novo em alguns instantes."
-    },
-    "actions": {
-      "create": "Novo ingresso",
-      "edit": "Editar",
-      "delete": "Excluir",
-      "publish": "Colocar à venda",
-      "backToDraft": "Voltar para rascunho",
-      "markSoldOut": "Marcar como esgotado",
-      "cancelSale": "Cancelar venda",
-      "more": "Mais ações",
-      "backToList": "Voltar para a lista"
-    },
-    "delete": {
-      "title": "Excluir este ingresso?",
-      "body": "O lote {title} de {event} será removido, junto com as imagens e vídeos enviados. Esta ação não pode ser desfeita.",
-      "confirm": "Excluir ingresso",
-      "deleting": "Excluindo…"
-    },
-    "detail": {
-      "stock": "Estoque",
-      "stockValue": "{sold} de {total} vendidos",
-      "remaining": "{count, number} restantes",
-      "revenue": "Receita potencial",
-      "doors": "Abertura",
-      "gallery": "Imagens e vídeos"
-    },
-    "form": {
-      "createTitle": "Novo ingresso",
-      "createSubtitle": "Um lote pertence a um evento e tem preço e estoque próprios.",
-      "editTitle": "Editar ingresso",
-      "editSubtitle": "As alterações valem para as próximas vendas.",
-      "titlePlaceholder": "Pista Premium",
-      "descriptionPlaceholder": "O que este lote dá direito de acessar.",
-      "priceHint": "Em reais. Use 0 para cortesia.",
-      "quantityHint": "Total de ingressos deste lote.",
-      "submitCreate": "Criar ingresso",
-      "submitEdit": "Salvar alterações",
-      "submitting": "Salvando…",
-      "errors": {
-        "event": "Escolha o evento deste lote",
-        "title": "Informe o nome do lote.",
-        "price": "O preço não pode ser negativo.",
-        "quantity": "A quantidade precisa ser maior que zero."
-      },
-      "backToTickets": "Voltar para ingressos",
-      "sections": {
-        "event": "Lote",
-        "sale": "Venda"
-      },
-      "mediaHint": "Os arquivos são enviados assim que o ingresso é criado.",
-      "mediaQueued": "{count, plural, =0 {nenhum arquivo na fila} one {# arquivo na fila} other {# arquivos na fila}}",
-      "uploadingMedia": "Enviando {done} de {total}…",
-      "mediaPartial": "Ingresso criado, mas {count, plural, one {# arquivo não foi enviado} other {# arquivos não foram enviados}}.",
-      "loading": "Carregando o ingresso…",
-      "notFound": "Ingresso não encontrado.",
-      "pickEvent": "Selecione o evento"
-    },
-    "feedback": {
-      "created": "Ingresso criado.",
-      "updated": "Ingresso atualizado.",
-      "deleted": "Ingresso excluído.",
-      "statusChanged": "Status atualizado."
-    },
-    "noEvent": "Evento não encontrado"
+    "toolbar": {
+      "searchLabel": "Buscar ingressos",
+      "searchPlaceholder": "Buscar por evento, lote, local ou cidade",
+      "statusLabel": "Situação",
+      "statusAll": "Todos",
+      "sortLabel": "Ordenar por",
+      "sortStartsAt": "Data do evento",
+      "sortPrice": "Preço",
+      "sortCreatedAt": "Mais recentes"
+    }
+  },
+  "myTickets": {
+    "heading": "Seus ingressos",
+    "introOne": "Apresente este código na entrada. Ele vale uma única entrada.",
+    "introMany": "Apresente um código por pessoa na entrada. Cada código vale uma única entrada.",
+    "loading": "Carregando seus ingressos…",
+    "unavailable": "Não foi possível carregar seus ingressos agora. Recarregue a página.",
+    "none": "Este pedido ainda não tem ingressos emitidos.",
+    "sequence": "Ingresso {index} de {total}",
+    "single": "Entrada única",
+    "codeLabel": "Código",
+    "codeHint": "Se a leitura do QR falhar, informe este código na entrada.",
+    "qrAlt": "QR Code do ingresso, código {code}",
+    "copy": "Copiar código",
+    "copied": "Copiado",
+    "copyFailed": "Não foi possível copiar. Leia o código na tela.",
+    "badge": {
+      "valid": "Válido",
+      "used": "Já utilizado",
+      "void": "Cancelado"
+    }
   },
   "media": {
     "title": "Imagens e vídeos",
@@ -284,7 +300,9 @@
     "decrease": "Remover um ingresso de {tier}",
     "holdNotice": "Seus ingressos ficam reservados por {minutes} minutos após a escolha.",
     "cancelled": "Este evento foi cancelado.",
-    "cancelledNoSales": "As vendas foram encerradas porque o evento foi cancelado."
+    "cancelledNoSales": "As vendas foram encerradas porque o evento foi cancelado.",
+    "serviceFee": "taxa de serviço",
+    "subtotal": "Ingressos"
   },
   "checkout": {
     "title": "Finalizar compra",
@@ -320,7 +338,6 @@
     "summary": "Resumo do pedido",
     "ticket": "Ingresso",
     "total": "Total",
-    "noExtraFees": "Sem taxas adicionais. O valor acima é o que você paga.",
     "heldUntil": "Reserva expira em",
     "holdExplainer": "Seus ingressos já estão reservados. Se o tempo acabar, eles voltam para a venda para que ninguém fique com uma reserva presa, e você pode começar de novo.",
     "reservingTitle": "Reservando seus ingressos",
@@ -341,7 +358,10 @@
     "releasing": "Liberando…",
     "loadingHolds": "Carregando suas reservas…",
     "unknownEvent": "Evento indisponível",
-    "orderReference": "Código do pedido"
+    "orderReference": "Código do pedido",
+    "ticketsLine": "Ingressos",
+    "serviceFee": "Taxa de serviço",
+    "feeIncluded": "A taxa de serviço já está no total. Não há nenhuma cobrança depois."
   },
   "eventAdmin": {
     "listTitle": "Eventos",
@@ -387,7 +407,8 @@
       "neighborhood": "Bairro",
       "postalCode": "CEP",
       "city": "Cidade",
-      "uf": "UF"
+      "uf": "UF",
+      "salesMode": "Como este evento vende"
     },
     "placeholders": {
       "name": "Festival Aurora",
@@ -398,7 +419,8 @@
       "status": "Rascunho não aparece na vitrine.",
       "description": "Quebras de linha são mantidas. HTML não é interpretado.",
       "endsAt": "Opcional. Deve ser depois do início.",
-      "postalCode": "Com o CEP a localização no mapa fica bem mais precisa."
+      "postalCode": "Com o CEP a localização no mapa fica bem mais precisa.",
+      "salesMode": "Define o que vamos pedir em seguida."
     },
     "status": {
       "draft": "Rascunho",
@@ -448,6 +470,14 @@
       "hint": "Digite o nome do local ou o endereço com número e escolha na lista. Depois ajuste o pino no mapa.",
       "empty": "Nenhum lugar encontrado. Tente incluir a cidade.",
       "attribution": "Resultados do OpenStreetMap, via Photon"
+    },
+    "salesMode": {
+      "counted": "Ingresso comum, por quantidade",
+      "seated": "Lugar marcado, com fila e poltrona"
+    },
+    "salesModeHint": {
+      "counted": "Festa, show, festival. Você diz quantos ingressos existem e o comprador não escolhe onde fica.",
+      "seated": "Teatro, arena, rodeio, circo. Você desenha a planta da sala e o comprador escolhe a cadeira."
     }
   },
   "categories": {
@@ -516,175 +546,237 @@
     "contact": "Fale com o canal responsável por este documento.",
     "operator": "Operadora",
     "address": "Endereço",
-    "website": "Site"
+    "website": "Site",
+    "effective": "Em vigor desde"
   },
   "termsOfService": {
     "title": "Termos de Uso",
-    "metaDescription": "Regras para usar a plataforma Vozko Tickets.",
-    "intro": "Estes Termos regem o acesso e o uso do {productName}, serviço disponibilizado por {legalName}. Leia o documento antes de criar uma conta ou operar eventos.",
+    "metaDescription": "As regras da relação entre você, o organizador do evento e o Vozko Tickets: compra, pagamento, arrependimento, cancelamento, entrada e responsabilidade.",
+    "intro": "Estes Termos regem o acesso e o uso do {productName}, serviço prestado por {legalName}. Eles valem tanto para quem compra um ingresso quanto para quem publica um evento, e as obrigações próprias de cada um estão identificadas. Nenhuma cláusula aqui retira direito que o Código de Defesa do Consumidor ou outra norma de ordem pública assegure a você.",
     "sections": {
-      "acceptance": {
-        "title": "Aceitação e elegibilidade",
-        "content": "Ao criar uma conta, acessar ou usar o {productName}, você declara que leu e aceita estes Termos e a Política de Privacidade. Se agir em nome de uma empresa ou organizador, declara ter poderes para vinculá-lo.\n\nO serviço é destinado a pessoas com pelo menos 18 anos e capacidade para contratar. Se você não concordar, não use a plataforma."
+      "summary": {
+        "title": "Resumo dos pontos principais",
+        "content": "O art. 4º, I, do Decreto nº 7.962/2013 exige que o contrato seja resumido antes da contratação, com destaque para as cláusulas que limitam direito. Este resumo cumpre essa função e não substitui o texto completo.\n\n• Nós fornecemos a tecnologia de venda. O evento é produzido pelo organizador, que responde por ele. A seção 5 traz a divisão exata.\n• O preço exibido no checkout é o total, e tem duas partes: o preço do ingresso, definido pelo organizador e devido a ele, mais uma taxa de serviço de 10% sobre esse valor, que é nossa. As duas aparecem em linhas separadas antes de você pagar, e as duas voltam por inteiro em qualquer reembolso.\n• O pagamento é por PIX. Seus ingressos ficam reservados por tempo limitado e voltam à venda se a reserva expirar.\n• Você tem 7 dias para desistir da compra, a contar da confirmação, com devolução integral e imediata, inclusive de qualquer taxa. É o art. 49 do CDC e não há exceção por proximidade do evento.\n• Se o evento for cancelado, adiado ou alterado de forma relevante, a escolha entre manter o ingresso e receber reembolso integral é sua, não nossa.\n• A conta é para maiores de 18 anos. Ingresso para menor é comprado por um adulto.\n• Meia-entrada e outros benefícios legais são configurados pelo organizador e conferidos por ele na entrada. Leve o comprovante da sua condição.\n\n! Nada nestes Termos limita, exclui ou atenua direito que você tenha por força do Código de Defesa do Consumidor ou de outra norma de ordem pública. Onde houver conflito entre uma cláusula destes Termos e uma norma protetiva, prevalece a norma."
       },
-      "scope": {
-        "title": "Escopo e papel da plataforma",
-        "content": "O {productName} fornece tecnologia para cadastrar eventos, criar lotes de ingressos, controlar estoque e publicar mídias. Recursos de pedidos, pagamentos, emissão, reembolso ou check-in só integram o serviço quando estiverem expressamente habilitados.\n\nSalvo indicação clara em uma oferta, a plataforma não é organizadora, produtora, casa de eventos nem vendedora do ingresso. O organizador é responsável pelo evento e pela relação com o comprador; a plataforma atua como fornecedora de tecnologia."
+      "identification": {
+        "title": "Identificação do fornecedor",
+        "content": "O art. 2º do Decreto nº 7.962/2013 obriga o fornecedor de comércio eletrônico a manter em local de destaque, e de fácil visualização, a sua identificação completa. Ela está no bloco ao final desta página e no rodapé de todas as páginas do site.\n\n• Nome empresarial e razão social: {legalName}, com CNPJ e endereço físico informados no bloco de identificação.\n• Endereço eletrônico para contato contratual: {supportEmail}.\n• Canal do encarregado pelo tratamento de dados pessoais: {dpoEmail}.\n• Site institucional: {siteUrl}.\n\nO objeto do serviço é o fornecimento de tecnologia para publicar eventos, criar lotes de ingressos, controlar estoque, receber por PIX e registrar pedidos. O serviço é prestado do Brasil, em português, inglês, alemão e espanhol, com preços em reais.\n\nPara o público na Alemanha e na Espanha, as informações exigidas pelo § 5 do Digitale-Dienste-Gesetz e pelo art. 10 da Lei espanhola 34/2002 constam do mesmo bloco de identificação, permanentemente acessível."
+      },
+      "definitions": {
+        "title": "Definições",
+        "content": "Estes termos têm, aqui e na Política de Privacidade, o mesmo significado.\n\n• Plataforma: o {productName}, incluindo o site, a área pública de eventos, o painel e a API que serve essas telas.\n• Organizador: o titular de conta que cadastra e publica um evento e responde pela realização dele.\n• Comprador: a pessoa que adquire um ingresso pela Plataforma.\n• Consumidor: o comprador que adquire como destinatário final, a quem se aplica integralmente o Código de Defesa do Consumidor.\n• Lote: a faixa de ingresso criada pelo organizador, com preço, quantidade e situação de venda próprios. É o que o painel chama de ingresso.\n• Pedido: o registro da compra, com os lotes escolhidos, os valores, a situação do pagamento e os dados do comprador.\n• Reserva: a retirada temporária dos ingressos da venda enquanto o pedido é concluído e pago.\n• Instituição de pagamento: a instituição autorizada que emite e liquida a cobrança, indicada no checkout.\n• Nós: {legalName}. Você: a pessoa que usa a Plataforma, na qualidade em que estiver usando."
+      },
+      "acceptance": {
+        "title": "Aceitação, capacidade e vigência",
+        "content": "Ao criar uma conta, acessar ou usar a Plataforma, você declara que leu e aceita estes Termos e a Política de Privacidade. Os dois documentos são acessíveis a qualquer momento pelo rodapé e são apresentados, com link, na própria tela em que a conta é criada.\n\nA conta é destinada a pessoas com pelo menos 18 anos e capacidade civil para contratar. A idade é verificada contra a data de nascimento informada antes da primeira compra. Ingresso destinado a menor de idade é adquirido por um adulto em nome dele, que responde pela compra.\n\nSe você agir em nome de pessoa jurídica ou de um organizador, declara ter poderes para vinculá-lo, e a aceitação obriga a ele.\n\nNos termos do art. 46 do CDC, estes Termos não o obrigam se não lhe tiver sido dada oportunidade prévia de conhecer o conteúdo. Por isso o texto integral é público, sem necessidade de conta, e é enviado com a confirmação do pedido em meio que permite guardar e reproduzir, na forma do art. 4º, IV, do Decreto nº 7.962/2013."
+      },
+      "roles": {
+        "title": "O que nós fazemos e o que o organizador faz",
+        "content": "A Plataforma é fornecedora de tecnologia e canal de venda. Ela não produz o evento, não é casa de espetáculo, não contrata artista e não opera a portaria. A divisão abaixo é factual e serve para você saber a quem se dirigir.\n\n| Assunto | Quem responde |\n| --- | --- |\n| Funcionamento do site, do checkout e da cobrança | Nós |\n| Registro do pedido, comprovante e histórico de compra | Nós |\n| Segurança da conta e proteção dos dados que tratamos como controladores | Nós |\n| Existência, conteúdo, data, local e realização do evento | O organizador |\n| Preço, lotes, estoque e condições da oferta | O organizador |\n| Licença, alvará, direitos autorais, segurança do local e seguro | O organizador |\n| Classificação indicativa e regra de entrada de menores | O organizador |\n| Meia-entrada: categorias, cota e conferência na entrada | O organizador |\n| Entrada, revista, regras do local e conduta no evento | O organizador |\n| Política de reembolso do evento e cumprimento dela | O organizador, com o nosso apoio operacional |\n\n! Esta divisão descreve fatos e distribui obrigações entre nós e o organizador. Ela não é, e não pode ser lida como, exclusão ou atenuação da nossa responsabilidade perante o consumidor. Fornecedores que integram a mesma cadeia de fornecimento respondem solidariamente perante o consumidor, na forma dos arts. 7º, parágrafo único, 18, 20 e 25 do CDC, e é assim que tratamos a nossa posição. Se você é consumidor e tem uma reclamação, pode dirigi-la a nós, e nós a resolvemos e nos entendemos com o organizador depois."
       },
       "accounts": {
-        "title": "Contas e segurança",
-        "content": "Você deve fornecer informações verdadeiras, manter seus dados atualizados e proteger senha, dispositivos e acesso à conta. Cada credencial é pessoal; contas compartilhadas sem controle de acesso são proibidas.\n\nAvise imediatamente o suporte sobre uso não autorizado. Atos praticados por uma sessão válida serão atribuídos à conta, salvo quando a lei determinar o contrário. Podemos exigir verificação de identidade ou representação para proteger o serviço."
+        "title": "Conta, credenciais e segurança",
+        "content": "A conta é criada e acessada por código de uso único enviado ao seu e-mail. Você pode, depois, definir uma senha como segunda via de acesso, e pode verificar um telefone para receber o código por WhatsApp. O código é pessoal, tem validade curta e limite de tentativas.\n\nVocê deve informar dados verdadeiros, mantê-los atualizados e proteger o acesso ao seu e-mail, ao seu telefone e à sua senha. Credencial é pessoal e não deve ser compartilhada. Não pedimos o seu código de acesso por nenhum canal: quem pedir não é nós, e você não deve informá-lo.\n\nAvise {supportEmail} imediatamente se suspeitar de uso não autorizado. Encerramos as sessões em aberto e, quando necessário, invalidamos os acessos. Atos praticados por uma sessão válida são atribuídos à conta, salvo quando houver indício de fraude ou quando a lei dispuser de outro modo.\n\nUm mesmo documento fiscal não pode estar vinculado a mais de uma conta, para que os limites por pessoa não sejam contornados com uma segunda conta.\n\nPodemos exigir verificação de identidade ou de poderes de representação quando houver indício consistente de fraude, de uso de documento de terceiro ou de risco à operação."
       },
       "organizer": {
         "title": "Obrigações do organizador",
-        "content": "O organizador deve possuir autorizações, licenças, direitos e capacidade necessários para realizar e divulgar cada evento. Também deve manter corretos preço, lote, estoque, data, horário, local, classificação etária, acessibilidade, política de entrada e demais condições da oferta.\n\nO organizador responde pelo cumprimento do evento, atendimento aos compradores, obrigações fiscais, direitos autorais, meia-entrada e demais regras aplicáveis. Alterações relevantes devem ser comunicadas aos compradores de forma clara e tempestiva."
+        "content": "Esta seção obriga quem publica evento. Qualquer titular de conta pode publicar, e a publicação não implica seleção, curadoria, aprovação nem verificação prévia por nós do evento ou do organizador.\n\nO organizador declara e garante que: tem capacidade e poderes para realizar e divulgar o evento; detém as licenças, alvarás e autorizações exigidas, inclusive de funcionamento, de segurança contra incêndio e de vigilância sanitária quando aplicáveis; detém ou licenciou os direitos autorais, conexos e de imagem do conteúdo que publica e da programação, inclusive os recolhimentos devidos à gestão coletiva; e cumpre a legislação trabalhista, tributária e de acessibilidade aplicável ao evento.\n\nO organizador é responsável por manter corretos e atualizados o nome, a descrição, a data, o horário, o local, o preço, o lote, o estoque, a classificação indicativa, as condições de acessibilidade, a política de entrada e a política de reembolso. Informação incorreta na oferta é responsabilidade de quem a publicou, e a oferta vincula quem a fez, na forma dos arts. 30 e 35 do CDC.\n\nAlteração relevante do evento deve ser comunicada aos compradores de forma clara e tempestiva, e o organizador deve nos avisar para que os canais de atendimento respondam de modo consistente. O organizador deve manter recursos suficientes para honrar reembolsos, e nos indeniza pelo que tivermos de pagar a consumidor em razão de fato imputável a ele, incluindo custas, honorários e sanções administrativas.\n\nO organizador não pode publicar evento inexistente, sem autorização, com informação enganosa, com conteúdo ilícito, ou usar marca, nome ou imagem de terceiro sem permissão."
       },
-      "sales": {
-        "title": "Venda, ingresso e consumidor",
-        "content": "Quando a venda ao público estiver habilitada, as condições exibidas no momento da compra integram a oferta. O organizador deve respeitar o Código de Defesa do Consumidor, o Decreto nº 7.962/2013 e demais normas aplicáveis ao comércio eletrônico e a eventos.\n\nO ingresso concede o direito descrito na oferta e pode estar sujeito a validação, limite por pessoa e regras antifraude informadas previamente. Cancelamentos, adiamentos e mudanças substanciais devem observar os direitos legais do comprador, inclusive informação e reembolso quando cabíveis. Estes Termos não restringem direitos irrenunciáveis do consumidor."
+      "catalogue": {
+        "title": "Publicação do evento, lotes e estoque",
+        "content": "O organizador cadastra o evento, define local e localização no mapa, envia imagens e vídeos dentro dos limites de tipo, tamanho e quantidade informados no painel, e cria os lotes que quiser, cada um com preço, quantidade e situação de venda própria.\n\nO evento nasce como rascunho e só aparece na área pública quando publicado. O lote só vende quando está em venda. Despublicar um evento retira-o da vitrine e não desfaz pedido já pago: o que foi vendido continua devido ao comprador.\n\nA Plataforma controla o estoque de cada lote e não vende além da quantidade disponível. Um lote pode se esgotar entre a sua escolha e a conclusão do pedido, e nesse caso a compra não se completa e nada é cobrado.\n\nAs condições que valem para o seu pedido são as publicadas no momento da compra. Renomear um lote ou alterar o preço depois não modifica pedido já registrado."
+      },
+      "purchase": {
+        "title": "Como a compra funciona",
+        "content": "A compra tem duas etapas, e a primeira já retira os ingressos da venda para você.\n\n• Você escolhe os lotes e a quantidade, e os ingressos são reservados. A reserva tem prazo curto e o painel mostra quanto falta.\n• Você confirma os seus dados e a reserva é estendida pelo prazo de pagamento. É gerada uma cobrança PIX, com código para copiar e colar e QR Code.\n• Você paga no aplicativo do seu banco.\n• Confirmado o pagamento, o pedido passa a pago e você recebe por e-mail a confirmação com o comprovante e os dados do evento.\n\nSe a reserva expirar antes do pagamento, os ingressos voltam à venda e o pedido é encerrado sem cobrança. Você pode tentar de novo, sujeito à disponibilidade.\n\nHá limite de pedidos em aberto por conta e de ingressos reservados por lote, informados na tela quando alcançados. Para liberar, conclua ou libere uma reserva existente.\n\nAntes de confirmar, você revê o resumo do pedido e pode corrigir os dados informados, na forma do art. 4º, II, do Decreto nº 7.962/2013. A confirmação do recebimento da sua aceitação é enviada por e-mail, com o texto destes Termos, na forma dos incisos III e IV do mesmo artigo.\n\nO ingresso dá direito ao acesso descrito na oferta, nas condições do organizador e do local. A prova da sua compra é o pedido pago e a confirmação enviada por e-mail, que trazem o código do pedido. A entrada é conferida pelo organizador, e ele pode exigir documento oficial com foto que confira com o nome do pedido."
       },
       "payments": {
-        "title": "Pagamentos, taxas e reembolsos",
-        "content": "Enquanto um módulo de pagamento não estiver habilitado, a plataforma não recebe valores de compradores nem armazena dados de cartão. Quando habilitado, preço total, taxas, meio de pagamento, parcelamento e responsável pelo recebimento serão informados antes da confirmação.\n\nPagamentos podem ser processados por parceiro regulado e ficar sujeitos às regras desse parceiro. O organizador deve manter saldo e dados suficientes para estornos, chargebacks e reembolsos. Nenhuma disposição afasta reembolso ou arrependimento quando exigido por lei."
+        "title": "Pagamento, preço e o que não tocamos",
+        "content": "O meio de pagamento é o PIX, emitido e liquidado por instituição de pagamento autorizada a funcionar pelo Banco Central do Brasil, indicada no checkout. Essa instituição atua como controladora independente dos dados de pagamento, sob os termos e a política de privacidade dela.\n\n! Não recebemos, não transmitimos, não processamos e não armazenamos número de cartão, código de segurança, dado de tarja ou chip, senha de banco ou credencial bancária. Não existe formulário de cartão nesta aplicação. O pagamento acontece no aplicativo do seu banco, fora da Plataforma. Não afirmamos possuir certificação PCI-DSS, porque não tratamos dado de cartão e não há o que certificar.\n\nO preço exibido no checkout é o valor total a pagar, e ele tem duas partes. A primeira é o preço do ingresso, que o organizador define e que é devido a ele. A segunda é uma taxa de serviço de 10% calculada sobre esse preço, que é a nossa remuneração por disponibilizar a Plataforma, processar o pagamento e manter o registro do pedido. Um ingresso de R$ 100,00 é cobrado a R$ 110,00: o organizador recebe os R$ 100,00 que definiu e a taxa de R$ 10,00 é nossa. A taxa é acrescida ao preço e não descontada dele, de modo que o valor que o organizador anunciou é o valor que ele recebe.\n\nA taxa é calculada por ingresso, e não sobre o total do pedido, para que o valor de um ingresso multiplicado pela quantidade seja sempre igual ao total cobrado. Ela é informada na página do evento, antes da escolha, e novamente em linha separada e identificada no resumo do pedido, antes da etapa de pagamento, conforme o art. 2º, IV e V, do Decreto nº 7.962/2013. O Superior Tribunal de Justiça, no REsp 1.632.928, admitiu a cobrança de taxa em venda de ingresso pela internet desde que o valor seja claro e acessível ao consumidor, e é esse o padrão que seguimos: a obrigação está na informação, e é ela que cumprimos de forma ostensiva. Cobrança apresentada apenas dentro de um total cego é prática que não adotamos.\n\nNão há qualquer outra cobrança nossa: não cobramos tarifa de entrega, de impressão, de retirada, de emissão nem de parcelamento. A taxa de serviço é devolvida integralmente, junto com o preço do ingresso, em todo reembolso a que você tenha direito, inclusive no arrependimento do art. 49 do CDC e no cancelamento, adiamento ou alteração relevante do evento. Não retemos a taxa em nenhuma dessas hipóteses.\n\nAlteração da taxa é alteração material destes Termos e segue a seção 26: é anunciada com pelo menos 30 dias de antecedência e não retroage sobre compra já concluída. O valor cobrado no seu pedido é o que estava vigente e exibido quando você comprou.\n\nReembolso de PIX é devolução à conta pagadora, e não estorno de cartão: não há chargeback em PIX. Pedimos que a conta de origem esteja ativa para receber a devolução; se estiver encerrada, entraremos em contato por {supportEmail} para acertar outra via. O prazo de crédito depende da instituição recebedora.\n\nSe o pagamento chegar depois de o lote ter se esgotado, o valor é devolvido integralmente, porque não é possível entregar um ingresso que não existe mais."
       },
-      "integrations": {
-        "title": "Integrações, Vozko e APIs",
-        "content": "Quando habilitado pelo usuário, o serviço poderá se integrar a outros produtos Vozko e a terceiros por APIs, webhooks, importação ou conexão de conta. Isso pode incluir CRM, automação, pagamento, controle de acesso, análise e canais de comunicação. Cada integração deve ser autorizada e configurada por pessoa com poderes para fazê-lo.\n\nO organizador é responsável pela origem, qualidade, permissões e uso dos dados enviados ou recebidos. Integrações podem estar sujeitas a termos próprios e ser interrompidas se o terceiro alterar ou retirar sua API. Não acesse conta, audiência ou canal de terceiro sem autorização válida."
+      "withdrawal": {
+        "title": "Direito de arrependimento",
+        "content": "! Você tem 7 dias para desistir da compra, contados da confirmação do pedido, sem precisar justificar. É o art. 49 do CDC, que se aplica a toda contratação fora do estabelecimento comercial, inclusive pela internet. Exercido o arrependimento, os valores pagos são devolvidos integralmente e de imediato, monetariamente atualizados, incluindo qualquer taxa que tenha sido cobrada. Não há prazo mínimo de antecedência do evento nem qualquer outra condição: não impomos corte por proximidade da data.\n\nPara exercer, escreva para {supportEmail} do e-mail da conta, informando o código do pedido, ou use a opção de desistência no seu histórico de pedidos quando ela estiver disponível na sua conta. Confirmamos o recebimento do pedido de desistência de imediato e instruímos a devolução no mesmo dia útil. O crédito na sua conta depende do prazo da instituição recebedora.\n\nA desistência rescinde, sem ônus, os contratos acessórios àquela compra, na forma do art. 5º do Decreto nº 7.962/2013. Nenhum valor é retido a título de taxa.\n\nPassados os 7 dias, o arrependimento do art. 49 não se aplica mais, mas os seus direitos por cancelamento, adiamento, alteração relevante ou falha do serviço permanecem integralmente, e estão na seção seguinte.\n\nPara consumidores residentes no Espaço Econômico Europeu vale uma regra distinta, que informamos porque ela é menos favorável e não seria honesto omiti-la: o direito de retratação de 14 dias não se aplica a serviços de lazer prestados em data ou período determinado, o que inclui ingresso para evento com data marcada, conforme o art. 16(l) da Diretiva 2011/83/UE, o § 312g, n. 2, item 9, do BGB alemão e o art. 103(l) do texto refundido espanhol. Se você reside no Brasil, vale o art. 49 do CDC, mais amplo, tal como descrito acima."
       },
-      "communications": {
-        "title": "Notificações e marketing",
-        "content": "Recursos futuros poderão enviar confirmações, lembretes, alterações de evento, recuperação de compra e campanhas por email, WhatsApp, SMS, push ou outros canais, inclusive por integração com Vozko. O organizador define destinatários, conteúdo, momento e fundamento da comunicação e, em regra, atua como controlador.\n\nO organizador deve comprovar consentimento ou outra base legal adequada, respeitar preferências e listas de bloqueio, identificar o remetente, oferecer descadastro simples para marketing e cumprir LGPD, defesa do consumidor e regras de cada canal. Mensagens transacionais não devem ser usadas para ocultar publicidade. Podemos bloquear campanhas com sinais de spam, fraude ou risco aos destinatários."
+      "cancellation": {
+        "title": "Cancelamento, adiamento e alteração do evento",
+        "content": "A oferta vincula quem a fez. Se o evento não acontecer como oferecido, a escolha entre as alternativas legais é sua, e não do organizador nem nossa, conforme os arts. 20 e 35 do CDC.\n\n| Situação | O que você pode escolher |\n| --- | --- |\n| Evento cancelado | reembolso integral do valor pago, monetariamente atualizado |\n| Adiado, com nova data anunciada | manter o ingresso para a nova data, ou reembolso integral |\n| Adiado sem nova data | reembolso integral |\n| Mudança de local, de cidade ou alteração relevante da programação | manter o ingresso, ou reembolso integral |\n| Evento realizado apenas em parte | abatimento proporcional do preço, ou reembolso |\n| Falha nossa no serviço de venda | reexecução do serviço, reembolso atualizado ou abatimento proporcional |\n\nReembolso alcança o valor efetivamente pago, e não apenas o valor de face do ingresso: onde a falha é do fornecedor, taxa cobrada também volta. Não impomos crédito, voucher nem troca obrigatória no lugar do dinheiro. A Lei nº 14.046/2020, que durante a pandemia permitiu remarcação e crédito no lugar de reembolso, não está mais em vigor, e as regras gerais do CDC voltaram a valer integralmente.\n\nCaso fortuito e força maior podem justificar o não cumprimento do evento e afastar dever de indenizar danos adicionais, mas não extinguem a devolução do que você pagou por algo que não recebeu.\n\nO organizador deve comunicar a alteração e prover os recursos do reembolso. Nós operamos a devolução e acompanhamos a conclusão dela. Se você é consumidor, não precisa resolver entre nós dois: procure {supportEmail} e nós conduzimos."
+      },
+      "meiaEntrada": {
+        "title": "Meia-entrada e outros benefícios legais",
+        "content": "A Lei nº 12.933/2013 e o respectivo decreto asseguram meia-entrada a estudantes, a pessoas com deficiência e seu acompanhante quando necessário, e a jovens de baixa renda inscritos no CadÚnico. O Estatuto do Idoso, na Lei nº 10.741/2003, assegura de forma autônoma o desconto de 50% e a prioridade de acesso a pessoas com 60 anos ou mais. Leis estaduais e municipais podem ampliar as categorias.\n\nA Plataforma permite ao organizador criar lotes com preço reduzido, inclusive de meia-entrada. Quem define as categorias, o preço, a quantidade reservada ao benefício e a observância da cota legal é o organizador, que declara e garante fazê-lo conforme a legislação federal e a legislação local aplicável ao município do evento.\n\n! A comprovação do benefício é feita na entrada do evento, pelo organizador, e não na compra. Compre meia-entrada apenas se você pertence a uma das categorias e pode comprovar. Não comprovada a condição, o organizador pode exigir o pagamento da diferença ou recusar o acesso, e essa consequência decorre da lei do benefício, não de uma condição imposta por nós.\n\nAceitam-se os documentos que a norma do benefício prevê, e o organizador não deve exigir documento além deles: Carteira de Identificação Estudantil no padrão nacional, com nome, data de nascimento, foto, instituição, nível de escolaridade e validade, para estudantes; documento oficial com foto, para pessoas com 60 anos ou mais; documento comprobatório da deficiência com documento oficial com foto, e comprovação da condição de acompanhante quando for o caso; e Identidade Jovem com documento oficial com foto, para jovens de baixa renda.\n\nNão coletamos, não pedimos e não guardamos comprovante de benefício, laudo, atestado ou documento de acessibilidade. Esses documentos são apresentados na portaria e ficam com você.\n\nO organizador responde perante você e perante os órgãos de defesa do consumidor pela configuração correta do benefício e da cota, e nos indeniza por sanção que decorra de configuração feita por ele."
+      },
+      "entry": {
+        "title": "Entrada no evento",
+        "content": "A entrada é operada pelo organizador ou pelo local. Leve o código do pedido, que consta da confirmação enviada por e-mail, e documento oficial com foto. O organizador pode conferir se o nome do documento corresponde ao do pedido, e pode recusar acesso a quem não comprovar a titularidade.\n\nAs regras do local, incluindo horário de abertura, revista, itens proibidos, lotação e conduta, são do organizador e do local, e você as aceita ao ingressar. Recusa de acesso por descumprimento dessas regras, por embriaguez, por porte de item proibido ou por conduta que ponha em risco outras pessoas não gera reembolso.\n\nClassificação indicativa e regra de entrada de crianças e adolescentes são declaradas pelo organizador e conferidas por ele na portaria, conforme o Estatuto da Criança e do Adolescente e eventual portaria do juizado local. Verifique essas condições antes de comprar: recusa de entrada de menor por descumprimento da regra declarada é situação que o organizador deve tratar, e nós apoiamos.\n\nAcessibilidade no local, inclusive lugar para cadeira de rodas, acompanhante e atendimento prioritário, é obrigação do organizador e do local. Se a oferta anunciou uma condição de acessibilidade que não foi entregue, trata-se de descumprimento da oferta, e a seção 12 se aplica."
+      },
+      "transfer": {
+        "title": "Transferência e revenda",
+        "content": "A Plataforma não oferece, hoje, mecanismo de transferência de ingresso entre pessoas nem revenda oficial. O pedido fica vinculado à conta que o realizou e ao documento informado nele.\n\nVocê não pode revender ingresso adquirido aqui com sobrepreço, nem anunciá-lo em canal de revenda, nem adquirir ingresso em volume para revenda. Compra automatizada, uso de robô, criação de múltiplas contas e uso de documento de terceiro para contornar limite por pessoa são proibidos.\n\nIngresso obtido ou transferido em violação desta seção pode ser invalidado, com o pedido cancelado e o valor devolvido ao pagador original, e a conta envolvida pode ser suspensa. Não cancelamos ingresso de quem comprou de boa-fé sem antes tentar contato pelo canal de suporte.\n\nSe você precisa transferir um ingresso por motivo legítimo, escreva para {supportEmail} antes do evento. Avaliamos caso a caso com o organizador; não há direito automático a transferência."
       },
       "acceptableUse": {
-        "title": "Uso aceitável",
-        "content": "É proibido usar o serviço para fraude, lavagem de dinheiro, revenda ilícita, eventos sem autorização, violação de direitos, conteúdo ilegal ou enganoso, discriminação ilícita, malware, coleta indevida de dados ou interferência na segurança e disponibilidade da plataforma.\n\nTambém é proibido contornar limites técnicos, testar vulnerabilidades sem autorização, automatizar acessos de forma abusiva, copiar o serviço ou usar marca de terceiro sem permissão. Podemos remover conteúdo e restringir operações para prevenir dano, cumprir a lei ou investigar indícios consistentes de abuso."
+        "title": "Uso proibido",
+        "content": "É proibido usar a Plataforma para fraude, lavagem de dinheiro, revenda ilícita, evento inexistente ou sem autorização, violação de direito de terceiro, conteúdo ilegal, enganoso ou discriminatório, distribuição de programa malicioso ou coleta indevida de dados.\n\nTambém é proibido contornar limite técnico, testar vulnerabilidade sem autorização prévia e escrita, automatizar acesso de forma abusiva, raspar conteúdo em escala, sobrecarregar a infraestrutura, copiar o serviço, usar marca de terceiro sem permissão e acessar conta, audiência ou canal de terceiro sem autorização válida.\n\nPodemos remover conteúdo, limitar operações e suspender acesso para prevenir dano, cumprir a lei ou apurar indício consistente de abuso, com aviso e oportunidade de correção quando for razoável e a urgência permitir.\n\nPesquisa de segurança de boa-fé é bem-vinda por {supportEmail}: descreva o achado, não acesse dado de terceiro além do necessário para demonstrá-lo, não degrade o serviço e dê-nos prazo razoável antes de divulgar. Não tratamos como infração o relato feito nesses termos.\n\nContestar uma cobrança junto ao seu banco ou a um órgão de defesa do consumidor não é uso proibido, e não trataremos isso como infração. Uso reiterado de contestação para obter acesso sem pagar, por outro lado, pode levar à invalidação do pedido e à revisão da conta."
       },
       "content": {
         "title": "Conteúdo e propriedade intelectual",
-        "content": "Você mantém os direitos sobre nomes, descrições, imagens e vídeos enviados. Concede ao {productName} licença não exclusiva, mundial e pelo tempo necessário para hospedar, reproduzir, adaptar tecnicamente e exibir esse conteúdo somente para operar, proteger e melhorar o serviço.\n\nVocê garante possuir as autorizações para o conteúdo, inclusive direitos de imagem, música e marcas. O software, a identidade Vozko, componentes, documentação e demais materiais da plataforma permanecem protegidos e não são transferidos ao usuário."
+        "content": "O organizador mantém os direitos sobre nome, descrição, imagem e vídeo que envia. Ao enviar, concede a nós licença não exclusiva, mundial e pelo tempo necessário para hospedar, reproduzir, redimensionar, gerar variações técnicas e exibir esse conteúdo, com a finalidade exclusiva de operar, proteger e melhorar o serviço, inclusive na vitrine pública, nos resultados de busca do site e nas pré-visualizações de compartilhamento.\n\nO organizador garante ter as autorizações necessárias, inclusive direito de imagem das pessoas retratadas, direitos sobre obra musical e audiovisual e sobre marca. Excluído o conteúdo, cessamos a exibição; cópias temporárias na rede de entrega podem persistir até expirarem, e cópias de segurança até a rotação normal.\n\nO software, a identidade visual, os componentes de interface, a documentação e os demais materiais da Plataforma são nossos ou licenciados a nós, e nada nestes Termos transfere titularidade sobre eles. É concedido a você apenas o direito de usar a Plataforma conforme estes Termos, de forma pessoal, revogável e não transferível.\n\nSugestão ou comentário que você nos envie espontaneamente sobre o produto pode ser usado por nós sem obrigação de contrapartida ou confidencialidade, e sem que isso alcance qualquer dado pessoal seu, que continua regido pela Política de Privacidade."
+      },
+      "notice": {
+        "title": "Denúncia de conteúdo e evento irregular",
+        "content": "Para relatar evento inexistente ou fraudulento, conteúdo ilícito, violação de direito autoral, uso indevido de marca ou de imagem, escreva para {supportEmail} indicando a página, a descrição do problema, o fundamento e, se você é o titular do direito, a prova da titularidade e os seus dados de contato.\n\nAnalisamos o relato e agimos conforme a gravidade e a clareza da ilicitude. Fraude evidente, risco à segurança de pessoas, conteúdo manifestamente criminoso e violação de direito da criança e do adolescente são tratados com prioridade e podem levar à remoção imediata e à suspensão do organizador. Nos demais casos, notificamos o organizador, damos prazo para resposta e decidimos em seguida. Não condicionamos toda remoção a ordem judicial: o regime de responsabilidade do provedor de aplicação foi alterado pelo Supremo Tribunal Federal nos Temas 987 e 533 e pela regulamentação subsequente, e a notificação extrajudicial é suficiente nas categorias em que a lei assim determina.\n\nInformamos ao autor do conteúdo a remoção e o motivo, e ele pode apresentar contranotificação por {supportEmail}. Se a contranotificação demonstrar que a remoção foi indevida, restabelecemos o conteúdo e registramos a decisão. Organizador que reincidir em conteúdo ilícito tem a conta encerrada.\n\nNada nesta seção nos obriga a monitorar previamente todo o conteúdo publicado, nem afasta o dever de agir quando somos notificados."
+      },
+      "integrations": {
+        "title": "Integrações e serviços de terceiros",
+        "content": "A Plataforma usa serviços de terceiros para funcionar, e é honesto dizer exatamente quais e para quê, em lugar de descrever integrações genéricas.\n\n• Instituição de pagamento autorizada, para emitir e liquidar a cobrança PIX e processar reembolso.\n• Provedor de e-mail transacional, para entregar código de acesso, aviso de cobrança e confirmação.\n• Armazenamento de objetos e rede de entrega, para guardar e servir imagem e vídeo do evento.\n• Plataforma Vozko, exclusivamente para entregar o código de acesso por WhatsApp quando você escolhe esse canal. A conta, os modelos de mensagem aprovados e o saldo dessas mensagens pertencem à Vozko, e não a esta aplicação.\n• Serviços de endereço e de mapa, para converter CEP em endereço, autocompletar endereço no formulário de evento e exibir o mapa na página pública.\n\nNão há, hoje, sincronização de contatos com CRM, envio de eventos de compra a sistema de terceiro, exportação de segmentos, envio automático de dados a sistema de terceiro nem interface pública ou chave de integração emitida a organizadores. Se passarmos a oferecer qualquer dessas funções, ela dependerá de habilitação por pessoa com poderes para tanto, e a Política de Privacidade será atualizada antes.\n\nServiço de terceiro tem termos próprios e pode ser alterado ou descontinuado por quem o fornece, o que pode afetar uma função da Plataforma. Selecionamos fornecedores, contratamos obrigações de confidencialidade e proteção de dados e administramos essas integrações, mas não controlamos a operação deles."
+      },
+      "communications": {
+        "title": "Mensagens e marketing",
+        "content": "Enviamos hoje apenas mensagem transacional: código de acesso, aviso de cobrança pendente com o código PIX e o prazo da reserva, e confirmação de pagamento. Essas mensagens integram a execução da compra e não têm descadastro; para não recebê-las, a via é não comprar ou encerrar a conta.\n\nNão enviamos newsletter, promoção, recuperação de carrinho nem mensagem sobre evento que você não comprou, e não há lista de marketing nesta Plataforma.\n\nSe um organizador vier a enviar comunicação ao público dele por ferramenta nossa, ele é o controlador daquela comunicação e assume, perante nós e perante o destinatário, que: tem base legal válida para cada destinatário e cada canal; guarda e apresenta, quando solicitado, a prova do consentimento com data, origem e texto exibido; não usa lista comprada, alugada, raspada ou obtida de terceiro; não reaproveita dado de um evento para divulgar outro sem base nova; identifica-se como remetente; oferece descadastro simples em marketing; respeita descadastro e lista de bloqueio, inclusive a lista Não Me Perturbe e as regras da ANATEL; e observa, no WhatsApp, a Política de Mensagens Comerciais da Meta, inclusive a categorização correta do modelo entre utilidade, autenticação, serviço e marketing.\n\nPodemos suspender de imediato o envio de uma campanha diante de sinal de spam, taxa de reclamação ou de bloqueio elevada, fraude ou risco aos destinatários, sem que isso gere responsabilidade nossa. O organizador nos indeniza por sanção de autoridade ou penalidade de provedor de canal que decorra das instruções dele."
       },
       "privacy": {
-        "title": "Privacidade e dados pessoais",
-        "content": "O tratamento de dados pessoais segue a Política de Privacidade e a legislação aplicável, incluindo a Lei nº 13.709/2018 (LGPD). O organizador é responsável por ter base legal, informar titulares e atender direitos sobre dados de compradores ou participantes que inserir ou tratar pela plataforma.\n\nAs partes devem adotar controles de acesso adequados e usar dados somente para finalidades legítimas relacionadas ao evento. Termos específicos de tratamento de dados poderão complementar estas regras em contratos empresariais."
+        "title": "Proteção de dados pessoais",
+        "content": "O tratamento de dados pessoais é descrito na Política de Privacidade, que integra estes Termos e detalha, finalidade por finalidade, o dado tratado, a base legal, os destinatários, os países de destino e o prazo de guarda. Em caso de conflito entre estes Termos e a Política de Privacidade quanto a proteção de dados, prevalece a Política.\n\nA divisão de papéis é a da seção 3 daquela Política: somos controladores do que diz respeito à conta, ao pedido, ao pagamento e à segurança; somos operadores do que o organizador cadastra sobre o evento dele e dos dados de comprador que ele consulta no painel; e há controladoria conjunta na atividade específica de contratação do ingresso.\n\nComo operadores, tratamos o dado conforme a instrução documentada do organizador, na forma do art. 39 da LGPD, mantemos registro próprio das operações, guardamos confidencialidade, avisamos o organizador de incidente em até 24 horas da confirmação, apoiamos o atendimento a titulares e eliminamos ou devolvemos o dado no encerramento, ressalvadas as guardas legais.\n\nO organizador, como controlador, é responsável por ter base legal, apresentar o próprio aviso de privacidade, informar titulares, atender direitos e não usar dado obtido pela Plataforma para finalidade incompatível. Contrato empresarial pode complementar estas regras com termo específico de tratamento de dados, que prevalecerá sobre esta seção no que dispuser."
       },
       "availability": {
-        "title": "Disponibilidade e alterações do serviço",
-        "content": "Buscamos manter o serviço seguro e disponível, mas não garantimos operação ininterrupta ou livre de erros. Manutenções, falhas de internet, fornecedores, força maior ou medidas de segurança podem causar indisponibilidade.\n\nPodemos corrigir, substituir ou descontinuar recursos. Quando uma mudança material afetar operação ativa, procuraremos avisar com antecedência razoável, salvo urgência de segurança, obrigação legal ou evento fora de nosso controle."
+        "title": "Disponibilidade e mudanças no serviço",
+        "content": "Trabalhamos para manter o serviço seguro e disponível, e não prometemos operação ininterrupta ou livre de erro. Manutenção, falha de rede, indisponibilidade de fornecedor, evento de força maior e medida de segurança podem causar interrupção. Quando a interrupção for programada, procuramos avisar antes e escolher janela de menor impacto.\n\nPodemos corrigir, alterar, substituir ou descontinuar funções. Mudança material que afete operação ativa é avisada com antecedência razoável, salvo urgência de segurança, obrigação legal ou fato fora do nosso controle. Não retiramos função de que dependa pedido já pago sem oferecer alternativa ou reembolso.\n\nSe uma falha nossa impedir a conclusão de uma compra, nenhum valor é cobrado; se tiver havido cobrança, ela é devolvida. Se uma falha nossa impedir o acesso a evento cujo ingresso você pagou, a seção 12 se aplica."
       },
       "suspension": {
-        "title": "Suspensão, encerramento e dados",
-        "content": "Podemos suspender ou encerrar acesso por violação destes Termos, risco à segurança, fraude, exigência legal ou inadimplemento de valor contratado, observando aviso e oportunidade de correção quando razoável. O usuário pode deixar de usar o serviço e solicitar encerramento da conta.\n\nAntes do encerramento planejado, exporte os dados necessários. Após o término, dados podem ser eliminados ou anonimizados conforme a Política de Privacidade, ressalvadas retenções legais, prevenção a fraude, exercício de direitos e cópias temporárias de segurança."
-      },
-      "warranties": {
-        "title": "Garantias e serviços de terceiros",
-        "content": "O serviço é oferecido conforme a disponibilidade e com os compromissos expressamente assumidos em contrato. Não garantimos resultado comercial, venda mínima, comparecimento, adequação do evento ou conduta de organizadores, compradores e terceiros.\n\nIntegrações, armazenamento, redes e processadores de pagamento podem ter termos próprios. Não controlamos serviços independentes, mas selecionamos fornecedores e administramos integrações de acordo com obrigações legais e contratuais aplicáveis."
+        "title": "Suspensão e encerramento",
+        "content": "Você pode parar de usar o serviço quando quiser e pedir o encerramento da conta por {supportEmail}. O encerramento não cancela pedido pago nem obrigação já vencida, de parte alguma.\n\nPodemos suspender ou encerrar o acesso em caso de violação destes Termos, risco à segurança, indício consistente de fraude, exigência legal ou inadimplemento de valor contratado, observando aviso prévio e oportunidade de correção quando for razoável e a urgência permitir. Suspensão de organizador não suspende o direito de quem já comprou: nesses casos conduzimos o reembolso ou a realização do evento conforme a situação.\n\nAntes de um encerramento planejado, exporte o que você precisa. Depois do encerramento, os dados são eliminados ou anonimizados conforme a Política de Privacidade, ressalvadas as guardas legais ali descritas, inclusive registro de acesso, registro fiscal e dado necessário à defesa em processo.\n\nEncerrada a conta, permanecem em vigor as cláusulas que por natureza sobrevivem: propriedade intelectual, limites de responsabilidade nos termos em que a lei os admite, proteção de dados, lei aplicável e foro."
       },
       "liability": {
         "title": "Responsabilidade",
-        "content": "Cada parte responde pelos danos diretos que causar por descumprimento contratual ou legal. Na máxima medida permitida pela lei, não respondemos por lucros cessantes, perda indireta de oportunidade ou danos decorrentes exclusivamente de informações incorretas do organizador, conduta de terceiros ou evento fora de controle razoável.\n\nQualquer limite contratado não se aplica a dolo, fraude, violação de confidencialidade ou proteção de dados, propriedade intelectual, danos pessoais, direitos do consumidor ou outras responsabilidades que a lei não permita limitar."
+        "content": "! Não limitamos, não excluímos e não atenuamos a nossa responsabilidade perante consumidor. O art. 51, I, do CDC torna nula de pleno direito a cláusula que o faça, e não pretendemos escrever cláusula nula. Se você é consumidor, não há teto de indenização, não há cláusula de serviço prestado no estado em que se encontra, não há renúncia de direito e não há limitação de acesso ao Judiciário nestes Termos.\n\nCada parte responde pelos danos que causar por descumprimento contratual ou legal. Respondemos pelo funcionamento da Plataforma, pelo registro do pedido, pela cobrança e pela segurança dos dados que tratamos. O organizador responde pela realização do evento e pelas obrigações da seção 7. Perante o consumidor, contudo, integramos a mesma cadeia de fornecimento do organizador, e é assim que respondemos, com direito de regresso contra ele pelo que pagarmos por fato a ele imputável.\n\nNão garantimos resultado comercial, volume de venda, comparecimento de público, adequação de um evento a uma expectativa pessoal, nem conduta de organizadores, compradores e terceiros.\n\nNa relação com organizador e demais usuários que não sejam consumidores, e apenas nela, não respondemos por lucro cessante, perda de oportunidade, dano indireto, nem por dano decorrente exclusivamente de informação incorreta prestada por eles, de conduta de terceiro ou de evento fora de controle razoável.\n\nNenhum limite, em qualquer relação, alcança dolo, fraude, violação de confidencialidade, violação de proteção de dados, violação de propriedade intelectual, dano pessoal, direito do consumidor ou outra responsabilidade que a lei não permita limitar."
+      },
+      "support": {
+        "title": "Atendimento, reclamação e prazos",
+        "content": "O canal de atendimento é {supportEmail}, para dúvida, informação, reclamação, pedido de desistência, cancelamento e reembolso. Confirmamos o recebimento da sua demanda de imediato, com identificação do protocolo, e respondemos de forma clara e conclusiva no prazo de 5 dias, conforme o art. 4º do Decreto nº 7.962/2013. Assunto de proteção de dados é tratado pelo canal do encarregado, {dpoEmail}, nos prazos da Política de Privacidade.\n\nProcuramos resolver diretamente antes de qualquer outra via, e isso não é condição para você recorrer a outro canal: você pode acionar a qualquer momento, sem nos procurar antes, o Procon do seu estado ou município, a plataforma consumidor.gov.br, os Juizados Especiais Cíveis e o Judiciário. Nenhuma cláusula destes Termos condiciona, limita ou retarda o seu acesso a esses canais.\n\nReclamação relativa à realização do evento é dirigida também ao organizador, cuja identificação consta da página do evento. Se você não obtiver resposta dele, escreva para nós e nós intermediamos.\n\nConsumidor residente na União Europeia pode recorrer aos mecanismos de resolução alternativa de litígios disponíveis no seu país. Não estamos vinculados a um órgão de conciliação específico na Alemanha ou na Espanha; se essa situação mudar, informaremos aqui."
       },
       "changes": {
-        "title": "Mudanças nestes Termos",
-        "content": "Podemos atualizar estes Termos para refletir mudanças legais, de segurança ou do serviço. A data e a versão no topo identificam o texto vigente. Alterações materiais serão comunicadas por meio adequado antes de produzirem efeitos, quando exigido.\n\nO uso continuado após a vigência significa aceitação do texto atualizado, sem prejuízo de consentimento específico quando necessário. Se você não concordar com mudança material, poderá encerrar o uso antes da nova versão entrar em vigor."
+        "title": "Alterações destes Termos",
+        "content": "A versão e as duas datas no alto da página identificam o texto: a data de vigência é quando a versão passou a valer, e a data de atualização é quando o texto mudou pela última vez.\n\nAlteração material é comunicada com pelo menos 30 dias de antecedência, por e-mail e por aviso no produto, antes de produzir efeito, e passa a valer apenas para o futuro. Correção de redação, de referência legal ou de dado de contato pode ser publicada de imediato.\n\n! Alteração destes Termos não retroage sobre compra já concluída. As condições aplicáveis ao seu pedido são as que estavam vigentes quando você comprou, e é o texto que enviamos junto com a confirmação do pedido.\n\nSe você não concordar com uma alteração material, pode encerrar o uso e a conta antes de ela entrar em vigor, sem ônus. O uso continuado depois da vigência significa aceitação do texto atualizado, e não substitui consentimento específico onde ele for exigido. Não nos reservamos o direito de alterar unilateralmente o conteúdo ou a qualidade do serviço já contratado, o que o art. 51, XIII, do CDC veda.\n\nVersões anteriores são arquivadas e fornecidas a quem solicitar por {supportEmail}, com indicação do que mudou."
+      },
+      "general": {
+        "title": "Disposições gerais",
+        "content": "A nulidade ou a ineficácia de uma cláusula não afeta as demais, que continuam válidas, salvo se disso resultar ônus excessivo a qualquer das partes, na forma do art. 51, § 2º, do CDC.\n\nA tolerância com o descumprimento de uma obrigação não significa renúncia, novação nem alteração do que foi contratado.\n\nVocê não pode ceder a sua posição nestes Termos sem o nosso consentimento. Nós podemos cedê-la em reorganização societária ou transferência de operação, mantidas as condições contratadas e as salvaguardas da Política de Privacidade, e com aviso prévio.\n\nEm caso de conflito entre documentos, prevalece: primeiro, a norma de ordem pública aplicável; depois, o termo específico de tratamento de dados firmado em contrato empresarial, quanto a proteção de dados; depois, a Política de Privacidade, quanto a proteção de dados; depois, as condições específicas apresentadas em uma oferta, quanto àquela oferta; e por fim estes Termos.\n\nEstes Termos, a Política de Privacidade e as condições apresentadas na oferta constituem o acordo entre as partes quanto ao uso da Plataforma, sem prejuízo de contrato empresarial firmado em separado."
       },
       "law": {
-        "title": "Lei aplicável e solução de conflitos",
-        "content": "Estes Termos são regidos pelas leis da República Federativa do Brasil. As partes buscarão solução amigável por meio do suporte antes de recorrer ao Judiciário.\n\nQuando houver relação de consumo, fica preservado o foro do domicílio do consumidor e todos os mecanismos de proteção aplicáveis. Nos demais casos, eventual foro definido em contrato empresarial prevalecerá; na ausência dele, será competente o foro da sede da operadora, salvo regra legal obrigatória."
+        "title": "Lei aplicável e foro",
+        "content": "Estes Termos são regidos pelas leis da República Federativa do Brasil.\n\n! Se você é consumidor, pode propor ação no foro do seu domicílio, na forma do art. 101, I, do CDC. Não há nestes Termos eleição de foro exclusivo contra você, e não há cláusula de arbitragem compulsória: o art. 51, VII, do CDC a torna nula. Arbitragem só se instaura por acordo real firmado depois de surgido o litígio.\n\nNas relações que não sejam de consumo, especialmente com organizador pessoa jurídica, o foro é o da sede da operadora, salvo foro diverso pactuado em contrato empresarial, e as partes podem convencionar arbitragem.\n\nPara consumidores com residência habitual na União Europeia, inclusive na Alemanha e na Espanha, a escolha da lei brasileira não retira de você a proteção das normas imperativas de defesa do consumidor do seu país de residência habitual, na forma do art. 6 do Regulamento (CE) 593/2008, e você pode demandar e ser demandado nos tribunais do seu domicílio, na forma dos arts. 17 a 19 do Regulamento (UE) 1215/2012.\n\nAs partes procurarão solução amigável pelo atendimento antes de recorrer ao Judiciário, sem que isso seja condição para o acesso à Justiça."
       },
       "contact": {
         "title": "Contato",
-        "content": "Dúvidas sobre estes Termos, notificações de infração ou solicitações relacionadas à conta podem ser enviadas para {supportEmail}. Inclua informações suficientes para identificarmos a conta e o assunto, sem enviar senhas ou dados financeiros por email."
+        "content": "Assuntos contratuais, pedido, pagamento, reembolso, desistência, denúncia de conteúdo e reclamação: {supportEmail}.\n\nExercício de direitos de proteção de dados e dúvidas sobre a Política de Privacidade: {dpoEmail}.\n\nA identificação completa da operadora, com razão social, CNPJ e endereço físico, está no bloco ao final desta página e no rodapé do site. O site institucional é {siteUrl}.\n\nAo escrever, informe o código do pedido e o e-mail da conta, que é o suficiente para localizarmos o caso. Não envie senha, número completo de cartão nem foto de documento por e-mail: não precisamos desses dados e não os pedimos."
       }
     }
   },
   "privacyPolicy": {
     "title": "Política de Privacidade",
-    "metaDescription": "Como a Vozko Tickets coleta, usa, compartilha e protege dados pessoais.",
-    "intro": "Esta Política explica como {legalName} trata dados pessoais ao disponibilizar o {productName}, inclusive quais dados usamos, para quê, com quem compartilhamos e como exercer direitos.",
+    "metaDescription": "Quais dados o Vozko Tickets trata, com que fundamento, com quem compartilha, para onde envia e por quanto tempo guarda.",
+    "intro": "Esta Política descreve como {legalName} trata dados pessoais no {productName}: o que coletamos, por quê, com que base legal, com quem compartilhamos, para quais países enviamos e por quanto tempo guardamos. Ela é escrita para ser lida, e não apenas aceita. O texto em português é o que prevalece para titulares no Brasil.",
     "sections": {
-      "scope": {
-        "title": "Escopo",
-        "content": "Esta Política se aplica ao site, painel, APIs, suporte e recursos vinculados ao produto. Ela abrange dados de titulares de conta, representantes de organizadores e, quando módulos de venda ou check-in forem habilitados, compradores e participantes.\n\nSites, integrações e serviços independentes seguem suas próprias políticas. Condições específicas informadas em um fluxo prevalecem apenas para aquele tratamento e complementam este documento."
+      "summary": {
+        "title": "Resumo em um minuto",
+        "content": "Este resumo orienta a leitura e não substitui as seções seguintes, que são as que valem.\n\n• Para operar a sua conta, somos controladores. Para os dados que um organizador coloca no painel a respeito do evento dele, somos operadores e ele é o controlador.\n• Pedimos e-mail para criar a conta e, antes da primeira compra, nome completo, CPF, CNPJ ou passaporte e data de nascimento. O documento é exigido para emitir a cobrança PIX, para conferir a idade mínima e para impedir duas contas com o mesmo documento.\n• CPF, nome legal, data de nascimento e telefone são guardados cifrados. O organizador do evento não vê esses campos.\n• Nunca recebemos número de cartão, código de segurança ou senha de banco. O pagamento é feito por PIX, no aplicativo do seu banco.\n• Não usamos analytics, não usamos pixel de publicidade, não fazemos perfilamento e não vendemos dados. Não há cookie de marketing nesta aplicação.\n• Não usamos os seus dados para treinar modelos de inteligência artificial.\n• Você pode exercir todos os direitos da LGPD, e do GDPR quando ele se aplicar, escrevendo para {dpoEmail}."
+      },
+      "controller": {
+        "title": "Quem é o controlador e como falar com ele",
+        "content": "O controlador dos dados tratados para prestar o {productName} é {legalName}, cuja razão social, CNPJ e endereço completo constam do bloco de identificação ao final deste documento e do rodapé de todas as páginas. O site institucional é {siteUrl}.\n\nO canal do encarregado pelo tratamento de dados pessoais, previsto no art. 41 da LGPD e na Resolução CD/ANPD nº 18/2024, é {dpoEmail}. Esse é o endereço para exercer direitos, pedir esclarecimento sobre esta Política, solicitar a íntegra das cláusulas-padrão contratuais de transferência internacional ou relatar uma preocupação. O nome do encarregado é informado no bloco de identificação e é fornecido a quem pedir por esse canal.\n\nPara titulares no Espaço Econômico Europeu, o representante previsto no art. 27 do GDPR é indicado no bloco de identificação. O representante não é o encarregado, exerce função distinta e pode ser acionado no lugar do controlador pelas autoridades europeias e pelos titulares residentes na União Europeia.\n\nEsta Política cobre o site, a área pública de eventos, o painel do organizador, a API que serve essas telas e o atendimento. Ela não cobre o site do organizador, a instituição de pagamento, que atua como controladora independente sob os seus próprios termos, nem qualquer serviço de terceiro que você acesse a partir de um link nosso."
       },
       "roles": {
-        "title": "Quem trata os dados",
-        "content": "{legalName} é controladora dos dados necessários para criar contas, contratar, proteger e administrar o {productName}, prestar suporte e cumprir obrigações próprias.\n\nPara dados de compradores, convidados ou equipes inseridos por um organizador para operar um evento, em regra o organizador é controlador e nós atuamos como operadores conforme suas instruções. Podemos atuar como controladora para segurança, prevenção a fraude, registros legalmente exigidos e obrigações próprias."
+        "title": "Quando somos controladores e quando somos operadores",
+        "content": "O art. 9º, VI, da LGPD exige que fique claro quem responde por qual tratamento. Nesta plataforma o papel muda conforme o dado, e a tabela abaixo é o mapa completo.\n\n| Tratamento | Nosso papel | Quem decide a finalidade |\n| --- | --- | --- |\n| Conta, autenticação, código de acesso, sessões | Controlador | Nós |\n| Identidade fiscal exigida para comprar | Controlador | Nós, por exigência legal e contratual |\n| Pedido, cobrança PIX, reembolso, conciliação | Controlador | Nós |\n| Registros de segurança, limites antifraude, logs de acesso | Controlador | Nós |\n| Atendimento e suporte | Controlador | Nós |\n| Nome, descrição, local, preços e mídias do evento | Operador | O organizador |\n| Dados de compradores que o organizador consulta no painel | Operador | O organizador |\n| Comunicação do organizador ao público dele, quando houver | Operador | O organizador |\n| Dados de pagamento na instituição de pagamento | Nenhum: controlador independente | A instituição de pagamento |\n\nQuando somos operadores, tratamos o dado conforme a instrução documentada do organizador, na forma do art. 39 da LGPD, e não o usamos para finalidade própria incompatível. Se uma instrução nos parecer ilícita, avisamos o organizador e podemos recusá-la.\n\nHá um ponto em que a decisão é de fato compartilhada, e preferimos dizê-lo a omiti-lo: o contrato de compra do ingresso. Nós definimos o fluxo de checkout, os campos obrigatórios, os limites por conta e o registro da transação; o organizador define o evento, o preço e as condições de entrada. Nessa atividade específica, e apenas nela, atuamos em controladoria conjunta com o organizador, nos termos do art. 26 do GDPR quando ele for aplicável. A essência do acordo é esta: nós informamos você no checkout e respondemos pelos dados da transação; o organizador informa você no aviso dele e responde pelo evento; e você pode exercer os seus direitos contra qualquer um dos dois, sem precisar saber de quem é a atribuição interna."
       },
       "data": {
-        "title": "Dados que tratamos",
-        "content": "• Conta e contato: nome, email, função, organização e preferências de idioma.\n• Autenticação e segurança: senha armazenada somente como hash, identificadores e hashes de sessão, endereço IP, navegador, dispositivo, datas de acesso e registros de auditoria.\n• Evento e conteúdo: nomes, descrições, local, cidade, data, preços, estoque, status, imagens e vídeos enviados. Esses materiais podem conter dados pessoais escolhidos pelo organizador.\n• Atendimento: mensagens, anexos, solicitações e histórico de suporte.\n• Venda e entrada, quando habilitadas: pedido, ingresso, status de pagamento, reembolso, validação e check-in. Dados completos de cartão ficam com o processador de pagamento, não com a plataforma.\n• Dados técnicos: logs de erro, desempenho, endereço de rede e preferências essenciais salvas no navegador."
+        "title": "O que tratamos, para quê, com que base e por quanto tempo",
+        "content": "Esta é a tabela central desta Política. Cada linha é uma finalidade, e não apenas uma categoria, porque a base legal se define por finalidade. Os prazos são os que aplicamos; a seção sobre retenção explica as exceções que podem esticá-los.\n\n| Dados | Exemplos concretos | Finalidade | Base legal na LGPD | Base legal no GDPR | Prazo |\n| --- | --- | --- | --- | --- | --- |\n| Conta | e-mail, nome de exibição, papel, senha guardada de forma irreversível | criar e autenticar a conta | art. 7º, V | art. 6(1)(b) | enquanto a conta existir |\n| Código de acesso | destino cifrado, código guardado de forma irreversível, tentativas | provar que o e-mail ou o telefone é seu | art. 7º, V | art. 6(1)(b) | 10 minutos; o registro é apagado após o uso ou a expiração |\n| Identidade fiscal | CPF, CNPJ ou passaporte, nome legal, data de nascimento | emitir a cobrança PIX, conferir a idade mínima e impedir duas contas com o mesmo documento | art. 7º, V e art. 7º, II | art. 6(1)(b) e art. 6(1)(c) | enquanto a conta existir |\n| Telefone | número em formato internacional, cifrado | enviar o código de acesso por WhatsApp, quando você escolhe esse canal | art. 7º, V | art. 6(1)(b) | enquanto a conta existir |\n| Sessão e segurança | endereço IP, identificação do navegador, identificador de sessão, data de acesso | manter você conectado e detectar uso indevido da sessão, abuso e fraude | art. 7º, II e art. 7º, IX | art. 6(1)(c) e art. 6(1)(f) | 6 meses, na forma do art. 15 do Marco Civil da Internet |\n| Pedido e pagamento | itens, valores, status, identificador da cobrança, nome, e-mail e documento do comprador, código PIX | vender o ingresso, receber, reembolsar e provar a operação | art. 7º, V e art. 7º, II | art. 6(1)(b) e art. 6(1)(c) | 5 anos contados da conclusão do pedido |\n| Evento e mídia | nome, descrição, local, datas, preços, estoque, imagens e vídeos enviados | publicar e operar o evento | art. 7º, V, na relação com o organizador | art. 6(1)(b) | até a exclusão pelo organizador ou o encerramento da conta |\n| Mensagens | destinatário, modelo usado, dado do evento que gerou o envio, resultado da entrega | enviar código de acesso, cobrança pendente e confirmação de pagamento | art. 7º, V | art. 6(1)(b) | 7 dias após a conclusão do envio |\n| Atendimento | mensagens, anexos e histórico que você nos envia | responder e documentar a resposta | art. 7º, V e art. 7º, IX | art. 6(1)(b) e art. 6(1)(f) | 5 anos |\n| Registros técnicos | erros, contadores de desempenho, identificador de requisição | manter o serviço de pé e diagnosticar falhas | art. 7º, IX | art. 6(1)(f) | 6 meses |\n\n! Nome completo, documento e data de nascimento são condição para comprar: sem eles a cobrança PIX não é emitida e a idade mínima não pode ser conferida. Estamos dizendo isso com destaque porque o art. 9º, § 3º, da LGPD exige que um tratamento imposto como condição do serviço seja informado de forma destacada, e não no meio de uma lista.\n\nVocê não precisa fornecer nome, documento e data de nascimento para criar uma conta e navegar. Precisa fornecê-los para concluir uma compra. Recusar não tem consequência alguma além de não ser possível finalizar o pedido."
       },
-      "collection": {
-        "title": "Como obtemos os dados",
-        "content": "Recebemos dados diretamente quando você cria uma conta, cadastra um evento, envia mídia, usa recursos ou fala com o suporte. Também geramos dados técnicos e de segurança durante o uso.\n\nOrganizadores podem fornecer dados de sua equipe e, em módulos habilitados, de compradores ou participantes. Parceiros de autenticação, pagamento, armazenamento e infraestrutura podem devolver confirmações e identificadores necessários à operação."
+      "sensitive": {
+        "title": "Dados sensíveis e dados que não coletamos",
+        "content": "Não pedimos dado sensível na acepção do art. 11 da LGPD e do art. 9 do GDPR. Não coletamos origem racial ou étnica, convicção religiosa, opinião política, filiação sindical, dado referente a saúde, vida sexual, dado genético ou dado biométrico.\n\nCPF, CNPJ, passaporte, nome legal e data de nascimento não são dados sensíveis na definição legal, mas são identificadores de alto valor para fraude e nós os tratamos com o cuidado de dado sensível: ficam cifrados em repouso e a interface nunca exibe o documento por inteiro.\n\n• Não recebemos número de cartão, código de segurança, trilha de tarja, senha de banco nem credencial bancária, em nenhum momento e por nenhuma via. Não existe formulário de cartão nesta aplicação.\n• Não coletamos endereço residencial de pessoa física. Os endereços que tratamos são de locais de evento, informados pelo organizador.\n• Não usamos a API de geolocalização do navegador e não coletamos localização precisa de dispositivo.\n• Não coletamos dado de criança e não tratamos comprovante de meia-entrada, laudo, atestado ou documento de acessibilidade: essa verificação, quando existe, é feita pelo organizador na entrada do evento.\n• Não fazemos reconhecimento facial nem qualquer forma de identificação biométrica.\n\nSe um organizador incluir dado sensível na descrição ou em uma imagem do evento, isso é decisão dele, ele é o controlador daquele conteúdo e responde pela base legal correspondente."
       },
-      "purposes": {
-        "title": "Para que usamos",
-        "content": "• Criar e autenticar contas, manter sessões e permissões.\n• Cadastrar e exibir eventos, lotes, estoque e mídias.\n• Processar pedidos, pagamentos, emissão, reembolso e check-in quando esses módulos estiverem habilitados.\n• Prestar suporte, responder solicitações e enviar comunicações operacionais.\n• Prevenir fraude, abuso e incidentes; auditar ações e proteger titulares.\n• Corrigir falhas, medir desempenho e melhorar funcionalidades.\n• Cumprir obrigações legais, regulatórias e ordens válidas; exercer ou defender direitos.\n\nNão vendemos dados pessoais e não usamos o painel para publicidade comportamental de terceiros."
-      },
-      "bases": {
-        "title": "Bases legais",
-        "content": "Conforme o contexto, tratamos dados para executar contrato ou procedimentos preliminares; cumprir obrigação legal ou regulatória; exercer direitos em processo; proteger vida ou integridade; atender interesses legítimos com avaliação de necessidade e impacto; prevenir fraude e proteger crédito; e, quando indicado, mediante consentimento.\n\nQuando atuamos como operadores, a base legal é definida pelo organizador controlador. Consentimento pode ser revogado, mas isso não invalida tratamento anterior nem afeta tratamentos apoiados em outra base legal."
-      },
-      "integrations": {
-        "title": "Integrações e ecossistema Vozko",
-        "content": "Se o organizador conectar o produto a Vozko ou a outro serviço, poderemos receber e enviar identificadores de conta e contato, eventos de compra e check-in, segmentos, preferências, chaves de integração, status de sincronização e outros campos selecionados na configuração. O fluxo só é ativado por configuração autorizada ou quando necessário a um recurso contratado.\n\nProdutos e terceiros podem atuar como operadores ou controladores independentes, conforme a finalidade. Informaremos o contexto relevante na ativação. O organizador deve limitar campos, revisar permissões, proteger credenciais de API e desligar conexões que não sejam mais necessárias."
-      },
-      "communications": {
-        "title": "Notificações, campanhas e preferências",
-        "content": "Quando esses recursos forem habilitados, trataremos dados de destinatário e canal, conteúdo e modelo da mensagem, evento que disparou o envio, consentimento ou oposição, lista de bloqueio, horário, entrega, abertura, clique, resposta e falha, conforme disponibilizado pelo canal. Isso permite confirmações, lembretes, alertas operacionais, recuperação de compra e marketing autorizado.\n\nO organizador define a finalidade e a base legal das mensagens dirigidas ao seu público. Nós e Vozko podemos atuar como operadores para executar a campanha e como controladores para segurança, prevenção de abuso, faturamento e obrigações próprias. Marketing deve oferecer oposição ou descadastro simples; pedidos são propagados aos sistemas conectados quando tecnicamente aplicável."
-      },
-      "sharing": {
-        "title": "Compartilhamento e operadores",
-        "content": "Compartilhamos somente o necessário com provedores de hospedagem, banco de dados, armazenamento de mídia, entrega de conteúdo, email, monitoramento de segurança, suporte e, quando habilitados, pagamento, emissão, Vozko e provedores de WhatsApp, SMS, push ou outros canais. Esses fornecedores recebem instruções e obrigações de confidencialidade e proteção de dados.\n\nTambém podemos compartilhar com o organizador responsável, empresas do mesmo grupo que apoiem a operação, autoridades diante de obrigação ou pedido válido, e em reorganização societária com salvaguardas adequadas. Não comercializamos listas de titulares."
-      },
-      "transfers": {
-        "title": "Transferências internacionais",
-        "content": "Alguns fornecedores podem tratar ou armazenar dados fora do Brasil. Nesses casos, adotamos mecanismo permitido pela LGPD e medidas contratuais, técnicas e organizacionais compatíveis, considerando as regras da ANPD.\n\nA localização efetiva depende da infraestrutura contratada para o ambiente. Informações adicionais sobre categorias de fornecedores podem ser solicitadas ao encarregado."
+      "sources": {
+        "title": "De onde vêm os dados",
+        "content": "A maior parte vem de você, diretamente: ao criar a conta, ao completar o perfil antes da primeira compra, ao cadastrar um evento, ao enviar uma imagem e ao falar com o suporte.\n\nOutra parte é gerada pelo uso, sem que você a digite: endereço IP, identificação do navegador, data de acesso, registro de erro e contadores de desempenho.\n\nRecebemos dados de terceiros em três situações, e o art. 14 do GDPR exige que a origem seja informada:\n\n• Da instituição de pagamento: a situação da cobrança, o identificador dela e a data de liquidação.\n• Do organizador: os dados que ele cadastra sobre o evento e, quando for o caso, sobre a equipe dele.\n• De serviços de endereço: ao digitar um CEP ou buscar um endereço no formulário de evento, a consulta é feita a um serviço público de endereçamento, que devolve rua, cidade e coordenadas.\n\nNão compramos listas, não enriquecemos cadastro com dado de terceiro e não usamos login social."
       },
       "cookies": {
-        "title": "Cookies e armazenamento local",
-        "content": "Usamos cookies necessários para autenticação, renovação segura de sessão e dados básicos da conta. Tokens de acesso e renovação do navegador são configurados como cookies httpOnly; preferências de idioma, tema, menu e navegação podem ficar em cookie ou armazenamento local.\n\nEsses recursos são essenciais ou funcionais e não são usados atualmente para anúncios direcionados. Se adicionarmos medição ou marketing não essencial, forneceremos informação e controles de consentimento quando exigidos. Bloquear itens essenciais pode impedir login e uso do painel."
+        "title": "Cookies e armazenamento no seu navegador",
+        "content": "Esta aplicação não tem cookie de publicidade, cookie de analytics, pixel de rede social nem script de terceiro de medição. Não há ferramenta de telemetria de produto, de gravação de sessão ou de teste A/B. Por isso não há banner de consentimento: não existe tratamento não essencial a consentir.\n\n| Nome | Função | Tipo | Duração |\n| --- | --- | --- | --- |\n| accessToken | manter a sessão autenticada | necessário | 15 minutos |\n| refreshToken | renovar a sessão sem novo login | necessário | 30 dias |\n| userData | exibir o seu nome, e-mail e papel na interface | necessário, acessível à página que você abre | 30 dias |\n| NEXT_LOCALE | lembrar o idioma que você escolheu | necessário | 1 ano |\n| theme | lembrar o tema claro ou escuro, no armazenamento local | funcional | até você limpar o navegador |\n| preferências do painel | lembrar o menu recolhido e a última área aberta, no armazenamento local | funcional | até você limpar o navegador |\n\n! O cookie userData contém o seu nome, o seu e-mail e o seu papel, e é acessível à própria página que você abre. Os cookies de sessão não são acessíveis a scripts.\n\nBloquear os itens necessários impede o login e o uso do painel. Se algum dia introduzirmos medição ou marketing não essencial, pediremos consentimento antes, com opção clara de recusar e de revogar, na forma do Guia Orientativo da ANPD sobre cookies e, para quem estiver na União Europeia, do art. 5(3) da Diretiva 2002/58."
+      },
+      "browserCalls": {
+        "title": "Requisições que o seu navegador faz a terceiros",
+        "content": "Algumas telas carregam recursos servidos por terceiros. Nesses casos o seu navegador fala diretamente com eles, e o seu endereço IP fica visível para esse terceiro, mesmo que nada seja enviado por nós. Preferimos declarar isso a deixá-lo implícito.\n\n• Mapa na página pública do evento: os blocos do mapa são servidos por um provedor de mapas aberto. Ao abrir uma página de evento com localização, o seu navegador requisita esses blocos e o provedor vê o seu IP.\n• Busca de endereço no formulário de evento: ao digitar um endereço, o organizador dispara consultas a um serviço de geocodificação, que vê o IP de quem digita.\n• Consulta de CEP: a consulta é dirigida a um serviço público de endereçamento, que vê o endereço de rede de onde ela parte.\n\nAs fontes tipográficas são servidas pelo nosso próprio domínio, e não por um provedor externo, justamente para que a leitura de uma página não gere requisição a terceiro.\n\nNenhuma dessas requisições carrega o seu nome, o seu e-mail, o seu documento ou o identificador da sua conta."
+      },
+      "bases": {
+        "title": "Bases legais e o teste de legítimo interesse",
+        "content": "A base legal de cada finalidade está na tabela da seção 4. A execução de contrato cobre a maior parte do serviço; o cumprimento de obrigação legal cobre a guarda de registro de acesso e os prazos fiscais e consumeristas; o legítimo interesse cobre segurança, prevenção a fraude e manutenção técnica.\n\nOnde invocamos legítimo interesse, o fizemos com o teste em três etapas do Guia Orientativo da ANPD e do art. 6(1)(f) do GDPR: a finalidade é manter a plataforma segura e disponível; a necessidade decorre de não haver meio menos invasivo de detectar reuso de credencial, abuso de reserva e fraude de pagamento; e o balanceamento se apoia em salvaguardas concretas: o dado é mínimo, o prazo é curto, não há perfilamento, não há decisão automatizada sobre características pessoais e não há uso publicitário. Você pode se opor a qualquer tratamento fundado em legítimo interesse escrevendo para {dpoEmail}.\n\nNão invocamos legítimo interesse para marketing, porque não fazemos marketing por esta plataforma. Não invocamos consentimento como base geral do serviço, porque consentimento pedido para algo indispensável não é livre. Onde o consentimento for a base, ele será específico, destacado e revogável a qualquer tempo, e a revogação não invalida o tratamento anterior."
+      },
+      "sharing": {
+        "title": "Com quem compartilhamos e quem são os operadores",
+        "content": "Compartilhamos o mínimo necessário, com finalidade definida, e mantemos a lista aberta. Esta é a relação completa dos fornecedores que podem tratar dado pessoal em nosso nome ou como controladores independentes.\n\n| Fornecedor | Para que serve | Onde trata | Mecanismo de transferência |\n| --- | --- | --- | --- |\n| Instituição de pagamento indicada no checkout | emitir e liquidar a cobrança PIX, processar reembolso | Brasil | não aplicável |\n| Provedor de e-mail transacional | enviar código de acesso, cobrança pendente e confirmação | Estados Unidos | cláusulas-padrão contratuais da ANPD, Anexo II da Resolução nº 19/2024 |\n| Provedor de armazenamento e entrega de mídia | guardar e servir as imagens e vídeos do evento | Estados Unidos e rede global de entrega | cláusulas-padrão contratuais da ANPD, Anexo II da Resolução nº 19/2024 |\n| Plataforma Vozko | entregar o código de acesso por WhatsApp | Brasil | não aplicável |\n| Serviço de consulta de CEP | converter CEP em endereço e coordenadas | Brasil | não aplicável |\n| Serviço de geocodificação de endereço | autocompletar endereço no formulário de evento | União Europeia | decisão de adequação, art. 33, I, da LGPD |\n| Provedor de mapas | servir os blocos do mapa na página do evento | União Europeia e rede global | decisão de adequação, art. 33, I, da LGPD |\n| Hospedagem da aplicação e do banco de dados | executar o serviço | informado pelo encarregado a quem solicitar | conforme o país de hospedagem |\n\nAlém desses, compartilhamos com o organizador responsável pelo evento, nos limites da seção 3; com autoridade pública diante de requisição válida; e, em reorganização societária, com a sucessora, mantidas as salvaguardas desta Política.\n\nRegistro de acesso a aplicação só é entregue mediante ordem judicial, na forma dos arts. 10, 22 e 23 do Marco Civil da Internet. Pedido de autoridade que não observe essa forma é recusado. Não vendemos, alugamos nem cedemos base de titulares, e não há compartilhamento para publicidade de terceiro.\n\nMudanças nesta lista são publicadas nesta página com a atualização da versão. Para acompanhar alterações antes de elas produzirem efeito, escreva para {dpoEmail}."
+      },
+      "transfers": {
+        "title": "Transferência internacional",
+        "content": "Parte dos fornecedores acima trata dado fora do Brasil. O art. 14 da Resolução CD/ANPD nº 19/2024 exige que essas transferências sejam descritas em linguagem simples e de fácil acesso, e é o que a tabela da seção anterior faz, coluna por coluna: para onde vai, para quê e com qual mecanismo.\n\nA forma da transferência é o envio dos campos estritamente necessários à função contratada, pelo tempo em que o fornecedor a executa, com a finalidade específica indicada na tabela. Os países de destino atuais são os Estados Unidos e países da União Europeia, além da rede global de entrega de conteúdo usada para servir imagem e mapa.\n\nPara destinos na União Europeia e no Espaço Econômico Europeu, o mecanismo é a decisão de adequação, com fundamento no art. 33, I, da LGPD. Desde a Resolução CD/ANPD nº 32/2026 e a Decisão de Execução (UE) 2026/179, Brasil e União Europeia se reconhecem mutuamente como adequados, e essas transferências não exigem cláusula contratual adicional. Para os demais destinos, incluindo os Estados Unidos, adotamos as cláusulas-padrão contratuais da ANPD, integralmente e sem alteração, conforme o Anexo II da Resolução nº 19/2024, acompanhadas de avaliação do regime jurídico do país de destino.\n\nVocê tem direito de receber a íntegra das cláusulas aplicáveis à sua situação. Escreva para {dpoEmail} e responderemos em até 15 dias, na forma do art. 17 daquela Resolução, preservado segredo comercial. Transferências ulteriores, feitas por um fornecedor a um subcontratado dele, estão sujeitas contratualmente às mesmas obrigações e ao mesmo mecanismo.\n\nVocê pode peticionar à ANPD a respeito de qualquer transferência descrita aqui, e, se estiver na União Europeia, à autoridade de controle do seu país."
       },
       "retention": {
         "title": "Retenção e eliminação",
-        "content": "Mantemos dados de conta e evento enquanto a conta estiver ativa e pelo período necessário à prestação do serviço. Sessões permanecem até expirar ou serem revogadas; conteúdo de evento é mantido até exclusão pelo usuário ou encerramento, sujeito a filas e cópias de segurança temporárias.\n\nDepois, eliminamos ou anonimizamos dados, salvo quando necessários para obrigação legal, prevenção a fraude, auditoria, segurança, exercício de direitos ou prazo prescricional. Prazos específicos podem variar conforme categoria, contrato e módulo habilitado."
+        "content": "Os prazos por finalidade estão na tabela da seção 4. Esta seção explica de onde eles vêm e o que pode esticá-los.\n\n| Dado | Prazo | Fundamento |\n| --- | --- | --- |\n| Registro de acesso a aplicação | 6 meses | art. 15 do Marco Civil da Internet, guarda obrigatória e sigilosa |\n| Pedido, pagamento e nota correspondente | 5 anos | prazo de reparação do art. 27 do CDC e prazos fiscais |\n| Conta e identidade fiscal | enquanto a conta existir, e 5 anos após a última compra | execução do contrato e defesa em prazo prescricional |\n| Código de acesso | 10 minutos, e apagado no uso | necessidade |\n| Mensagem transacional | 7 dias após a conclusão do envio | necessidade |\n| Registro de incidente de segurança | no mínimo 5 anos | art. 10 da Resolução CD/ANPD nº 15/2024 |\n| Registro de consentimento, quando houver | pela relação e pelo prazo prescricional | art. 8º, § 2º, da LGPD, ônus da prova |\n| Dado tratado como operador para um organizador | conforme a instrução dele, e eliminado ou devolvido no encerramento | arts. 15 e 16 da LGPD |\n\nTerminado o prazo, o dado é eliminado ou anonimizado. Pode ser conservado além dele apenas nas hipóteses do art. 16 da LGPD: cumprimento de obrigação legal ou regulatória, exercício regular de direito, inclusive em processo, e uso exclusivo do controlador com anonimização. Prevenção a fraude e apuração de incidente também sustentam guarda, pelo tempo da apuração.\n\nCópias de segurança podem reter um registro por um intervalo curto após a eliminação, até a rotação normal desses meios. Mídia excluída sai do armazenamento de imediato, mas pode continuar acessível pela rede de entrega de conteúdo até que a cópia temporária expire."
       },
       "security": {
         "title": "Segurança",
-        "content": "Adotamos medidas técnicas e administrativas proporcionais ao risco, incluindo controle de acesso, senhas com hash, tokens de sessão protegidos e rotacionados, restrição de tipos e tamanhos de upload, segregação lógica, backups e monitoramento conforme o ambiente.\n\nNenhum sistema é invulnerável. Usuários devem usar senha forte, restringir acessos e avisar sobre atividade suspeita. Não envie senha, dados completos de cartão ou documentos sensíveis por canais não solicitados."
-      },
-      "rights": {
-        "title": "Direitos dos titulares",
-        "content": "Nos termos da LGPD, você pode solicitar confirmação e acesso; correção; informação sobre compartilhamento; anonimização, bloqueio ou eliminação de dados desnecessários ou tratados irregularmente; portabilidade conforme regulamentação; eliminação de dados tratados com consentimento; informação sobre consequências de negar consentimento; revogação; oposição; e revisão de decisão automatizada, quando aplicável.\n\nEnvie o pedido para {dpoEmail}. Podemos confirmar identidade e contexto para evitar fraude. O atendimento é gratuito, observado prazo legal e hipóteses de retenção ou recusa fundamentada. Você também pode peticionar à ANPD e a órgãos de defesa do consumidor."
-      },
-      "organizerData": {
-        "title": "Dados controlados pelo organizador",
-        "content": "Se a solicitação envolver compra, convite ou presença em evento específico, o organizador normalmente decide a finalidade e deve ser procurado primeiro. Encaminharemos ou apoiaremos o pedido quando atuarmos como operadores.\n\nOrganizadores devem apresentar seu próprio aviso de privacidade, coletar apenas o necessário, definir retenção e base legal, atender titulares e não usar dados obtidos pela plataforma para finalidade incompatível."
-      },
-      "children": {
-        "title": "Crianças e adolescentes",
-        "content": "Contas administrativas são destinadas a maiores de 18 anos. A plataforma não busca coletar diretamente dados de crianças para criar contas.\n\nEventos podem admitir crianças ou adolescentes. Nesses casos, o organizador é responsável por informar responsáveis, aplicar o melhor interesse, obter consentimento específico e destacado quando exigido e limitar a coleta ao estritamente necessário, conforme a LGPD e o Estatuto da Criança e do Adolescente."
+        "content": "Adotamos medidas técnicas e administrativas de segurança proporcionais ao risco, na forma do art. 46 da LGPD e do art. 32 do GDPR. Nos termos que importam a você, isto é o que está comprometido.\n\n• Senha e código de acesso nunca são guardados de forma legível, e sim de forma irreversível. O código de acesso tem validade curta, limite de tentativas e limite de envios.\n• Documento de identificação, nome legal, data de nascimento e telefone são cifrados em repouso. A interface nunca exibe o documento por inteiro, e o organizador do evento não tem acesso a esses campos.\n• O acesso à conta se dá por sessão com prazo determinado, que pode ser revogada, e o tráfego é protegido por TLS.\n• Aplicamos limites de tentativa e de uso para conter abuso, enumeração de contas e fraude.\n• O envio de mídia é restrito a tipos e tamanhos determinados.\n• Não guardamos dado de cartão, senha de banco nem credencial bancária.\n\nNão declaramos certificação ISO 27001 nem relatório SOC 2, porque não os temos. Nenhum sistema é invulnerável: use senha forte, não reutilize credencial e avise {dpoEmail} sobre atividade suspeita. Não enviamos pedido de senha, de documento completo ou de dado bancário por e-mail ou mensagem, e nunca pedimos o seu código de acesso: quem pedir não é nós."
       },
       "incidents": {
         "title": "Incidentes de segurança",
-        "content": "Avaliamos e tratamos incidentes confirmados. Quando um incidente com dados pessoais puder acarretar risco ou dano relevante, o controlador responsável comunicará a ANPD e os titulares nos prazos e com o conteúdo exigidos pela regulamentação vigente.\n\nQuando atuarmos como operadores, notificaremos o organizador controlador sem demora injustificada e colaboraremos com análise, contenção e comunicações aplicáveis."
+        "content": "Incidente, na definição do art. 3º, XII, da Resolução CD/ANPD nº 15/2024, é o evento adverso confirmado que afete confidencialidade, integridade, disponibilidade ou autenticidade de dado pessoal.\n\nQuando um incidente puder acarretar risco ou dano relevante na forma do art. 5º daquela Resolução, comunicamos a ANPD e os titulares afetados em até 3 dias úteis contados da confirmação de que dado pessoal foi atingido. A comunicação ao titular é feita em linguagem simples e, sempre que possível, de forma individual e direta, e inclui a natureza do dado, os riscos e possíveis impactos, as medidas adotadas, a data em que tomamos conhecimento e o contato do encarregado. Como tratamos documento fiscal e referência de pagamento, a nossa premissa de trabalho é que o limiar de risco relevante estará atendido na maioria dos casos, e não a inversa.\n\nHavendo titulares na União Europeia, notificamos a autoridade de controle competente em até 72 horas, na forma do art. 33 do GDPR, e comunicamos os titulares quando houver risco elevado, na forma do art. 34.\n\nMantemos registro de todos os incidentes, inclusive dos que não forem comunicados e das razões de não comunicar, por no mínimo 5 anos, conforme o art. 10 da mesma Resolução.\n\nQuando o incidente atingir dado do qual somos operadores, notificamos o organizador controlador sem demora injustificada e, no máximo, em 24 horas da confirmação, para que ele possa cumprir o prazo próprio dele, e colaboramos com a contenção, a apuração e as comunicações devidas."
+      },
+      "automated": {
+        "title": "Decisões automatizadas e perfilamento",
+        "content": "O art. 20 da LGPD e o art. 13(2)(f) do GDPR exigem que você saiba qual automação o afeta. Ela é esta: a reserva expira quando o prazo termina e os ingressos voltam à venda; há limite de pedidos em aberto por conta e de ingressos reservados por lote; um mesmo documento não pode estar vinculado a duas contas; e a situação do pedido acompanha a confirmação do pagamento pela instituição de pagamento.\n\nEssas regras aplicam o mesmo critério a todos, consideram apenas dado da própria operação e não avaliam você. Não há pontuação de crédito, não há escore de risco baseado em característica pessoal, não há perfilamento comportamental, não há publicidade direcionada e não há decisão automatizada que avalie a sua personalidade, o seu comportamento ou a sua situação econômica na acepção do art. 20 da LGPD e do art. 22 do GDPR.\n\nAinda assim, se uma dessas regras automáticas o afetar e você quiser revisão, escreva para {dpoEmail}. Uma pessoa analisa o caso, informa o critério aplicado e, quando cabível, desfaz o efeito. Você não precisa demonstrar erro para pedir a revisão.\n\nNão usamos dado pessoal tratado nesta plataforma para treinar, ajustar ou avaliar modelo de inteligência artificial, próprio ou de terceiro."
+      },
+      "rights": {
+        "title": "Seus direitos e como exercê-los",
+        "content": "O art. 18 da LGPD assegura os direitos abaixo, e o art. 9º, VII, exige que sejam enumerados de forma expressa, e não por remissão. Para quem estiver na União Europeia, os arts. 15 a 22 do GDPR asseguram direitos equivalentes, com as diferenças indicadas.\n\n| Direito | O que significa | Prazo de resposta |\n| --- | --- | --- |\n| Confirmação e acesso | saber se tratamos dado seu e obter uma cópia | imediato em forma simplificada, ou declaração completa em 15 dias |\n| Correção | corrigir dado incompleto, inexato ou desatualizado | 15 dias |\n| Anonimização, bloqueio ou eliminação | quanto a dado desnecessário, excessivo ou tratado em desconformidade | 15 dias |\n| Portabilidade | receber o dado em formato estruturado, ou transmiti-lo a outro fornecedor | 15 dias, na regulamentação aplicável |\n| Eliminação do dado tratado com consentimento | apagar o que se baseou apenas no seu consentimento | 15 dias |\n| Informação sobre compartilhamento | saber com quem compartilhamos e por quê | 15 dias |\n| Informação sobre negar consentimento | saber o que acontece se você recusar | imediato |\n| Revogação do consentimento | retirar o consentimento, sem efeito retroativo | imediato |\n| Oposição | opor-se a tratamento fundado em legítimo interesse ou em dispensa de consentimento | 15 dias |\n| Revisão de decisão automatizada | pedir que uma pessoa reveja | 15 dias |\n| Limitação do tratamento, no GDPR | restringir o uso enquanto se discute exatidão ou oposição | 1 mês, prorrogável por 2 |\n\nEnvie o pedido para {dpoEmail}. O atendimento é gratuito. Podemos pedir informação adicional para confirmar que você é quem diz ser, mas apenas o estritamente necessário: não pedimos foto de documento nem selfie para atender um pedido de acesso. Se recusarmos, total ou parcialmente, dizemos o fundamento e o que você pode fazer em seguida.\n\nUm pedido de eliminação não alcança o que a lei manda guardar: registro de acesso pelo prazo do Marco Civil, registro fiscal e contábil, dado necessário à defesa em processo e registro de incidente. Nesses casos, eliminamos o que pode ser eliminado e explicamos o que permanece, por quanto tempo e com que fundamento.\n\nVocê pode reclamar diretamente à Autoridade Nacional de Proteção de Dados, aos órgãos de defesa do consumidor, inclusive Procon e a plataforma consumidor.gov.br, e, se estiver na União Europeia, à autoridade de controle do seu país de residência, na forma do art. 77 do GDPR. Reclamar a uma autoridade não depende de nos procurar antes, mas quase sempre é mais rápido começar por {dpoEmail}."
+      },
+      "communications": {
+        "title": "Mensagens que enviamos",
+        "content": "Hoje enviamos exatamente três tipos de mensagem, todas transacionais, todas disparadas por um ato seu:\n\n• o código de acesso, por e-mail ou por WhatsApp, quando você pede para entrar;\n• o aviso de cobrança pendente, com o código PIX e o prazo da reserva, quando você conclui um pedido;\n• a confirmação de pagamento, com o comprovante e os dados do evento, quando a cobrança é liquidada.\n\nNão enviamos newsletter, não enviamos promoção, não enviamos recuperação de carrinho abandonado e não enviamos mensagem sobre evento que você não comprou. Não há lista de marketing nesta plataforma e, por isso, não há o que descadastrar.\n\n! Mensagem transacional não tem descadastro. Ela é parte da execução da compra: sem o código de acesso você não entra, e sem a confirmação você não tem comprovante. Se você não quiser recebê-la, a via é não concluir a compra ou encerrar a conta.\n\nSe algum dia passarmos a enviar comunicação de marketing, ela dependerá de manifestação sua específica e destacada, terá descadastro em um clique em toda mensagem, respeitará a lista Não Me Perturbe e as regras da ANATEL, e o consentimento poderá ser revogado a qualquer tempo. Marketing por WhatsApp observará também a Política de Mensagens Comerciais da Meta, inclusive a categorização correta do modelo de mensagem. Nada disso está ativo, e esta Política será atualizada antes de estar.\n\nQuando um organizador enviar comunicação ao público dele por meio de ferramenta nossa, ele é o controlador daquela comunicação, responde pela base legal de cada destinatário e nós atuamos como operadores."
+      },
+      "children": {
+        "title": "Crianças e adolescentes",
+        "content": "A conta nesta plataforma é para maiores de 18 anos. A idade é conferida de verdade, contra a data de nascimento informada antes da primeira compra, e não por caixa de seleção: quem tem menos de 18 não consegue concluir o cadastro que habilita a compra.\n\nEssa escolha é deliberada. Um ingresso para um menor de idade é comprado por um adulto em nome dele, que é como a portaria funciona de todo modo. Com isso não tratamos dado de criança nem de adolescente para operar contas, e não dependemos do consentimento de responsável previsto no art. 14, § 1º, da LGPD, nem da idade de consentimento do art. 8 do GDPR, nem do regime de conta vinculada a responsável da Lei nº 15.211/2025.\n\nNão fazemos, em nenhuma hipótese, perfilamento, segmentação ou publicidade direcionada a pessoa identificada como menor de 18 anos.\n\nEventos podem admitir crianças e adolescentes, e isso é decisão do organizador. Ele é o responsável por declarar a classificação indicativa, a regra de acompanhamento por responsável e a exigência de autorização judicial quando houver, por informá-las antes da compra e por verificá-las na entrada, conforme o Estatuto da Criança e do Adolescente. Se o organizador coletar dado de um menor para operar o evento, ele é o controlador daquele dado, deve observar o melhor interesse e deve apresentar o aviso de privacidade dele.\n\nResponsável legal que queira acessar, corrigir ou eliminar dado de um menor que tenha chegado até nós pode escrever para {dpoEmail}, e o pedido é tratado com prioridade."
+      },
+      "organizerData": {
+        "title": "Dados sob controle do organizador",
+        "content": "Quando o seu pedido disser respeito a um evento específico, a uma lista de convidados ou à sua presença em um evento, quem decide a finalidade em regra é o organizador, e é a ele que o pedido deve ser dirigido primeiro. O aviso de privacidade dele é o que governa aquele tratamento.\n\nSe você nos procurar de todo modo, nós encaminhamos o pedido ao organizador em até 5 dias úteis e avisamos você de que encaminhamos, com a identificação dele. Quando atuamos como operadores, prestamos o apoio técnico necessário para que ele atenda você. Isso não afasta o seu direito de nos acionar quanto ao que é nosso, nem, na atividade em controladoria conjunta descrita na seção 3, o seu direito de exercer o pedido contra qualquer um dos dois.\n\nO organizador, de sua parte, assume nos Termos de Uso a obrigação de apresentar o próprio aviso de privacidade, de coletar apenas o necessário, de ter base legal, de definir retenção, de atender titulares e de não usar dado obtido pela plataforma para finalidade incompatível com aquela que o justificou."
+      },
+      "photography": {
+        "title": "Fotografia e filmagem no evento",
+        "content": "Registro de imagem e som feito no local do evento é atividade do organizador ou de quem ele autorizar, e não nossa. O organizador é o controlador desse tratamento, define a base legal, responde pela sinalização no local e pelo aviso prévio ao público, e responde de forma reforçada quando houver imagem de criança ou adolescente.\n\nA plataforma armazena e serve as imagens e vídeos que o organizador envia para divulgar o evento. Nesse papel somos operadores: não escolhemos o conteúdo, não fazemos reconhecimento de pessoas e não indexamos rosto.\n\nSe você aparecer em uma imagem publicada em uma página de evento e quiser a remoção, escreva para {dpoEmail} indicando a página e, se possível, a posição na imagem. Nós retiramos ou encaminhamos ao organizador conforme o papel de cada um, e avisamos você do que foi feito. O direito de imagem é protegido pelo art. 20 do Código Civil e, quanto a menores, pelo art. 17 do Estatuto da Criança e do Adolescente, independentemente de haver ou não base legal para o restante do tratamento."
+      },
+      "regional": {
+        "title": "Notas regionais",
+        "content": "O serviço é operado do Brasil, cobra em reais e usa PIX como meio de pagamento. A LGPD é o regime principal.\n\nPara titulares no Espaço Econômico Europeu, inclusive na Alemanha, o GDPR se aplica na medida em que oferecemos serviço a você: valem as bases legais da coluna correspondente da tabela da seção 4, o representante do art. 27 indicado no bloco de identificação, os direitos dos arts. 15 a 22, o prazo de um mês prorrogável por dois do art. 12(3) e o direito de reclamar à autoridade de controle do seu país, na forma do art. 77. Como não temos estabelecimento na União Europeia, não há autoridade líder nem balcão único: a autoridade competente é a do seu próprio país de residência.\n\nPara titulares na Espanha e na América Latina de língua espanhola, a versão em espanhol desta Política é a que serve de referência, e a Agencia Española de Protección de Datos é a autoridade competente para residentes na Espanha.\n\nPublicamos esta Política em português, inglês, alemão e espanhol. A versão em português é a autoritativa para titulares no Brasil, por exigência do art. 31 do CDC. Para consumidores residentes na Alemanha e na Espanha, prevalece a versão na língua do respectivo país, e nenhuma cláusula de prevalência de idioma retira de você a proteção da norma imperativa do seu país de residência habitual."
       },
       "changes": {
         "title": "Alterações desta Política",
-        "content": "Podemos atualizar esta Política por mudanças no produto, fornecedores ou legislação. A versão e a data no topo indicam o texto vigente. Mudanças materiais serão destacadas por meio adequado e, quando necessário, solicitaremos novo consentimento.\n\nVersões anteriores poderão ser solicitadas ao encarregado. Recomendamos revisar este documento periodicamente."
+        "content": "A versão e as duas datas no alto da página identificam o texto: a data de vigência é quando a versão passou a valer, e a data de atualização é quando o texto mudou pela última vez. As duas não coincidem necessariamente, e vale a vigente.\n\nMudança material, como nova finalidade, nova base legal, novo fornecedor com acesso a dado pessoal, novo país de destino ou prazo de retenção mais longo, é anunciada com pelo menos 30 dias de antecedência, por e-mail aos titulares de conta e por aviso no produto, antes de produzir efeito. Correção de redação, de referência legal ou de dado de contato pode ser publicada de imediato.\n\nSe a mudança implicar tratamento para finalidade incompatível com a que justificou a coleta, informaremos previamente e de forma destacada, e você poderá revogar consentimento ou se opor, na forma do art. 9º, § 2º, da LGPD.\n\nVersões anteriores são arquivadas e fornecidas a quem solicitar por {dpoEmail}, com a indicação do que mudou entre elas."
       },
       "contact": {
-        "title": "Controlador e encarregado",
-        "content": "O canal de privacidade de {legalName} é {dpoEmail}. Use-o para exercer direitos, esclarecer esta Política ou relatar preocupação com dados pessoais. O site institucional é {siteUrl}.\n\nAntes de enviar, evite anexar senha, cartão ou documento completo. Forneça apenas o necessário para localizar a relação e validar sua identidade com segurança."
+        "title": "Identificação, contato e canais de reclamação",
+        "content": "Controlador: {legalName}. A razão social completa, o CNPJ e o endereço físico constam do bloco ao final desta página e do rodapé do site, em cumprimento ao art. 2º do Decreto nº 7.962/2013. Site institucional: {siteUrl}.\n\n• Encarregado pelo tratamento de dados pessoais, para exercício de direitos e dúvidas sobre esta Política: {dpoEmail}.\n• Suporte e assuntos contratuais, inclusive pedido, pagamento e reembolso: {supportEmail}.\n• Representante na União Europeia, nos termos do art. 27 do GDPR: indicado no bloco de identificação ao final desta página.\n\nAutoridades e canais externos, que você pode acionar diretamente: Autoridade Nacional de Proteção de Dados, pelos canais oficiais dela; Procon do seu estado ou município; a plataforma consumidor.gov.br; a autoridade de controle de proteção de dados do seu país, se você residir na União Europeia; e a Agencia Española de Protección de Datos, se residir na Espanha.\n\nAo escrever, descreva o pedido e o contexto, e não anexe senha, número completo de cartão nem foto de documento: não precisamos disso para localizar a sua relação conosco, e pedir dado demais para atender um pedido de privacidade seria a contradição óbvia."
       }
     }
   },
   "orders": {
-    "title": "Meus pedidos",
-    "description": "Suas compras, pagamentos e reembolsos.",
+    "title": "Meus ingressos",
+    "description": "Seus ingressos e o histórico de compras.",
     "filterLabel": "Filtrar pedidos por situação",
     "filters": {
+      "active": "Atuais",
       "all": "Todos",
       "pending_payment": "Aguardando pagamento",
       "paid": "Pagos",
@@ -715,7 +807,33 @@
     "pagination": "Paginação dos pedidos",
     "showing": "Mostrando {first}–{last} de {total}",
     "previous": "Anterior",
-    "next": "Próxima"
+    "next": "Próxima",
+    "refund": {
+      "title": "Cancelar e receber reembolso",
+      "action": "Solicitar reembolso",
+      "submitting": "Enviando…",
+      "confirm": "Confirmar pedido de reembolso",
+      "cancel": "Voltar",
+      "amount": "Você recebe de volta {amount}",
+      "feeIncluded": "A taxa de serviço está inclusa.",
+      "until": "Você pode cancelar até {date}.",
+      "noteLabel": "Quer contar o motivo? (opcional)",
+      "notePlaceholder": "Não vou conseguir ir",
+      "approved": "Reembolso aprovado. O valor volta pelo mesmo PIX em até 3 dias úteis.",
+      "pending": "Pedido enviado. O organizador vai analisar.",
+      "failed": "Não foi possível pedir o reembolso.",
+      "statusPending": "Reembolso em análise",
+      "statusApproved": "Reembolso aprovado",
+      "statusRejected": "Reembolso recusado",
+      "refusals": {
+        "window_closed": "O prazo de 7 dias para cancelamento já passou.",
+        "too_close_to_event": "Faltam menos de 48 horas para o evento, então não é mais possível cancelar.",
+        "not_paid": "Este pedido não chegou a ser pago.",
+        "already_refunded": "Este pedido já foi estornado.",
+        "event_passed": "Este evento já aconteceu.",
+        "request_open": "Já existe um pedido de reembolso em andamento."
+      }
+    }
   },
   "eventManager": {
     "notFound": "Evento não encontrado",
@@ -756,7 +874,8 @@
     "errors": {
       "tierStatus": "Não foi possível alterar o lote."
     },
-    "manage": "Gerenciar"
+    "manage": "Gerenciar",
+    "viewReport": "Relatório"
   },
   "signIn": {
     "reason": {
@@ -800,7 +919,7 @@
       "legalNameHint": "Como está no documento, é o nome conferido na entrada.",
       "birthDate": "Data de nascimento",
       "submit": "Continuar",
-      "privacy": "Pedimos estes dados porque a lei brasileira exige documento na venda de ingressos: a meia-entrada é limitada por CPF e a cobrança PIX não é emitida sem ele. Ficam guardados criptografados, não aparecem para o organizador do evento e não são usados para publicidade. Detalhes na Política de Privacidade."
+      "privacy": "Pedimos estes dados porque a cobrança PIX não é emitida sem o documento do pagador, porque a idade mínima de 18 anos é conferida contra a data de nascimento e porque um mesmo documento não pode abrir duas contas. Documento, nome legal e data de nascimento ficam cifrados, não aparecem para o organizador do evento e não são usados para publicidade. Detalhes na Política de Privacidade."
     },
     "phone": {
       "title": "Falta pouco!",
@@ -826,5 +945,453 @@
       "skip": "Agora não, continuar sem senha",
       "weak": "A senha precisa ter ao menos 8 caracteres, com maiúscula, minúscula e número."
     }
+  },
+  "audience": {
+    "title": "Sobre você (opcional)",
+    "why": "Ajuda o organizador a entender quem vai aos eventos dele. Responder é opcional e não muda nada na sua compra.",
+    "gender": "Gênero",
+    "city": "Cidade",
+    "uf": "Estado",
+    "unanswered": "Prefiro não responder",
+    "genders": {
+      "female": "Feminino",
+      "male": "Masculino",
+      "non_binary": "Não binário",
+      "other": "Outro",
+      "undisclosed": "Prefiro não informar"
+    }
+  },
+  "reports": {
+    "title": "Relatório do evento",
+    "subtitle": "Quem comprou e quanto entrou.",
+    "loadFailed": "Não foi possível carregar o relatório.",
+    "empty": "Ainda não há vendas neste evento.",
+    "emptyHint": "Os números aparecem assim que o primeiro pagamento for confirmado.",
+    "notInformed": "Não informado",
+    "export": "Exportação",
+    "exportCsv": "Baixar planilha (CSV)",
+    "totals": {
+      "orders": "Pedidos",
+      "tickets": "Ingressos",
+      "buyers": "Compradores",
+      "net": "Você recebe",
+      "refunded": "Estornado",
+      "netHint": "O valor de face dos ingressos. A taxa de serviço é cobrada à parte, por cima.",
+      "buyersHint": "Contas distintas. Quem comprou duas vezes conta uma vez."
+    },
+    "breakdowns": {
+      "gender": "Por sexo",
+      "age": "Por idade",
+      "uf": "Por estado",
+      "city": "Por cidade",
+      "tier": "Por ingresso",
+      "day": "Por data"
+    },
+    "columns": {
+      "gender": "Sexo",
+      "age": "Idade",
+      "uf": "Estado",
+      "city": "Cidade",
+      "tier": "Ingresso",
+      "day": "Data",
+      "orders": "Pedidos",
+      "tickets": "Total ingresso",
+      "net": "Valor",
+      "share": "Participação"
+    },
+    "ageBrackets": {
+      "up_to_18": "Até 18 anos",
+      "19_23": "19 a 23 anos",
+      "24_28": "24 a 28 anos",
+      "29_33": "29 a 33 anos",
+      "34_38": "34 a 38 anos",
+      "39_43": "39 a 43 anos",
+      "44_48": "44 a 48 anos",
+      "49_53": "49 a 53 anos",
+      "54_58": "54 a 58 anos",
+      "59_plus": "59 anos ou mais",
+      "unknown": "Não informado"
+    }
+  },
+  "attendees": {
+    "title": "Participantes",
+    "subtitle": "Quem comprou ingresso para este evento.",
+    "search": "Buscar por nome ou e-mail",
+    "empty": "Nenhum participante ainda.",
+    "emptyFiltered": "Nenhum participante encontrado com esses filtros.",
+    "loadFailed": "Não foi possível carregar a lista.",
+    "export": "Exportar participantes",
+    "showing": "{shown} de {total}",
+    "loadMore": "Carregar mais",
+    "allTiers": "Todos os ingressos",
+    "privacy": "O documento aparece mascarado, e a data de nascimento e o telefone não são exibidos: você precisa conferir quem chega na porta, não guardar o CPF de ninguém.",
+    "columns": {
+      "name": "Nome",
+      "email": "E-mail",
+      "document": "Documento",
+      "gender": "Sexo",
+      "age": "Idade",
+      "city": "Cidade",
+      "uf": "Estado",
+      "tier": "Ingresso",
+      "quantity": "Qtd.",
+      "paid": "Total pago",
+      "purchasedAt": "Compra",
+      "status": "Situação"
+    },
+    "status": {
+      "all": "Pagos e estornados",
+      "paid": "Somente pagos",
+      "refunded": "Somente estornados",
+      "labels": {
+        "paid": "Pago",
+        "refunded": "Estornado",
+        "refund_required": "Estorno pendente"
+      }
+    }
+  },
+  "refunds": {
+    "inboxTitle": "Pedidos de reembolso",
+    "inboxSubtitle": "O que está esperando a sua decisão.",
+    "empty": "Nenhum pedido de reembolso.",
+    "loadFailed": "Não foi possível carregar os pedidos de reembolso.",
+    "pendingCount": "{count, plural, =0 {Nenhum pendente} one {1 pendente} other {# pendentes}}",
+    "approve": "Aprovar",
+    "reject": "Recusar",
+    "approving": "Aprovando…",
+    "rejecting": "Recusando…",
+    "approved": "Reembolso aprovado. O estorno entrou na fila.",
+    "rejected": "Pedido recusado.",
+    "decisionFailed": "Não foi possível registrar a decisão.",
+    "noteLabel": "Observação (opcional)",
+    "notePlaceholder": "Explique a decisão para o comprador",
+    "order": "Pedido",
+    "amount": "Valor a devolver",
+    "requestedAt": "Solicitado em",
+    "decidedBy": "Decidido por",
+    "autoApproved": "Aprovado automaticamente pela política",
+    "autoApprovedHint": "Dentro do prazo legal de arrependimento, ou evento cancelado: não é possível recusar.",
+    "statuses": {
+      "pending": "Pendente",
+      "approved": "Aprovado",
+      "rejected": "Recusado"
+    },
+    "reasons": {
+      "buyer_withdrawal": "Arrependimento do comprador",
+      "event_cancelled": "Evento cancelado",
+      "organiser_goodwill": "Cortesia do organizador",
+      "operator": "Ação do suporte"
+    }
+  },
+  "door": {
+    "title": "Entrada",
+    "subtitle": "Leia o QR do ingresso ou digite o código. Cada código vale uma única entrada.",
+    "loadingEvents": "Carregando seus eventos…",
+    "noEventsTitle": "Nenhum evento publicado",
+    "noEventsBody": "A entrada funciona em eventos publicados. Publique um evento para começar a validar ingressos.",
+    "pickTitle": "Em qual entrada você está?",
+    "changeEvent": "Trocar evento",
+    "ready": "Pronto para ler",
+    "readyHint": "Aponte a câmera para o QR do ingresso ou digite o código abaixo.",
+    "checking": "Verificando…",
+    "codeLabel": "Código do ingresso",
+    "codePlaceholder": "XXXX-XXXX-XXXX",
+    "codeHint": "12 caracteres. A validação começa sozinha ao completar.",
+    "cameraOpen": "Ler com a câmera",
+    "cameraClose": "Fechar câmera",
+    "cameraDenied": "Sem acesso à câmera. Digite o código para continuar.",
+    "transportError": "Sem conexão",
+    "transportErrorHint": "Não foi possível falar com o servidor. Tente de novo.",
+    "usedAt": "Já havia entrado em {when}",
+    "countersTitle": "Entrada",
+    "countersShare": "{share}% presentes",
+    "in": "entraram",
+    "left": "faltam",
+    "outcome": {
+      "admitted": "Pode entrar",
+      "already_admitted": "Já utilizado",
+      "void": "Cancelado",
+      "wrong_event": "Outro evento",
+      "not_paid": "Não pago",
+      "unknown": "Não encontrado",
+      "malformed": "Código inválido"
+    },
+    "cameraNoDevice": "Nenhuma câmera disponível neste aparelho. Digite o código acima, que funciona sempre.",
+    "cameraStarting": "Abrindo a câmera…",
+    "pickHint": "Busque pelo nome, local ou cidade. Só eventos publicados aparecem aqui.",
+    "searchPlaceholder": "Buscar evento",
+    "searchLabel": "Buscar evento pelo nome, local ou cidade",
+    "noMatchTitle": "Nenhum evento encontrado",
+    "noMatchBody": "Ajuste a busca ou limpe o campo para ver todos os seus eventos publicados.",
+    "range": "{from}–{to} de {total}",
+    "previous": "Anterior",
+    "next": "Próximo"
+  },
+  "seating": {
+    "loading": "Carregando o mapa de assentos…",
+    "loadFailed": "Não foi possível carregar o mapa de assentos. Recarregue a página.",
+    "stage": "Palco",
+    "seatName": "Fila {row}, assento {seat}",
+    "proceed": "{count, plural, one {Continuar com 1 assento} other {Continuar com # assentos}}",
+    "refused": "{count, plural, one {O assento {seats} acabou de ser escolhido por outra pessoa. Os demais continuam seus.} other {Os assentos {seats} acabaram de ser escolhidos por outras pessoas. Os demais continuam seus.}}",
+    "best": {
+      "title": "Melhor disponível",
+      "hint": "Escolhemos os melhores lugares juntos, mais perto do palco. Se preferir, escolha no mapa abaixo.",
+      "seats": "{count, plural, one {1 lugar} other {# lugares}}",
+      "accessible": "Preciso de lugar acessível",
+      "accessibleHint": "Espaço para cadeira de rodas, mobilidade reduzida ou assento para obesos. Esses lugares ficam reservados e não são oferecidos a quem não precisa deles."
+    },
+    "sectors": {
+      "title": "Escolha o setor",
+      "choose": "Escolha um setor para ver os lugares.",
+      "available": "{count, plural, one {1 lugar livre} other {# lugares livres}}",
+      "soldOut": "Esgotado"
+    },
+    "status": {
+      "available": "livre",
+      "taken": "ocupado",
+      "blocked": "indisponível"
+    },
+    "kind": {
+      "standard": "comum",
+      "wheelchair": "espaço para cadeira de rodas",
+      "companion": "acompanhante",
+      "reduced_mobility": "mobilidade reduzida",
+      "obese": "cadeira para obesos",
+      "restricted_view": "visão parcial"
+    },
+    "legend": {
+      "available": "Livre",
+      "selected": "Seu",
+      "taken": "Ocupado",
+      "accessible": "Acessível"
+    },
+    "selection": {
+      "title": "Seus lugares",
+      "empty": "Nenhum lugar escolhido ainda.",
+      "remove": "Remover a fila {row}, assento {seat}"
+    },
+    "total": {
+      "tickets": "{count, plural, one {1 ingresso} other {# ingressos}}",
+      "fee": "Taxa de serviço",
+      "total": "Total"
+    },
+    "arena": "Arena"
+  },
+  "layoutStudio": {
+    "loading": "Carregando…",
+    "failed": "Não foi possível concluir.",
+    "save": "Salvar sala",
+    "saving": "Salvando…",
+    "saved": "Sala salva.",
+    "publish": "Publicar",
+    "published": "Planta publicada.",
+    "adjustments": "Ajustes",
+    "state": {
+      "unsaved": "Não salvo",
+      "draft": "Rascunho",
+      "published": "Publicada",
+      "archived": "Arquivada"
+    },
+    "venue": {
+      "label": "Local",
+      "none": "Escolha um local",
+      "add": "Novo local",
+      "prompt": "Nome do local"
+    },
+    "layout": {
+      "label": "Planta",
+      "none": "Escolha uma planta",
+      "add": "Nova planta",
+      "prompt": "Nome da planta",
+      "choose": "Escolha um local e uma planta para começar a desenhar a sala.",
+      "frozenExplained": "Esta planta já está vendendo em um evento e não pode ser alterada: mudar as fileiras agora mudaria a sala embaixo de uma noite que já tem ingressos. Crie uma nova versão para alterar."
+    },
+    "canvas": {
+      "count": "{seats} lugares",
+      "updating": "Atualizando a sala…",
+      "drawing": "Desenhando…",
+      "failed": "Não foi possível desenhar a sala com esses valores.",
+      "collision": "{count, plural, one {Uma peça está sobre outra. Separe as duas para poder salvar.} other {# peças estão umas sobre as outras. Separe-as para poder salvar.}}"
+    },
+    "inspector": {
+      "none": "Clique em uma peça da planta para ajustar."
+    },
+    "namePlaceholder": {
+      "linear": "Plateia A",
+      "arc": "Arquibancada Setor B",
+      "tables": "Camarote",
+      "standing": "Pista",
+      "booth": "Camarote 1",
+      "stage": "Palco",
+      "arena": "Arena"
+    },
+    "count": {
+      "rows": "{rows} fileiras · {seats} lugares",
+      "tables": "{tables} mesas · {seats} lugares",
+      "capacity": "{capacity} pessoas",
+      "marker": "Só desenho, não vende"
+    },
+    "fields": {
+      "name": "Nome do setor",
+      "nameHint": "É o que o comprador vê no mapa.",
+      "rows": "Fileiras",
+      "seatsPerRow": "Por fileira",
+      "tables": "Mesas",
+      "seatsPerTable": "Por mesa",
+      "tablesPerRow": "Mesas por linha",
+      "firstTable": "Primeira mesa",
+      "capacity": "Capacidade",
+      "radius": "Distância",
+      "skips": "Corredores",
+      "skipsHint": "Posições vazias, separadas por vírgula.",
+      "rowLabels": "Fileiras",
+      "firstRow": "Começa em",
+      "numbering": "Numeração",
+      "curve": "Curvatura",
+      "curveHint": "Zero é um bloco reto.",
+      "seatPitch": "Espaço entre lugares",
+      "side": "Onde fica a arquibancada",
+      "sideHint": "De que lado da arena, visto de cima no mapa.",
+      "arcWidth": "Quanto da volta ocupa",
+      "radiusHint": "Da borda da arena até a primeira fileira.",
+      "width": "Largura",
+      "depth": "Profundidade",
+      "diameter": "Diâmetro",
+      "rowsNumbered": "Passou de 24 fileiras, então elas passaram a ser numeradas."
+    },
+    "capacityHint": {
+      "standing": "Quantas pessoas cabem na pista.",
+      "booth": "Quantas pessoas este camarote admite."
+    },
+    "rowLabels": {
+      "letters": "Letras (A, B, C)",
+      "numbers": "Números (1, 2, 3)"
+    },
+    "numbering": {
+      "sequential": "1 a n",
+      "odd_even": "Ímpares e pares do centro"
+    },
+    "numberingHint": {
+      "sequential": "O caso comum.",
+      "odd_even": "Casas antigas: ímpares de um lado do corredor central, pares do outro."
+    },
+    "compliance": {
+      "title": "Falta acessibilidade",
+      "ok": "Acessibilidade em ordem",
+      "okLong": "Sobre {capacity} lugares, a planta atende às cotas de acessibilidade.",
+      "short": "Acessibilidade incompleta",
+      "basis": "Sobre {capacity} lugares, pelo Decreto 5.296/2004 (art. 23, redação do Decreto 9.404/2018).",
+      "missing": "{count, plural, one {Falta # lugar de {kind}} other {Faltam # lugares de {kind}}}",
+      "wheelchair": "espaço para cadeira de rodas",
+      "companion": "acompanhante",
+      "reducedMobility": "mobilidade reduzida",
+      "obese": "cadeira para obesos",
+      "how": "Marque os lugares no formulário do setor. A responsabilidade é do organizador.",
+      "fix": "Marcar lugares automaticamente",
+      "fixHint": "Escolhemos a última fileira, das pontas para o meio, com um acompanhante ao lado de cada espaço de cadeira de rodas. Depois você pode mudar qualquer um clicando no mapa."
+    },
+    "mode": {
+      "label": "O que o clique faz",
+      "move": "Mover blocos",
+      "mark": "Marcar lugares",
+      "kindLabel": "Tipo de lugar a marcar"
+    },
+    "kind": {
+      "standard": "Comum",
+      "wheelchair": "Cadeira de rodas",
+      "companion": "Acompanhante",
+      "reduced_mobility": "Mobilidade reduzida",
+      "obese": "Obeso",
+      "restricted_view": "Visão parcial"
+    },
+    "side": {
+      "top": "Em cima",
+      "right": "À direita",
+      "bottom": "Embaixo",
+      "left": "À esquerda",
+      "full": "Volta inteira"
+    },
+    "arcWidth": {
+      "quarter": "Um quarto da volta",
+      "third": "Um terço da volta",
+      "half": "Metade da volta"
+    },
+    "undo": "Desfazer",
+    "redo": "Refazer",
+    "remove": "Remover peça",
+    "palette": {
+      "title": "Peças",
+      "hint": "Arraste para a planta, ou clique para soltar no meio.",
+      "shortcuts": "Ctrl+C copia · Ctrl+V cola · Ctrl+D duplica · Ctrl+Z desfaz"
+    },
+    "empty": {
+      "title": "Monte a sala",
+      "hint": "Arraste uma peça da lateral para a planta. Comece pelo palco ou pela arena, depois ponha as fileiras em volta."
+    },
+    "legend": {
+      "title": "Legenda"
+    },
+    "piece": {
+      "linear": "Fileiras retas",
+      "arc": "Fileiras em volta",
+      "tables": "Mesas redondas",
+      "standing": "Pista",
+      "booth": "Camarote",
+      "stage": "Palco",
+      "arena": "Arena"
+    },
+    "pieceHint": {
+      "linear": "Teatro, cinema, auditório. Fileiras de frente para o palco.",
+      "arc": "Rodeio, ginásio, estádio. Fileiras curvas em volta do centro.",
+      "tables": "Mesas com lugares em volta. Jantar, formatura, churrasco.",
+      "standing": "Vendida por quantidade, sem lugar marcado.",
+      "booth": "Vendido inteiro, para um grupo. Solte um para cada camarote.",
+      "stage": "Onde fica o palco. Não vende nada: orienta quem compra.",
+      "arena": "O piso onde acontece o espetáculo. Não vende nada."
+    },
+    "defaultName": {
+      "linear": "Plateia",
+      "arc": "Arquibancada",
+      "tables": "Mesas",
+      "standing": "Pista",
+      "booth": "Camarote",
+      "stage": "Palco",
+      "arena": "Arena"
+    },
+    "area": {
+      "unit": "1 unidade"
+    }
+  },
+  "eventSeating": {
+    "title": "Lugares marcados",
+    "loading": "Carregando…",
+    "failed": "Não foi possível concluir.",
+    "hint": "Escolha a planta e diga quanto custa cada setor. Os lugares passam a ser vendidos com fila e número.",
+    "venue": "Local",
+    "layout": "Planta",
+    "layoutHint": "Somente plantas publicadas.",
+    "pricing": "Preço de cada setor",
+    "pricingHint": "Um lote por setor. Setor sem lote não é vendido nesta noite.",
+    "notSold": "Não vender",
+    "bind": "Colocar lugares à venda",
+    "binding": "Colocando à venda…",
+    "bound": "{seats} lugares à venda.",
+    "needsTier": "Crie pelo menos um lote antes de marcar lugares: é o lote que define o preço de cada setor.",
+    "needsPricing": "Escolha um lote para pelo menos um setor.",
+    "oneWay": "Depois de colocar à venda, a planta desta noite não pode ser trocada: os lugares passam a poder ser reservados e impressos no ingresso de alguém.",
+    "live": "{seats} lugares à venda em {sectors} setores.",
+    "liveLocked": "A planta desta noite não pode mais ser trocada. Para vender outra sala, crie outro evento.",
+    "noVenue": "Você ainda não tem nenhum local desenhado.",
+    "noPublished": "Este local não tem planta publicada. Publique uma planta no estúdio para poder vendê-la.",
+    "goToStudio": "Abrir plantas e assentos",
+    "closed": "Este evento vende lugares numerados? Fila e poltrona, como um teatro ou uma arena. Se for ingresso comum, não precisa de nada aqui.",
+    "open": "Marcar lugares",
+    "confirmTitle": "Colocar os lugares à venda?",
+    "confirmBody": "{seats} lugares em {sectors} setores, da planta {layout}.",
+    "oneWayShort": "Isto não pode ser desfeito depois que um lugar for reservado.",
+    "unpricedWarning": "{count, plural, one {O setor {sectors} fica sem lote e não será vendido nesta noite.} other {Os setores {sectors} ficam sem lote e não serão vendidos nesta noite.}}",
+    "unreachable": "Não conseguimos carregar seus locais e plantas agora. Isto não quer dizer que você não tenha nenhum.",
+    "retry": "Tentar de novo"
   }
 }

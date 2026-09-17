@@ -168,3 +168,64 @@ describe("safeNext", () => {
     expect(safeNext("/checkout\\@evil.example")).toBe("/");
   });
 });
+
+/**
+ * Reserved seating in the URL.
+ *
+ * The chairs travel with the intent for the same reason the quantities do: a
+ * buyer picks seats, signs in, and must come back to the same selection rather
+ * than to an empty chart.
+ */
+describe("seated intents", () => {
+  it("round-trips the chairs a buyer chose", () => {
+    const intent = {
+      lines: [{ ticketId: "tkt_a", quantity: 2, seatIds: ["ste_1", "ste_2"] }],
+      eventSlug: "festival",
+    };
+    expect(readIntent(intentParams(intent))).toEqual(intent);
+  });
+
+  it("carries seated and counted lines in one basket", () => {
+    const intent = {
+      lines: [
+        { ticketId: "tkt_pista", quantity: 3 },
+        { ticketId: "tkt_plateia", quantity: 2, seatIds: ["ste_9", "ste_10"] },
+      ],
+      eventSlug: "mixed",
+    };
+    expect(readIntent(intentParams(intent))).toEqual(intent);
+  });
+
+  it("still survives a tier id containing the pair separator", () => {
+    // The reason the parser reads from the right. A colon in an id is legal and
+    // tested above for counted lines; adding seats must not break it.
+    const intent = {
+      lines: [{ ticketId: "tkt:weird:id", quantity: 1, seatIds: ["ste_1"] }],
+      eventSlug: "odd",
+    };
+    expect(readIntent(intentParams(intent))).toEqual(intent);
+  });
+
+  it("refuses a line whose seat count disagrees with its quantity", () => {
+    // A link that lost part of itself. Either number could be the one the buyer
+    // meant, so neither is used — the server refuses it for the same reason.
+    expect(readIntent(new URLSearchParams({ items: "tkt_a:3@ste_1+ste_2" }))).toBeNull();
+    expect(readIntent(new URLSearchParams({ items: "tkt_a:1@ste_1+ste_2" }))).toBeNull();
+  });
+
+  it("refuses the same chair twice", () => {
+    expect(readIntent(new URLSearchParams({ items: "tkt_a:2@ste_1+ste_1" }))).toBeNull();
+  });
+
+  it("refuses an empty seat group", () => {
+    expect(readIntent(new URLSearchParams({ items: "tkt_a:1@" }))).toBeNull();
+  });
+
+  it("keeps a counted line free of a seats key", () => {
+    // Not cosmetic: the API treats the PRESENCE of seatIds as "this line is
+    // seated", so an empty array on a counted line would claim nothing and
+    // refuse the purchase.
+    const parsed = readIntent(new URLSearchParams({ items: "tkt_a:2" }));
+    expect(parsed?.lines[0]).not.toHaveProperty("seatIds");
+  });
+});
