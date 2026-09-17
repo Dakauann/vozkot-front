@@ -20,7 +20,9 @@ import {
   SealCheck,
   Storefront,
 } from "@/components/icons";
+import { SalesChecklist } from "@/components/events/sales-checklist";
 import { EventSeatingPanel } from "@/components/seating/event-seating-panel";
+import { NewTierDialog } from "@/components/tickets/new-tier-dialog";
 import { TicketStatusChip } from "@/components/tickets/ticket-status-chip";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
@@ -56,6 +58,10 @@ export function EventManager({ eventId }: { eventId: string }) {
   const [tiers, setTiers] = React.useState<Ticket[] | null>(null);
   const [failed, setFailed] = React.useState(false);
   const [busy, setBusy] = React.useState<string | null>(null);
+  // Whether this night has a seat map. Reported by the seating panel, which is
+  // the only thing that asks, so the checklist can draw the whole chain without
+  // a second request for the same answer.
+  const [seatsBound, setSeatsBound] = React.useState(false);
   React.useEffect(() => {
     let cancelled = false;
     void (async () => {
@@ -215,6 +221,17 @@ export function EventManager({ eventId }: { eventId: string }) {
         />
       </section>
 
+      {/* What still has to happen before this night can sell, drawn once.
+          Above the seating offer and the tiers, because it is what tells an
+          organiser which of those two to go and touch. */}
+      <SalesChecklist
+        seated={(event.salesMode ?? "counted") === "seated"}
+        hasTiers={tiers.length > 0}
+        seatsBound={seatsBound}
+        onSale={totals.onSale > 0}
+        published={event.status === "published"}
+      />
+
       {/* Reserved seating, offered rather than presented.
           It lives on this page and not in the event form because binding needs
           an event that EXISTS and tiers to point the blocks at, neither of
@@ -227,6 +244,9 @@ export function EventManager({ eventId }: { eventId: string }) {
           eventId={event.id}
           tiers={tiers}
           salesMode={event.salesMode ?? "counted"}
+          onBound={setSeatsBound}
+          eventName={event.name}
+          venueName={event.location.venue}
         />
       </div>
 
@@ -236,9 +256,15 @@ export function EventManager({ eventId }: { eventId: string }) {
             <h2 id="tiers-heading" className="font-display text-lg font-semibold text-foreground">
               {t("tiersTitle")}
             </h2>
-            <p className="text-sm text-muted-foreground">
-              {t("tierCount", { count: tiers.length })}
-            </p>
+            <div className="flex items-center gap-3">
+              <p className="text-sm text-muted-foreground">
+                {t("tierCount", { count: tiers.length })}
+              </p>
+              <NewTierDialog
+                eventId={event.id}
+                onCreated={(tier) => setTiers((current) => [...(current ?? []), tier])}
+              />
+            </div>
           </div>
 
           {tiers.length === 0 ? (
@@ -249,12 +275,13 @@ export function EventManager({ eventId }: { eventId: string }) {
               <p className="mx-auto mt-2 max-w-[48ch] text-sm text-muted-foreground">
                 {t("noTiersBody")}
               </p>
-              <Button asChild size="sm" className="mt-5">
-                <Link href={`/tickets/new?event=${event.id}`}>
-                  <Plus className="h-4 w-4" aria-hidden />
-                  {t("newTier")}
-                </Link>
-              </Button>
+              <div className="mt-5 flex justify-center">
+                <NewTierDialog
+                  eventId={event.id}
+                  variant="primary"
+                  onCreated={(tier) => setTiers((current) => [...(current ?? []), tier])}
+                />
+              </div>
             </div>
           ) : (
             <ul className="flex flex-col gap-2">
@@ -296,15 +323,12 @@ export function EventManager({ eventId }: { eventId: string }) {
 
           {/* The one thing an organiser most often gets wrong, said where they
               are about to get it wrong: a published event with no tier on sale
-              is a page a buyer can reach and cannot buy from. */}
+              is a page a buyer can reach and cannot buy from. The checklist
+              above says what is still missing; this says what is already wrong.
+              */}
           {event.status === "published" && totals.onSale === 0 ? (
             <p className="notice notice-warning notice-ink px-4 py-3 text-sm">
               {t("publishedWithNothingOnSale")}
-            </p>
-          ) : null}
-          {event.status === "draft" && tiers.length > 0 ? (
-            <p className="notice notice-info notice-ink px-4 py-3 text-sm">
-              {t("draftHint")}
             </p>
           ) : null}
         </aside>

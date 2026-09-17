@@ -54,6 +54,13 @@ export type BuilderView = {
    * it is not going to happen.
    */
   suggestFor: string | null;
+  /**
+   * The colour of each price band, keyed by name.
+   *
+   * Handed down rather than worked out per node, because the slot a band gets
+   * is the ORDER the server put it in and every node has to agree.
+   */
+  bandColors: Record<string, string>;
   /** Whether clicking a chair changes its kind, rather than dragging the block. */
   marking: boolean;
   onMarkSeat: (nodeId: string, key: string) => void;
@@ -70,6 +77,7 @@ export type BuilderView = {
 
 const EMPTY: BuilderView = {
   blocks: {},
+  bandColors: {},
   suggested: {},
   suggestFor: null,
   marking: false,
@@ -109,17 +117,31 @@ function useName(draft: Draft): string {
  * to read, and the two facts anybody wants from a sector are its name and its
  * size.
  */
-function Header({ name, amount, selected }: { name: string; amount: string; selected: boolean }) {
+function Header({
+  name,
+  amount,
+  band,
+  selected,
+}: {
+  name: string;
+  amount: string;
+  /** The price band, shown only when it is not simply the sector's name. */
+  band?: string;
+  selected: boolean;
+}) {
   return (
     <div
       className={cn(
         "pointer-events-none flex items-baseline justify-between gap-2 rounded-t-[8px] px-2.5",
-        selected ? "bg-primary/15" : "bg-muted/70",
+        selected ? "bg-primary-subtle" : "bg-muted",
       )}
       style={{ height: PAD_TOP - 6 }}
     >
       <span className="min-w-0 truncate font-semibold text-foreground" style={{ fontSize: 12 }}>
         {name}
+        {band && band !== name ? (
+          <span className="font-normal text-muted-foreground"> · {band}</span>
+        ) : null}
       </span>
       <span className="shrink-0 tabular-nums text-muted-foreground" style={{ fontSize: 10.5 }}>
         {amount}
@@ -138,12 +160,13 @@ function Header({ name, amount, selected }: { name: string; amount: string; sele
  */
 export function BlockNode({ id, data, selected }: NodeProps<Node<PieceData, "block">>) {
   const t = useTranslations("layoutStudio");
-  const { blocks, suggested, suggestFor, marking, onMarkSeat, collisions } =
+  const { blocks, bandColors, suggested, suggestFor, marking, onMarkSeat, collisions } =
     React.useContext(ViewContext);
   const geometry = blocks[id];
   const clashing = collisions.has(id);
   const name = useName(data.draft);
   const kinds = data.draft.seatKinds;
+  const bands = data.draft.seatCategories;
   const showSuggestions = suggestFor === id;
 
   // The chairs, kept out of the drag path. Their inputs do not change while a
@@ -160,13 +183,15 @@ export function BlockNode({ id, data, selected }: NodeProps<Node<PieceData, "blo
           x={seat.x - geometry.originX + PAD}
           y={seat.y - geometry.originY + PAD_TOP}
           kind={kind}
+          band={bandColors[seat.category]}
           suggested={showSuggestions && kind === "standard" && suggested[key] !== undefined}
+          banded={bands?.[key] !== undefined}
           clickable={marking}
           onClick={marking ? () => onMarkSeat(id, key) : undefined}
         />
       );
     });
-  }, [geometry, kinds, suggested, showSuggestions, marking, onMarkSeat, id]);
+  }, [geometry, kinds, bands, bandColors, suggested, showSuggestions, marking, onMarkSeat, id]);
 
   if (!geometry) return <Drawing name={name} />;
 
@@ -180,17 +205,18 @@ export function BlockNode({ id, data, selected }: NodeProps<Node<PieceData, "blo
         // that comes out a seat too tight shows the seat rather than eating it.
         "relative rounded-[10px] border transition-colors",
         clashing
-          ? "border-warning-ink ring-1 ring-warning-ink/40"
+          ? "border-warning-ink ring-1 ring-warning-edge"
           : selected
-            ? "border-primary ring-1 ring-primary/40"
-            : "border-border-strong hover:border-foreground/30",
-        marking ? "bg-card" : "bg-card/70",
+            ? "border-primary ring-1 ring-primary"
+            : "border-border-strong hover:border-border-strong",
+        marking ? "bg-card" : "bg-card",
       )}
       style={{ width, height }}
     >
       <Header
         name={name}
         amount={t("canvas.count", { seats: geometry.seats.length })}
+        band={data.draft.category?.trim() || undefined}
         selected={!!selected}
       />
 
@@ -222,7 +248,7 @@ function Drawing({ name }: { name: string }) {
   const t = useTranslations("layoutStudio");
   return (
     <div
-      className="flex animate-pulse flex-col items-center justify-center gap-1 rounded-[10px] border border-dashed border-border-strong bg-card/60"
+      className="flex animate-pulse flex-col items-center justify-center gap-1 rounded-[10px] border border-dashed border-border-strong bg-card"
       style={{ width: 200, height: 120 }}
     >
       <span className="font-semibold text-foreground" style={{ fontSize: 13 }}>
@@ -248,23 +274,35 @@ const Chair = React.memo(function Chair({
   x,
   y,
   kind,
+  band,
   suggested,
+  banded,
   clickable,
   onClick,
 }: {
   x: number;
   y: number;
   kind: SeatKind;
+  /** The colour of this chair's price band, when the room has more than one. */
+  band?: string;
   suggested: boolean;
+  /** Whether this chair carries its own price band, not its section's. */
+  banded: boolean;
   clickable: boolean;
   onClick?: () => void;
 }) {
-  const paint = isAccessibleKind(kind)
-    ? "fill-primary stroke-primary"
-    : kind === "restricted_view"
-      ? "fill-muted stroke-warning-ink"
-      : "fill-muted stroke-border-strong";
+  // The BAND is the fill and the KIND is the shape, so a wheelchair space in
+  // the premium rows reads as both. Accessible kinds keep their own fill when
+  // the room has a single band and there is no band colour to carry.
+  const paint = band
+    ? "stroke-border-strong"
+    : isAccessibleKind(kind)
+      ? "fill-primary stroke-primary"
+      : kind === "restricted_view"
+        ? "fill-muted stroke-warning-ink"
+        : "fill-muted stroke-border-strong";
   const shared = cn(paint, clickable && "cursor-pointer hover:fill-primary-subtle");
+  const fill = band ? { fill: band } : undefined;
 
   return (
     // `nodrag` is React Flow's opt-out: without it a press on a chair starts
@@ -282,9 +320,23 @@ const Chair = React.memo(function Chair({
           cx={x}
           cy={y}
           r={11}
-          className="fill-none stroke-primary/50"
+          className="fill-none stroke-primary"
           strokeWidth={1.5}
           strokeDasharray="3 2"
+        />
+      ) : null}
+
+      {/* A chair priced apart from its sector. Solid, to read differently from
+          the dashed accessibility suggestion, and drawn around the seat so its
+          kind still reads: a front-row wheelchair space is both things. Without
+          it the pricing tool gave no sign it had done anything. */}
+      {banded ? (
+        <circle
+          cx={x}
+          cy={y}
+          r={10.5}
+          className="fill-none stroke-warning-ink"
+          strokeWidth={1.5}
         />
       ) : null}
 
@@ -297,7 +349,8 @@ const Chair = React.memo(function Chair({
           width={14}
           height={14}
           rx={2.5}
-          className={cn(shared, kind === "companion" && "fill-primary-subtle")}
+          className={cn(shared, !band && kind === "companion" && "fill-primary-subtle")}
+          style={fill}
           strokeWidth={1.5}
         />
       ) : kind === "obese" ? (
@@ -309,15 +362,16 @@ const Chair = React.memo(function Chair({
           height={12}
           rx={6}
           className={shared}
+          style={fill}
           strokeWidth={1.5}
         />
       ) : kind === "reduced_mobility" ? (
         <>
-          <circle cx={x} cy={y} r={7} className={shared} strokeWidth={1.5} />
+          <circle cx={x} cy={y} r={7} className={shared} style={fill} strokeWidth={1.5} />
           <circle cx={x} cy={y} r={2.5} className="pointer-events-none fill-card" />
         </>
       ) : (
-        <circle cx={x} cy={y} r={7} className={shared} strokeWidth={1.25} />
+        <circle cx={x} cy={y} r={7} className={shared} style={fill} strokeWidth={1.25} />
       )}
     </g>
   );
@@ -394,10 +448,10 @@ export function AreaNode({
         className={cn(
           "flex size-full flex-col overflow-hidden rounded-[10px] border-2 border-dashed",
           clashing
-            ? "border-warning-ink bg-warning-subtle/40"
+            ? "border-warning-ink bg-muted"
             : selected
-              ? "border-primary bg-card ring-1 ring-primary/30"
-              : "border-border-strong bg-muted/30 hover:border-foreground/30",
+              ? "border-primary bg-card ring-1 ring-primary"
+              : "border-border-strong bg-muted hover:border-border-strong",
         )}
       >
         <Header
@@ -467,7 +521,7 @@ function Occupancy({
         cx={column * gap + gap / 2 + stagger}
         cy={row * gap + gap / 2}
         r={pip}
-        className={crowd ? "fill-muted-foreground/45" : "fill-primary/70"}
+        className={crowd ? "fill-muted-foreground" : "fill-primary"}
       />,
     );
   }
@@ -516,10 +570,10 @@ export function MarkerNode({
           "flex size-full items-center justify-center overflow-hidden border-2 px-2 text-center",
           round ? "rounded-full" : "rounded-[10px]",
           clashing
-            ? "border-warning-ink bg-warning-subtle"
+            ? "border-warning-ink bg-muted"
             : selected
-              ? "border-primary bg-primary/20"
-              : "border-border-strong bg-muted hover:border-foreground/30",
+              ? "border-primary bg-primary-subtle"
+              : "border-border-strong bg-muted hover:border-border-strong",
         )}
       >
         <span

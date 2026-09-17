@@ -6,6 +6,7 @@ out/
 *.tsbuildinfo
 coverage/
 .tmp/
+.cache/
 
 # Copied from node_modules by scripts/copy-maplibre-worker.mjs on dev/build.
 # Generated, never edited: they have to match the installed maplibre-gl exactly.

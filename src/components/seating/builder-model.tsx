@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useTranslations } from "next-intl";
 
-import { CaretDown, Check, Warning } from "@/components/icons";
+import { ArrowClockwise, CaretDown, Check, Warning } from "@/components/icons";
 import ElevatedInput from "@/components/elevated-design/elevated-input";
 import { Button } from "@/components/ui/button";
 import { Field, SelectField } from "@/components/ui/field";
@@ -216,45 +216,6 @@ export function describe(
   });
 }
 
-// --- two things cannot occupy the same floor -------------------------------
-
-/** How much two boxes may share before it counts as an overlap, in layout units. */
-const TOUCHING = 1;
-
-/**
- * The pieces that are drawn on top of something else.
- *
- * Mirrors the server's rule exactly, including the slack: adjacent sectors
- * share an edge — a balcony directly behind the stalls, two stands meeting at a
- * corner — and calling that a collision would flag almost every real venue.
- * BOTH dimensions have to genuinely overlap, because two sectors side by side
- * share a full span of one axis and none of the other.
- *
- * Returns the ids of every piece involved rather than the first pair, because
- * the canvas marks them all at once: an organiser who has nudged one block into
- * two others wants to see both problems, not to fix one and discover the next.
- */
-export function collisionsIn(boxes: Record<string, Rect>): Set<string> {
-  const entries = Object.entries(boxes).filter(([, box]) => box.width > 0 && box.height > 0);
-  const hit = new Set<string>();
-  for (let i = 0; i < entries.length; i += 1) {
-    for (let j = i + 1; j < entries.length; j += 1) {
-      const [idA, a] = entries[i];
-      const [idB, b] = entries[j];
-      const shareX = Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x);
-      const shareY = Math.min(a.y + a.height, b.y + b.height) - Math.max(a.y, b.y);
-      if (shareX > TOUCHING && shareY > TOUCHING) {
-        hit.add(idA);
-        hit.add(idB);
-      }
-    }
-  }
-  return hit;
-}
-
-/** A piece's footprint on the canvas, in layout units. */
-export type Rect = { x: number; y: number; width: number; height: number };
-
 // --- the geometry a canvas draws a block in ---------------------------------
 
 /** A block's seats as the server generated them, and the frame they need. */
@@ -324,6 +285,280 @@ export function blocksFrom(previewed: {
     };
   });
   return found;
+}
+
+// --- the rooms a room starts from -----------------------------------------
+
+/**
+ * The starting points the builder offers before a canvas.
+ *
+ * Three real rooms and a blank page. Eventbrite asks this question before it
+ * shows a canvas; Sympla answers it by sending a human. A palette on an empty
+ * grid asks an organiser to know what a seating plan is made of before they
+ * have seen one.
+ */
+export type Starter = "theatre" | "show" | "arena" | "tables" | "blank";
+
+export const STARTERS: Starter[] = ["theatre", "show", "arena", "tables", "blank"];
+
+/** One piece of a starting room: what it is, where it goes, and how big. */
+export type StarterPiece = {
+  piece: Piece;
+  /** The `starter.name.*` key its name comes from. */
+  nameKey: string;
+  at: { x: number; y: number };
+  size?: { width: number; height: number };
+  /** Shape numbers, when the palette's defaults are not what this room wants. */
+  spec?: Partial<Draft>;
+};
+
+/**
+ * The pieces a starting point drops.
+ *
+ * The numbers are not decorative, and they do two jobs.
+ *
+ * They are placed so the room has NO collisions, because the save refuses a
+ * room with two sectors on the same floor and an organiser's first Save must
+ * not be the thing that teaches them that. The arena is the delicate one: a
+ * full ring of four rows at radius 180 has an outer radius of 264, so its
+ * centre lands at (264, 264) once placed at the origin — and the disc has to
+ * sit inside the first row with a chair's clearance, which puts a 300-wide
+ * arena at (114, 114).
+ *
+ * And every piece is CENTRED on one axis, which is the other half. Aligning
+ * them all to a common left edge drifts their centres apart as the spans
+ * differ, and the stage ends up off to one side of the stalls it faces. A real
+ * house is built about a centre line and a drawing of one should be too.
+ *
+ * A seated block's span is its SEATS: sixteen across at the generator's
+ * 24-unit pitch is fifteen gaps, 360 units, so it is centred at 400 by starting
+ * at 220. Not 16 x 24.
+ */
+export function starterPieces(starter: Starter): StarterPiece[] {
+  switch (starter) {
+    case "theatre":
+      // Centred on x = 400. Spans: stage 300, stalls 15 x 24 = 360,
+      // balcony 17 x 24 = 408.
+      return [
+        { piece: "stage", nameKey: "stage", at: { x: 250, y: 0 }, size: { width: 300, height: 60 } },
+        {
+          piece: "linear",
+          nameKey: "stalls",
+          at: { x: 220, y: 140 },
+          spec: { rows: 10, seatsPerRow: 16 },
+        },
+        {
+          piece: "linear",
+          nameKey: "balcony",
+          at: { x: 196, y: 480 },
+          // Lettering continues where the stalls left off: ten rows run A to K
+          // with I skipped, so the balcony starts at L. A house that restarted
+          // at A would have two Fila A and one usher's problem.
+          spec: { rows: 4, seatsPerRow: 18, firstRowLetter: "L" },
+        },
+      ];
+    case "show":
+      // The casa de show, and the only starter that mixes all three ways of
+      // selling in one room: a pista sold as a number, named chairs behind it,
+      // and boxes sold whole down the sides. Standing goes nearest the stage
+      // because that is where a crowd stands.
+      return [
+        // Centred on x = 450. The boxes are placed symmetrically about it —
+        // 340 units out either way — because two "VIP sides" that are not the
+        // same distance from the middle read as a mistake at a glance.
+        { piece: "stage", nameKey: "stage", at: { x: 250, y: 0 }, size: { width: 400, height: 60 } },
+        {
+          piece: "standing",
+          nameKey: "pit",
+          at: { x: 250, y: 100 },
+          size: { width: 400, height: 180 },
+          spec: { capacity: 600 },
+        },
+        {
+          piece: "linear",
+          nameKey: "seats",
+          at: { x: 270, y: 320 },
+          spec: { rows: 6, seatsPerRow: 16 },
+        },
+        {
+          piece: "booth",
+          nameKey: "boxLeft",
+          at: { x: 20, y: 320 },
+          size: { width: 180, height: 116 },
+          spec: { capacity: 10 },
+        },
+        {
+          piece: "booth",
+          nameKey: "boxRight",
+          at: { x: 700, y: 320 },
+          size: { width: 180, height: 116 },
+          spec: { capacity: 10 },
+        },
+      ];
+    case "arena":
+      return [
+        {
+          piece: "arc",
+          nameKey: "stand",
+          at: { x: 0, y: 0 },
+          spec: {
+            rows: 4,
+            seatsPerRow: 24,
+            radius: 180,
+            startAngle: 0,
+            sweepAngle: 360,
+            seatPitch: 26,
+            rowLabels: "numbers",
+          },
+        },
+        {
+          piece: "arena",
+          nameKey: "arena",
+          at: { x: 114, y: 114 },
+          size: { width: 300, height: 300 },
+        },
+      ];
+    case "tables":
+      // Centred on x = 400. Four tables of radius 34 at a 108 gap span
+      // 3 x 108 + 68 = 392.
+      return [
+        { piece: "stage", nameKey: "stage", at: { x: 250, y: 0 }, size: { width: 300, height: 60 } },
+        {
+          piece: "tables",
+          nameKey: "tables",
+          at: { x: 204, y: 140 },
+          spec: { tables: 12, seatsPerTable: 8, tablesPerRow: 4 },
+        },
+      ];
+    default:
+      return [];
+  }
+}
+
+/** The diagram on a starting-point card. */
+export function StarterDiagram({ starter }: { starter: Starter }) {
+  const props = {
+    width: 96,
+    height: 60,
+    viewBox: "0 0 96 60",
+    "aria-hidden": true as const,
+    className: "text-foreground",
+  };
+  const dot = "fill-current";
+
+  if (starter === "theatre") {
+    return (
+      <svg {...props}>
+        <rect x={28} y={4} width={40} height={7} rx={2} className="fill-muted-foreground" />
+        {[20, 27, 34, 41].map((y) =>
+          [26, 34, 42, 50, 58, 66].map((x) => (
+            <circle key={`${x}-${y}`} cx={x} cy={y} r={2} className={dot} />
+          )),
+        )}
+        {[52].map((y) =>
+          [24, 32, 40, 48, 56, 64, 72].map((x) => (
+            <circle key={`b${x}-${y}`} cx={x} cy={y} r={2} className={dot} />
+          )),
+        )}
+      </svg>
+    );
+  }
+  if (starter === "show") {
+    return (
+      <svg {...props}>
+        <rect x={30} y={3} width={36} height={6} rx={2} className="fill-muted-foreground" />
+        {/* The pista: a crowd, staggered, because that is the difference. */}
+        {[16, 22].map((y, row) =>
+          [32, 40, 48, 56, 64].map((x) => (
+            <circle
+              key={`p${x}-${y}`}
+              cx={x + (row % 2 ? 4 : 0)}
+              cy={y}
+              r={1.6}
+              className="fill-muted-foreground"
+            />
+          )),
+        )}
+        {/* Chairs behind it. */}
+        {[34, 41, 48].map((y) =>
+          [32, 40, 48, 56, 64].map((x) => (
+            <circle key={`c${x}-${y}`} cx={x} cy={y} r={2} className={dot} />
+          )),
+        )}
+        {/* Boxes down the sides. */}
+        {[8, 78].map((x) => (
+          <rect
+            key={x}
+            x={x}
+            y={32}
+            width={10}
+            height={18}
+            rx={2}
+            className="fill-none stroke-current"
+            strokeWidth={1.4}
+            strokeDasharray="3 2"
+          />
+        ))}
+      </svg>
+    );
+  }
+  if (starter === "arena") {
+    return (
+      <svg {...props}>
+        <circle cx={48} cy={30} r={11} className="fill-muted-foreground" />
+        {[18, 23].map((radius) =>
+          Array.from({ length: 16 }, (_, index) => {
+            const radians = (index / 16) * Math.PI * 2;
+            return (
+              <circle
+                key={`${radius}-${index}`}
+                cx={48 + radius * Math.sin(radians)}
+                cy={30 - radius * Math.cos(radians)}
+                r={1.8}
+                className={dot}
+              />
+            );
+          }),
+        )}
+      </svg>
+    );
+  }
+  if (starter === "tables") {
+    return (
+      <svg {...props}>
+        <rect x={28} y={4} width={40} height={6} rx={2} className="fill-muted-foreground" />
+        {[26, 48, 70].map((cx) =>
+          [26, 46].map((cy) => (
+            <g key={`${cx}-${cy}`}>
+              <circle cx={cx} cy={cy} r={4} className="fill-muted-foreground" />
+              {[0, 90, 180, 270].map((degrees) => {
+                const radians = (degrees * Math.PI) / 180;
+                return (
+                  <circle
+                    key={degrees}
+                    cx={cx + 7 * Math.sin(radians)}
+                    cy={cy - 7 * Math.cos(radians)}
+                    r={1.7}
+                    className={dot}
+                  />
+                );
+              })}
+            </g>
+          )),
+        )}
+      </svg>
+    );
+  }
+  // Blank: the grid itself.
+  return (
+    <svg {...props}>
+      {[14, 26, 38, 50].map((y) =>
+        [20, 32, 44, 56, 68, 80].map((x) => (
+          <circle key={`${x}-${y}`} cx={x} cy={y} r={1} className="fill-muted-foreground" />
+        )),
+      )}
+    </svg>
+  );
 }
 
 // --- the arc, described the way a venue describes itself ---------------------
@@ -522,7 +757,58 @@ export function PieceInspector({
         </div>
       )}
 
+      {/* Turning the block. Quarter turns and not a degree field, because the
+          need is "rows down the side of the room" rather than "rows at 37
+          degrees" — and an arc that wants a bearing already has one in its own
+          start and sweep. Markers and counted areas are absent on purpose: a
+          tall camarote is a resize, and offering two ways to do it invites the
+          question of which one is real. */}
+      {!marker && !counted ? (
+        <Field
+          id={id("rotation")}
+          label={t("fields.rotation")}
+          hint={t("fields.rotationHint")}
+        >
+          <div className="flex items-center gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              disabled={disabled}
+              onClick={() => set({ rotation: (((draft.rotation ?? 0) + 90) % 360 + 360) % 360 })}
+            >
+              <ArrowClockwise className="size-3.5" aria-hidden="true" />
+              {t("fields.rotate")}
+            </Button>
+            <span className="text-xs tabular-nums text-muted-foreground">
+              {t("fields.rotationValue", { degrees: draft.rotation ?? 0 })}
+            </span>
+          </div>
+        </Field>
+      ) : null}
+
       {arc ? <ArcPlacement draft={draft} onChange={onChange} disabled={disabled} /> : null}
+
+      {/* The price band, for the rooms that need one.
+          Almost none do: a band defaults to the sector's own name, so an
+          ordinary plateia is priced as "Plateia" without anybody opening this.
+          It earns its place in the two cases a name cannot cover — two wings
+          sharing one price, and a sector whose front rows carry their own. */}
+      {!marker ? (
+        <Field
+          id={id("category")}
+          label={t("fields.category")}
+          hint={t("fields.categoryHint")}
+        >
+          <ElevatedInput
+            id={id("category")}
+            value={draft.category ?? ""}
+            onChange={(event) => set({ category: event.target.value })}
+            placeholder={draft.name.trim() || t(`defaultName.${draft.piece}`)}
+            disabled={disabled}
+          />
+        </Field>
+      ) : null}
 
       {!marker && !counted ? (
         <div className="border-t border-border pt-1">
@@ -842,7 +1128,7 @@ export function PieceDiagram({ piece, className }: { piece: Piece; className?: s
       <svg {...props}>
         {[12, 32].map((cx) => (
           <g key={cx}>
-            <circle cx={cx} cy={15} r={4} className="fill-current opacity-35" />
+            <circle cx={cx} cy={15} r={4} className="fill-muted-foreground" />
             {[0, 60, 120, 180, 240, 300].map((degrees) => {
               const radians = (degrees * Math.PI) / 180;
               return (

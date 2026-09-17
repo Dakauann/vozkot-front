@@ -5,34 +5,18 @@ import { useTranslations } from "next-intl";
 
 import { useRouter } from "@/i18n/routing";
 import { useAuthDialog } from "@/contexts/auth-dialog-context";
-import { intentParams, MAX_QUANTITY } from "@/lib/checkout/intent";
+import { intentParams, MAX_QUANTITY, totalQuantity } from "@/lib/checkout/intent";
 import { formatMoney } from "@/lib/format";
 import type { Locale } from "@/i18n/config";
 import type { TicketTier } from "@/lib/events/types";
 import { SeatPicker, SeatSelection } from "@/components/seating/seat-picker";
+import { TierQuantityList } from "@/components/events/tier-quantity-list";
+import { mixedCartLines, mixedCartReducer } from "@/components/events/mixed-cart";
 import { Button } from "@/components/ui/button";
-import type { Seat } from "@/lib/seating/api";
+import type { Seat, Marker } from "@/lib/seating/api";
 
-/**
- * The buy panel for an event that sells named chairs.
- *
- * The counted panel next door asks "how many"; this one asks "which", and the
- * difference runs all the way down: a quantity is a number the server can
- * satisfy from any stock, and a chair is one row that either is or is not
- * yours.
- *
- * It carries the selection to checkout in the URL, exactly as the counted
- * panel does and for the same reason: choosing seats happens before a sign-in,
- * a sign-in is a navigation, and a buyer who picked FILA K 11 and 12 and then
- * signed in must not come back to an empty chart.
- */
-export function SeatedBuyPanel({
-  eventId,
-  tiers,
-  eventSlug,
-  locale,
-  holdMinutes,
-}: {
+/** One basket for numbered chairs and admission without an assigned seat. */
+export function SeatedBuyPanel({ eventId, tiers, eventSlug, locale, holdMinutes }: {
   eventId: string;
   tiers: TicketTier[];
   eventSlug: string;
@@ -43,140 +27,135 @@ export function SeatedBuyPanel({
   const event = useTranslations("event");
   const router = useRouter();
   const { requireAuth } = useAuthDialog();
-
-  const [selected, setSelected] = React.useState<Seat[]>([]);
+  const [cart, dispatch] = React.useReducer(mixedCartReducer, { seats: [], quantities: {} });
+  const [seatedTierIds, setSeatedTierIds] = React.useState<Set<string> | null>(null);
+  const [areas, setAreas] = React.useState<Marker[]>([]);
   const [going, setGoing] = React.useState(false);
+  const [failed, setFailed] = React.useState(false);
+  const submitting = React.useRef(false);
 
-  const sectors = React.useMemo(
-    () =>
-      tiers.map((tier) => ({
-        ticketId: tier.id,
-        title: tier.title,
-        priceCents: tier.priceCents,
-        feeCents: tier.feeCents,
-      })),
-    [tiers],
-  );
-
+  // Fail closed until the complete map arrives. A sold-out seated tier still
+  // has seats and must never turn into a quantity-only ticket.
+  const onInventory = React.useCallback((seats: Seat[], markers: Marker[]) => {
+    setAreas(markers);
+    setSeatedTierIds(new Set(seats.map((seat) => seat.ticketId)));
+  }, []);
+  const countedTiers = seatedTierIds
+    ? tiers.filter((tier) => !seatedTierIds.has(tier.id)).map((tier) => ({ ...tier, title: areas.find((area) => area.ticketId === tier.id)?.name ?? tier.title }))
+    : [];
+  const sectors = React.useMemo(() => tiers.map((tier) => ({
+    ticketId: tier.id, title: tier.title, priceCents: tier.priceCents, feeCents: tier.feeCents,
+  })), [tiers]);
+  const lines = mixedCartLines(cart);
+  const count = totalQuantity(lines);
+  const counted = Object.values(cart.quantities).reduce((sum, quantity) => sum + quantity, 0);
   const currency = tiers[0]?.currency ?? "BRL";
-  const priceOf = React.useCallback(
-    (ticketId: string) => tiers.find((tier) => tier.id === ticketId),
-    [tiers],
-  );
-
-  // Summed per chair from the unit figures the server priced, never from a
-  // total times a rate. It is the same discipline the counted panel follows and
-  // the same reason: a fee taken on a basket total can differ by a centavo from
-  // the sum of its lines, and this panel has to agree with the order it
-  // produces.
-  const face = selected.reduce(
-    (sum, seat) => sum + (priceOf(seat.ticketId)?.priceCents ?? 0),
-    0,
-  );
-  const fees = selected.reduce(
-    (sum, seat) => sum + (priceOf(seat.ticketId)?.feeCents ?? 0),
-    0,
-  );
+  const face = lines.reduce((sum, line) =>
+    sum + (tiers.find((tier) => tier.id === line.ticketId)?.priceCents ?? 0) * line.quantity, 0);
+  const fees = lines.reduce((sum, line) =>
+    sum + (tiers.find((tier) => tier.id === line.ticketId)?.feeCents ?? 0) * line.quantity, 0);
 
   const proceed = async () => {
-    if (selected.length === 0) return;
+    if (count === 0 || submitting.current) return;
+    submitting.current = true;
     setGoing(true);
-    // The session is required before leaving, so a buyer who is already signed
-    // in never sees a wall, and one who is not keeps their chairs through it.
-    if (!(await requireAuth("checkout"))) {
+    setFailed(false);
+    try {
+      if (!(await requireAuth("checkout"))) return;
+      router.push(`/checkout?${intentParams({ lines, eventSlug }).toString()}`);
+    } catch {
+      setFailed(true);
+    } finally {
+      submitting.current = false;
       setGoing(false);
-      return;
     }
-    // Grouped by tier, because that is the shape a basket line has: one tier,
-    // its chairs, and a quantity derived from them.
-    const byTier = new Map<string, string[]>();
-    for (const seat of selected) {
-      const existing = byTier.get(seat.ticketId);
-      if (existing) existing.push(seat.id);
-      else byTier.set(seat.ticketId, [seat.id]);
-    }
-    const params = intentParams({
-      lines: [...byTier.entries()].map(([ticketId, seatIds]) => ({
-        ticketId,
-        quantity: seatIds.length,
-        seatIds,
-      })),
-      eventSlug,
-    });
-    router.push(`/checkout?${params.toString()}`);
   };
 
   if (tiers.length === 0) return null;
 
   return (
-    <div className="space-y-4">
+    <div className="seat-picker-container space-y-4">
+      <div className="sticky top-16 z-20 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-card p-4 shadow-sm">
+        <div aria-live="polite" aria-atomic="true">
+          <p className="text-xs text-muted-foreground">{t("ticketCount", { count })}</p>
+          <p className="font-display text-lg font-semibold tabular-nums text-foreground">
+            {t("total.total")}: {formatMoney(face + fees, locale, currency)}
+          </p>
+          {fees > 0 ? <p className="text-xs text-muted-foreground">{t("total.fee")}: {formatMoney(fees, locale, currency)}</p> : null}
+        </div>
+        <Button type="button" size="lg" disabled={going || count === 0} onClick={() => void proceed()} className="h-12 grow sm:grow-0" aria-busy={going}>
+          {count === 0 ? event("pickATier") : event("buy", { count })}
+        </Button>
+      </div>
+      {failed ? <p role="alert" className="notice notice-fault notice-ink p-3 text-sm">{t("checkoutFailed")}</p> : null}
       <SeatPicker
         eventId={eventId}
         sectors={sectors}
         currency={currency}
-        maxSeats={MAX_QUANTITY}
-        selected={selected}
-        onChange={setSelected}
-      />
-
-      <div className="rounded-[--radius] border border-border bg-card p-4">
-        <h3 className="font-display text-sm font-semibold text-foreground">
-          {t("selection.title")}
-        </h3>
-        <div className="mt-2">
-          <SeatSelection
-            seats={selected}
-            onRemove={(seat) =>
-              setSelected((current) => current.filter((chosen) => chosen.id !== seat.id))
-            }
-          />
-        </div>
-
-        {selected.length > 0 ? (
-          <>
-            {/* The split, stated. The buyer is about to be charged face plus
-                fee, and a total that appeared without explanation is what
-                produces a chargeback. */}
-            <dl className="mt-3 space-y-1 border-t border-border pt-3 text-sm">
-              <div className="flex items-baseline justify-between gap-3">
-                <dt className="text-muted-foreground">
-                  {t("total.tickets", { count: selected.length })}
-                </dt>
-                <dd className="tabular-nums text-foreground">
-                  {formatMoney(face, locale, currency)}
-                </dd>
-              </div>
-              {fees > 0 ? (
-                <div className="flex items-baseline justify-between gap-3">
-                  <dt className="text-muted-foreground">{t("total.fee")}</dt>
-                  <dd className="tabular-nums text-foreground">
-                    {formatMoney(fees, locale, currency)}
-                  </dd>
-                </div>
-              ) : null}
-              <div className="flex items-baseline justify-between gap-3 pt-1">
-                <dt className="font-semibold text-foreground">{t("total.total")}</dt>
-                <dd className="font-display text-lg font-semibold tabular-nums text-foreground">
-                  {formatMoney(face + fees, locale, currency)}
-                </dd>
-              </div>
-            </dl>
-
-            <Button
-              type="button"
-              size="lg"
-              disabled={going}
-              onClick={() => void proceed()}
-              className="mt-3 h-12 w-full"
-            >
-              {t("proceed", { count: selected.length })}
-            </Button>
-            <p className="mt-2 text-center text-xs text-muted-foreground">
-              {event("holdNotice", { minutes: holdMinutes })}
-            </p>
-          </>
+        maxSeats={MAX_QUANTITY - counted}
+        selected={cart.seats}
+        disabled={going}
+        onInventory={onInventory}
+        areaTickets={Object.fromEntries(countedTiers.map((tier) => [tier.id, {
+          title: tier.title,
+          price: formatMoney(tier.priceCents + (tier.feeCents ?? 0), locale, tier.currency),
+          quantity: cart.quantities[tier.id] ?? 0,
+          canAdd: tier.status === "on_sale" && (cart.quantities[tier.id] ?? 0) < tier.available && count < MAX_QUANTITY,
+        }]))}
+        onAreaChange={(ticketId, delta) => {
+          const tier = countedTiers.find((item) => item.id === ticketId);
+          if (tier && !submitting.current) dispatch({ type: "quantity", tier, delta });
+        }}
+        onChange={(seats) => { if (!submitting.current) dispatch({ type: "seats", seats }); }}
+        tickets={countedTiers.length > 0 ? (
+          <section className="overflow-hidden rounded-lg border border-border bg-card" aria-label={t("counted.title")}>
+            <div className="border-b border-border p-4">
+              <h3 className="font-display text-sm font-semibold">{t("counted.title")}</h3>
+              <p className="mt-1 text-xs leading-5 text-muted-foreground">{t("counted.hint")}</p>
+            </div>
+            <TierQuantityList tiers={countedTiers} quantities={cart.quantities} count={count} locale={locale} disabled={going} compact
+              change={(tier, delta) => dispatch({ type: "quantity", tier, delta })} />
+          </section>
         ) : null}
-      </div>
+        summary={
+          <section className="rounded-lg border border-border bg-card p-4" aria-label={event("tickets")}>
+            <h3 className="font-display text-sm font-semibold">{event("tickets")}</h3>
+            <div className="mt-2">
+              {cart.seats.length > 0 || count === 0 ? (
+                <SeatSelection seats={cart.seats} onRemove={(seat) => {
+                  if (!submitting.current) dispatch({ type: "seats", seats: cart.seats.filter((chosen) => chosen.id !== seat.id) });
+                }} />
+              ) : null}
+              {counted > 0 ? <ul className="mt-2 space-y-2 text-sm">
+                {countedTiers.filter((tier) => cart.quantities[tier.id] > 0).map((tier) => (
+                  <li key={tier.id} className="flex justify-between gap-2">
+                    <span>{cart.quantities[tier.id]} × {tier.title}</span>
+                    <span className="shrink-0 tabular-nums">{formatMoney(tier.priceCents * cart.quantities[tier.id], locale, currency)}</span>
+                  </li>
+                ))}
+              </ul> : null}
+            </div>
+            {count > 0 ? (
+              <dl className="mt-3 space-y-1 border-t border-border pt-3 text-sm">
+                <div className="flex justify-between gap-3">
+                  <dt className="text-muted-foreground">{event("subtotal")}</dt>
+                  <dd className="tabular-nums">{formatMoney(face, locale, currency)}</dd>
+                </div>
+                {fees > 0 ? <div className="flex justify-between gap-3">
+                  <dt className="text-muted-foreground">{t("total.fee")}</dt>
+                  <dd className="tabular-nums">{formatMoney(fees, locale, currency)}</dd>
+                </div> : null}
+                <div className="flex justify-between gap-3 pt-1 font-semibold">
+                  <dt>{t("total.total")}</dt>
+                  <dd className="tabular-nums">{formatMoney(face + fees, locale, currency)}</dd>
+                </div>
+              </dl>
+            ) : null}
+            {count >= MAX_QUANTITY ? <p role="status" className="mt-3 text-xs text-muted-foreground">{t("counted.limit", { count: MAX_QUANTITY })}</p> : null}
+            <p className="mt-3 text-xs leading-5 text-muted-foreground">{event("holdNotice", { minutes: holdMinutes })}</p>
+          </section>
+        }
+      />
     </div>
   );
 }

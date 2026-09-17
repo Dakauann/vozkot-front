@@ -117,6 +117,26 @@
     --sidebar-accent-foreground: 206 15% 9%;
     --sidebar-border: 204 14% 88%;
     --sidebar-ring: 164 100% 38%;
+
+    /*
+      PRICE BANDS: a validated categorical palette.
+
+      Eight hues in a fixed order, never cycled — a ninth band takes the
+      neutral rather than a generated hue, because a made-up ninth colour is
+      the one nobody can name. Raw hex rather than this file's HSL triplets
+      because the validator's verdict is about these exact values.
+
+      Light surface (#ffffff): contrast WARN on aqua, yellow and magenta,
+      which is why every band colour ships beside its name.
+    */
+    --band-1: #2a78d6; /* blue */
+    --band-2: #eb6834; /* orange */
+    --band-3: #1baf7a; /* aqua */
+    --band-4: #eda100; /* yellow */
+    --band-5: #e87ba4; /* magenta */
+    --band-6: #008300; /* green */
+    --band-7: #4a3aa7; /* violet */
+    --band-8: #e34948; /* red */
   }
 
   .dark {
@@ -218,6 +238,26 @@
     --sidebar-accent-foreground: 210 15% 96%;
     --sidebar-border: 210 10% 19%;
     --sidebar-ring: 158 73% 62%;
+
+    /*
+      PRICE BANDS: a validated categorical palette.
+
+      Eight hues in a fixed order, never cycled — a ninth band takes the
+      neutral rather than a generated hue, because a made-up ninth colour is
+      the one nobody can name. Raw hex rather than this file's HSL triplets
+      because the validator's verdict is about these exact values.
+
+      Dark surface (#14171a): every check passes, all eight clear 3:1. The
+      same eight hues re-stepped for the dark ground, not an automatic flip.
+    */
+    --band-1: #3987e5; /* blue */
+    --band-2: #d95926; /* orange */
+    --band-3: #199e70; /* aqua */
+    --band-4: #c98500; /* yellow */
+    --band-5: #d55181; /* magenta */
+    --band-6: #008300; /* green */
+    --band-7: #9085e9; /* violet */
+    --band-8: #e66767; /* red */
   }
 
   * { @apply border-border; }
@@ -486,4 +526,38 @@
 
 @media (prefers-reduced-motion: reduce) {
   .vk-verdict { animation: none; }
+}
+
+/* Use the picker width, including when embedded in checkout, to size the room. */
+.seat-picker-container {
+  container-type: inline-size;
+}
+.seat-picker-layout {
+  display: grid;
+  gap: 1.25rem;
+}
+.seat-picker-map {
+  order: -1;
+}
+.seat-picker-layout[data-view="seats"] .seat-picker-counted,
+.seat-picker-layout[data-view="admission"] .seat-picker-map,
+.seat-picker-layout[data-view="admission"] .seat-picker-seat-controls {
+  display: none;
+}
+@container (min-width: 860px) {
+  .seat-picker-mobile-switch {
+    display: none;
+  }
+  .seat-picker-layout {
+    grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+    align-items: start;
+  }
+  .seat-picker-map {
+    order: 0;
+  }
+  .seat-picker-layout[data-view] .seat-picker-counted,
+  .seat-picker-layout[data-view] .seat-picker-map,
+  .seat-picker-layout[data-view] .seat-picker-seat-controls {
+    display: block;
+  }
 }

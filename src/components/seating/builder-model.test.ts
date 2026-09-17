@@ -1,6 +1,6 @@
 import { describe as suite, expect, it } from "vitest";
 
-import { blocksFrom, collisionsIn, extentOf } from "./builder-model";
+import { blocksFrom, extentOf } from "./builder-model";
 import type { LayoutSeat } from "@/lib/seating/api";
 
 /**
@@ -29,6 +29,7 @@ function block(
         x: options.atX + seat * 24,
         y: options.atY + row * 28,
         kind: "standard",
+        category: sectionId,
         rowOrder: row + 1,
         seatOrder: seat + 1,
       });
@@ -138,50 +139,5 @@ suite("blocksFrom", () => {
       ],
     });
     expect(Object.keys(blocks)).toEqual(["node_a"]);
-  });
-});
-
-suite("collisionsIn", () => {
-  const box = (x: number, y: number, width: number, height: number) => ({ x, y, width, height });
-
-  it("names every piece involved, not just the first pair", () => {
-    // One block nudged into two others is two problems, and an organiser wants
-    // to see both rather than fix one and discover the next.
-    const hit = collisionsIn({
-      middle: box(100, 100, 200, 200),
-      left: box(50, 150, 100, 100),
-      right: box(250, 150, 100, 100),
-      away: box(600, 600, 100, 100),
-    });
-    expect([...hit].sort()).toEqual(["left", "middle", "right"]);
-  });
-
-  it("allows sectors that share an edge", () => {
-    // A balcony directly behind the stalls, two stands meeting at a corner.
-    // The most ordinary room there is.
-    expect(collisionsIn({ a: box(0, 0, 200, 100), b: box(200, 0, 200, 100) }).size).toBe(0);
-    expect(collisionsIn({ a: box(0, 0, 200, 100), b: box(0, 100, 200, 100) }).size).toBe(0);
-    expect(collisionsIn({ a: box(0, 0, 200, 100), b: box(200, 100, 200, 100) }).size).toBe(0);
-  });
-
-  it("needs both dimensions to overlap", () => {
-    // Two columns of seats side by side share every bit of their height and
-    // none of their width. That is a room, not a collision.
-    expect(collisionsIn({ a: box(0, 0, 100, 600), b: box(100, 0, 100, 600) }).size).toBe(0);
-  });
-
-  it("ignores a piece with no footprint", () => {
-    // A block whose first preview has not landed has no box yet, and flagging
-    // it would mark a collision against a rectangle that is not on screen.
-    expect(collisionsIn({ pending: box(100, 100, 0, 0), real: box(100, 100, 200, 200) }).size).toBe(
-      0,
-    );
-  });
-
-  it("agrees with the server about what counts as touching", () => {
-    // One unit of slack, the same constant the Go side uses. A hair of overlap
-    // from a rounded drag is not a room somebody has broken.
-    expect(collisionsIn({ a: box(0, 0, 200, 100), b: box(199, 0, 200, 100) }).size).toBe(0);
-    expect(collisionsIn({ a: box(0, 0, 200, 100), b: box(150, 50, 200, 100) }).size).toBe(2);
   });
 });

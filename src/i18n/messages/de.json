@@ -265,6 +265,10 @@
       "free": "Freier Eintritt"
     },
     "seeAll": "Alle ansehen",
+    "rail": {
+        "previous": "Vorherige anzeigen",
+        "next": "Mehr anzeigen"
+      },
     "emptyCatalogue": "Sobald die ersten Veranstaltungen veröffentlicht sind, erscheinen sie hier.",
     "browseBy": "Nach Stadt und Kategorie stöbern",
     "byCity": "Veranstaltungen nach Stadt",
@@ -280,29 +284,34 @@
     "how": "So funktioniert es"
   },
   "event": {
-    "when": "Wann",
-    "where": "Wo",
     "about": "Über diese Veranstaltung",
-    "location": "Veranstaltungsort",
-    "tickets": "Tickets",
-    "openInMaps": "In Google Maps öffnen",
-    "openInWaze": "In Waze öffnen",
-    "mapPreview": "Karte von {venue}",
-    "mapHint": "Erkunde die Umgebung hier oder öffne die Route in deiner bevorzugten App.",
-    "noTiers": "Derzeit sind keine Tickets im Verkauf.",
-    "soldOut": "Ausverkauft",
-    "free": "Kostenlos",
-    "fewLeft": "Nur noch {count}",
-    "total": "Gesamt",
-    "pickATier": "Ticket auswählen",
     "buy": "{count, plural, one {# Ticket} other {# Tickets}} kaufen",
-    "increase": "Ein {tier}-Ticket hinzufügen",
-    "decrease": "Ein {tier}-Ticket entfernen",
-    "holdNotice": "Deine Tickets werden nach der Auswahl {minutes} Minuten lang reserviert.",
     "cancelled": "Diese Veranstaltung wurde abgesagt.",
     "cancelledNoSales": "Der Verkauf ist beendet, da die Veranstaltung abgesagt wurde.",
+    "chooseSeats": "Tickets kaufen",
+    "chooseSeatsHint": "Du waehlst deinen Platz im Saalplan.",
+    "decrease": "Ein {tier}-Ticket entfernen",
+    "fewLeft": "Nur noch {count}",
+    "free": "Kostenlos",
+    "holdNotice": "Deine Tickets werden nach der Auswahl {minutes} Minuten lang reserviert.",
+    "increase": "Ein {tier}-Ticket hinzufügen",
+    "location": "Veranstaltungsort",
+    "mapHint": "Erkunde die Umgebung hier oder öffne die Route in deiner bevorzugten App.",
+    "mapPreview": "Karte von {venue}",
+    "noTiers": "Derzeit sind keine Tickets im Verkauf.",
+    "openInMaps": "In Google Maps öffnen",
+    "openInWaze": "In Waze öffnen",
+    "pickATier": "Ticket auswählen",
+    "priceOne": "Tickets fuer {price}",
+    "priceRange": "Tickets zwischen {from} und {to}",
+    "seatsHeading": "Platz auswaehlen",
     "serviceFee": "Servicegebühr",
-    "subtotal": "Tickets"
+    "soldOut": "Ausverkauft",
+    "subtotal": "Tickets",
+    "tickets": "Tickets",
+    "total": "Gesamt",
+    "when": "Wann",
+    "where": "Wo"
   },
   "checkout": {
     "title": "Kasse",
@@ -875,7 +884,23 @@
       "tierStatus": "Die Kategorie konnte nicht geändert werden."
     },
     "manage": "Verwalten",
-    "viewReport": "Bericht"
+    "viewReport": "Bericht",
+    "checklist": {
+      "title": "Zum Verkauf",
+      "progress": "{done} von {total}",
+      "tiers": "Kontingent",
+      "seats": "Plätze",
+      "onSale": "Im Verkauf",
+      "publish": "Veröffentlicht",
+      "doneLabel": "erledigt",
+      "nextLabel": "nächster Schritt",
+      "hint": {
+        "tiers": "Legen Sie mindestens ein Kontingent an: es bestimmt Preis, Menge und Gebühr.",
+        "seats": "Wählen Sie den Plan und bepreisen Sie jede Gruppe unter Zugewiesene Plätze.",
+        "onSale": "Ein Kontingent im Entwurf verkauft nicht. Geben Sie frei, was heute verkaufen soll.",
+        "publish": "Die Veranstaltung ist noch nicht gelistet. Veröffentlichen, wenn sie fertig ist."
+      }
+    }
   },
   "signIn": {
     "reason": {
@@ -1128,29 +1153,31 @@
     "next": "Weiter"
   },
   "seating": {
-    "loading": "Der Sitzplan wird geladen…",
-    "loadFailed": "Der Sitzplan konnte nicht geladen werden. Laden Sie die Seite neu.",
-    "stage": "Bühne",
-    "seatName": "Reihe {row}, Platz {seat}",
-    "proceed": "{count, plural, one {Mit 1 Platz fortfahren} other {Mit # Plätzen fortfahren}}",
-    "refused": "{count, plural, one {Platz {seats} wurde gerade von jemand anderem genommen. Die übrigen bleiben Ihnen.} other {Die Plätze {seats} wurden gerade von anderen genommen. Die übrigen bleiben Ihnen.}}",
+    "area": {
+      "add": "Eintritt für {area} hinzufügen",
+      "remove": "Eintritt für {area} entfernen",
+      "zoom": "{area} vergrößern und Tickets wählen"
+    },
+    "purchaseView": {
+      "title": "Ticketart",
+      "seats": "Lageplan",
+      "admission": "Freie Platzwahl"
+    },
+    "counted": {
+      "title": "Tickets ohne festen Sitzplatz",
+      "hint": "Wähle Einzeleintritte für den gewünschten Bereich. Jedes Ticket gilt für diesen Bereich und reserviert nicht die gesamte Loge.",
+      "limit": "Maximal {count} Tickets pro Bestellung, einschließlich Sitzplätzen."
+    },
+    "checkoutFailed": "Fortfahren nicht möglich. Bitte versuche es erneut.",
+    "ticketCount": "{count, plural, one {# Ticket} other {# Tickets}}",
+    "areaHolds": "{count} Plaetze",
+    "arena": "Arena",
     "best": {
       "title": "Beste verfügbare",
       "hint": "Wir wählen die besten zusammenhängenden Plätze, möglichst nah zur Bühne. Oder wählen Sie selbst im Plan unten.",
       "seats": "{count, plural, one {1 Platz} other {# Plätze}}",
       "accessible": "Ich brauche einen barrierefreien Platz",
       "accessibleHint": "Rollstuhlplatz, eingeschränkte Mobilität oder ein Sitz für übergewichtige Personen. Diese Plätze bleiben reserviert und werden niemandem angeboten, der sie nicht braucht."
-    },
-    "sectors": {
-      "title": "Bereich wählen",
-      "choose": "Wählen Sie einen Bereich, um die Plätze zu sehen.",
-      "available": "{count, plural, one {1 Platz frei} other {# Plätze frei}}",
-      "soldOut": "Ausverkauft"
-    },
-    "status": {
-      "available": "frei",
-      "taken": "belegt",
-      "blocked": "nicht verfügbar"
     },
     "kind": {
       "standard": "Standard",
@@ -1166,17 +1193,40 @@
       "taken": "Belegt",
       "accessible": "Barrierefrei"
     },
+    "loadFailed": "Der Sitzplan konnte nicht geladen werden. Laden Sie die Seite neu.",
+    "loading": "Der Sitzplan wird geladen…",
+    "proceed": "{count, plural, one {Mit 1 Platz fortfahren} other {Mit # Plätzen fortfahren}}",
+    "refused": "{count, plural, one {Platz {seats} wurde gerade von jemand anderem genommen. Die übrigen bleiben Ihnen.} other {Die Plätze {seats} wurden gerade von anderen genommen. Die übrigen bleiben Ihnen.}}",
+    "seatName": "Reihe {row}, Platz {seat}",
+    "sectors": {
+      "title": "Bereich wählen",
+      "choose": "Wählen Sie einen Bereich, um die Plätze zu sehen.",
+      "available": "{count, plural, one {1 Platz frei} other {# Plätze frei}}",
+      "soldOut": "Ausverkauft"
+    },
     "selection": {
       "title": "Ihre Plätze",
       "empty": "Noch keine Plätze gewählt.",
       "remove": "Reihe {row}, Platz {seat} entfernen"
+    },
+    "stage": "Bühne",
+    "status": {
+      "available": "frei",
+      "taken": "belegt",
+      "blocked": "nicht verfügbar"
     },
     "total": {
       "tickets": "{count, plural, one {1 Ticket} other {# Tickets}}",
       "fee": "Servicegebühr",
       "total": "Gesamt"
     },
-    "arena": "Arena"
+    "zoom": {
+      "fit": "Ganzen Saal anzeigen",
+      "hint": "Tippe auf +, um heranzuzoomen und einen Platz zu waehlen",
+      "in": "Heranzoomen",
+      "out": "Herauszoomen",
+      "panHint": "Ziehe die Karte, um den restlichen Saal zu sehen"
+    }
   },
   "layoutStudio": {
     "loading": "Wird geladen…",
@@ -1195,16 +1245,13 @@
     },
     "venue": {
       "label": "Spielort",
-      "none": "Spielort wählen",
       "add": "Neuer Spielort",
       "prompt": "Name des Spielorts"
     },
     "layout": {
       "label": "Sitzplan",
-      "none": "Sitzplan wählen",
       "add": "Neuer Sitzplan",
       "prompt": "Name des Sitzplans",
-      "choose": "Wählen Sie einen Spielort und einen Sitzplan, um den Saal zu zeichnen.",
       "frozenExplained": "Dieser Sitzplan verkauft bereits für eine Veranstaltung und kann nicht geändert werden: die Reihen jetzt neu zu benennen würde den Saal unter einem Abend ändern, für den schon Tickets draußen sind. Erstellen Sie eine neue Version."
     },
     "canvas": {
@@ -1258,7 +1305,13 @@
       "width": "Breite",
       "depth": "Tiefe",
       "diameter": "Durchmesser",
-      "rowsNumbered": "Über 24 Reihen, daher werden die Reihen jetzt numeriert."
+      "rowsNumbered": "Über 24 Reihen, daher werden die Reihen jetzt numeriert.",
+      "category": "Preisgruppe",
+      "categoryHint": "Leer nimmt den Namen des Sektors. Ausfüllen, damit zwei Sektoren einen Preis teilen.",
+      "rotation": "Baustein drehen",
+      "rotationHint": "Eine Vierteldrehung pro Klick. So verlaufen Reihen an den Seiten des Saals.",
+      "rotate": "Um 90° drehen",
+      "rotationValue": "{degrees}°"
     },
     "capacityHint": {
       "standing": "Wie viele Personen der Bereich aufnimmt.",
@@ -1293,9 +1346,12 @@
     },
     "mode": {
       "label": "Was ein Klick tut",
-      "move": "Blöcke bewegen",
+      "move": "Bausteine bewegen",
       "mark": "Plätze markieren",
-      "kindLabel": "Zu markierende Platzart"
+      "kindLabel": "Zu markierende Platzart",
+      "price": "Preisgruppe",
+      "bandLabel": "Gruppe für die Plätze",
+      "bandPlaceholder": "z. B. Parkett Premium"
     },
     "kind": {
       "standard": "Standard",
@@ -1361,18 +1417,95 @@
     },
     "area": {
       "unit": "1 Einheit"
+    },
+    "library": {
+      "title": "Pläne und Plätze",
+      "hint": "Die Orte, die Sie haben, und die Pläne dazu. Öffnen Sie einen, um den Saal zu sehen, bevor Sie ihn ändern.",
+      "plans": "Pläne",
+      "noPlans": "Dieser Ort hat noch keinen Plan. Erstellen Sie den ersten, um den Saal zu zeichnen.",
+      "firstVenue": "Beginnen Sie mit dem Ort",
+      "firstVenueHint": "Ein Ort ist das Gebäude: das Theater, die Halle, der Konzertsaal. Pläne sind die Saalvarianten, die es haben kann.",
+      "manage": "Bearbeiten",
+      "back": "Pläne",
+      "frozen": "in Benutzung",
+      "seats": "Plätze",
+      "sectors": "Sektoren",
+      "bands": "Preisgruppen",
+      "standing": "Stehplätze",
+      "emptyPlan": "Ein leerer Plan. Öffnen Sie Bearbeiten und ziehen Sie Bausteine hinein.",
+      "unreadable": "Dieser Plan ließ sich gerade nicht laden. Das heißt nicht, dass er leer ist.",
+      "planCount": "{count, plural, one {1 Plan} other {# Pläne}}",
+      "seatsShort": "{seats} Pl.",
+      "pick": "Wählen Sie einen Plan, um den Saal zu sehen.",
+      "backToEvent": "Zurück zur Veranstaltung",
+      "useInEvent": "In der Veranstaltung verwenden"
+    },
+    "retry": "Erneut versuchen",
+    "legacy": {
+      "hint": "{count, plural, one {Dieser Sektor wurde gespeichert, bevor wir festgehalten haben, wie er gezeichnet wurde — der Saal ist sichtbar, aber hier nicht bearbeitbar.} other {Diese {count} Sektoren wurden gespeichert, bevor wir festgehalten haben, wie sie gezeichnet wurden — der Saal ist sichtbar, aber hier nicht bearbeitbar.}} Zum Ändern den Saal neu aufbauen — und einen neuen Plan anlegen, wenn dieser schon verkauft.",
+      "readOnly": "{count, plural, one {Ein Sektor dieses Plans lässt sich im Editor nicht wieder öffnen, daher ist er nur lesbar: Speichern würde diesen Sektor und seine Plätze löschen.} other {{count} Sektoren dieses Plans lassen sich im Editor nicht wieder öffnen, daher ist er nur lesbar: Speichern würde diese Sektoren und ihre Plätze löschen.}} Legen Sie einen neuen Plan an, um den Saal neu zu zeichnen."
+    },
+    "starter": {
+      "title": "Was für ein Saal ist das?",
+      "hint": "Wählen Sie einen Startpunkt und passen Sie ihn an. Alles, was erscheint, ist ein normaler Baustein: ziehen, skalieren, löschen.",
+      "theatre": "Theater",
+      "arena": "Arena oder Rodeo",
+      "tables": "Tische",
+      "blank": "Leer",
+      "name": {
+        "stage": "Bühne",
+        "stalls": "Parkett",
+        "balcony": "Balkon",
+        "stand": "Tribüne",
+        "arena": "Arena",
+        "tables": "Tische",
+        "pit": "Stehplätze",
+        "seats": "Sitzplätze",
+        "boxLeft": "Loge links",
+        "boxRight": "Loge rechts"
+      },
+      "show": "Konzertsaal"
+    },
+    "starterHint": {
+      "theatre": "Bühne, 160 Parkettplätze und ein Balkon mit 72. Reihen A bis P.",
+      "arena": "Arena in der Mitte, Tribüne ringsum, vier numerierte Reihen.",
+      "tables": "Bühne und zwölf Tische mit je acht Plätzen.",
+      "blank": "Bei Null anfangen: Bausteine von der Seite hereinziehen.",
+      "show": "Bühne, Stehplätze für 600, dahinter 96 Sitzplätze und je eine Loge an der Seite."
+    },
+    "bands": {
+      "title": "Preisgruppen",
+      "hint": "Legen Sie die Gruppen dieses Saals an und klicken Sie dann Plätze an, um die gewählte zuzuweisen.",
+      "add": "Neue Gruppe",
+      "addAction": "Anlegen",
+      "placeholder": "z. B. Parkett Premium",
+      "seats": "{seats} Plätze"
     }
   },
   "eventSeating": {
+    "areas": {
+      "title": "Tickets nach Bereich",
+      "beforeHint": "Stehflächen und Logen haben keine nummerierten Plätze und erscheinen daher nicht oben. Wähle hier das Ticket für jede Fläche: diese Zuordnung verbindet ein Ticket mit dem Ort im Plan, nicht sein Name.",
+      "partial": "Die Sitzplätze sind im Verkauf, die Bereiche jedoch nicht: {reason}. Korrigiere das unter Tickets nach Bereich.",
+      "hint": "Ordne jeder Fläche oder Loge ein eigenes Ticketkontingent zu, das ihre Kapazität nicht überschreitet. Bereiche mit Käufen können nicht neu zugeordnet werden.",
+      "capacity": "Kapazität: {count} Personen",
+      "save": "Bereichstickets speichern",
+      "saved": "Bereichstickets gespeichert."
+    },
     "title": "Reservierte Plätze",
     "loading": "Wird geladen…",
     "failed": "Das konnte nicht abgeschlossen werden.",
     "hint": "Wählen Sie den Sitzplan und legen Sie fest, was jeder Bereich kostet. Plätze werden dann mit Reihe und Nummer verkauft.",
     "venue": "Spielort",
     "layout": "Sitzplan",
-    "layoutHint": "Nur veröffentlichte Sitzpläne.",
-    "pricing": "Preis pro Bereich",
-    "pricingHint": "Ein Kontingent pro Bereich. Ein Bereich ohne Kontingent wird an diesem Abend nicht verkauft.",
+    "layoutHint": "Ein Entwurf genügt: Der Verkaufsstart veröffentlicht den Plan und friert ihn ein.",
+    "pricing": "Preis je Gruppe",
+    "pricingHint": "Jeder Teil des Plans wird über ein Ticket verkauft. Der Punkt einer Zeile trägt die Farbe, in der dieser Ort oben gezeichnet ist. Ein Teil ohne Ticket wird heute Abend nicht verkauft.",
+    "sizeBlocks": "{lote} hat {has} Tickets, {place} fasst {needs}.",
+    "sizeCaps": "{lote} hat {has} Tickets für {needs} Plätze, also werden nur {has} verkauft.",
+    "resize": "Auf {count} anpassen",
+    "resizing": "Wird angepasst…",
+    "conflict": "Passe die oben markierten Tickets an, bevor du die Plätze in den Verkauf gibst.",
     "notSold": "Nicht verkaufen",
     "bind": "Plätze in den Verkauf geben",
     "binding": "Wird freigegeben…",
@@ -1392,6 +1525,8 @@
     "oneWayShort": "Das ist nicht mehr rückgängig zu machen, sobald ein Platz reserviert wurde.",
     "unpricedWarning": "{count, plural, one {Sektor {sectors} hat kein Kontingent und wird heute nicht verkauft.} other {Die Sektoren {sectors} haben kein Kontingent und werden heute nicht verkauft.}}",
     "unreachable": "Ihre Orte und Pläne ließen sich gerade nicht laden. Das heißt nicht, dass Sie keine haben.",
-    "retry": "Erneut versuchen"
+    "retry": "Erneut versuchen",
+    "bandSeats": "{seats} Plätze",
+    "draw": "Plan zeichnen"
   }
 }

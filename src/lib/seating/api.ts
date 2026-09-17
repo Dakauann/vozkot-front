@@ -35,12 +35,7 @@ export type SeatStatus = "available" | "held" | "sold" | "blocked";
  * draw them differently.
  */
 export type SeatKind =
-  | "standard"
-  | "wheelchair"
-  | "companion"
-  | "reduced_mobility"
-  | "obese"
-  | "restricted_view";
+  "standard" | "wheelchair" | "companion" | "reduced_mobility" | "obese" | "restricted_view";
 
 const ACCESSIBLE_KINDS: ReadonlySet<SeatKind> = new Set<SeatKind>([
   "wheelchair",
@@ -51,6 +46,68 @@ const ACCESSIBLE_KINDS: ReadonlySet<SeatKind> = new Set<SeatKind>([
 
 export function isAccessibleKind(kind: SeatKind): boolean {
   return ACCESSIBLE_KINDS.has(kind);
+}
+
+/**
+/**
+ * How many price bands get a hue of their own.
+ *
+ * Eight, from a validated categorical palette, assigned in a FIXED order and
+ * never cycled. A ninth band takes the neutral rather than a generated hue: a
+ * made-up ninth colour is the one nobody can name, and two bands sharing a hue
+ * is worse than one band having none.
+ */
+export const BAND_SLOTS = 8;
+
+/**
+ * The colour of one price band, by its slot.
+ *
+ * A CSS variable rather than a hex literal, because the palette has a light and
+ * a dark step for every hue and the theme has to be able to swap them. The
+ * values live in globals.css beside the rest of the theme, with the validator's
+ * verdict against this project's own surfaces written above them.
+ *
+ * The slot comes from the SERVER, which orders a room's bands by first
+ * appearance so the order — and therefore the colour — is stable. Working it out
+ * here would be a second answer to "what colour is Plateia".
+ */
+export function bandColor(slot: number): string {
+  if (slot < 0 || slot >= BAND_SLOTS) return "hsl(var(--muted-foreground))";
+  return `var(--band-${slot + 1})`;
+}
+
+export type SeatShape = "circle" | "square" | "outlined" | "ring" | "wide";
+
+/**
+ * How a seat's kind is DRAWN: a shape, never a colour and never an icon.
+ *
+ * One table, read by the organiser's builder and the buyer's map, so a chair
+ * marked in one is the same glyph in the other. That is not tidiness — an
+ * organiser marks a wheelchair space and then has to recognise it on the page a
+ * buyer sees, and two vocabularies for one fact is how a room gets marked wrong.
+ *
+ * Shape and not colour because colour is already spoken for: the price band
+ * paints a free chair and availability decides whether it is painted at all, so
+ * hue is fully committed before kind gets a turn. It is also the accessible
+ * choice, since a legend that distinguishes "mobilidade reduzida" from "cadeira
+ * para obesos" by hue alone fails exactly the people reading it for themselves.
+ */
+export function shapeOf(kind: SeatKind): SeatShape {
+  switch (kind) {
+    // A wheelchair SPACE has no chair in it, and its companion seat is the pair
+    // the law requires, so the two read as one unit.
+    case "wheelchair":
+      return "square";
+    case "companion":
+      return "outlined";
+    case "reduced_mobility":
+      return "ring";
+    // Wider, because that is literally what the seat is.
+    case "obese":
+      return "wide";
+    default:
+      return "circle";
+  }
 }
 
 /**
@@ -90,22 +147,29 @@ export interface Seat {
 }
 
 /**
- * Something in the room that holds no seats: the stage, the floor a rodeo runs
- * in.
+ * A block of the room that holds no individual chairs.
  *
  * "Where is the stage" is the first question anybody asks of a seat map, and it
  * cannot be derived from the chairs. It used to be a three-valued `focus` on the
  * layout, from which the client drew a bar across the top or a disc in the
  * middle — which put the stage in exactly one place, gave nobody a way to move
- * it, and could not describe a rodeo with a show stage at one end.
+ * it, and could not describe a rodeo with a show stage at one end. A marker is
+ * placed and sized by the organiser, like everything else in the room.
  *
- * A marker is placed and sized by the organiser, like everything else in the
- * room.
+ * Scenery (`stage`, `arena`) and counted floor (`standing`, `booth`) both, so
+ * that a map drawn from seats plus markers draws the WHOLE room. Leaving the
+ * counted sections out left holes: a standing pista between the stage and the
+ * chairs read as an unexplained gap, and side boxes fell outside the bounding
+ * box altogether.
  */
 export interface Marker {
+  /** Explicit event binding; absent for scenery or an unconfigured area. */
+  ticketId?: string;
   id: string;
   name: string;
-  kind: "stage" | "arena";
+  kind: "stage" | "arena" | "standing" | "booth";
+  /** How many people it holds. Only the counted kinds have one. */
+  capacity?: number;
   /** The marker's CENTRE, in the same coordinate space as the seats. */
   x: number;
   y: number;
@@ -148,9 +212,7 @@ interface MapEnvelope {
  */
 export async function fetchSeatMap(eventId: string, since = 0): Promise<SeatMap | null> {
   const query = since > 0 ? `?since=${since}` : "";
-  const { data } = await apiFetch<MapEnvelope>(
-    `/api/v1/events/${eventId}/seating/map${query}`,
-  );
+  const { data } = await apiFetch<MapEnvelope>(`/api/v1/events/${eventId}/seating/map${query}`);
   if (!data) return null;
   return {
     seats: data.data ?? [],
@@ -312,6 +374,17 @@ export type SectionKind = "seated" | "standing" | "booth" | "stage" | "arena";
 
 /** Scenery rather than inventory: drawn, never sold. */
 export function isMarkerKind(kind: SectionKind): boolean {
+  return kind !== "seated";
+}
+
+/**
+ * Whether a block is scenery rather than somewhere a buyer can be.
+ *
+ * The distinction a map draws: scenery is a quiet neutral that orients the
+ * room, counted floor is somewhere you can buy your way onto and is drawn to
+ * say so.
+ */
+export function isSceneryKind(kind: Marker["kind"] | SectionKind): boolean {
   return kind === "stage" || kind === "arena";
 }
 export type Numbering = "sequential" | "odd_even";
@@ -332,6 +405,14 @@ export interface Layout {
   version: number;
   status: "draft" | "published" | "archived";
   frozen: boolean;
+  /**
+   * How many named chairs the plan holds.
+   *
+   * Present on a LISTING, so plans can be told apart without opening each one —
+   * which is the whole reason the library exists. Absent from a single plan's
+   * detail, where the seats themselves are right there.
+   */
+  seatCount?: number;
   viewBoxWidth: number;
   viewBoxHeight: number;
 }
@@ -347,6 +428,16 @@ export interface LayoutSection {
   /** The size of a marker. Zero for a block of seats, whose size is its seats. */
   width: number;
   height: number;
+  /**
+   * The price band these seats fall in by default, as it was SET.
+   *
+   * Empty when the section's own name is doing the work, which is the case for
+   * every room that does not need sub-sector pricing. The resolved band travels
+   * on each seat.
+   */
+  category?: string;
+  /** Degrees clockwise this block is turned about its own centre. */
+  rotation?: number;
   displayOrder: number;
   /**
    * The form this block was generated from, echoed back by the server.
@@ -374,6 +465,7 @@ export function markersOf(sections: LayoutSection[]): Marker[] {
       id: section.id,
       name: section.name,
       kind: section.kind as Marker["kind"],
+      capacity: section.capacity,
       x: section.offsetX,
       y: section.offsetY,
       width: section.width,
@@ -389,6 +481,14 @@ export interface LayoutSeat {
   x: number;
   y: number;
   kind: SeatKind;
+  /**
+   * The price band this chair sells in, already RESOLVED by the server.
+   *
+   * The fallback — the seat's own band, then its section's, then the section's
+   * name — is a rule, and a rule repeated in a browser is a rule with two
+   * answers. Group by this and nothing else.
+   */
+  category: string;
   rowOrder: number;
   seatOrder: number;
 }
@@ -397,6 +497,8 @@ export interface LayoutDetail {
   layout: Layout;
   sections: LayoutSection[];
   seats: LayoutSeat[];
+  /** The room's price bands, in the order their colour is assigned. */
+  bands: string[];
 }
 
 /** A previewed room: the geometry, and what it is short of. */
@@ -420,6 +522,26 @@ export interface LayoutPreview {
    * form" while the form had no way to mark a seat at all.
    */
   suggestedKinds?: Record<string, SeatKind>;
+  /**
+   * The sections drawn on top of each other, by id.
+   *
+   * Computed by the SAME rule the save refuses with, which is why it comes back
+   * from the server rather than being worked out here: a second copy of "is
+   * this room physically possible" would disagree the moment either was
+   * touched, and the copy the organiser could see would be the wrong one.
+   *
+   * Reported on a preview and refused on a save, on purpose. The canvas has to
+   * be able to draw a collision — that is how somebody sees the one they are
+   * making.
+   */
+  collisions?: string[];
+  /**
+   * The room's price bands, in the order their colour is assigned.
+   *
+   * Slot one is the palette's first hue, slot two the second. The order is the
+   * colour, which is why it comes from the server.
+   */
+  bands?: string[];
 }
 
 /**
@@ -500,6 +622,24 @@ export interface SectionSpec {
   firstTable?: number;
   /** Individual chairs, keyed "FILA/ASSENTO" — "K/12". */
   seatKinds?: Record<string, SeatKind>;
+  /**
+   * Turns a block of seats, in degrees clockwise about its own centre.
+   *
+   * The one arrangement dragging and resizing cannot express: rows run along x,
+   * and VIP wings down the SIDES of a room need a block running along y. A
+   * marker or a counted area has no need of it — a tall camarote is a resize.
+   */
+  rotation?: number;
+  /** The price band these seats fall in by default. Empty means the name. */
+  category?: string;
+  /**
+   * Individual chairs put in a different price band, keyed "FILA/ASSENTO".
+   *
+   * What prices the front three rows above the rest, and the partial-view chair
+   * behind a pillar below it — neither of which is a contiguous block that could
+   * be a sector of its own.
+   */
+  seatCategories?: Record<string, string>;
 }
 
 export function createVenue(name: string) {
@@ -532,16 +672,26 @@ export async function fetchLayout(layoutId: string): Promise<LayoutDetail | null
     data: Layout;
     sections: LayoutSection[];
     seats: LayoutSeat[];
+    bands?: string[];
   }>(`/api/v1/layouts/${layoutId}`);
   if (!data) return null;
-  return { layout: data.data, sections: data.sections ?? [], seats: data.seats ?? [] };
+  return {
+    layout: data.data,
+    sections: data.sections ?? [],
+    seats: data.seats ?? [],
+    bands: data.bands ?? [],
+  };
 }
 
 export function generateLayout(layoutId: string, sections: SectionSpec[]) {
-  return apiFetch<{ data: Layout; sections: LayoutSection[]; seats: LayoutSeat[] }>(
-    `/api/v1/layouts/${layoutId}/sections`,
-    { method: "PUT", body: JSON.stringify({ sections }) },
-  );
+  return apiFetch<{
+    data: Layout;
+    sections: LayoutSection[];
+    seats: LayoutSeat[];
+  }>(`/api/v1/layouts/${layoutId}/sections`, {
+    method: "PUT",
+    body: JSON.stringify({ sections }),
+  });
 }
 
 /**
@@ -565,17 +715,34 @@ export function fetchCompliance(layoutId: string) {
 }
 
 export function publishLayout(layoutId: string) {
-  return apiFetch<void>(`/api/v1/layouts/${layoutId}/publish`, { method: "POST" });
+  return apiFetch<void>(`/api/v1/layouts/${layoutId}/publish`, {
+    method: "POST",
+  });
 }
 
+/**
+ * Put a drawn room on sale for one night, priced by band.
+ *
+ * Keyed by the band's NAME rather than by a section id, because where a seat is
+ * and what it costs change on different clocks: the room is fixed for years and
+ * the price list changes every night. Two wings can share a band, and the front
+ * rows of one sector can carry their own.
+ */
 export function bindSeating(
   eventId: string,
-  body: { layoutId: string; ticketBySection: Record<string, string> },
+  body: { layoutId: string; ticketByCategory: Record<string, string> },
 ) {
-  return apiFetch<{ eventId: string; seatCount: number }>(
-    `/api/v1/events/${eventId}/seating`,
-    { method: "POST", body: JSON.stringify(body) },
-  );
+  return apiFetch<{ eventId: string; seatCount: number }>(`/api/v1/events/${eventId}/seating`, {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
+}
+
+export function bindAreaTickets(eventId: string, ticketBySection: Record<string, string>) {
+  return apiFetch<void>(`/api/v1/events/${eventId}/seating/areas`, {
+    method: "PUT",
+    body: JSON.stringify({ ticketBySection }),
+  });
 }
 
 export function blockSeats(eventId: string, seatIds: string[], reason: string) {

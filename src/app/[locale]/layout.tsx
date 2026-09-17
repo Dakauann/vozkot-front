@@ -92,7 +92,16 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={`${inter.variable} ${oxanium.variable} bg-background font-sans text-foreground antialiased`}>
+      {/* overflow-x-hidden because the landing page's hero peeks its
+          neighbouring slides past the gutter on purpose. That bleed was
+          also making the whole DOCUMENT scroll 382px sideways on a
+          trackpad, which is the scroll nobody wants and the one every
+          phone finds first. Clipping the section it comes from does not
+          stop it; the page is the scroller, so the page is where it
+          stops. Vertical scrolling is untouched. */}
+      <body
+        className={`${inter.variable} ${oxanium.variable} overflow-x-hidden bg-background font-sans text-foreground antialiased`}
+      >
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
             <AuthProvider>

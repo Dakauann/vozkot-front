@@ -265,6 +265,10 @@
       "free": "Entrada gratuita"
     },
     "seeAll": "Ver tudo",
+    "rail": {
+        "previous": "Ver anteriores",
+        "next": "Ver mais"
+      },
     "emptyCatalogue": "Assim que os primeiros eventos forem publicados, eles aparecem aqui.",
     "browseBy": "Navegue por cidade e categoria",
     "byCity": "Eventos por cidade",
@@ -280,29 +284,34 @@
     "how": "Como funciona"
   },
   "event": {
-    "when": "Quando",
-    "where": "Onde",
     "about": "Sobre o evento",
-    "location": "Local",
-    "tickets": "Ingressos",
-    "openInMaps": "Ver no Google Maps",
-    "openInWaze": "Abrir no Waze",
-    "mapPreview": "Mapa de {venue}",
-    "mapHint": "Explore o entorno aqui ou abra a rota no seu aplicativo preferido.",
-    "noTiers": "Nenhum lote à venda no momento.",
-    "soldOut": "Esgotado",
-    "free": "Grátis",
-    "fewLeft": "Últimas {count} unidades",
-    "total": "Total",
-    "pickATier": "Selecione um ingresso",
     "buy": "Comprar {count, plural, one {# ingresso} other {# ingressos}}",
-    "increase": "Adicionar um ingresso de {tier}",
-    "decrease": "Remover um ingresso de {tier}",
-    "holdNotice": "Seus ingressos ficam reservados por {minutes} minutos após a escolha.",
     "cancelled": "Este evento foi cancelado.",
     "cancelledNoSales": "As vendas foram encerradas porque o evento foi cancelado.",
+    "chooseSeats": "Comprar ingressos",
+    "chooseSeatsHint": "Voce escolhe o lugar no mapa da sala.",
+    "decrease": "Remover um ingresso de {tier}",
+    "fewLeft": "Últimas {count} unidades",
+    "free": "Grátis",
+    "holdNotice": "Seus ingressos ficam reservados por {minutes} minutos após a escolha.",
+    "increase": "Adicionar um ingresso de {tier}",
+    "location": "Local",
+    "mapHint": "Explore o entorno aqui ou abra a rota no seu aplicativo preferido.",
+    "mapPreview": "Mapa de {venue}",
+    "noTiers": "Nenhum lote à venda no momento.",
+    "openInMaps": "Ver no Google Maps",
+    "openInWaze": "Abrir no Waze",
+    "pickATier": "Selecione um ingresso",
+    "priceOne": "Ingressos a {price}",
+    "priceRange": "Ingressos entre {from} e {to}",
+    "seatsHeading": "Selecione seu lugar",
     "serviceFee": "taxa de serviço",
-    "subtotal": "Ingressos"
+    "soldOut": "Esgotado",
+    "subtotal": "Ingressos",
+    "tickets": "Ingressos",
+    "total": "Total",
+    "when": "Quando",
+    "where": "Onde"
   },
   "checkout": {
     "title": "Finalizar compra",
@@ -875,7 +884,23 @@
       "tierStatus": "Não foi possível alterar o lote."
     },
     "manage": "Gerenciar",
-    "viewReport": "Relatório"
+    "viewReport": "Relatório",
+    "checklist": {
+      "title": "Para vender",
+      "progress": "{done} de {total}",
+      "tiers": "Lote",
+      "seats": "Lugares",
+      "onSale": "À venda",
+      "publish": "Publicado",
+      "doneLabel": "feito",
+      "nextLabel": "próximo passo",
+      "hint": {
+        "tiers": "Crie pelo menos um lote: é ele que define o preço, a quantidade e a taxa.",
+        "seats": "Escolha a planta e diga quanto custa cada faixa de preço, em Lugares marcados.",
+        "onSale": "Um lote em rascunho não vende. Coloque à venda o que você quer vender hoje.",
+        "publish": "O evento ainda não aparece na vitrine. Publique quando estiver pronto."
+      }
+    }
   },
   "signIn": {
     "reason": {
@@ -1128,29 +1153,31 @@
     "next": "Próximo"
   },
   "seating": {
-    "loading": "Carregando o mapa de assentos…",
-    "loadFailed": "Não foi possível carregar o mapa de assentos. Recarregue a página.",
-    "stage": "Palco",
-    "seatName": "Fila {row}, assento {seat}",
-    "proceed": "{count, plural, one {Continuar com 1 assento} other {Continuar com # assentos}}",
-    "refused": "{count, plural, one {O assento {seats} acabou de ser escolhido por outra pessoa. Os demais continuam seus.} other {Os assentos {seats} acabaram de ser escolhidos por outras pessoas. Os demais continuam seus.}}",
+    "area": {
+      "add": "Adicionar entrada em {area}",
+      "remove": "Remover entrada de {area}",
+      "zoom": "Ampliar {area} para escolher ingressos"
+    },
+    "purchaseView": {
+      "title": "Tipo de ingresso",
+      "seats": "Mapa do local",
+      "admission": "Sem lugar marcado"
+    },
+    "counted": {
+      "title": "Ingressos sem lugar marcado",
+      "hint": "Escolha a quantidade de entradas individuais na área desejada. Cada ingresso dá acesso à área indicada, sem reservar o camarote inteiro.",
+      "limit": "Limite de {count} ingressos por compra, incluindo assentos."
+    },
+    "checkoutFailed": "Não foi possível continuar. Tente novamente.",
+    "ticketCount": "{count, plural, =0 {0 ingressos} one {# ingresso} other {# ingressos}}",
+    "areaHolds": "{count} lugares",
+    "arena": "Arena",
     "best": {
       "title": "Melhor disponível",
       "hint": "Escolhemos os melhores lugares juntos, mais perto do palco. Se preferir, escolha no mapa abaixo.",
       "seats": "{count, plural, one {1 lugar} other {# lugares}}",
       "accessible": "Preciso de lugar acessível",
       "accessibleHint": "Espaço para cadeira de rodas, mobilidade reduzida ou assento para obesos. Esses lugares ficam reservados e não são oferecidos a quem não precisa deles."
-    },
-    "sectors": {
-      "title": "Escolha o setor",
-      "choose": "Escolha um setor para ver os lugares.",
-      "available": "{count, plural, one {1 lugar livre} other {# lugares livres}}",
-      "soldOut": "Esgotado"
-    },
-    "status": {
-      "available": "livre",
-      "taken": "ocupado",
-      "blocked": "indisponível"
     },
     "kind": {
       "standard": "comum",
@@ -1166,17 +1193,40 @@
       "taken": "Ocupado",
       "accessible": "Acessível"
     },
+    "loadFailed": "Não foi possível carregar o mapa de assentos. Recarregue a página.",
+    "loading": "Carregando o mapa de assentos…",
+    "proceed": "{count, plural, one {Continuar com 1 assento} other {Continuar com # assentos}}",
+    "refused": "{count, plural, one {O assento {seats} acabou de ser escolhido por outra pessoa. Os demais continuam seus.} other {Os assentos {seats} acabaram de ser escolhidos por outras pessoas. Os demais continuam seus.}}",
+    "seatName": "Fila {row}, assento {seat}",
+    "sectors": {
+      "title": "Escolha o setor",
+      "choose": "Escolha um setor para ver os lugares.",
+      "available": "{count, plural, one {1 lugar livre} other {# lugares livres}}",
+      "soldOut": "Esgotado"
+    },
     "selection": {
       "title": "Seus lugares",
       "empty": "Nenhum lugar escolhido ainda.",
       "remove": "Remover a fila {row}, assento {seat}"
+    },
+    "stage": "Palco",
+    "status": {
+      "available": "livre",
+      "taken": "ocupado",
+      "blocked": "indisponível"
     },
     "total": {
       "tickets": "{count, plural, one {1 ingresso} other {# ingressos}}",
       "fee": "Taxa de serviço",
       "total": "Total"
     },
-    "arena": "Arena"
+    "zoom": {
+      "fit": "Ver a sala inteira",
+      "hint": "Toque em + para aproximar e escolher o lugar",
+      "in": "Aproximar",
+      "out": "Afastar",
+      "panHint": "Arraste o mapa para ver o resto da sala"
+    }
   },
   "layoutStudio": {
     "loading": "Carregando…",
@@ -1195,16 +1245,13 @@
     },
     "venue": {
       "label": "Local",
-      "none": "Escolha um local",
       "add": "Novo local",
       "prompt": "Nome do local"
     },
     "layout": {
       "label": "Planta",
-      "none": "Escolha uma planta",
       "add": "Nova planta",
       "prompt": "Nome da planta",
-      "choose": "Escolha um local e uma planta para começar a desenhar a sala.",
       "frozenExplained": "Esta planta já está vendendo em um evento e não pode ser alterada: mudar as fileiras agora mudaria a sala embaixo de uma noite que já tem ingressos. Crie uma nova versão para alterar."
     },
     "canvas": {
@@ -1258,7 +1305,13 @@
       "width": "Largura",
       "depth": "Profundidade",
       "diameter": "Diâmetro",
-      "rowsNumbered": "Passou de 24 fileiras, então elas passaram a ser numeradas."
+      "rowsNumbered": "Passou de 24 fileiras, então elas passaram a ser numeradas.",
+      "category": "Faixa de preço",
+      "categoryHint": "Vazio usa o nome do setor. Preencha para dois setores dividirem um preço.",
+      "rotation": "Girar o bloco",
+      "rotationHint": "Um quarto de volta por clique. É assim que as fileiras passam a correr pela laterais da sala.",
+      "rotate": "Girar 90°",
+      "rotationValue": "{degrees}°"
     },
     "capacityHint": {
       "standing": "Quantas pessoas cabem na pista.",
@@ -1295,7 +1348,10 @@
       "label": "O que o clique faz",
       "move": "Mover blocos",
       "mark": "Marcar lugares",
-      "kindLabel": "Tipo de lugar a marcar"
+      "kindLabel": "Tipo de lugar a marcar",
+      "price": "Faixa de preço",
+      "bandLabel": "Faixa a aplicar nos lugares",
+      "bandPlaceholder": "Ex.: Plateia Premium"
     },
     "kind": {
       "standard": "Comum",
@@ -1361,18 +1417,95 @@
     },
     "area": {
       "unit": "1 unidade"
+    },
+    "library": {
+      "title": "Plantas e assentos",
+      "hint": "Os locais que você tem e as plantas de cada um. Abra uma para ver a sala antes de mexer nela.",
+      "plans": "Plantas",
+      "noPlans": "Este local ainda não tem planta. Crie a primeira para desenhar a sala.",
+      "firstVenue": "Comece pelo local",
+      "firstVenueHint": "Um local é o prédio: o teatro, o ginásio, a casa de show. As plantas são as configurações de sala que ele pode ter.",
+      "manage": "Gerenciar",
+      "back": "Plantas",
+      "frozen": "em uso",
+      "seats": "Lugares",
+      "sectors": "Setores",
+      "bands": "Faixas de preço",
+      "standing": "Em pé",
+      "emptyPlan": "Planta vazia. Abra em Gerenciar e arraste as peças para montar a sala.",
+      "unreadable": "Não conseguimos carregar esta planta agora. Isto não quer dizer que ela esteja vazia.",
+      "planCount": "{count, plural, one {1 planta} other {# plantas}}",
+      "seatsShort": "{seats} lug.",
+      "pick": "Escolha uma planta para ver a sala.",
+      "backToEvent": "Voltar ao evento",
+      "useInEvent": "Usar no evento"
+    },
+    "retry": "Tentar de novo",
+    "legacy": {
+      "hint": "{count, plural, one {Este setor foi salvo antes de guardarmos como ele foi desenhado, então dá para ver a sala mas não para editá-la aqui.} other {Estes {count} setores foram salvos antes de guardarmos como foram desenhados, então dá para ver a sala mas não para editá-la aqui.}} Para mudar a sala, monte-a de novo — e crie uma planta nova se esta já estiver vendendo.",
+      "readOnly": "{count, plural, one {Um setor desta planta não pode ser reaberto no editor, então ela está somente para leitura: salvar apagaria esse setor e os lugares dele.} other {{count} setores desta planta não podem ser reabertos no editor, então ela está somente para leitura: salvar apagaria esses setores e os lugares deles.}} Crie uma planta nova para desenhar a sala de novo."
+    },
+    "starter": {
+      "title": "De que tipo é esta sala?",
+      "hint": "Escolha um ponto de partida e ajuste depois. Tudo que aparece é uma peça normal: dá para arrastar, redimensionar e apagar.",
+      "theatre": "Teatro",
+      "arena": "Arena ou rodeio",
+      "tables": "Mesas",
+      "blank": "Em branco",
+      "name": {
+        "stage": "Palco",
+        "stalls": "Plateia",
+        "balcony": "Balcão",
+        "stand": "Arquibancada",
+        "arena": "Arena",
+        "tables": "Mesas",
+        "pit": "Pista",
+        "seats": "Cadeiras",
+        "boxLeft": "Camarote esquerdo",
+        "boxRight": "Camarote direito"
+      },
+      "show": "Casa de show"
+    },
+    "starterHint": {
+      "theatre": "Palco, plateia de 160 lugares e balcão de 72. Fileiras seguem de A até P.",
+      "arena": "Arena no meio e arquibancada em volta, quatro fileiras numeradas.",
+      "tables": "Palco e doze mesas de oito lugares.",
+      "blank": "Comece do zero: arraste as peças da lateral.",
+      "show": "Palco, pista para 600 em pé, 96 cadeiras atrás e um camarote de cada lado."
+    },
+    "bands": {
+      "title": "Faixas de preço",
+      "hint": "Crie as faixas que esta sala tem e clique nos lugares para aplicar a escolhida.",
+      "add": "Nova faixa",
+      "addAction": "Criar",
+      "placeholder": "Ex.: Plateia Premium",
+      "seats": "{seats} lugares"
     }
   },
   "eventSeating": {
+    "areas": {
+      "title": "Ingressos por área",
+      "beforeHint": "Pista e camarotes não têm lugar numerado, então não aparecem acima. Escolha aqui o lote de cada um: é esta escolha que liga o lote ao lugar na planta, não o nome.",
+      "partial": "Os lugares foram colocados à venda, mas as áreas não: {reason}. Ajuste em Ingressos por área.",
+      "hint": "Vincule um lote exclusivo a cada pista ou camarote. O lote não pode exceder a capacidade da área. Áreas com compras não podem ser reatribuídas.",
+      "capacity": "Capacidade: {count} pessoas",
+      "save": "Salvar ingressos por área",
+      "saved": "Ingressos das áreas salvos."
+    },
     "title": "Lugares marcados",
     "loading": "Carregando…",
     "failed": "Não foi possível concluir.",
     "hint": "Escolha a planta e diga quanto custa cada setor. Os lugares passam a ser vendidos com fila e número.",
     "venue": "Local",
     "layout": "Planta",
-    "layoutHint": "Somente plantas publicadas.",
-    "pricing": "Preço de cada setor",
-    "pricingHint": "Um lote por setor. Setor sem lote não é vendido nesta noite.",
+    "layoutHint": "Rascunho serve: colocar à venda publica a planta e a congela.",
+    "pricing": "Preço de cada faixa",
+    "pricingHint": "Cada parte da planta é vendida por um lote. A cor da bolinha é a cor daquele lugar no desenho acima. Parte sem lote não é vendida nesta noite.",
+    "sizeBlocks": "O lote {lote} tem {has} ingressos e {place} comporta {needs}.",
+    "sizeCaps": "O lote {lote} tem {has} ingressos para {needs} cadeiras, então só {has} serão vendidas.",
+    "resize": "Ajustar para {count}",
+    "resizing": "Ajustando…",
+    "conflict": "Ajuste os lotes marcados acima antes de colocar à venda.",
     "notSold": "Não vender",
     "bind": "Colocar lugares à venda",
     "binding": "Colocando à venda…",
@@ -1392,6 +1525,8 @@
     "oneWayShort": "Isto não pode ser desfeito depois que um lugar for reservado.",
     "unpricedWarning": "{count, plural, one {O setor {sectors} fica sem lote e não será vendido nesta noite.} other {Os setores {sectors} ficam sem lote e não serão vendidos nesta noite.}}",
     "unreachable": "Não conseguimos carregar seus locais e plantas agora. Isto não quer dizer que você não tenha nenhum.",
-    "retry": "Tentar de novo"
+    "retry": "Tentar de novo",
+    "bandSeats": "{seats} lugares",
+    "draw": "Desenhar a planta"
   }
 }

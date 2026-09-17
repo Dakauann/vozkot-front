@@ -265,6 +265,10 @@
       "free": "Free entry"
     },
     "seeAll": "See all",
+    "rail": {
+        "previous": "Show previous",
+        "next": "Show more"
+      },
     "emptyCatalogue": "As soon as the first events are published, they show up here.",
     "browseBy": "Browse by city and category",
     "byCity": "Events by city",
@@ -280,29 +284,34 @@
     "how": "How it works"
   },
   "event": {
-    "when": "When",
-    "where": "Where",
     "about": "About this event",
-    "location": "Location",
-    "tickets": "Tickets",
-    "openInMaps": "Open in Google Maps",
-    "openInWaze": "Open in Waze",
-    "mapPreview": "Map of {venue}",
-    "mapHint": "Explore the area here or open directions in your preferred app.",
-    "noTiers": "No tickets on sale right now.",
-    "soldOut": "Sold out",
-    "free": "Free",
-    "fewLeft": "Only {count} left",
-    "total": "Total",
-    "pickATier": "Select a ticket",
     "buy": "Buy {count, plural, one {# ticket} other {# tickets}}",
-    "increase": "Add one {tier} ticket",
-    "decrease": "Remove one {tier} ticket",
-    "holdNotice": "Your tickets are held for {minutes} minutes once you choose them.",
     "cancelled": "This event has been cancelled.",
     "cancelledNoSales": "Sales are closed because the event was cancelled.",
+    "chooseSeats": "Buy tickets",
+    "chooseSeatsHint": "You pick your seat on the map of the house.",
+    "decrease": "Remove one {tier} ticket",
+    "fewLeft": "Only {count} left",
+    "free": "Free",
+    "holdNotice": "Your tickets are held for {minutes} minutes once you choose them.",
+    "increase": "Add one {tier} ticket",
+    "location": "Location",
+    "mapHint": "Explore the area here or open directions in your preferred app.",
+    "mapPreview": "Map of {venue}",
+    "noTiers": "No tickets on sale right now.",
+    "openInMaps": "Open in Google Maps",
+    "openInWaze": "Open in Waze",
+    "pickATier": "Select a ticket",
+    "priceOne": "Tickets at {price}",
+    "priceRange": "Tickets from {from} to {to}",
+    "seatsHeading": "Choose your seat",
     "serviceFee": "service fee",
-    "subtotal": "Tickets"
+    "soldOut": "Sold out",
+    "subtotal": "Tickets",
+    "tickets": "Tickets",
+    "total": "Total",
+    "when": "When",
+    "where": "Where"
   },
   "checkout": {
     "title": "Checkout",
@@ -875,7 +884,23 @@
       "tierStatus": "The tier could not be changed."
     },
     "manage": "Manage",
-    "viewReport": "Report"
+    "viewReport": "Report",
+    "checklist": {
+      "title": "To sell",
+      "progress": "{done} of {total}",
+      "tiers": "Tier",
+      "seats": "Seats",
+      "onSale": "On sale",
+      "publish": "Published",
+      "doneLabel": "done",
+      "nextLabel": "next step",
+      "hint": {
+        "tiers": "Create at least one tier: it is what sets the price, the quantity and the fee.",
+        "seats": "Pick the plan and price each band, under Assigned seats.",
+        "onSale": "A draft tier does not sell. Put on sale what you want to sell today.",
+        "publish": "The event is not in the listing yet. Publish it when you are ready."
+      }
+    }
   },
   "signIn": {
     "reason": {
@@ -1128,29 +1153,31 @@
     "next": "Next"
   },
   "seating": {
-    "loading": "Loading the seat map…",
-    "loadFailed": "The seat map could not be loaded. Reload the page.",
-    "stage": "Stage",
-    "seatName": "Row {row}, seat {seat}",
-    "proceed": "{count, plural, one {Continue with 1 seat} other {Continue with # seats}}",
-    "refused": "{count, plural, one {Seat {seats} was just taken by somebody else. The rest are still yours.} other {Seats {seats} were just taken by other people. The rest are still yours.}}",
+    "area": {
+      "add": "Add admission to {area}",
+      "remove": "Remove admission from {area}",
+      "zoom": "Zoom into {area} to choose tickets"
+    },
+    "purchaseView": {
+      "title": "Ticket type",
+      "seats": "Venue map",
+      "admission": "Unassigned admission"
+    },
+    "counted": {
+      "title": "Tickets without assigned seats",
+      "hint": "Choose individual admissions to the area you want. Each ticket grants access to that area; it does not reserve the entire box.",
+      "limit": "Limit of {count} tickets per order, including seats."
+    },
+    "checkoutFailed": "Could not continue. Please try again.",
+    "ticketCount": "{count, plural, one {# ticket} other {# tickets}}",
+    "areaHolds": "{count} places",
+    "arena": "Arena",
     "best": {
       "title": "Best available",
       "hint": "We pick the best seats together, nearest the stage. Or choose them yourself on the map below.",
       "seats": "{count, plural, one {1 seat} other {# seats}}",
       "accessible": "I need an accessible seat",
       "accessibleHint": "A wheelchair space, reduced mobility or a seat built for obese persons. These are held back and never offered to somebody who does not need one."
-    },
-    "sectors": {
-      "title": "Choose a sector",
-      "choose": "Choose a sector to see its seats.",
-      "available": "{count, plural, one {1 seat free} other {# seats free}}",
-      "soldOut": "Sold out"
-    },
-    "status": {
-      "available": "free",
-      "taken": "taken",
-      "blocked": "unavailable"
     },
     "kind": {
       "standard": "standard",
@@ -1166,17 +1193,40 @@
       "taken": "Taken",
       "accessible": "Accessible"
     },
+    "loadFailed": "The seat map could not be loaded. Reload the page.",
+    "loading": "Loading the seat map…",
+    "proceed": "{count, plural, one {Continue with 1 seat} other {Continue with # seats}}",
+    "refused": "{count, plural, one {Seat {seats} was just taken by somebody else. The rest are still yours.} other {Seats {seats} were just taken by other people. The rest are still yours.}}",
+    "seatName": "Row {row}, seat {seat}",
+    "sectors": {
+      "title": "Choose a sector",
+      "choose": "Choose a sector to see its seats.",
+      "available": "{count, plural, one {1 seat free} other {# seats free}}",
+      "soldOut": "Sold out"
+    },
     "selection": {
       "title": "Your seats",
       "empty": "No seats chosen yet.",
       "remove": "Remove row {row}, seat {seat}"
+    },
+    "stage": "Stage",
+    "status": {
+      "available": "free",
+      "taken": "taken",
+      "blocked": "unavailable"
     },
     "total": {
       "tickets": "{count, plural, one {1 ticket} other {# tickets}}",
       "fee": "Service fee",
       "total": "Total"
     },
-    "arena": "Arena"
+    "zoom": {
+      "fit": "See the whole house",
+      "hint": "Tap + to zoom in and pick a seat",
+      "in": "Zoom in",
+      "out": "Zoom out",
+      "panHint": "Drag the map to see the rest of the house"
+    }
   },
   "layoutStudio": {
     "loading": "Loading…",
@@ -1195,16 +1245,13 @@
     },
     "venue": {
       "label": "Venue",
-      "none": "Choose a venue",
       "add": "New venue",
       "prompt": "Venue name"
     },
     "layout": {
       "label": "Layout",
-      "none": "Choose a layout",
       "add": "New layout",
       "prompt": "Layout name",
-      "choose": "Choose a venue and a layout to start drawing the room.",
       "frozenExplained": "This layout is already selling on an event and cannot be changed: re-lettering the rows now would change the room under a night that already has tickets out. Create a new version to change it."
     },
     "canvas": {
@@ -1258,7 +1305,13 @@
       "width": "Width",
       "depth": "Depth",
       "diameter": "Diameter",
-      "rowsNumbered": "Past 24 rows, so the rows are numbered now."
+      "rowsNumbered": "Past 24 rows, so the rows are numbered now.",
+      "category": "Price band",
+      "categoryHint": "Empty uses the sector's name. Fill it in to share one price between two sectors.",
+      "rotation": "Turn the block",
+      "rotationHint": "A quarter turn per click. It is how rows come to run down the sides of the room.",
+      "rotate": "Turn 90°",
+      "rotationValue": "{degrees}°"
     },
     "capacityHint": {
       "standing": "How many people the floor holds.",
@@ -1295,7 +1348,10 @@
       "label": "What a click does",
       "move": "Move blocks",
       "mark": "Mark seats",
-      "kindLabel": "Seat kind to mark"
+      "kindLabel": "Seat kind to mark",
+      "price": "Price band",
+      "bandLabel": "Band to apply to seats",
+      "bandPlaceholder": "e.g. Stalls Premium"
     },
     "kind": {
       "standard": "Standard",
@@ -1361,18 +1417,95 @@
     },
     "area": {
       "unit": "1 unit"
+    },
+    "library": {
+      "title": "Plans and seating",
+      "hint": "The venues you have and each one's plans. Open one to see the room before you touch it.",
+      "plans": "Plans",
+      "noPlans": "This venue has no plan yet. Create the first one to draw the room.",
+      "firstVenue": "Start with the venue",
+      "firstVenueHint": "A venue is the building: the theatre, the gym, the concert hall. Plans are the room layouts it can have.",
+      "manage": "Manage",
+      "back": "Plans",
+      "frozen": "in use",
+      "seats": "Seats",
+      "sectors": "Sectors",
+      "bands": "Price bands",
+      "standing": "Standing",
+      "emptyPlan": "An empty plan. Open Manage and drag pieces in to build the room.",
+      "unreadable": "We could not load this plan just now. That does not mean it is empty.",
+      "planCount": "{count, plural, one {1 plan} other {# plans}}",
+      "seatsShort": "{seats} seats",
+      "pick": "Pick a plan to see the room.",
+      "backToEvent": "Back to the event",
+      "useInEvent": "Use in the event"
+    },
+    "retry": "Try again",
+    "legacy": {
+      "hint": "{count, plural, one {This sector was saved before we recorded how it was drawn, so the room can be seen but not edited here.} other {These {count} sectors were saved before we recorded how they were drawn, so the room can be seen but not edited here.}} To change the room, build it again — and create a new plan if this one is already selling.",
+      "readOnly": "{count, plural, one {One sector of this plan cannot be reopened in the editor, so it is read only: saving would delete that sector and its seats.} other {{count} sectors of this plan cannot be reopened in the editor, so it is read only: saving would delete those sectors and their seats.}} Create a new plan to draw the room again."
+    },
+    "starter": {
+      "title": "What kind of room is this?",
+      "hint": "Pick a starting point and adjust from there. Everything it drops is an ordinary piece: drag it, resize it, delete it.",
+      "theatre": "Theatre",
+      "arena": "Arena or rodeo",
+      "tables": "Tables",
+      "blank": "Blank",
+      "name": {
+        "stage": "Stage",
+        "stalls": "Stalls",
+        "balcony": "Balcony",
+        "stand": "Stand",
+        "arena": "Arena",
+        "tables": "Tables",
+        "pit": "Standing",
+        "seats": "Seats",
+        "boxLeft": "Left box",
+        "boxRight": "Right box"
+      },
+      "show": "Concert hall"
+    },
+    "starterHint": {
+      "theatre": "A stage, 160 seats of stalls and a 72-seat balcony. Rows run A to P.",
+      "arena": "An arena in the middle with a stand around it, four numbered rows.",
+      "tables": "A stage and twelve tables of eight.",
+      "blank": "Start from nothing: drag pieces in from the side.",
+      "show": "A stage, standing room for 600, 96 seats behind it and a box on each side."
+    },
+    "bands": {
+      "title": "Price bands",
+      "hint": "Create the bands this room has, then click seats to apply the selected one.",
+      "add": "New band",
+      "addAction": "Create",
+      "placeholder": "e.g. Stalls Premium",
+      "seats": "{seats} seats"
     }
   },
   "eventSeating": {
+    "areas": {
+      "title": "Tickets by area",
+      "beforeHint": "Standing floors and boxes have no numbered chairs, so they do not appear above. Pick each one's ticket here: this choice is what links a ticket to a place on the plan, not its name.",
+      "partial": "The seats went on sale, but the areas did not: {reason}. Fix this under Tickets by area.",
+      "hint": "Assign a dedicated ticket tier to each floor or box. Its quantity must not exceed the area capacity. Areas with purchases cannot be reassigned.",
+      "capacity": "Capacity: {count} people",
+      "save": "Save area tickets",
+      "saved": "Area tickets saved."
+    },
     "title": "Reserved seats",
     "loading": "Loading…",
     "failed": "That could not be completed.",
     "hint": "Choose the layout and say what each section costs. Seats are then sold with a row and a number.",
     "venue": "Venue",
     "layout": "Layout",
-    "layoutHint": "Published layouts only.",
-    "pricing": "Price per section",
-    "pricingHint": "One tier per section. A section with no tier is not sold this night.",
+    "layoutHint": "A draft is fine: putting seats on sale publishes and freezes the plan.",
+    "pricing": "Price for each band",
+    "pricingHint": "Each part of the plan is sold by one ticket. A row's dot is the colour that place is painted above. A part with no ticket is not sold tonight.",
+    "sizeBlocks": "{lote} has {has} tickets and {place} holds {needs}.",
+    "sizeCaps": "{lote} has {has} tickets for {needs} chairs, so only {has} can be sold.",
+    "resize": "Resize to {count}",
+    "resizing": "Resizing…",
+    "conflict": "Resize the tickets flagged above before putting the seats on sale.",
     "notSold": "Do not sell",
     "bind": "Put the seats on sale",
     "binding": "Putting on sale…",
@@ -1392,6 +1525,8 @@
     "oneWayShort": "This cannot be undone once a seat has been held.",
     "unpricedWarning": "{count, plural, one {Sector {sectors} has no tier and will not be sold tonight.} other {Sectors {sectors} have no tier and will not be sold tonight.}}",
     "unreachable": "We could not load your venues and plans just now. That does not mean you have none.",
-    "retry": "Try again"
+    "retry": "Try again",
+    "bandSeats": "{seats} seats",
+    "draw": "Draw the plan"
   }
 }

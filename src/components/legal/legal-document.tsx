@@ -300,8 +300,11 @@ export function LegalDocument({
                         aria-current={current ? "location" : undefined}
                         className={cn(
                           "flex items-start gap-2 rounded-[--radius] px-2 py-1.5 text-xs leading-snug transition-colors focus-visible:ring-2 focus-visible:ring-ring",
+                          // Solid, like the sidebar: a 94% tint against a 93%
+                          // hover grey made the clause you are reading the
+                          // faintest row in the list.
                           current
-                            ? "bg-primary-subtle font-semibold text-foreground"
+                            ? "bg-primary font-semibold text-primary-foreground shadow-button-primary"
                             : "text-muted-foreground hover:bg-muted hover:text-foreground",
                         )}
                       >

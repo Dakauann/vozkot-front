@@ -8,6 +8,7 @@ export default defineConfig([
   globalIgnores([
     ".next/**",
     ".tmp/**",
+    ".cache/**",
     "out/**",
     "next-env.d.ts",
     // Vendor bundles copied out of node_modules on every dev and build run,

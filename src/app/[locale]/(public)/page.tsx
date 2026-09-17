@@ -1,10 +1,12 @@
+import { Suspense } from "react";
+
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { CatalogueFilters } from "@/components/events/catalogue-filters";
 import { CollectionStrip } from "@/components/events/collection-strip";
 import { EventCard } from "@/components/events/event-card";
-import { EventRail } from "@/components/events/event-rail";
+import { EventRail, RailSkeleton } from "@/components/events/event-rail";
 import {
   FeaturedCarousel,
   type FeaturedSlide,
@@ -86,13 +88,13 @@ async function Landing({ locale }: { locale: Locale }) {
   const t = await getTranslations("catalogue");
   const { start, end } = weekend();
 
-  // Every rail and the filter options in one round of requests. Sequential
-  // fetches here would stack four API latencies into the time to first byte.
-  const [filters, soonest, thisWeekend, free] = await Promise.all([
+  // ONLY what the first screenful needs is awaited here. The rails below own
+  // their own queries and stream in behind Suspense, so the hero and the ways
+  // in are sent as soon as these two answer instead of waiting on every
+  // catalogue query the page will eventually make.
+  const [filters, soonest] = await Promise.all([
     getCatalogueFilters(),
-    listEvents({ sort: "starts_at", available: true, limit: 12 }),
-    listEvents({ sort: "starts_at", from: start, until: end, limit: 12 }),
-    listEvents({ sort: "starts_at", free: true, limit: 12 }),
+    listEvents({ sort: "starts_at", available: true, limit: FEATURED_COUNT }),
   ]);
 
   // The featured row and the first rail come from the same query rather than
@@ -104,7 +106,6 @@ async function Landing({ locale }: { locale: Locale }) {
   // remember to keep current, which is the version that eventually promotes a
   // show that happened last month.
   const featured = soonest.data.slice(0, FEATURED_COUNT);
-  const rest = soonest.data.slice(FEATURED_COUNT);
 
   if (soonest.total === 0) {
     return (
@@ -123,29 +124,36 @@ async function Landing({ locale }: { locale: Locale }) {
 
         <CollectionStrip filters={filters} />
 
-        <EventRail
-          title={t("rails.soonest")}
-          events={rest}
-          locale={locale}
-          href="/?available=true&sort=starts_at"
-          seeAll={t("seeAll")}
-        />
+        {/* Each rail is its own Suspense boundary, so a slow one holds up
+            itself and nothing else, and the skeleton reserves its exact height
+            so the rows beneath do not jump as each one lands. */}
+        <Suspense fallback={<RailSkeleton />}>
+          <EventRail
+            title={t("rails.soonest")}
+            query={{ sort: "starts_at", available: true }}
+            locale={locale}
+            href="/?available=true&sort=starts_at"
+            priority
+          />
+        </Suspense>
 
-        <EventRail
-          title={t("rails.weekend")}
-          events={thisWeekend.data}
-          locale={locale}
-          href={`/?from=${start}&until=${end}&sort=starts_at`}
-          seeAll={t("seeAll")}
-        />
+        <Suspense fallback={<RailSkeleton />}>
+          <EventRail
+            title={t("rails.weekend")}
+            query={{ sort: "starts_at", from: start, until: end }}
+            locale={locale}
+            href={`/?from=${start}&until=${end}&sort=starts_at`}
+          />
+        </Suspense>
 
-        <EventRail
-          title={t("rails.free")}
-          events={free.data}
-          locale={locale}
-          href="/?free=true&sort=starts_at"
-          seeAll={t("seeAll")}
-        />
+        <Suspense fallback={<RailSkeleton />}>
+          <EventRail
+            title={t("rails.free")}
+            query={{ sort: "starts_at", free: true }}
+            locale={locale}
+            href="/?free=true&sort=starts_at"
+          />
+        </Suspense>
 
         <OrganiserBand />
       </div>

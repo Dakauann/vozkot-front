@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 
+import { CATEGORY_GLYPHS } from "@/components/icons/category-glyphs";
 import { Link } from "@/i18n/routing";
 import { EVENT_CATEGORIES, type CatalogueFilters, type EventCategory } from "@/lib/events/types";
 
@@ -12,11 +13,14 @@ import { EVENT_CATEGORIES, type CatalogueFilters, type EventCategory } from "@/l
  * DICE all give this row real estate, and it is among the most-used elements on
  * any of their landing pages.
  *
- * No icons, deliberately. Sixteen categories mapped onto a generic icon set
- * produces a row where "Esportivo" and "Saúde e bem-estar" wear the same
- * unrelated glyph, which is worse than no glyph: it looks decided when it was
- * arbitrary. The category NAME is the affordance, sized to be read at a glance,
- * with its real count underneath.
+ * ONE DRAWING PER CATEGORY, and that is the whole condition. This row carried
+ * no icons for a good reason — the app's set is a UI set with no trophy, fork,
+ * mask or controller in it, so sixteen categories mapped onto it would have put
+ * the same unrelated glyph on "Esportivo" and "Saúde e bem estar", which looks
+ * decided when it was arbitrary. The objection was to arbitrary icons, not to
+ * icons, so the sixteen drawings were made: see icons/category-glyphs.tsx. The
+ * NAME still carries the tile; the glyph is the thing the eye lands on first
+ * while scanning sideways, and the count is the quiet third line.
  *
  * Only categories that actually have events, biggest first. A shortcut that
  * leads somewhere empty is worse than no shortcut, it teaches people the
@@ -64,7 +68,7 @@ export async function CollectionStrip({ filters }: { filters: CatalogueFilters }
           is what turns a glanceable strip into a wall. */}
       <ul className="-mx-4 flex gap-2.5 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 [&::-webkit-scrollbar]:hidden">
         {visible.map(({ category, count }) => (
-          <li key={category} className="w-[150px] shrink-0 sm:w-[168px]">
+          <li key={category} className="w-[158px] shrink-0 sm:w-[176px]">
             <CollectionTile
               category={category}
               label={tCategory(category)}
@@ -89,13 +93,25 @@ function CollectionTile({
   count: number;
   countLabel: string;
 }) {
+  const Glyph = CATEGORY_GLYPHS[category];
   return (
     <Link
       href={`/?category=${category}`}
-      className="flex h-full min-h-[76px] flex-col justify-between rounded-lg border border-border bg-card p-3 transition-colors hover:border-primary-edge hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      className="group flex h-full min-h-[104px] flex-col gap-2 rounded-lg border border-border bg-card p-3.5 transition-[border-color,box-shadow] hover:border-primary-edge hover:shadow-[var(--elev-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
-      <span className="text-sm font-semibold leading-snug text-card-foreground">{label}</span>
-      <span className="mt-2 text-xs tabular-nums text-muted-foreground">{countLabel}</span>
+      {/* The glyph sits on the brand's own quiet tint rather than loose on the
+          card. A 24px drawing alone in a corner reads as a stray mark; on a
+          ground it reads as the tile's subject. */}
+      <span
+        aria-hidden="true"
+        className="grid size-9 shrink-0 place-items-center rounded-[--radius] text-black dark:text-white transition-colors group-hover:bg-primary group-hover:text-primary-foreground"
+      >
+        <Glyph size={20} />
+      </span>
+      <span className="mt-auto text-sm font-semibold leading-snug text-card-foreground">
+        {label}
+      </span>
+      <span className="text-xs tabular-nums text-muted-foreground">{countLabel}</span>
       <span className="sr-only">{count}</span>
     </Link>
   );

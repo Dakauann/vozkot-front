@@ -1,21 +1,22 @@
 import { setRequestLocale } from "next-intl/server";
 
-import { LayoutBuilder } from "@/components/seating/layout-builder";
+import { PlanLibrary } from "@/components/seating/plan-library";
 
 /**
- * The room builder.
+ * The plan library.
  *
- * No page header and no max-width container, unlike every other page in the
- * app, and both omissions are the point: this is a canvas, the room is the
- * content, and it takes the screen. A title bar above it would push the canvas
- * down for a heading that repeats what the sidebar already says, and a 1100px
- * cap would waste the half of a wide monitor that a seat map is exactly the
- * thing to use.
+ * This route used to be the builder itself, which meant opening "Plantas"
+ * dropped an organiser onto a full-bleed canvas that then had to ask, in two
+ * `sr-only`-labelled dropdowns, which venue and which plan they meant. The
+ * first thing the feature ever said was "choose two things you have not created
+ * yet", and somebody with four rooms had no way to see what they had.
  *
- * The component escapes the shell's padding itself, so nothing here wraps it.
+ * The library answers what the page is actually opened with — what rooms do I
+ * have, and what is in them — and editing is a deliberate step behind a button,
+ * at /venues/{id}.
  */
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <LayoutBuilder />;
+  return <PlanLibrary />;
 }

@@ -6,6 +6,8 @@ import { brand } from "@/config/brand";
 import { EventImage, coverImage } from "@/components/events/event-image";
 import { EventLocationMap } from "@/components/events/event-location-map";
 import { BuyPanel } from "@/components/events/buy-panel";
+import { SeatedBuyPanel } from "@/components/events/seated-buy-panel";
+import { SeatedTicketsCard } from "@/components/events/seated-tickets-card";
 import { ArrowSquareOut, CalendarBlank, MapPin } from "@/components/icons";
 import type { Locale } from "@/i18n/config";
 import { getEvent, getEventTiers } from "@/lib/events/api";
@@ -15,6 +17,13 @@ import { formatLongDateTime } from "@/lib/format";
 
 /** Matches CHECKOUT_HOLD_TTL on the API. */
 const HOLD_MINUTES = 30;
+/**
+ * The id the sidebar's button scrolls to, and the id the chart section carries.
+ *
+ * Named once so the two cannot drift: a button pointing at an anchor that moved
+ * is a button that silently does nothing.
+ */
+const SEATS_ANCHOR = "lugares";
 
 export default async function EventPage({
   params,
@@ -33,6 +42,11 @@ export default async function EventPage({
   ]);
   const cover = coverImage(event.media);
   const cancelled = event.status === "cancelled";
+  // Known HERE rather than probed in the browser. `salesMode` is on the event
+  // response and binding a plan to a night is what sets it, so the page can be
+  // laid out correctly on the server instead of rearranging itself once an
+  // availability call comes back.
+  const seated = event.salesMode === "seated";
   const hasCoordinates =
     typeof event.location.latitude === "number" &&
     Number.isFinite(event.location.latitude) &&
@@ -182,6 +196,8 @@ export default async function EventPage({
               <p className="rounded-lg border border-border bg-card px-4 py-8 text-center text-sm text-muted-foreground shadow-sm">
                 {t("cancelledNoSales")}
               </p>
+            ) : seated ? (
+              <SeatedTicketsCard tiers={tiers} locale={locale} anchor={SEATS_ANCHOR} />
             ) : (
               <BuyPanel
                 eventId={event.id}
@@ -193,6 +209,30 @@ export default async function EventPage({
             )}
           </aside>
         </div>
+
+        {/* The chart, at the width of the page.
+            Below the fold on purpose: somebody who has not decided whether the
+            price works for them has no use for a plan of the room, and the
+            sidebar's button is what brings them here once they have.
+            `scroll-mt` so the heading clears the sticky header rather than
+            landing under it. */}
+        {seated && !cancelled ? (
+          <section id={SEATS_ANCHOR} className="mt-10 scroll-mt-24">
+            <div className="mb-3 flex items-center gap-2">
+              <span className="lamp" aria-hidden />
+              <h2 className="font-display text-lg font-semibold text-foreground">
+                {t("seatsHeading")}
+              </h2>
+            </div>
+            <SeatedBuyPanel
+              eventId={event.id}
+              tiers={tiers}
+              eventSlug={event.slug}
+              locale={locale}
+              holdMinutes={HOLD_MINUTES}
+            />
+          </section>
+        ) : null}
       </div>
     </main>
   );
