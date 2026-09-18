@@ -11,7 +11,7 @@ import type { ReportSlice } from "@/lib/reports/types";
 /**
  * One breakdown, as a table.
  *
- * Four of these make the report — by gender, age, state and ticket — and they
+ * Four of these make the report: by gender, age, state and ticket, and they
  * share a component because they are the same question asked of four columns.
  * The alternative, four near-identical tables, is four places to fix a column
  * nobody noticed was missing from one of them.

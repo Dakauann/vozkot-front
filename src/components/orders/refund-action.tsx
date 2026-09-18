@@ -19,9 +19,9 @@ import type { Order } from "@/lib/checkout/api";
 /**
  * "Cancelar e receber reembolso", on the buyer's own order.
  *
- * Nothing here decides whether a refund is allowed. The server owns that — one
+ * Nothing here decides whether a refund is allowed. The server owns that: one
  * pure function behind /refund-eligibility that the request endpoint also
- * calls — so this component asks and renders the answer. A window computed in
+ * calls, so this component asks and renders the answer. A window computed in
  * the browser would be a second implementation of a legal deadline, and the two
  * would disagree on exactly the days that matter.
  *

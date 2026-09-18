@@ -17,8 +17,8 @@ export const RAIL_PAGE = 8;
  * The landing page is built from these rather than from a grid, which is what
  * every marketplace of this kind converged on: a grid answers "show me
  * everything" and a rail answers "here is a reason to look". Somebody arriving
- * with no query has no query to answer, so the page offers angles — this
- * weekend, free, by category — instead of page one of four thousand.
+ * with no query has no query to answer, so the page offers angles, this
+ * weekend, free, by category, instead of page one of four thousand.
  *
  * THE RAIL OWNS ITS QUERY. It used to be handed a finished array, which meant
  * the page had to await every rail before it could send anything, and it asked
@@ -85,7 +85,7 @@ export async function EventRail({
  * The shape a rail holds while its query is in flight.
  *
  * Sized from the same numbers the real row uses, so streaming one in does not
- * move the rows beneath it — the whole point of streaming is lost if the page
+ * move the rows beneath it: the whole point of streaming is lost if the page
  * jumps as each one lands.
  */
 export function RailSkeleton() {

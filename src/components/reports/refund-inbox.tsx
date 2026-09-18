@@ -115,6 +115,18 @@ export function RefundInbox({ eventId, currency = "BRL" }: { eventId: string; cu
                   {request.note ? (
                     <p className="mt-1 text-sm text-muted-foreground">“{request.note}”</p>
                   ) : null}
+                  {/* An operator refund is OURS, not the organiser's: the
+                      payment landed after the hold lapsed and the seats had
+                      already been resold, so the platform owes the money and
+                      never bills it to the organiser. Said here rather than
+                      stored on the row, so it reads in the viewer's own
+                      language. Without it this lands in the inbox looking like
+                      a refund the organiser is paying for. */}
+                  {request.reason === "operator" ? (
+                    <p className="notice notice-info notice-ink mt-2 px-2 py-1 text-xs">
+                      {t("operatorNote")}
+                    </p>
+                  ) : null}
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-semibold tabular-nums text-card-foreground">

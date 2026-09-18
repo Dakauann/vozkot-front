@@ -19,7 +19,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
       />
       {/* The one part of settings that is real: the optional answers a buyer
           gave at sign-up, editable afterwards. Everything else on this route is
-          still the starter's scaffold — the block below renders nothing at all
+          still the starter's scaffold: the block below renders nothing at all
           for an account that has not completed its identity block, so a fresh
           workspace still sees the placeholder rather than an empty form. */}
       <div className="mt-6">

@@ -19,7 +19,7 @@ import { GENDERS, UFS, type Gender } from "@/lib/reports/types";
  *
  * Everything here is optional and says so on screen. "Prefiro não informar" is
  * a real choice rather than the absence of one, and leaving the whole block
- * untouched is equally fine — the report counts both as "não informado".
+ * untouched is equally fine: the report counts both as "não informado".
  */
 
 export interface AudienceValue {
@@ -94,7 +94,7 @@ export function AudienceFields({
             onChange={(event) => set("uf")(event.target.value)}
             className="h-11"
           >
-            <option value="">—</option>
+            <option value="">-</option>
             {UFS.map((uf) => (
               <option key={uf} value={uf}>
                 {uf}

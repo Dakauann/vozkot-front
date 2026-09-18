@@ -35,8 +35,8 @@ export function AuthGate({ children }: { children: ReactNode }) {
 
   // The spinner is for the FIRST check only, when nobody is known yet.
   //
-  // `isLoading` is also true during a background revalidation — the auth
-  // context re-checks the session on `visibilitychange` and on `online` — and
+  // `isLoading` is also true during a background revalidation: the auth
+  // context re-checks the session on `visibilitychange` and on `online`, and
   // swapping the app for a spinner then UNMOUNTS the whole shell. Everything
   // the shell was holding goes with it: which context the operator was in,
   // which nav sections were open, whether the rail was collapsed, the scroll
@@ -68,7 +68,7 @@ export function AuthGate({ children }: { children: ReactNode }) {
            * This used to be interpolated into the sentence above, which meant a
            * customer was shown an origin they cannot reach and told to start a
            * backend they do not have. The distinction the component makes is
-           * still worth making — see the doc comment — but the DETAIL behind it
+           * still worth making, see the doc comment, but the DETAIL behind it
            * is a developer's, so it ships only where a developer is.
            */}
           {process.env.NODE_ENV !== "production" ? (

@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
  *
  * It exists so that "is this the right room?" can be answered by looking. The
  * one place that asks is putting a layout on sale for a night, which is
- * irreversible once a seat is held — and picking the wrong plan from a dropdown
+ * irreversible once a seat is held, and picking the wrong plan from a dropdown
  * of names is exactly the mistake worth making impossible to make quietly.
  *
  * Deliberately not the builder. No dragging, no palette, no marking: a surface

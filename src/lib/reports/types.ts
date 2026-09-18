@@ -10,7 +10,7 @@
 /** One row of a breakdown. */
 export interface ReportSlice {
   key: string;
-  /** Present where the key is an id — a tier. Absent where the key is the label. */
+  /** Present where the key is an id: a tier. Absent where the key is the label. */
   label?: string;
   /**
    * `orders` is how many purchases, `tickets` how many admissions. One order
@@ -23,7 +23,7 @@ export interface ReportSlice {
    * The organiser's earnings for this slice: the face value they priced.
    *
    * The only money the API sends. The platform's service fee and the gross the
-   * buyer paid are not part of this report — see the money note in the Go
+   * buyer paid are not part of this report. See the money note in the Go
    * package `domain/report`. Do not add them here expecting the server to fill
    * them in; it does not select them.
    */
@@ -49,6 +49,16 @@ export interface ReportTotals {
   refundedOrders: number;
   /** What went back, also at face value. */
   refundedCents: number;
+  /**
+   * The ticket médio, asked the two ways an organiser means it: what one buyer
+   * spends in a go, and what one admission is worth. They differ whenever
+   * anybody buys for a group, and only the second is evidence for repricing.
+   *
+   * Sent by the server rather than divided here, so the API, the CSV and every
+   * screen round the same way.
+   */
+  averageOrderCents: number;
+  averageTicketCents: number;
 }
 
 export interface EventReport {
@@ -101,7 +111,7 @@ export interface AttendeePage {
 export const GENDERS = ["female", "male", "non_binary", "other", "undisclosed"] as const;
 export type Gender = (typeof GENDERS)[number];
 
-/** Brazil's 27 federal units, alphabetically — the order a select offers them. */
+/** Brazil's 27 federal units, alphabetically, the order a select offers them. */
 export const UFS = [
   "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS",
   "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC",

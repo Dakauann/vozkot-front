@@ -14,7 +14,7 @@ import type { Compliance, LayoutSeat, SectionSpec } from "@/lib/seating/api";
  * What a room is made of, and the panel that edits one piece of it.
  *
  * The builder's model is a flat list of OBJECTS. A block of seats, a standing
- * floor, a box, a stage, an arena — all the same kind of thing: something with
+ * floor, a box, a stage, an arena, all the same kind of thing: something with
  * a position that you drop on a canvas and then adjust. That is the whole
  * reason the previous version's "focus" enum had to go: a stage was a mode with
  * one fixed position, so it could not be moved and a room could not have two.
@@ -43,8 +43,8 @@ export const PIECES: Piece[] = [
 /**
  * A piece being edited: what it IS, plus which palette item it came from.
  *
- * Deliberately not where it is or how big it is. The canvas owns placement —
- * it is the thing being dragged — and a draft holding a second copy would
+ * Deliberately not where it is or how big it is. The canvas owns placement,
+ * it is the thing being dragged, and a draft holding a second copy would
  * disagree with it the first time a drag landed while a preview was in flight.
  */
 export type Draft = Omit<SectionSpec, "offsetX" | "offsetY" | "width" | "height"> & {
@@ -173,7 +173,7 @@ export function newDraft(piece: Piece, order = 0): Draft {
 /**
  * What goes to the server: the piece, plus where the canvas put it.
  *
- * The palette origin stays behind — it is how the organiser chose the thing,
+ * The palette origin stays behind: it is how the organiser chose the thing,
  * not part of the room.
  */
 export function toSpec(draft: Draft, placement: Placement): SectionSpec {
@@ -193,8 +193,8 @@ export function toSpec(draft: Draft, placement: Placement): SectionSpec {
  * How big a piece is, for the list.
  *
  * `actual` is the count from the generated room and wins whenever it is known.
- * Rows times seats-per-row is wrong for an arc — the rows gain seats as they go
- * out — and a summary that disagrees with the canvas beside it is worse than
+ * Rows times seats-per-row is wrong for an arc: the rows gain seats as they go
+ * out, and a summary that disagrees with the canvas beside it is worse than
  * none.
  */
 export function describe(
@@ -321,7 +321,7 @@ export type StarterPiece = {
  * room with two sectors on the same floor and an organiser's first Save must
  * not be the thing that teaches them that. The arena is the delicate one: a
  * full ring of four rows at radius 180 has an outer radius of 264, so its
- * centre lands at (264, 264) once placed at the origin — and the disc has to
+ * centre lands at (264, 264) once placed at the origin, and the disc has to
  * sit inside the first row with a chair's clearance, which puts a 300-wide
  * arena at (114, 114).
  *
@@ -363,8 +363,8 @@ export function starterPieces(starter: Starter): StarterPiece[] {
       // and boxes sold whole down the sides. Standing goes nearest the stage
       // because that is where a crowd stands.
       return [
-        // Centred on x = 450. The boxes are placed symmetrically about it —
-        // 340 units out either way — because two "VIP sides" that are not the
+        // Centred on x = 450. The boxes are placed symmetrically about it,
+        // 340 units out either way, because two "VIP sides" that are not the
         // same distance from the middle read as a mistake at a glance.
         { piece: "stage", nameKey: "stage", at: { x: 250, y: 0 }, size: { width: 400, height: 60 } },
         {
@@ -759,7 +759,7 @@ export function PieceInspector({
 
       {/* Turning the block. Quarter turns and not a degree field, because the
           need is "rows down the side of the room" rather than "rows at 37
-          degrees" — and an arc that wants a bearing already has one in its own
+          degrees", and an arc that wants a bearing already has one in its own
           start and sweep. Markers and counted areas are absent on purpose: a
           tall camarote is a resize, and offering two ways to do it invites the
           question of which one is real. */}
@@ -792,7 +792,7 @@ export function PieceInspector({
       {/* The price band, for the rooms that need one.
           Almost none do: a band defaults to the sector's own name, so an
           ordinary plateia is priced as "Plateia" without anybody opening this.
-          It earns its place in the two cases a name cannot cover — two wings
+          It earns its place in the two cases a name cannot cover: two wings
           sharing one price, and a sector whose front rows carry their own. */}
       {!marker ? (
         <Field

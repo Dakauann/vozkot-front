@@ -9,7 +9,7 @@ import type { AttendeePage, EventReport } from "./types";
  * The organiser's reporting endpoints.
  *
  * Every one is scoped server-side to an event the caller owns, so there is no
- * ownership check to forget here — a 403 is the server refusing, not this
+ * ownership check to forget here: a 403 is the server refusing, not this
  * module deciding.
  */
 
@@ -18,6 +18,18 @@ const BASE = "/api/v1/events";
 /** The whole dashboard for one event: totals plus every breakdown. */
 export function getEventReport(eventId: string) {
   return apiFetch<{ data: EventReport }>(`${BASE}/${encodeURIComponent(eventId)}/report`);
+}
+
+/**
+ * The same dashboard across every event the organiser owns.
+ *
+ * Takes no id: the scope comes from the session on the server, so there is no
+ * parameter here to point at somebody else's portfolio. The response is the
+ * same shape as one event's, because it is the same query with one clause
+ * swapped. See domain/report.Scope.
+ */
+export function getPortfolioReport() {
+  return apiFetch<{ data: EventReport }>("/api/v1/organiser/report");
 }
 
 export interface AttendeeQuery {
@@ -68,7 +80,7 @@ export function attendeesExportUrl(eventId: string, query: AttendeeQuery = {}): 
  * through apiFetch, so an expired token is rotated before the navigation that
  * depends on it. `/user/profile` is one indexed row and no counting.
  *
- * A failure here is not fatal. The navigation happens anyway — the session may
+ * A failure here is not fatal. The navigation happens anyway: the session may
  * be perfectly valid and this call may have failed for some other reason, and
  * refusing to download on that basis would be worse than letting the server
  * answer for itself.

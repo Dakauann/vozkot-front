@@ -89,6 +89,13 @@
     --pool-brand: 0.05;
     --pool-cool: 0.035;
 
+    --plate-1: 164 100% 30%;
+    --plate-2: 231 60% 56%;
+    --plate-3: 36 95% 40%;
+    --plate-4: 199 89% 42%;
+    --plate-5: 321 50% 46%;
+    --plate-neutral: 206 9% 38%;
+
     --chart-1: 164 100% 32%;
     --chart-2: 231 60% 56%;
     --chart-3: 43 92% 45%;
@@ -121,7 +128,7 @@
     /*
       PRICE BANDS: a validated categorical palette.
 
-      Eight hues in a fixed order, never cycled — a ninth band takes the
+      Eight hues in a fixed order, never cycled: a ninth band takes the
       neutral rather than a generated hue, because a made-up ninth colour is
       the one nobody can name. Raw hex rather than this file's HSL triplets
       because the validator's verdict is about these exact values.
@@ -211,7 +218,21 @@
     --pool-brand: 0.08;
     --pool-cool: 0.05;
 
-    --chart-1: 158 55% 55%;
+    /*
+      RE-STEPPED, not chosen by eye. The old value sat at OKLCH L 0.76 against
+      the dark card, outside the 0.48–0.67 band a mark has to sit in to read
+      on that surface, which is the opposite of the usual instinct that a dark
+      theme wants a lighter colour. This step measures inside the band and
+      clears 3:1; the light step above it already did.
+    */
+    --plate-1: 164 85% 33%;
+    --plate-2: 229 67% 59%;
+    --plate-3: 44 81% 39%;
+    --plate-4: 200 86% 44%;
+    --plate-5: 318 58% 49%;
+    --plate-neutral: 212 8% 46%;
+
+    --chart-1: 158 57% 38%;
     --chart-2: 229 75% 60%;
     --chart-3: 44 92% 37%;
     --chart-4: 200 95% 43%;
@@ -242,7 +263,7 @@
     /*
       PRICE BANDS: a validated categorical palette.
 
-      Eight hues in a fixed order, never cycled — a ninth band takes the
+      Eight hues in a fixed order, never cycled: a ninth band takes the
       neutral rather than a generated hue, because a made-up ninth colour is
       the one nobody can name. Raw hex rather than this file's HSL triplets
       because the validator's verdict is about these exact values.
@@ -329,6 +350,74 @@
     color: hsl(var(--muted-foreground));
     opacity: 0.6;
   }
+
+  /*
+    GLYPH PLATES. The table in components/icons/glyph-plates.ts was already in
+    this project and named these classes; the CSS behind it was not, so every
+    lookup returned a class that did nothing. This is that CSS, ported from the
+    sibling product so one glyph means one colour across both.
+
+    The plate is a SOLID fill carrying white, never a 10-15% wash of a hue with
+    text in a darker shade of itself: a translucent plate takes its real colour
+    from whatever it lands on, so the same tile reads one way on a card and
+    another inside a dialog. Each plate below is tuned so white clears 3:1 in
+    its own theme.
+  */
+  .tile-neutral,
+  .tile-brand,
+  .tile-healthy,
+  .tile-warning,
+  .tile-fault,
+  .tile-info,
+  .tile-1,
+  .tile-2,
+  .tile-3,
+  .tile-4,
+  .tile-5 {
+    background: var(--tile-plate);
+    color: var(--tile-glyph);
+    border: 1px solid transparent;
+    border-radius: 6px;
+  }
+
+  /* The glyph is forced FROM the plate rather than inherited, so a Tailwind
+     text-* class on the icon cannot leave a coloured mark on a plate of another
+     hue. */
+  .tile-neutral > svg,
+  .tile-brand > svg,
+  .tile-healthy > svg,
+  .tile-warning > svg,
+  .tile-fault > svg,
+  .tile-info > svg,
+  .tile-1 > svg,
+  .tile-2 > svg,
+  .tile-3 > svg,
+  .tile-4 > svg,
+  .tile-5 > svg {
+    color: var(--tile-glyph);
+  }
+
+  /* Neutral keeps a hairline: its fill is close enough to the sheet that it
+     needs an edge to exist at all. */
+  .tile-neutral {
+    --tile-plate: hsl(var(--muted));
+    --tile-glyph: hsl(var(--muted-foreground));
+    border-color: hsl(var(--border));
+  }
+
+  .tile-brand   { --tile-plate: hsl(var(--primary));     --tile-glyph: hsl(var(--primary-foreground)); }
+  .tile-healthy { --tile-plate: hsl(var(--healthy));     --tile-glyph: hsl(var(--healthy-foreground)); }
+  .tile-warning { --tile-plate: hsl(var(--warning));     --tile-glyph: hsl(var(--warning-foreground)); }
+  .tile-fault   { --tile-plate: hsl(var(--destructive)); --tile-glyph: hsl(var(--destructive-foreground)); }
+  .tile-info    { --tile-plate: hsl(var(--info));        --tile-glyph: hsl(var(--info-foreground)); }
+
+  /* The five category plates, so a category reads the same in a tile as in the
+     chart beside it. Category plate, white mark: one rule, no exceptions. */
+  .tile-1 { --tile-plate: hsl(var(--plate-1)); --tile-glyph: #ffffff; }
+  .tile-2 { --tile-plate: hsl(var(--plate-2)); --tile-glyph: #ffffff; }
+  .tile-3 { --tile-plate: hsl(var(--plate-3)); --tile-glyph: #ffffff; }
+  .tile-4 { --tile-plate: hsl(var(--plate-4)); --tile-glyph: #ffffff; }
+  .tile-5 { --tile-plate: hsl(var(--plate-5)); --tile-glyph: #ffffff; }
 
   .legend {
     font-size: 12px;

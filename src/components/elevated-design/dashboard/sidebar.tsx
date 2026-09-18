@@ -18,6 +18,7 @@ import {
   Storefront,
   UserCircle,
   UserCheck,
+  UsersThree,
   X,
 } from "@/components/icons";
 import {
@@ -223,6 +224,8 @@ export const defaultProducts: Product[] = [
     audience: "organizer",
     navItems: [
       { icon: ChartBar, labelKey: "reports", href: "/reports", family: "insights" },
+      { icon: Receipt, labelKey: "finance", href: "/finance", family: "insights" },
+      { icon: UsersThree, labelKey: "audience", href: "/audience", family: "insights" },
     ],
   },
   {
@@ -848,7 +851,7 @@ export function DashboardSidebar({
   //
   // This is the bug that made tabbing away and back move the operator to a
   // different context. currentProduct is DERIVED, and it falls back to
-  // products[0] whenever the selected context is not in the list yet — which
+  // products[0] whenever the selected context is not in the list yet, which
   // is every remount, because the organizer answer arrives a moment after the
   // first paint and until then the only context on offer is the account one.
   // An effect that persisted that value could not tell "the operator chose

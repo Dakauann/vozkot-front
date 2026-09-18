@@ -97,7 +97,7 @@ function parseLines(raw: string | undefined): IntentLine[] | null {
     // `tkt_a:2` for counted stock, `tkt_a:2@ste_1+ste_2` for named chairs.
     //
     // The seats hang off an "@" and NOT off a third colon, because a tier id
-    // may legitimately contain a colon — there are tests for exactly that, and
+    // may legitimately contain a colon: there are tests for exactly that, and
     // they are why the quantity below is still found with lastIndexOf rather
     // than by splitting. Everything is parsed from the RIGHT, where the
     // structure is known, leaving whatever is left as the id.

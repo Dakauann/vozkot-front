@@ -12,8 +12,8 @@ import type { TicketTier } from "@/lib/events/types";
  * Which buy panel this event gets.
  *
  * A client component on purpose, and the reason is caching. The event page is
- * server-rendered and cacheable — the name, the venue, the date and the poster
- * do not change between two visitors — and seat status changes every second of
+ * server-rendered and cacheable: the name, the venue, the date and the poster
+ * do not change between two visitors, and seat status changes every second of
  * an onsale. Deciding here keeps the map out of that cached HTML entirely,
  * because a cached seat map is a map that shows sold chairs as free.
  *

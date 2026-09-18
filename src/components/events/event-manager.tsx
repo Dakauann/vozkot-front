@@ -74,7 +74,7 @@ export function EventManager({ eventId }: { eventId: string }) {
       if (cancelled) return;
       // A failed tier read is NOT an event with no tiers. Falling through to
       // the empty state rendered "this event has no tiers yet" over a network
-      // error, in confident copy, with a button to create the first one — so
+      // error, in confident copy, with a button to create the first one, so
       // both reads are judged before either result is committed.
       if (found.error || !found.data || page.error) {
         setFailed(true);
@@ -236,7 +236,7 @@ export function EventManager({ eventId }: { eventId: string }) {
           It lives on this page and not in the event form because binding needs
           an event that EXISTS and tiers to point the blocks at, neither of
           which a create form has. Without it the studio was a drawing tool
-          whose output could never be sold — and unfolded on every event page it
+          whose output could never be sold, and unfolded on every event page it
           was a wall of apparatus about a feature most events do not use, so it
           asks first and takes one line until it is wanted. */}
       <div className="border-t border-border pt-5">

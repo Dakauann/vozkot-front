@@ -11,8 +11,8 @@ import { PlanLibrary } from "@/components/seating/plan-library";
  * first thing the feature ever said was "choose two things you have not created
  * yet", and somebody with four rooms had no way to see what they had.
  *
- * The library answers what the page is actually opened with — what rooms do I
- * have, and what is in them — and editing is a deliberate step behind a button,
+ * The library answers what the page is actually opened with: what rooms do I
+ * have, and what is in them, and editing is a deliberate step behind a button,
  * at /venues/{id}.
  */
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {

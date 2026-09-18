@@ -7,7 +7,7 @@ import * as React from "react";
  * paint: a remembered spine width, an open section, which context an operator
  * last worked in. Reading it in a `useState` initialiser is not an option,
  * because that initialiser also runs during SSR, where the value does not
- * exist — the server would render one shape, the client another, and React
+ * exist: the server would render one shape, the client another, and React
  * reports that as a hydration error and repairs it by discarding the markup.
  *
  * A layout effect is flushed synchronously before the browser paints, so the

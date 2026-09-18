@@ -35,6 +35,8 @@
     "events": "Events",
     "checkIn": "Check-in",
     "reports": "Reports",
+    "audience": "Audience",
+    "finance": "Finance",
     "help": "Help centre",
     "contact": "Contact",
     "settings": "Settings",
@@ -603,6 +605,10 @@
         "title": "Payment, price and what we never touch",
         "content": "The payment method is PIX, issued and settled by a payment institution authorised to operate by the Central Bank of Brazil and named at checkout. That institution acts as an independent controller of payment data, under its own terms and privacy policy.\n\n! We never receive, transmit, process or store a card number, security code, magnetic stripe or chip data, banking password or banking credential. There is no card form in this application. Payment happens inside your own bank application, outside the Platform. We do not claim PCI-DSS certification, because we handle no card data and there is nothing to certify.\n\nThe price shown at checkout is the total payable, and it has two parts. The first is the ticket price, which the organizer sets and which is owed to them. The second is a service fee of 10 per cent calculated on that price, which is our remuneration for providing the Platform, processing the payment and keeping the record of the order. A ticket of R$ 100.00 is charged at R$ 110.00: the organizer receives the R$ 100.00 they set and the R$ 10.00 fee is ours. The fee is added to the price and not deducted from it, so the amount the organizer advertised is the amount the organizer receives.\n\nThe fee is calculated per ticket rather than on the order total, so that the price of one ticket multiplied by the quantity always equals the total charged. It is disclosed on the event page, before you choose, and again on a separate identified line in the order summary, before the payment step, in accordance with art. 2, IV and V of Decree 7.962/2013. In REsp 1.632.928 the Superior Court of Justice held that charging a fee on an internet ticket sale is lawful provided the amount is clear and accessible to the consumer, and that is the standard we follow: the obligation lies in the disclosure, and it is the disclosure we make prominently. A charge presented only inside a blind total is a practice we do not adopt.\n\nThere is no other charge of ours: we charge no delivery, printing, collection, issuing or instalment fee. The service fee is refunded in full, together with the ticket price, on every refund you are entitled to, including withdrawal under art. 49 of the Consumer Code and cancellation, postponement or material change of the event. We retain the fee in none of those cases.\n\nA change to the fee is a material change to these Terms and follows section 26: it is announced at least 30 days in advance and does not apply retroactively to a purchase already completed. The amount charged on your order is the one in force and displayed when you bought.\n\nA PIX refund is a return to the paying account, not a card reversal: there is no chargeback in PIX. We ask that the originating account be open to receive the return; if it has been closed, we will contact you at {supportEmail} to arrange another route. The time for the credit to arrive depends on the receiving institution.\n\nIf a payment arrives after a tier has sold out, the amount is refunded in full, because a ticket that no longer exists cannot be delivered."
       },
+      "payout": {
+          "title": "Payout to the organiser",
+          "content": "The ticket price belongs to the organiser and is held by us until payout. The service fee described in section 10 is ours from the moment of sale and never forms part of the organiser's balance.\n\nPayout is made within 3 business days of the END of the event, not of the sale. Nothing is paid out before the event takes place: until the doors open the whole of a sale can still be refunded, and paying earlier would be paying with money that may have to go back to the buyer.\n\nWe withhold 10% of each sale for 30 days from the payout date, releasing it at the end of that period. The reserve exists for one specific reason: with PIX, the payer can invoke the Mecanismo Especial de Devolucao for up to 80 days after the transfer, a period that runs past the event. The reserve covers that window and nothing else. An organiser with no completed event with us is held at 20% for 45 days; an organiser with a history may have it reduced or waived, and we will tell them.\n\n! Refunds, reversals and chargebacks are deducted from the organiser's balance as soon as they happen, before any payout. If the balance goes negative, it is set off against later payouts; if there are not enough, the organiser owes us the difference and will be invoiced. This is why cancelling an event is financially the organiser's responsibility: the buyer is refunded in full, and that money comes out of what would have been paid out.\n\nThe cost charged by the payment institution on each transaction is not returned by them when a refund happens. We absorb that cost on a withdrawal under art. 49 of the CDC and on our own error. On an event cancellation and on a refund the organiser grants as a goodwill gesture, the cost is theirs and is deducted from the balance.\n\nPayout is made to a bank account or PIX key held by the organiser themselves, with a CPF or CNPJ matching the registration. We do not pay out to a third party's account. Incorrect account details or a block at the receiving institution suspend that payout until corrected, without the amount ceasing to be owed.\n\nThe organiser can see their available balance, pending balance, withheld amount and a statement of every entry on the Platform itself, at any time.\n\nA change to the timing, the reserve percentage or any condition in this section is a material change to these Terms and follows section 26: announced at least 30 days in advance, without applying retroactively to sales already made."
+        },
       "withdrawal": {
         "title": "Right of withdrawal",
         "content": "! You have 7 days to withdraw from the purchase, counted from confirmation of the order, without having to give a reason. That is art. 49 of the Brazilian Consumer Code, which applies to every contract made away from business premises, including over the internet. On withdrawal, the amounts paid are returned in full and immediately, monetarily updated, including any fee that was charged. There is no minimum notice before the event and no other condition: we impose no cut-off for proximity to the date.\n\nTo withdraw, write to {supportEmail} from the account's email address quoting the order reference, or use the withdrawal option in your order history where it is available in your account. We confirm receipt of the withdrawal request immediately and instruct the return on the same business day. The credit reaching your account depends on the receiving institution's timing.\n\nWithdrawal rescinds, at no cost, the contracts ancillary to that purchase, as art. 5 of Decree 7.962/2013 requires. No amount is retained as a fee.\n\nAfter the 7 days, the art. 49 right of withdrawal no longer applies, but your rights in the event of cancellation, postponement, material change or failure of the service remain in full, and they are in the next section.\n\nA different rule applies to consumers resident in the European Economic Area, which we state because it is less favourable and it would not be honest to omit it: the 14-day right of withdrawal does not apply to leisure services supplied on a specific date or period, which includes a ticket to an event with a fixed date, under art. 16(l) of Directive 2011/83/EU, section 312g(2) no. 9 of the German Civil Code and art. 103(l) of the Spanish consolidated consumer act. If you live in Brazil, the broader art. 49 applies, as described above."
@@ -988,6 +994,16 @@
   },
   "reports": {
     "title": "Event report",
+    "evolutionHint": "Revenue by the day the money landed.",
+    "ageHint": "Tickets by age band, youngest to oldest.",
+    "pickerTitle": "Reports",
+    "pickerSubtitle": "Pick an event to see who bought and what came in. For the total across all of them, see Audience.",
+    "pickerLabel": "Event",
+    "pickerFull": "Open the full report",
+    "pickerEmpty": "Pick an event above.",
+    "portfolioTitle": "Audience across all your events",
+    "portfolioSubtitle": "Who buys, summed over everything you have sold.",
+    "portfolioEmpty": "No sales yet, on any event.",
     "subtitle": "Who bought, and what came in.",
     "loadFailed": "The report could not be loaded.",
     "empty": "No sales for this event yet.",
@@ -998,6 +1014,8 @@
     "totals": {
       "orders": "Orders",
       "tickets": "Tickets",
+      "averageTicket": "Average ticket",
+      "averageTicketHint": "Per admission. Per order: {perOrder}.",
       "buyers": "Buyers",
       "net": "You receive",
       "refunded": "Refunded",
@@ -1075,6 +1093,37 @@
       }
     }
   },
+  "payouts": {
+      "title": "Finance",
+      "trend": "Credits by day",
+      "trendHint": "Credits only. Refunds and reversals are in the statement below.",
+      "subtitle": "What you are owed, what has not fallen due and what is held back. The figures come from our record of every sale and refund.",
+      "available": "Available",
+      "availableHint": "Due and ready to be paid out.",
+      "pending": "Pending",
+      "pendingHint": "Sales whose event has not ended yet.",
+      "reserved": "Held back",
+      "reservedHint": "10% of each sale, released 30 days after payout.",
+      "total": "Total",
+      "totalHint": "Everything you are owed, due or not.",
+      "schedule": "Payout goes out within 3 business days of the event ending. Refunds and reversals are deducted from the balance as soon as they happen, before any payout - which is why the available figure can go negative. The service fee never forms part of this balance: it is ours, and it is returned to the buyer in full on every refund.",
+      "statement": "Statement",
+      "entryCount": "{count, plural, =0 {no entries} one {# entry} other {# entries}}",
+      "empty": "No entries yet. Your first paid sale shows up here.",
+      "availableNow": "Available",
+      "availableOn": "Available on {date}",
+      "failed": "Your balance could not be loaded.",
+      "retry": "Try again",
+      "kinds": {
+        "sale": "Sale",
+        "reserve": "Reserve",
+        "refund": "Refund",
+        "chargeback": "Pix reversal",
+        "gateway_fee": "Transaction cost",
+        "payout": "Payout",
+        "adjustment": "Adjustment"
+      }
+    },
   "refunds": {
     "inboxTitle": "Refund requests",
     "inboxSubtitle": "What is waiting on your decision.",
@@ -1095,6 +1144,7 @@
     "requestedAt": "Requested",
     "decidedBy": "Decided by",
     "autoApproved": "Approved automatically by the policy",
+    "operatorNote": "Our refund: the payment arrived after the hold expired and the tickets had already been sold. We return the full amount to the buyer, and it is not taken from your payout.",
     "autoApprovedHint": "Inside the statutory cooling-off window, or a cancelled event: it cannot be declined.",
     "statuses": {
       "pending": "Pending",
@@ -1442,7 +1492,7 @@
     },
     "retry": "Try again",
     "legacy": {
-      "hint": "{count, plural, one {This sector was saved before we recorded how it was drawn, so the room can be seen but not edited here.} other {These {count} sectors were saved before we recorded how they were drawn, so the room can be seen but not edited here.}} To change the room, build it again — and create a new plan if this one is already selling.",
+      "hint": "{count, plural, one {This sector was saved before we recorded how it was drawn, so the room can be seen but not edited here.} other {These {count} sectors were saved before we recorded how they were drawn, so the room can be seen but not edited here.}} To change the room, build it again, and create a new plan if this one is already selling.",
       "readOnly": "{count, plural, one {One sector of this plan cannot be reopened in the editor, so it is read only: saving would delete that sector and its seats.} other {{count} sectors of this plan cannot be reopened in the editor, so it is read only: saving would delete those sectors and their seats.}} Create a new plan to draw the room again."
     },
     "starter": {
@@ -1518,7 +1568,7 @@
     "noVenue": "You have not drawn a venue yet.",
     "noPublished": "This venue has no published layout. Publish one in the studio to sell from it.",
     "goToStudio": "Open layouts and seats",
-    "closed": "Does this event sell numbered seats — a row and a chair, like a theatre or an arena? For ordinary tickets, nothing is needed here.",
+    "closed": "Does this event sell numbered seats, a row and a chair, like a theatre or an arena? For ordinary tickets, nothing is needed here.",
     "open": "Use assigned seats",
     "confirmTitle": "Put the seats on sale?",
     "confirmBody": "{seats} seats across {sectors} sectors, from the plan {layout}.",

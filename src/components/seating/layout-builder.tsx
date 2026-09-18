@@ -85,12 +85,12 @@ import {
  *
  * It replaced a form. That is the whole change, and it was not a matter of
  * taste: a form can only describe a room it has a field for, and the rooms
- * organisers actually have are arrangements — a singer at one end, a column of
+ * organisers actually have are arrangements: a singer at one end, a column of
  * chairs down the middle, VIP boxes along both sides, a rodeo arena with a show
  * stage beside it. No set of number fields expresses that, and the previous
  * version proved it: every block generated at the same origin, so a room with
  * six sectors was one pile of dots, and a stage could not be moved because a
- * stage was not a thing you could hold — it was a word on the layout.
+ * stage was not a thing you could hold: it was a word on the layout.
  *
  * So: a palette of things, a canvas you drop them on, and a panel for whatever
  * is selected. Three decisions hold it together.
@@ -168,7 +168,7 @@ export function LayoutBuilder({
    *
    * It makes the loop two-way. Without it the only exit from the canvas is the
    * plan library, which is neither where they came from nor where the room is
-   * needed — and the walk back through Eventos, the event, and the pricing
+   * needed, and the walk back through Eventos, the event, and the pricing
    * panel is four navigations to use a room they just finished.
    */
   forEventId?: string;
@@ -225,7 +225,7 @@ function Builder({ layoutId, forEventId }: { layoutId: string; forEventId?: stri
    * They live for the session only, and that is correct rather than lazy: a
    * band with no seats in it is not a fact about the room, so there is nothing
    * to store. What it IS is the thing you need before you can paint the first
-   * seat of a new band — which is what made one band the practical maximum.
+   * seat of a new band, which is what made one band the practical maximum.
    */
   const [namedBands, setNamedBands] = React.useState<string[]>([]);
   const marking = tool !== "move";
@@ -270,7 +270,7 @@ function Builder({ layoutId, forEventId }: { layoutId: string; forEventId?: stri
       // A STRING, and the effect below depends on this rather than on the array.
       // Every re-render builds a new array with identical contents, and an
       // effect watching the array cleared its own pending request on each of
-      // them — which is why editing a number changed nothing on screen.
+      // them, which is why editing a number changed nothing on screen.
       specKey: JSON.stringify(ordered),
       keyList: nodes.map((node) => node.id).join("\u0000"),
     };
@@ -350,7 +350,7 @@ function Builder({ layoutId, forEventId }: { layoutId: string; forEventId?: stri
       window.clearTimeout(timer);
     };
     // `generation` is in here on purpose. Loading a layout clears the preview,
-    // and a publish reloads the very same sections — same ids, same specs — so
+    // and a publish reloads the very same sections: same ids, same specs, so
     // without this the effect had no changed dependency to re-run on, the
     // geometry stayed cleared, and every block sat on its placeholder until the
     // page was refreshed.
@@ -365,7 +365,7 @@ function Builder({ layoutId, forEventId }: { layoutId: string; forEventId?: stri
    *
    * `frozen` is an event selling from this version. The second is sharper: a
    * plan that did not rebuild completely is missing sectors from the canvas,
-   * and a save REPLACES a plan's sections with whatever the canvas holds — so
+   * and a save REPLACES a plan's sections with whatever the canvas holds, so
    * saving would silently delete the sectors it could not draw, and every seat
    * in them. Refusing the save is the only safe answer; redrawing the room in a
    * new plan is the way forward.
@@ -396,7 +396,7 @@ function Builder({ layoutId, forEventId }: { layoutId: string; forEventId?: stri
    * Which pieces are on top of something, as the SERVER sees it.
    *
    * It arrives with the preview, translated from section ids back to node ids
-   * through the order the request was built in — the same join the geometry
+   * through the order the request was built in, the same join the geometry
    * uses. Working it out here instead would be a second answer to "is this room
    * physically possible", and the one on screen would be the one that was
    * wrong.
@@ -418,7 +418,7 @@ function Builder({ layoutId, forEventId }: { layoutId: string; forEventId?: stri
    * Every band the room already has: each section's own, plus each chair's.
    *
    * Offered in the pricing tool so banding the front rows of a second sector is
-   * a pick rather than a retype — and a retype is how two bands called "Plateia
+   * a pick rather than a retype, and a retype is how two bands called "Plateia
    * Premium" and "Plateia premium" become two price rows.
    */
   const bandsInRoom = React.useMemo(() => {
@@ -478,7 +478,7 @@ function Builder({ layoutId, forEventId }: { layoutId: string; forEventId?: stri
    * Frame the room once it has something in it.
    *
    * `fitView` as a prop only applies to the nodes the canvas mounted with, and a
-   * saved room arrives after that — a layout opened from the list would
+   * saved room arrives after that: a layout opened from the list would
    * otherwise sit somewhere off screen with an empty canvas in front of it. It
    * fires when geometry first appears for a layout and not on every drag, so it
    * never yanks the view out from under a hand.
@@ -620,8 +620,8 @@ function Builder({ layoutId, forEventId }: { layoutId: string; forEventId?: stri
   /**
    * Start from a room rather than from nothing.
    *
-   * Every piece a starter drops is an ordinary piece afterwards — same node,
-   * same inspector, same drag — so this is a starting point and not a mode. It
+   * Every piece a starter drops is an ordinary piece afterwards: same node,
+   * same inspector, same drag, so this is a starting point and not a mode. It
    * lands in one commit so a single Ctrl+Z takes the whole room back, which is
    * what somebody who picked the wrong one wants.
    */
@@ -707,7 +707,7 @@ function Builder({ layoutId, forEventId }: { layoutId: string; forEventId?: stri
    *
    * Eight camarotes around a room is eight identical pieces, and a builder
    * without a clipboard makes that eight trips through a palette and four
-   * fields. The copy is a DRAFT plus a size — not a node — so pasting cannot
+   * fields. The copy is a DRAFT plus a size, not a node, so pasting cannot
    * resurrect an id that already exists on the canvas.
    */
   const [clipboard, setClipboard] = React.useState<{
@@ -797,7 +797,7 @@ function Builder({ layoutId, forEventId }: { layoutId: string; forEventId?: stri
     if (tool === "price") {
       const bands = { ...(target.data.draft.seatCategories ?? {}) };
       // An empty band, or the one the chair already carries, puts it back on
-      // its section's default. Clicking twice undoes — which a marking tool has
+      // its section's default. Clicking twice undoes, which a marking tool has
       // to do, or every mistake needs a form.
       const band = markBand.trim();
       if (band === "" || bands[key] === band) delete bands[key];
@@ -823,8 +823,8 @@ function Builder({ layoutId, forEventId }: { layoutId: string; forEventId?: stri
    *
    * This is the answer to a warning that used to be unanswerable: it ended with
    * "mark the seats in the section form" while nothing in the interface could
-   * mark a seat. The server picks them — back row, outward from the middle, a
-   * companion beside every wheelchair space — and any of them can be moved
+   * mark a seat. The server picks them: back row, outward from the middle, a
+   * companion beside every wheelchair space, and any of them can be moved
    * afterwards by switching to the marking tool and clicking.
    */
   const applySuggestion = () => {
@@ -1206,7 +1206,7 @@ function Builder({ layoutId, forEventId }: { layoutId: string; forEventId?: stri
                 />
                 <p className="mt-3 text-[0.6875rem] text-muted-foreground">
                   {/* The count from the drawn room, unless the server could
-                      not draw it — in which case the last good number belongs
+                      not draw it, in which case the last good number belongs
                       to a different room, and reporting it beside a refusal is
                       how "300 fileiras · 48 lugares" happened. */}
                   {describe(
@@ -1233,7 +1233,7 @@ function Builder({ layoutId, forEventId }: { layoutId: string; forEventId?: stri
 
             {/* The bands this room has, with an obvious way to add one.
                 Here rather than in the canvas toolbar because a toolbar has
-                room for a picker and not for a list — and the list is what
+                room for a picker and not for a list, and the list is what
                 answers "how many bands do I have and how big is each". */}
             {tool === "price" ? (
               <BandManager

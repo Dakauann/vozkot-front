@@ -39,7 +39,7 @@ export interface Order {
   buyerEmail: string;
   /**
    * `subtotalCents` is the tickets, `serviceFeeCents` is the charge on top, and
-   * `totalCents` is what the buyer pays — always the sum of the two.
+   * `totalCents` is what the buyer pays, always the sum of the two.
    *
    * All three come from the server. The split cannot be derived here: the rate
    * that produced it is deliberately not sent, because an old order was charged
@@ -77,7 +77,7 @@ export interface Order {
   event?: OrderEvent;
   /**
    * The cancellation state, present on a listing when a request is already in
-   * flight. The full eligibility — including the deadline — is fetched per
+   * flight. The full eligibility, including the deadline, is fetched per
    * order from /refund-eligibility when the buyer opens one.
    */
   refund?: {

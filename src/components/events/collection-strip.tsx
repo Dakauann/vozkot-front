@@ -14,7 +14,7 @@ import { EVENT_CATEGORIES, type CatalogueFilters, type EventCategory } from "@/l
  * any of their landing pages.
  *
  * ONE DRAWING PER CATEGORY, and that is the whole condition. This row carried
- * no icons for a good reason — the app's set is a UI set with no trophy, fork,
+ * no icons for a good reason: the app's set is a UI set with no trophy, fork,
  * mask or controller in it, so sixteen categories mapped onto it would have put
  * the same unrelated glyph on "Esportivo" and "Saúde e bem estar", which looks
  * decided when it was arbitrary. The objection was to arbitrary icons, not to
@@ -99,9 +99,7 @@ function CollectionTile({
       href={`/?category=${category}`}
       className="group flex h-full min-h-[104px] flex-col gap-2 rounded-lg border border-border bg-card p-3.5 transition-[border-color,box-shadow] hover:border-primary-edge hover:shadow-[var(--elev-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
-      {/* The glyph sits on the brand's own quiet tint rather than loose on the
-          card. A 24px drawing alone in a corner reads as a stray mark; on a
-          ground it reads as the tile's subject. */}
+   
       <span
         aria-hidden="true"
         className="grid size-9 shrink-0 place-items-center rounded-[--radius] text-black dark:text-white transition-colors group-hover:bg-primary group-hover:text-primary-foreground"

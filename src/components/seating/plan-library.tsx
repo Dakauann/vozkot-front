@@ -31,7 +31,7 @@ import {
  * column of plans asks you to hold the relationship between them in your head.
  *
  * A venue CONTAINS its plans, so it is drawn containing them. One tree, one
- * column, each venue opening to show what is inside — and each plan carrying
+ * column, each venue opening to show what is inside, and each plan carrying
  * its size, because telling two plans apart is the whole reason to come here
  * and a list of names and version numbers cannot do it.
  */

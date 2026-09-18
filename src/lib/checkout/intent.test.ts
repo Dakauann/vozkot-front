@@ -208,7 +208,7 @@ describe("seated intents", () => {
 
   it("refuses a line whose seat count disagrees with its quantity", () => {
     // A link that lost part of itself. Either number could be the one the buyer
-    // meant, so neither is used — the server refuses it for the same reason.
+    // meant, so neither is used, the server refuses it for the same reason.
     expect(readIntent(new URLSearchParams({ items: "tkt_a:3@ste_1+ste_2" }))).toBeNull();
     expect(readIntent(new URLSearchParams({ items: "tkt_a:1@ste_1+ste_2" }))).toBeNull();
   });

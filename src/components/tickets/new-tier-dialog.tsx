@@ -24,7 +24,7 @@ import type { Ticket } from "@/lib/tickets/types";
  *
  * The action existed only in the event's header row, four buttons along from
  * the list it fills, and it navigated to a full page with a media queue and an
- * event picker — to answer three questions the organiser already had in mind.
+ * event picker, to answer three questions the organiser already had in mind.
  * A lote is a name, a price and a count, so it is asked here, over the list,
  * and the row appears without a page load.
  *

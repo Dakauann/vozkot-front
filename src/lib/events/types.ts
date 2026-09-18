@@ -13,13 +13,13 @@ export type EventStatus = "draft" | "published" | "cancelled";
 /**
  * How an event sells: by the number, or by the chair.
  *
- * `counted` is a quantity — a party, a pista, a festival, where the tier's own
+ * `counted` is a quantity: a party, a pista, a festival, where the tier's own
  * quantity is the whole inventory. `seated` is stock with an identity: fila K,
  * poltrona 12.
  *
  * It is the organiser's DECLARATION and not the authority on anything. Whether
  * a night actually has seats is answered by the seats themselves. This exists
- * because the interface has to know before that is decidable — a create form
+ * because the interface has to know before that is decidable: a create form
  * cannot bind a plan, but it can ask, and the answer is what stops every screen
  * afterwards from guessing.
  */

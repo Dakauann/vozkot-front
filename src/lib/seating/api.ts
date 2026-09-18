@@ -11,8 +11,8 @@ import { apiFetch } from "@/lib/api/client";
  * promises nothing; the seat becomes yours when checkout claims it, and that
  * can fail because somebody two seats ahead of you in the queue was faster.
  *
- * Every reserved-seating system works this way, because the alternative —
- * holding a seat because a cursor touched it — turns every abandoned tab into
+ * Every reserved-seating system works this way, because the alternative,
+ * holding a seat because a cursor touched it, turns every abandoned tab into
  * withheld inventory during exactly the minutes when inventory matters.
  *
  * So the picker's job is to be nearly right and to fail gracefully. It polls a
@@ -29,7 +29,7 @@ export type SeatStatus = "available" | "held" | "sold" | "blocked";
  *
  * The accessible kinds are not decoration. Decreto 5.296/2004 art. 23 requires
  * a Brazilian house to reserve wheelchair spaces and seats for reduced
- * mobility, half of the latter built for obese persons — which is exactly the
+ * mobility, half of the latter built for obese persons, which is exactly the
  * legend on any Brazilian seat map. They are never offered to a buyer who did
  * not ask for one, and the server enforces that; this type is what lets the map
  * draw them differently.
@@ -68,7 +68,7 @@ export const BAND_SLOTS = 8;
  * verdict against this project's own surfaces written above them.
  *
  * The slot comes from the SERVER, which orders a room's bands by first
- * appearance so the order — and therefore the colour — is stable. Working it out
+ * appearance so the order, and therefore the colour, is stable. Working it out
  * here would be a second answer to "what colour is Plateia".
  */
 export function bandColor(slot: number): string {
@@ -82,7 +82,7 @@ export type SeatShape = "circle" | "square" | "outlined" | "ring" | "wide";
  * How a seat's kind is DRAWN: a shape, never a colour and never an icon.
  *
  * One table, read by the organiser's builder and the buyer's map, so a chair
- * marked in one is the same glyph in the other. That is not tidiness — an
+ * marked in one is the same glyph in the other. That is not tidiness: an
  * organiser marks a wheelchair space and then has to recognise it on the page a
  * buyer sees, and two vocabularies for one fact is how a room gets marked wrong.
  *
@@ -114,7 +114,7 @@ export function shapeOf(kind: SeatKind): SeatShape {
  * One chair, as the picker sees it.
  *
  * Note what is absent: who holds it, and until when. The server does not send
- * either, on purpose — a map that published them would tell every visitor which
+ * either, on purpose: a map that published them would tell every visitor which
  * account to race and exactly when to try.
  */
 export interface Seat {
@@ -152,7 +152,7 @@ export interface Seat {
  * "Where is the stage" is the first question anybody asks of a seat map, and it
  * cannot be derived from the chairs. It used to be a three-valued `focus` on the
  * layout, from which the client drew a bar across the top or a disc in the
- * middle — which put the stage in exactly one place, gave nobody a way to move
+ * middle, which put the stage in exactly one place, gave nobody a way to move
  * it, and could not describe a rodeo with a show stage at one end. A marker is
  * placed and sized by the organiser, like everything else in the room.
  *
@@ -365,7 +365,7 @@ export function sectionsOf(seats: Seat[]): string[] {
 // --- the organiser's editor -------------------------------------------------
 
 /**
- * How a block of the room is sold — or, for the last two, that it is not sold
+ * How a block of the room is sold, or, for the last two, that it is not sold
  * at all. `stage` and `arena` hold no seats: they are scenery, placed and sized
  * like anything else, which is why they are sections rather than a mode on the
  * layout.
@@ -408,7 +408,7 @@ export interface Layout {
   /**
    * How many named chairs the plan holds.
    *
-   * Present on a LISTING, so plans can be told apart without opening each one —
+   * Present on a LISTING, so plans can be told apart without opening each one,
    * which is the whole reason the library exists. Absent from a single plan's
    * detail, where the seats themselves are right there.
    */
@@ -445,7 +445,7 @@ export interface LayoutSection {
    * It is what makes a saved room EDITABLE. The seats are an output, and many
    * different forms produce the same coordinates, so nothing could recover "ten
    * rows of sixteen, aisle after six, odd/even from the centre" from a field of
-   * dots — a builder without this could only ever create rooms, never reopen
+   * dots: a builder without this could only ever create rooms, never reopen
    * one.
    */
   definition?: SectionSpec;
@@ -484,8 +484,8 @@ export interface LayoutSeat {
   /**
    * The price band this chair sells in, already RESOLVED by the server.
    *
-   * The fallback — the seat's own band, then its section's, then the section's
-   * name — is a rule, and a rule repeated in a browser is a rule with two
+   * The fallback, the seat's own band, then its section's, then the section's
+   * name, is a rule, and a rule repeated in a browser is a rule with two
    * answers. Group by this and nothing else.
    */
   category: string;
@@ -518,7 +518,7 @@ export interface LayoutPreview {
    * Chairs that would satisfy what is missing, keyed "ROW/SEAT".
    *
    * Present only when something is missing. It is what makes the compliance
-   * warning actionable — the panel used to say "mark the seats in the section
+   * warning actionable: the panel used to say "mark the seats in the section
    * form" while the form had no way to mark a seat at all.
    */
   suggestedKinds?: Record<string, SeatKind>;
@@ -531,7 +531,7 @@ export interface LayoutPreview {
    * touched, and the copy the organiser could see would be the wrong one.
    *
    * Reported on a preview and refused on a save, on purpose. The canvas has to
-   * be able to draw a collision — that is how somebody sees the one they are
+   * be able to draw a collision: that is how somebody sees the one they are
    * making.
    */
   collisions?: string[];
@@ -586,13 +586,13 @@ export interface SectionSpec {
    * Where the block sits.
    *
    * Without it every section generates on the same spot and a room of several
-   * blocks is one pile — which is what made a custom layout (a stage, a column
+   * blocks is one pile, which is what made a custom layout (a stage, a column
    * of chairs, VIP wings beside it) impossible to express.
    */
   offsetX?: number;
   offsetY?: number;
   /**
-   * The size of a MARKER — a stage, an arena. Meaningless for a block of seats,
+   * The size of a MARKER: a stage, an arena. Meaningless for a block of seats,
    * whose size is its seats.
    *
    * Stored rather than derived. The arena disc used to be computed from the
@@ -609,7 +609,7 @@ export interface SectionSpec {
    * Arc only: the spacing along a row.
    *
    * Set it and each row is filled at this pitch, so a row gains seats as it
-   * gets further out — which is what a real stand does. A fixed count per row
+   * gets further out, which is what a real stand does. A fixed count per row
    * spreads the back rows apart and reads as a fan of dots.
    */
   seatPitch?: number;
@@ -620,14 +620,14 @@ export interface SectionSpec {
   tablesPerRow?: number;
   tableGap?: number;
   firstTable?: number;
-  /** Individual chairs, keyed "FILA/ASSENTO" — "K/12". */
+  /** Individual chairs, keyed "FILA/ASSENTO", as in "K/12". */
   seatKinds?: Record<string, SeatKind>;
   /**
    * Turns a block of seats, in degrees clockwise about its own centre.
    *
    * The one arrangement dragging and resizing cannot express: rows run along x,
    * and VIP wings down the SIDES of a room need a block running along y. A
-   * marker or a counted area has no need of it — a tall camarote is a resize.
+   * marker or a counted area has no need of it: a tall camarote is a resize.
    */
   rotation?: number;
   /** The price band these seats fall in by default. Empty means the name. */
@@ -636,7 +636,7 @@ export interface SectionSpec {
    * Individual chairs put in a different price band, keyed "FILA/ASSENTO".
    *
    * What prices the front three rows above the rest, and the partial-view chair
-   * behind a pillar below it — neither of which is a contiguous block that could
+   * behind a pillar below it, neither of which is a contiguous block that could
    * be a sector of its own.
    */
   seatCategories?: Record<string, string>;

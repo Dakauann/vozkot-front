@@ -35,6 +35,8 @@
     "events": "Eventos",
     "checkIn": "Control de acceso",
     "reports": "Informes",
+    "audience": "Publico",
+    "finance": "Finanzas",
     "help": "Centro de ayuda",
     "contact": "Contacto",
     "settings": "Configuración",
@@ -603,6 +605,10 @@
         "title": "Pago, precio y lo que nunca tocamos",
         "content": "El medio de pago es PIX, emitido y liquidado por una entidad de pago autorizada a funcionar por el Banco Central de Brasil e indicada en el momento de la compra. Esa entidad actúa como responsable independiente de los datos de pago, bajo sus propios términos y su propia política de privacidad.\n\n! No recibimos, no transmitimos, no procesamos y no almacenamos ningún número de tarjeta, código de seguridad, dato de banda o chip, contraseña bancaria ni credencial bancaria. En esta aplicación no existe formulario de tarjeta. El pago ocurre en la aplicación de su banco, fuera de la Plataforma. No afirmamos tener certificación PCI-DSS, porque no tratamos datos de tarjeta y no hay nada que certificar.\n\nEl precio mostrado en la compra es el importe total a pagar, y tiene dos partes. La primera es el precio de la entrada, que fija el organizador y que le corresponde a él. La segunda es una tasa de servicio del 10 por ciento calculada sobre ese precio, que es nuestra retribución por poner a disposición la Plataforma, tramitar el pago y conservar el registro del pedido. Una entrada de R$ 100,00 se cobra a R$ 110,00: el organizador recibe los R$ 100,00 que fijó y la tasa de R$ 10,00 es nuestra. La tasa se añade al precio y no se descuenta de él, de modo que el importe que el organizador anunció es el importe que recibe.\n\nLa tasa se calcula por entrada y no sobre el total del pedido, para que el precio de una entrada multiplicado por la cantidad sea siempre igual al total cobrado. Se informa en la página del evento, antes de la elección, y de nuevo en una línea aparte e identificada del resumen del pedido, antes del paso de pago, conforme al art. 2, IV y V del Decreto 7.962/2013. El Superior Tribunal de Justicia, en el REsp 1.632.928, admitió el cobro de una tasa en la venta de entradas por internet siempre que el importe sea claro y accesible para la persona consumidora, y ese es el estándar que seguimos: la obligación está en la información, y es esa la que cumplimos de forma ostensible. Un cargo presentado solo dentro de un total opaco es una práctica que no adoptamos.\n\nNo existe ningún otro cobro nuestro: no cobramos cargo de entrega, de impresión, de recogida, de emisión ni de fraccionamiento. La tasa de servicio se devuelve íntegramente, junto con el precio de la entrada, en todo reembolso al que tenga derecho, incluido el desistimiento del art. 49 del código de defensa del consumidor y la cancelación, el aplazamiento o la alteración relevante del evento. No retenemos la tasa en ninguno de esos casos.\n\nUna modificación de la tasa es una modificación material de estos Términos y sigue la sección 26: se anuncia con al menos 30 días de antelación y no se aplica retroactivamente a una compra ya concluida. El importe cobrado en su pedido es el que estaba en vigor y se mostraba cuando compró.\n\nUn reembolso de PIX es una devolución a la cuenta pagadora, y no una reversión de tarjeta: en PIX no hay contracargo. Pedimos que la cuenta de origen esté activa para recibir la devolución; si está cerrada, contactaremos por {supportEmail} para acordar otra vía. El plazo del abono depende de la entidad receptora.\n\nSi un pago llega después de que una categoría se haya agotado, el importe se devuelve íntegramente, porque no puede entregarse una entrada que ya no existe."
       },
+      "payout": {
+          "title": "Liquidacion al organizador",
+          "content": "El importe de las entradas vendidas pertenece al organizador y permanece con nosotros hasta la liquidacion. La tasa de servicio descrita en la seccion 10 es nuestra desde la venta y nunca forma parte del saldo del organizador.\n\nLa liquidacion se realiza en hasta 3 dias habiles contados desde el FIN del evento, y no desde la fecha de la venta. No se liquida ningun importe antes de que el evento ocurra: hasta la apertura de puertas, toda la venta aun puede ser reembolsada, y liquidar antes seria pagar con dinero que puede tener que volver al comprador.\n\nRetenemos el 10% del importe de cada venta durante 30 dias contados desde la fecha de liquidacion, liberandolo al final de ese plazo. La retencion existe por una razon especifica: en PIX, quien pago puede activar el Mecanismo Especial de Devolucao hasta 80 dias despues de la transferencia, plazo que corre despues del evento. La retencion cubre ese periodo y nada mas. Para un organizador sin evento concluido con nosotros, la retencion es del 20% durante 45 dias; para un organizador con historial, podemos reducirla o dispensarla, y comunicaremos el cambio.\n\n! Los reembolsos, estornos y devoluciones se deducen del saldo del organizador en cuanto ocurren, antes de cualquier liquidacion. Si el saldo queda negativo, se compensa con las liquidaciones siguientes; si no hay liquidaciones futuras suficientes, el organizador nos debe la diferencia y sera cobrado. Por eso la cancelacion del evento por el organizador es, financieramente, responsabilidad suya: el comprador recibe todo de vuelta, y ese importe sale de lo que se habria liquidado.\n\nEl coste cobrado por la institucion de pago en cada transaccion no es devuelto por ella cuando hay un reembolso. Nosotros absorbemos ese coste en el desistimiento del art. 49 del CDC y en error nuestro. En la cancelacion del evento y en el reembolso concedido por liberalidad del organizador, el coste es suyo y se deduce del saldo.\n\nLa liquidacion se realiza a una cuenta bancaria o clave PIX de titularidad del propio organizador, con CPF o CNPJ coincidente con el registro. No liquidamos a cuenta de terceros. Datos de cuenta incorrectos o un bloqueo en la institucion receptora suspenden esa liquidacion hasta su correccion, sin que el importe deje de ser debido.\n\nEl organizador consulta su saldo disponible, saldo por vencer, importe retenido y el extracto de cada movimiento en la propia Plataforma, en cualquier momento.\n\nCualquier cambio de plazo, de porcentaje de retencion o de cualquier condicion de esta seccion es una modificacion material de estos Terminos y sigue la seccion 26: anuncio con al menos 30 dias de antelacion, sin retroactividad sobre ventas ya realizadas."
+        },
       "withdrawal": {
         "title": "Derecho de desistimiento",
         "content": "! Tiene 7 días para desistir de la compra, contados desde la confirmación del pedido, sin necesidad de justificarlo. Es el art. 49 del código de defensa del consumidor brasileño, que se aplica a toda contratación fuera del establecimiento comercial, incluida la realizada por internet. Ejercido el desistimiento, los importes pagados se devuelven íntegra e inmediatamente, actualizados monetariamente, incluida cualquier tasa cobrada. No hay plazo mínimo de antelación respecto al evento ni ninguna otra condición: no imponemos corte por proximidad de la fecha.\n\nPara ejercerlo, escriba a {supportEmail} desde el correo de la cuenta indicando el código del pedido, o use la opción de desistimiento en su historial de pedidos cuando esté disponible en su cuenta. Confirmamos la recepción de la solicitud de desistimiento de inmediato y ordenamos la devolución el mismo día hábil. El abono en su cuenta depende de los plazos de la entidad receptora.\n\nEl desistimiento resuelve, sin coste, los contratos accesorios a esa compra, como exige el art. 5 del Decreto 7.962/2013. No se retiene ningún importe en concepto de tasa.\n\nPasados los 7 días, el desistimiento del art. 49 ya no se aplica, pero sus derechos por cancelación, aplazamiento, alteración relevante o fallo del servicio siguen intactos, y están en la sección siguiente.\n\nPara las personas consumidoras residentes en el Espacio Económico Europeo rige una regla distinta, que indicamos porque es menos favorable y omitirla no sería honesto: el derecho de desistimiento de 14 días no se aplica a los servicios de ocio prestados en una fecha o un periodo determinados, lo que incluye una entrada para un evento con fecha fijada, conforme al art. 16(l) de la Directiva 2011/83/UE, al § 312g, apartado 2, número 9 del código civil alemán y al art. 103(l) del texto refundido español. Si reside en Brasil, rige el art. 49, más amplio, tal como se describe arriba."
@@ -988,6 +994,16 @@
   },
   "reports": {
     "title": "Informe del evento",
+    "evolutionHint": "Ingresos por dia de pago.",
+    "ageHint": "Entradas por franja de edad, de la mas joven a la mayor.",
+    "pickerTitle": "Informes",
+    "pickerSubtitle": "Elige un evento para ver quien compro y cuanto entro. Para el total de todos, ve a Publico.",
+    "pickerLabel": "Evento",
+    "pickerFull": "Abrir el informe completo",
+    "pickerEmpty": "Elige un evento arriba.",
+    "portfolioTitle": "Publico de todos tus eventos",
+    "portfolioSubtitle": "Quien compra, sumado sobre todo lo que has vendido.",
+    "portfolioEmpty": "Aun no hay ventas en ningun evento.",
     "subtitle": "Quién compró y cuánto entró.",
     "loadFailed": "No se pudo cargar el informe.",
     "empty": "Aún no hay ventas en este evento.",
@@ -998,6 +1014,8 @@
     "totals": {
       "orders": "Pedidos",
       "tickets": "Entradas",
+      "averageTicket": "Ticket medio",
+      "averageTicketHint": "Por entrada. Por pedido: {perOrder}.",
       "buyers": "Compradores",
       "net": "Tú recibes",
       "refunded": "Reembolsado",
@@ -1075,6 +1093,37 @@
       }
     }
   },
+  "payouts": {
+      "title": "Finanzas",
+      "trend": "Entradas por dia",
+      "trendHint": "Solo creditos. Reembolsos y estornos estan en el extracto de abajo.",
+      "subtitle": "Cuanto tienes por cobrar, lo que aun no ha vencido y lo que esta retenido. Las cifras vienen de nuestro registro de cada venta y reembolso.",
+      "available": "Disponible",
+      "availableHint": "Ya vencido y listo para liquidar.",
+      "pending": "Por vencer",
+      "pendingHint": "Ventas cuyo evento aun no ha terminado.",
+      "reserved": "Retenido",
+      "reservedHint": "10% de cada venta, liberado 30 dias tras la liquidacion.",
+      "total": "Total",
+      "totalHint": "Todo lo que tienes por cobrar, vencido o no.",
+      "schedule": "La liquidacion sale en hasta 3 dias habiles tras el fin del evento. Los reembolsos y estornos se descuentan del saldo en cuanto ocurren, antes de cualquier liquidacion - por eso el importe disponible puede quedar negativo. La tasa de servicio nunca forma parte de este saldo: es nuestra y se devuelve integramente al comprador en todo reembolso.",
+      "statement": "Extracto",
+      "entryCount": "{count, plural, =0 {sin movimientos} one {# movimiento} other {# movimientos}}",
+      "empty": "Aun no hay movimientos. Tu primera venta pagada aparece aqui.",
+      "availableNow": "Disponible",
+      "availableOn": "Disponible el {date}",
+      "failed": "No se pudo cargar tu saldo.",
+      "retry": "Reintentar",
+      "kinds": {
+        "sale": "Venta",
+        "reserve": "Retencion",
+        "refund": "Reembolso",
+        "chargeback": "Devolucion PIX",
+        "gateway_fee": "Coste de transaccion",
+        "payout": "Liquidacion",
+        "adjustment": "Ajuste"
+      }
+    },
   "refunds": {
     "inboxTitle": "Solicitudes de reembolso",
     "inboxSubtitle": "Lo que espera tu decisión.",
@@ -1095,6 +1144,7 @@
     "requestedAt": "Solicitado el",
     "decidedBy": "Decidido por",
     "autoApproved": "Aprobado automáticamente por la política",
+    "operatorNote": "Reembolso nuestro: el pago llego despues del plazo y las entradas ya se habian vendido. Devolvemos el importe integro al comprador y no sale de tu liquidacion.",
     "autoApprovedHint": "Dentro del plazo legal de desistimiento, o evento cancelado: no se puede rechazar.",
     "statuses": {
       "pending": "Pendiente",
@@ -1442,7 +1492,7 @@
     },
     "retry": "Intentar de nuevo",
     "legacy": {
-      "hint": "{count, plural, one {Este sector se guardó antes de que registráramos cómo fue dibujado, así que la sala se ve pero no se puede editar acá.} other {Estos {count} sectores se guardaron antes de que registráramos cómo fueron dibujados, así que la sala se ve pero no se puede editar acá.}} Para cambiar la sala, ármela de nuevo — y cree un plano nuevo si este ya está vendiendo.",
+      "hint": "{count, plural, one {Este sector se guardó antes de que registráramos cómo fue dibujado, así que la sala se ve pero no se puede editar acá.} other {Estos {count} sectores se guardaron antes de que registráramos cómo fueron dibujados, así que la sala se ve pero no se puede editar acá.}} Para cambiar la sala, ármela de nuevo, y cree un plano nuevo si este ya está vendiendo.",
       "readOnly": "{count, plural, one {Un sector de este plano no se puede reabrir en el editor, así que está solo para lectura: guardar borraría ese sector y sus asientos.} other {{count} sectores de este plano no se pueden reabrir en el editor, así que está solo para lectura: guardar borraría esos sectores y sus asientos.}} Cree un plano nuevo para dibujar la sala otra vez."
     },
     "starter": {

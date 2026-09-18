@@ -2,7 +2,7 @@
 // are pure SVG with no state, and CATEGORY_GLYPHS is a plain OBJECT that a
 // server component indexes into. Across a client boundary that export
 // arrives as a module reference rather than the map, and the lookup throws
-// at render — which is what it did.
+// at render, which is what it did.
 import * as React from "react";
 
 import type { Icon } from "./types";
@@ -13,8 +13,8 @@ import type { EventCategory } from "@/lib/events/types";
  *
  * WHY THESE ARE NOT IN ./glyphs.tsx: that file is generated from ./svg by a
  * tool that lives outside this repository, and its header says so. These are
- * hand-authored to the same contract — 24x24 grid, 1.5 nominal stroke, round
- * terminals, a `currentColor` base and an `--icon-accent` highlight — so they
+ * hand-authored to the same contract: 24x24 grid, 1.5 nominal stroke, round
+ * terminals, a `currentColor` base and an `--icon-accent` highlight, so they
  * sit beside the generated ones without reading as a second set. The geometry
  * lives HERE and nowhere else: copying it into ./svg as well would be a second
  * source of truth for the same drawing. Whoever next runs the generator should
@@ -24,7 +24,7 @@ import type { EventCategory } from "@/lib/events/types";
  * because the app's set is a UI set. It has no trophy, no fork, no mask, no
  * controller and no rainbow, and mapping sixteen categories onto what it does
  * have would have put the same unrelated glyph on "Esportivo" and "Saúde e bem
- * estar" — which looks decided when it was arbitrary, and is worse than
+ * estar", which looks decided when it was arbitrary, and is worse than
  * nothing. That objection was about ARBITRARY icons, not about icons. Every
  * drawing below is specific to the category it names.
  *

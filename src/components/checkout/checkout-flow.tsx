@@ -614,7 +614,7 @@ function OrderSummary({
         {/* The split, shown BEFORE the total and only once the order is priced.
             A total that is larger than the prices the buyer just chose, with no
             line accounting for the difference, is the single largest cause of
-            abandoned checkouts — so the fee is named, not absorbed. The preview
+            abandoned checkouts, so the fee is named, not absorbed. The preview
             cannot show it: the fee is the server's to compute, and guessing it
             here would risk quoting a number the charge then contradicts. */}
         {priced && order.serviceFeeCents > 0 ? (

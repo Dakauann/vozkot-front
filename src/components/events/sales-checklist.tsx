@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
 /**
  * What still has to happen before this event can sell.
  *
- * The chain is six steps across three screens — venue, plan, event, tiers,
- * seats, publish — and nothing in the product drew it, so an organiser could
+ * The chain is six steps across three screens: venue, plan, event, tiers,
+ * seats, publish, and nothing in the product drew it, so an organiser could
  * not tell whether they were done or what came next. Onboarding research is
  * unusually concrete about the cost: a visible progress indicator lifts
  * completion by around 12% and cuts premature exits by about 20%, and the
@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
  *
  * It is deliberately NOT a wizard. Nielsen's own qualification on staged
  * disclosure is that it works when steps have low interdependence, and these
- * steps are nothing but interdependent — pricing a sector needs a tier, which
+ * steps are nothing but interdependent: pricing a sector needs a tier, which
  * needs the event, which is where the plan gets bound. Forcing that into a
  * back-next sequence traps somebody who needs to go and change a tier halfway
  * through. So this reads out the state of the chain and links into it; the
@@ -84,7 +84,7 @@ export function SalesChecklist({
               className={cn(
                 "flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs",
                 // The ground is the same quiet neutral for every state and
-                // only the mark takes the colour — the house rule, written out
+                // only the mark takes the colour, the house rule, written out
                 // above `.notice` in globals.css. Green ink on a green wash is
                 // the tell it exists to prevent.
                 step.done
@@ -102,9 +102,9 @@ export function SalesChecklist({
                   green or that it is the filled one. */}
               <span className="sr-only">
                 {step.done
-                  ? ` — ${t("checklist.doneLabel")}`
+                  ? `, ${t("checklist.doneLabel")}`
                   : index === next
-                    ? ` — ${t("checklist.nextLabel")}`
+                    ? `, ${t("checklist.nextLabel")}`
                     : ""}
               </span>
             </span>

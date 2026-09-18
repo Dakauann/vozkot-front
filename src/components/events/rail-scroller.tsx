@@ -24,7 +24,7 @@ const CARD = "w-[264px] shrink-0 snap-start sm:w-[300px]";
  *
  * The first screenful arrives as server-rendered children, so the row is in the
  * HTML and is readable before any JavaScript runs. Everything past it is asked
- * for when somebody actually scrolls that far — see moreRailEvents. Those later
+ * for when somebody actually scrolls that far. See moreRailEvents. Those later
  * cards are the SAME EventCard the server used, which is why that component is
  * synchronous.
  */

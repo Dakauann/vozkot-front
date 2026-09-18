@@ -5,8 +5,8 @@ import { apiFetch } from "@/lib/api/client";
 /**
  * Refunds: the buyer's self-service cancellation and the organiser's inbox.
  *
- * The windows are decided entirely on the server — one pure function that the
- * eligibility endpoint and the request endpoint both call — so nothing here
+ * The windows are decided entirely on the server: one pure function that the
+ * eligibility endpoint and the request endpoint both call, so nothing here
  * computes a deadline. This module asks and renders the answer, which is what
  * keeps the button on screen and the rule behind it from ever disagreeing.
  */

@@ -96,8 +96,8 @@ const listeners = new Set<() => void>();
 /**
  * Forget the cached answer, and re-ask.
  *
- * Called when an account crosses the boundary — its first event created, its
- * last one deleted — so the spine changes on the spot rather than on the next
+ * Called when an account crosses the boundary: its first event created, its
+ * last one deleted, so the spine changes on the spot rather than on the next
  * full reload. With no argument it forgets every account, which is what a
  * caller that does not want to reach for the session should pass.
  */

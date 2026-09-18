@@ -26,6 +26,8 @@ const SECTIONS = [
   "catalogue",
   "purchase",
   "payments",
+  // The organiser's side of the money, beside the buyer's.
+  "payout",
   "withdrawal",
   "cancellation",
   "meiaEntrada",

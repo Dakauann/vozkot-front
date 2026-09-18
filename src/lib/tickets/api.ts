@@ -42,8 +42,8 @@ export function createTicket(input: TicketInput) {
 export function updateTicket(id: string, input: TicketInput) {
   // Spelled out rather than spread, because the update endpoint takes exactly
   // these five and decodes with DisallowUnknownFields. `eventId` is the one
-  // TicketInput carries that it rejects — a lote belongs to the event it was
-  // created under — and sending it failed every rename with
+  // TicketInput carries that it rejects: a lote belongs to the event it was
+  // created under, and sending it failed every rename with
   // `json: unknown field "eventId"` instead of being ignored.
   const body = {
     title: input.title,

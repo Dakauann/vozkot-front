@@ -15,7 +15,7 @@ import { EventImage, coverImage } from "./event-image";
  * with its own frame, title and colour; putting a second frame around it and
  * then a panel of text inside that frame gives every row two competing edges
  * and shrinks the only thing a buyer actually scans by. Every marketplace of
- * this kind — Sympla, Eventbrite, DICE — drops the chrome for the same reason.
+ * this kind, Sympla, Eventbrite, DICE, drops the chrome for the same reason.
  *
  * The anatomy inside the text block follows what those same marketplaces
  * converged on, because a buyer scanning forty cards is using habits built

@@ -139,7 +139,7 @@ export function getDoorCounters(eventId: string) {
  *
  * Presentation only. The server normalises whatever arrives, so this exists to
  * make a long code readable in an input and to make the count obvious at a
- * glance — twelve characters in three groups of four.
+ * glance: twelve characters in three groups of four.
  */
 export const CODE_LENGTH = 12;
 export const CODE_GROUP = 4;

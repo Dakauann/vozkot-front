@@ -29,7 +29,7 @@ import { cn } from "@/lib/utils";
  *
  * The use scene decides the whole shape of this. Somebody is on a phone, on
  * mobile data, competing with other people for the same seats, and the map they
- * are looking at is ADVISORY — nothing here reserves anything. Four
+ * are looking at is ADVISORY: nothing here reserves anything. Four
  * consequences, each of which is why a piece of this looks the way it does:
  *
  *  - SECTOR FIRST. Eighteen hundred chairs on a 390px screen is not a view, it
@@ -197,7 +197,7 @@ export function SeatPicker({
    *
    * Across the WHOLE house, with no tier narrowing. It used to be scoped to the
    * sector the buyer had clicked, which made "four seats together" mean "four
-   * together in the part of the room you happen to be looking at" — and the
+   * together in the part of the room you happen to be looking at", and the
    * answer a buyer wants is the best four in the building.
    */
   const findBest = async (quantity: number) => {
@@ -426,7 +426,7 @@ const ZOOM_MAX = 6;
  * an arena are the same data, a set of chairs with positions. A component that
  * laid them out as a list of flex rows could only ever draw the theatre, and a
  * map that does not resemble the room cannot answer the one question it is
- * asked — where will I be sitting.
+ * asked: where will I be sitting.
  */
 function HouseMap({
   seats,
@@ -546,7 +546,7 @@ function HouseMap({
    * One letter per row, beside its leftmost chair.
    *
    * The map had none, and a buyer could count dots without ever reading that
-   * they were about to buy Fila K — which is what the ticket, the usher and the
+   * they were about to buy Fila K, which is what the ticket, the usher and the
    * door all say. Placed from the chairs themselves, per sector, so a room of
    * three blocks gets three columns of letters and a ring of stands gets its
    * labels on the outside edge.
@@ -738,8 +738,8 @@ function HouseMap({
       </TransformWrapper>
 
       {/* The kinds THIS room has, under the map that has them.
-          A Brazilian house map carries this by convention — "cadeira para
-          obesos", "mobilidade reduzida" — and a buyer who needs one has to be
+          A Brazilian house map carries this by convention: "cadeira para
+          obesos", "mobilidade reduzida", and a buyer who needs one has to be
           able to find it. Only the kinds present, because a legend advertising
           seats a room does not have sends somebody looking for them. */}
       <KindLegend seats={seats} />
@@ -767,7 +767,7 @@ function KindLegend({ seats }: { seats: Seat[] }) {
         <li
           key={kind}
           // The kind names are written lower case because their first job is
-          // being read aloud inside a seat's accessible name — "Fila K,
+          // being read aloud inside a seat's accessible name, "Fila K,
           // Assento 12, cadeira para obesos". A legend wants a capital, and
           // CSS is the right place to ask for one rather than a second copy of
           // six strings in four languages.
@@ -927,8 +927,8 @@ function SeatButton({
 /**
  * The legend, which is not decoration.
  *
- * A Brazilian house map carries one by law-adjacent convention — "cadeira para
- * obesos", "mobilidade reduzida" — and a buyer who needs one of those seats has
+ * A Brazilian house map carries one by law-adjacent convention: "cadeira para
+ * obesos", "mobilidade reduzida", and a buyer who needs one of those seats has
  * to be able to find it.
  */
 function Legend() {

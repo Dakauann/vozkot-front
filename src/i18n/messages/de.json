@@ -35,6 +35,8 @@
     "events": "Veranstaltungen",
     "checkIn": "Einlass",
     "reports": "Berichte",
+    "audience": "Publikum",
+    "finance": "Finanzen",
     "help": "Hilfecenter",
     "contact": "Kontakt",
     "settings": "Einstellungen",
@@ -603,6 +605,10 @@
         "title": "Zahlung, Preis und was wir nie berühren",
         "content": "Das Zahlungsmittel ist PIX, erstellt und ausgeführt von einem von der brasilianischen Zentralbank zugelassenen Zahlungsinstitut, das im Kaufvorgang benannt wird. Dieses Institut handelt als unabhängiger Verantwortlicher der Zahlungsdaten, unter eigenen Bedingungen und eigener Datenschutzerklärung.\n\n! Wir erhalten, übertragen, verarbeiten und speichern keine Kartennummer, keine Prüfziffer, keine Magnetstreifen- oder Chipdaten, kein Bankpasswort und keine Bankzugangsdaten. In dieser Anwendung gibt es kein Kartenformular. Die Zahlung erfolgt in Ihrer eigenen Banking-App, außerhalb der Plattform. Wir behaupten keine PCI-DSS-Zertifizierung, weil wir keine Kartendaten verarbeiten und es nichts zu zertifizieren gibt.\n\nDer im Kaufvorgang angezeigte Preis ist der zu zahlende Gesamtbetrag und besteht aus zwei Teilen. Der erste ist der Ticketpreis, den der Veranstalter festlegt und der ihm zusteht. Der zweite ist eine Servicegebühr von 10 Prozent, berechnet auf diesen Preis, die unsere Vergütung für die Bereitstellung der Plattform, die Abwicklung der Zahlung und die Führung des Auftragsdatensatzes ist. Ein Ticket zu R$ 100,00 wird mit R$ 110,00 belastet: Der Veranstalter erhält die von ihm festgelegten R$ 100,00, und die Gebühr von R$ 10,00 steht uns zu. Die Gebühr wird zum Preis hinzugerechnet und nicht von ihm abgezogen, sodass der vom Veranstalter angekündigte Betrag der Betrag ist, den er erhält.\n\nDie Gebühr wird je Ticket und nicht auf die Auftragssumme berechnet, damit der Preis eines Tickets multipliziert mit der Menge immer dem belasteten Gesamtbetrag entspricht. Sie wird auf der Veranstaltungsseite vor der Auswahl und erneut in einer eigenen, benannten Zeile der Auftragsübersicht vor dem Zahlungsschritt ausgewiesen, entsprechend Art. 2 Nr. IV und V des Dekrets 7.962/2013. Der brasilianische Oberste Gerichtshof hat in REsp 1.632.928 entschieden, dass die Erhebung einer Gebühr beim Ticketverkauf über das Internet zulässig ist, sofern der Betrag klar und zugänglich ist; das ist der Maßstab, dem wir folgen: Die Pflicht liegt in der Information, und diese erfüllen wir ausdrücklich. Ein Entgelt, das nur in einem undurchsichtigen Gesamtbetrag erscheint, ist eine Praxis, die wir nicht anwenden.\n\nWeitere Entgelte von uns gibt es nicht: Wir erheben kein Zustell-, Druck-, Abhol-, Ausstellungs- und kein Ratenentgelt. Die Servicegebühr wird zusammen mit dem Ticketpreis bei jeder Rückzahlung, auf die Sie Anspruch haben, vollständig zurückgezahlt, einschließlich des Rücktritts nach Art. 49 des Verbraucherschutzgesetzes und der Absage, Verlegung oder wesentlichen Änderung der Veranstaltung. In keinem dieser Fälle behalten wir die Gebühr.\n\nEine Änderung der Gebühr ist eine wesentliche Änderung dieser Bedingungen und folgt Abschnitt 26: Sie wird mindestens 30 Tage im Voraus angekündigt und wirkt nicht rückwirkend auf einen bereits abgeschlossenen Kauf. Für Ihren Auftrag gilt der Betrag, der beim Kauf in Kraft war und angezeigt wurde.\n\nEine PIX-Rückzahlung ist eine Rückführung auf das zahlende Konto und keine Kartenrückbuchung: Bei PIX gibt es keine Rückbuchung im Kartensinne. Wir bitten, dass das Ursprungskonto zur Entgegennahme geöffnet ist; ist es geschlossen, melden wir uns unter {supportEmail}, um einen anderen Weg zu vereinbaren. Der Zeitpunkt der Gutschrift richtet sich nach dem empfangenden Institut.\n\nGeht eine Zahlung nach dem Ausverkauf einer Kategorie ein, wird der Betrag vollständig zurückgezahlt, weil ein nicht mehr bestehendes Ticket nicht geliefert werden kann."
       },
+      "payout": {
+          "title": "Auszahlung an den Veranstalter",
+          "content": "Der Erlos der verkauften Tickets gehort dem Veranstalter und wird bis zur Auszahlung von uns gehalten. Die in Abschnitt 10 beschriebene Servicegebuhr gehort ab dem Verkauf uns und ist niemals Teil des Guthabens des Veranstalters.\n\nDie Auszahlung erfolgt innerhalb von 3 Werktagen nach dem ENDE der Veranstaltung, nicht nach dem Verkaufsdatum. Vor der Veranstaltung wird nichts ausgezahlt: bis zum Einlass kann der gesamte Verkauf noch erstattet werden, und fruher auszuzahlen hiesse, mit Geld zu zahlen, das an den Kaufer zuruckgehen konnte.\n\nWir behalten 10% jedes Verkaufs fur 30 Tage ab dem Auszahlungsdatum ein und geben den Betrag danach frei. Die Ruckstellung hat einen bestimmten Grund: Bei PIX kann die zahlende Person den Mecanismo Especial de Devolucao bis zu 80 Tage nach der Uberweisung auslosen - eine Frist, die uber die Veranstaltung hinauslauft. Die Ruckstellung deckt genau diesen Zeitraum ab und nichts weiter. Bei einem Veranstalter ohne abgeschlossene Veranstaltung bei uns betragt sie 20% fur 45 Tage; bei Veranstaltern mit Historie konnen wir sie senken oder erlassen und teilen die Anderung mit.\n\n! Erstattungen, Ruckbuchungen und Ruckgaben werden dem Guthaben des Veranstalters sofort belastet, vor jeder Auszahlung. Wird das Guthaben negativ, wird es mit spateren Auszahlungen verrechnet; reichen kunftige Auszahlungen nicht aus, schuldet der Veranstalter uns die Differenz und wird in Rechnung gestellt. Deshalb tragt der Veranstalter die Absage seiner Veranstaltung finanziell selbst: der Kaufer erhalt alles zuruck, und dieser Betrag stammt aus dem, was ausgezahlt worden ware.\n\nDie von der Zahlungsinstitution je Transaktion erhobenen Kosten werden bei einer Erstattung von ihr nicht zuruckerstattet. Wir tragen diese Kosten beim Widerruf nach Art. 49 CDC und bei eigenem Fehler. Bei einer Absage der Veranstaltung und bei einer vom Veranstalter aus Kulanz gewahrten Erstattung tragt er sie, und sie werden dem Guthaben belastet.\n\nDie Auszahlung erfolgt auf ein Bankkonto oder einen PIX-Schlussel des Veranstalters selbst, mit einer CPF oder CNPJ, die der Registrierung entspricht. Wir zahlen nicht auf Konten Dritter aus. Falsche Kontodaten oder eine Sperre bei der empfangenden Institution setzen diese Auszahlung bis zur Korrektur aus, ohne dass der Betrag entfallt.\n\nDer Veranstalter sieht verfugbares Guthaben, noch nicht falliges Guthaben, einbehaltenen Betrag und einen Auszug jeder Buchung jederzeit in der Plattform selbst.\n\nEine Anderung der Fristen, des Ruckstellungssatzes oder einer anderen Bedingung dieses Abschnitts ist eine wesentliche Anderung dieser Bedingungen und folgt Abschnitt 26: Ankundigung mindestens 30 Tage im Voraus, ohne Ruckwirkung auf bereits getatigte Verkaufe."
+        },
       "withdrawal": {
         "title": "Widerrufs- und Rücktrittsrecht",
         "content": "! Sie haben 7 Tage, um vom Kauf zurückzutreten, gerechnet ab der Bestätigung des Auftrags, ohne Begründung. Das ist Art. 49 des brasilianischen Verbraucherschutzgesetzes, der für jeden außerhalb von Geschäftsräumen geschlossenen Vertrag gilt, auch über das Internet. Bei Rücktritt werden die gezahlten Beträge vollständig und unverzüglich, monetär angepasst, zurückgezahlt, einschließlich etwaiger erhobener Gebühren. Es gibt keine Mindestfrist vor der Veranstaltung und keine weitere Bedingung: Wir setzen keine Grenze wegen Nähe zum Termin.\n\nZum Rücktritt schreiben Sie von der E-Mail-Adresse des Kontos an {supportEmail} unter Angabe der Auftragsnummer oder nutzen die Rücktrittsoption in Ihrer Auftragshistorie, soweit sie in Ihrem Konto verfügbar ist. Wir bestätigen den Zugang des Rücktrittsverlangens unverzüglich und veranlassen die Rückführung am selben Werktag. Die Gutschrift auf Ihrem Konto richtet sich nach den Fristen des empfangenden Instituts.\n\nDer Rücktritt beendet ohne Kosten die zu diesem Kauf gehörenden Nebenverträge, wie Art. 5 des Dekrets 7.962/2013 es verlangt. Es wird kein Betrag als Gebühr zurückbehalten.\n\nNach den 7 Tagen gilt das Rücktrittsrecht aus Art. 49 nicht mehr, doch Ihre Rechte bei Absage, Verlegung, wesentlicher Änderung oder Leistungsstörung bestehen vollständig weiter und stehen im nächsten Abschnitt.\n\nFür Verbraucher mit Wohnsitz im Europäischen Wirtschaftsraum gilt eine abweichende Regel, die wir nennen, weil sie ungünstiger ist und ein Auslassen nicht redlich wäre: Das Widerrufsrecht von 14 Tagen gilt nicht für Freizeitdienstleistungen, die zu einem bestimmten Zeitpunkt oder Zeitraum erbracht werden, worunter ein Ticket für eine terminierte Veranstaltung fällt, nach Art. 16 Buchst. l der Richtlinie 2011/83/EU, § 312g Abs. 2 Nr. 9 BGB und Art. 103 Buchst. l des spanischen Verbrauchergesetzbuchs. Wohnen Sie in Brasilien, gilt der weitergehende Art. 49 wie oben beschrieben."
@@ -988,6 +994,16 @@
   },
   "reports": {
     "title": "Event-Bericht",
+    "evolutionHint": "Umsatz nach Zahlungstag.",
+    "ageHint": "Tickets nach Altersgruppe, von jung nach alt.",
+    "pickerTitle": "Berichte",
+    "pickerSubtitle": "Wahle eine Veranstaltung, um zu sehen, wer gekauft hat und was eingegangen ist. Fur die Summe aller siehe Publikum.",
+    "pickerLabel": "Veranstaltung",
+    "pickerFull": "Vollstandigen Bericht offnen",
+    "pickerEmpty": "Wahle oben eine Veranstaltung.",
+    "portfolioTitle": "Publikum aller deiner Veranstaltungen",
+    "portfolioSubtitle": "Wer kauft, summiert uber alles, was du verkauft hast.",
+    "portfolioEmpty": "Noch keine Verkaufe, bei keiner Veranstaltung.",
     "subtitle": "Wer gekauft hat und was eingegangen ist.",
     "loadFailed": "Der Bericht konnte nicht geladen werden.",
     "empty": "Für dieses Event gibt es noch keine Verkäufe.",
@@ -998,6 +1014,8 @@
     "totals": {
       "orders": "Bestellungen",
       "tickets": "Tickets",
+      "averageTicket": "Durchschnittsticket",
+      "averageTicketHint": "Pro Eintritt. Pro Bestellung: {perOrder}.",
       "buyers": "Käufer",
       "net": "Du erhältst",
       "refunded": "Erstattet",
@@ -1075,6 +1093,37 @@
       }
     }
   },
+  "payouts": {
+      "title": "Finanzen",
+      "trend": "Gutschriften pro Tag",
+      "trendHint": "Nur Gutschriften. Erstattungen stehen im Auszug darunter.",
+      "subtitle": "Was dir zusteht, was noch nicht fallig ist und was einbehalten wird. Die Zahlen stammen aus unserer Aufzeichnung jedes Verkaufs und jeder Erstattung.",
+      "available": "Verfugbar",
+      "availableHint": "Fallig und zur Auszahlung bereit.",
+      "pending": "Noch nicht fallig",
+      "pendingHint": "Verkaufe, deren Veranstaltung noch nicht vorbei ist.",
+      "reserved": "Einbehalten",
+      "reservedHint": "10% jedes Verkaufs, 30 Tage nach der Auszahlung freigegeben.",
+      "total": "Gesamt",
+      "totalHint": "Alles, was dir zusteht, fallig oder nicht.",
+      "schedule": "Die Auszahlung erfolgt innerhalb von 3 Werktagen nach dem Ende der Veranstaltung. Erstattungen und Ruckbuchungen werden dem Guthaben sofort belastet, vor jeder Auszahlung - deshalb kann der verfugbare Betrag negativ werden. Die Servicegebuhr ist nie Teil dieses Guthabens: sie gehort uns und wird dem Kaufer bei jeder Erstattung vollstandig zuruckgegeben.",
+      "statement": "Auszug",
+      "entryCount": "{count, plural, =0 {keine Buchungen} one {# Buchung} other {# Buchungen}}",
+      "empty": "Noch keine Buchungen. Dein erster bezahlter Verkauf erscheint hier.",
+      "availableNow": "Verfugbar",
+      "availableOn": "Verfugbar am {date}",
+      "failed": "Dein Guthaben konnte nicht geladen werden.",
+      "retry": "Erneut versuchen",
+      "kinds": {
+        "sale": "Verkauf",
+        "reserve": "Ruckstellung",
+        "refund": "Erstattung",
+        "chargeback": "Pix-Rucklastschrift",
+        "gateway_fee": "Transaktionskosten",
+        "payout": "Auszahlung",
+        "adjustment": "Anpassung"
+      }
+    },
   "refunds": {
     "inboxTitle": "Erstattungsanfragen",
     "inboxSubtitle": "Was auf deine Entscheidung wartet.",
@@ -1095,6 +1144,7 @@
     "requestedAt": "Angefragt am",
     "decidedBy": "Entschieden von",
     "autoApproved": "Automatisch durch die Richtlinie genehmigt",
+    "operatorNote": "Unsere Erstattung: Die Zahlung kam nach Ablauf der Reservierung an und die Tickets waren bereits verkauft. Wir erstatten dem Kaufer den vollen Betrag, und er wird nicht von deiner Auszahlung abgezogen.",
     "autoApprovedHint": "Innerhalb der gesetzlichen Widerrufsfrist, oder abgesagtes Event: eine Ablehnung ist nicht möglich.",
     "statuses": {
       "pending": "Offen",
@@ -1442,7 +1492,7 @@
     },
     "retry": "Erneut versuchen",
     "legacy": {
-      "hint": "{count, plural, one {Dieser Sektor wurde gespeichert, bevor wir festgehalten haben, wie er gezeichnet wurde — der Saal ist sichtbar, aber hier nicht bearbeitbar.} other {Diese {count} Sektoren wurden gespeichert, bevor wir festgehalten haben, wie sie gezeichnet wurden — der Saal ist sichtbar, aber hier nicht bearbeitbar.}} Zum Ändern den Saal neu aufbauen — und einen neuen Plan anlegen, wenn dieser schon verkauft.",
+      "hint": "{count, plural, one {Dieser Sektor wurde gespeichert, bevor wir festgehalten haben, wie er gezeichnet wurde: der Saal ist sichtbar, aber hier nicht bearbeitbar.} other {Diese {count} Sektoren wurden gespeichert, bevor wir festgehalten haben, wie sie gezeichnet wurden: der Saal ist sichtbar, aber hier nicht bearbeitbar.}} Zum Ändern den Saal neu aufbauen, und einen neuen Plan anlegen, wenn dieser schon verkauft.",
       "readOnly": "{count, plural, one {Ein Sektor dieses Plans lässt sich im Editor nicht wieder öffnen, daher ist er nur lesbar: Speichern würde diesen Sektor und seine Plätze löschen.} other {{count} Sektoren dieses Plans lassen sich im Editor nicht wieder öffnen, daher ist er nur lesbar: Speichern würde diese Sektoren und ihre Plätze löschen.}} Legen Sie einen neuen Plan an, um den Saal neu zu zeichnen."
     },
     "starter": {

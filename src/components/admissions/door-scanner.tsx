@@ -48,13 +48,13 @@ import {
  *  - REFUSALS ARE NOT ERRORS. "Already used at 21:14" is an answer and is
  *    rendered as one, with the time, because that is the sentence that settles
  *    the conversation with the person holding the phone.
- *  - ONE AUTHORED MOMENT. The verdict panel arrives — a fast, exponential
+ *  - ONE AUTHORED MOMENT. The verdict panel arrives: a fast, exponential
  *    settle from slightly scaled-down and blurred. Nothing else animates,
  *    because everything else on this screen is either a number or a field and
  *    motion on those is noise at a door.
  *
  * Camera decoding uses the platform BarcodeDetector where it exists, which is
- * Chromium — Android Chrome and desktop Edge/Chrome. It is offered only when
+ * Chromium: Android Chrome and desktop Edge/Chrome. It is offered only when
  * present and never blocks the typed path, so Safari and Firefox get a screen
  * that still does the whole job. A WASM decoder would widen that and is a
  * dependency decision, not a design one.
@@ -200,7 +200,7 @@ export function DoorScanner({ eventId, eventName }: DoorScannerProps) {
  * Only that. Decoding is handled either way: the platform BarcodeDetector
  * where it exists, and a bundled decoder where it does not. An earlier version
  * of this gated the whole feature on BarcodeDetector, which is Chromium-only
- * and — importantly — is NOT present in desktop Chrome on Windows. The result
+ * and, importantly, is NOT present in desktop Chrome on Windows. The result
  * was a doorperson with a working webcam being told their browser could not
  * scan, which is the kind of "correct" message that reads as broken software.
  *
@@ -615,16 +615,16 @@ function Counters({
           {eventName ?? t("countersTitle")}
         </p>
         <p className="shrink-0 text-xs text-muted-foreground">
-          {counters ? t("countersShare", { share }) : "—"}
+          {counters ? t("countersShare", { share }) : "-"}
         </p>
       </div>
       <div className="mt-2 flex items-baseline gap-5">
         <p className="font-display text-2xl font-bold tabular-nums text-foreground">
-          {counters ? format(counters.admittedCount) : "—"}
+          {counters ? format(counters.admittedCount) : "-"}
           <span className="ml-1.5 text-xs font-medium text-muted-foreground">{t("in")}</span>
         </p>
         <p className="font-display text-2xl font-bold tabular-nums text-muted-foreground">
-          {counters ? format(counters.remaining) : "—"}
+          {counters ? format(counters.remaining) : "-"}
           <span className="ml-1.5 text-xs font-medium text-muted-foreground">{t("left")}</span>
         </p>
       </div>

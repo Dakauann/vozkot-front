@@ -35,6 +35,8 @@
     "events": "Eventos",
     "checkIn": "Check-in",
     "reports": "Relatórios",
+    "audience": "Publico",
+    "finance": "Financeiro",
     "help": "Central de ajuda",
     "contact": "Contato",
     "settings": "Configurações",
@@ -603,6 +605,10 @@
         "title": "Pagamento, preço e o que não tocamos",
         "content": "O meio de pagamento é o PIX, emitido e liquidado por instituição de pagamento autorizada a funcionar pelo Banco Central do Brasil, indicada no checkout. Essa instituição atua como controladora independente dos dados de pagamento, sob os termos e a política de privacidade dela.\n\n! Não recebemos, não transmitimos, não processamos e não armazenamos número de cartão, código de segurança, dado de tarja ou chip, senha de banco ou credencial bancária. Não existe formulário de cartão nesta aplicação. O pagamento acontece no aplicativo do seu banco, fora da Plataforma. Não afirmamos possuir certificação PCI-DSS, porque não tratamos dado de cartão e não há o que certificar.\n\nO preço exibido no checkout é o valor total a pagar, e ele tem duas partes. A primeira é o preço do ingresso, que o organizador define e que é devido a ele. A segunda é uma taxa de serviço de 10% calculada sobre esse preço, que é a nossa remuneração por disponibilizar a Plataforma, processar o pagamento e manter o registro do pedido. Um ingresso de R$ 100,00 é cobrado a R$ 110,00: o organizador recebe os R$ 100,00 que definiu e a taxa de R$ 10,00 é nossa. A taxa é acrescida ao preço e não descontada dele, de modo que o valor que o organizador anunciou é o valor que ele recebe.\n\nA taxa é calculada por ingresso, e não sobre o total do pedido, para que o valor de um ingresso multiplicado pela quantidade seja sempre igual ao total cobrado. Ela é informada na página do evento, antes da escolha, e novamente em linha separada e identificada no resumo do pedido, antes da etapa de pagamento, conforme o art. 2º, IV e V, do Decreto nº 7.962/2013. O Superior Tribunal de Justiça, no REsp 1.632.928, admitiu a cobrança de taxa em venda de ingresso pela internet desde que o valor seja claro e acessível ao consumidor, e é esse o padrão que seguimos: a obrigação está na informação, e é ela que cumprimos de forma ostensiva. Cobrança apresentada apenas dentro de um total cego é prática que não adotamos.\n\nNão há qualquer outra cobrança nossa: não cobramos tarifa de entrega, de impressão, de retirada, de emissão nem de parcelamento. A taxa de serviço é devolvida integralmente, junto com o preço do ingresso, em todo reembolso a que você tenha direito, inclusive no arrependimento do art. 49 do CDC e no cancelamento, adiamento ou alteração relevante do evento. Não retemos a taxa em nenhuma dessas hipóteses.\n\nAlteração da taxa é alteração material destes Termos e segue a seção 26: é anunciada com pelo menos 30 dias de antecedência e não retroage sobre compra já concluída. O valor cobrado no seu pedido é o que estava vigente e exibido quando você comprou.\n\nReembolso de PIX é devolução à conta pagadora, e não estorno de cartão: não há chargeback em PIX. Pedimos que a conta de origem esteja ativa para receber a devolução; se estiver encerrada, entraremos em contato por {supportEmail} para acertar outra via. O prazo de crédito depende da instituição recebedora.\n\nSe o pagamento chegar depois de o lote ter se esgotado, o valor é devolvido integralmente, porque não é possível entregar um ingresso que não existe mais."
       },
+      "payout": {
+          "title": "Repasse ao organizador",
+          "content": "O valor dos ingressos vendidos pertence ao organizador e fica conosco ate o repasse. A taxa de servico descrita na secao 10 e nossa desde a venda e nunca compoe o saldo do organizador.\n\nO repasse e feito em ate 3 dias uteis contados do TERMINO do evento, e nao da data da venda. Nenhum valor e repassado antes de o evento acontecer: ate a abertura dos portoes, toda a venda ainda pode ser reembolsada, e repassar antes seria pagar com dinheiro que pode ter de voltar ao comprador.\n\nRetemos 10% do valor de cada venda por 30 dias contados da data do repasse, liberando esse valor ao final do prazo. A retencao existe por uma razao especifica: em PIX, quem pagou pode acionar o Mecanismo Especial de Devolucao por ate 80 dias apos a transferencia, prazo que corre depois do evento. A retencao cobre esse periodo e nada mais. Para organizador sem evento concluido conosco, a retencao e de 20% por 45 dias; para organizador com historico, podemos reduzi-la ou dispensa-la, e comunicaremos a mudanca.\n\n! Reembolso, estorno e devolucao sao deduzidos do saldo do organizador assim que ocorrem, antes de qualquer repasse. Se o saldo ficar negativo, o valor e compensado nos repasses seguintes; nao havendo repasse futuro suficiente, o organizador nos deve a diferenca e sera cobrado. E por isso que o cancelamento do evento pelo organizador e, financeiramente, de responsabilidade dele: o comprador recebe tudo de volta, e esse valor sai do que seria repassado.\n\nO custo cobrado pela instituicao de pagamento em cada transacao nao e devolvido por ela quando ha reembolso. Nos absorvemos esse custo no arrependimento do art. 49 do CDC e em erro nosso. No cancelamento do evento e no reembolso concedido por liberalidade do organizador, o custo e dele e e deduzido do saldo.\n\nO repasse e feito para conta bancaria ou chave PIX de titularidade do proprio organizador, com CPF ou CNPJ coincidente com o cadastro. Nao repassamos para conta de terceiro. Dados de conta incorretos ou bloqueio na instituicao recebedora suspendem aquele repasse ate a correcao, sem que o valor deixe de ser devido.\n\nO organizador acompanha saldo disponivel, saldo a vencer, valor retido e o extrato de cada lancamento na propria Plataforma, a qualquer tempo.\n\nAlteracao de prazo, de percentual de retencao ou de qualquer condicao desta secao e alteracao material destes Termos e segue a secao 26: anuncio com pelo menos 30 dias de antecedencia, sem retroagir sobre venda ja realizada."
+        },
       "withdrawal": {
         "title": "Direito de arrependimento",
         "content": "! Você tem 7 dias para desistir da compra, contados da confirmação do pedido, sem precisar justificar. É o art. 49 do CDC, que se aplica a toda contratação fora do estabelecimento comercial, inclusive pela internet. Exercido o arrependimento, os valores pagos são devolvidos integralmente e de imediato, monetariamente atualizados, incluindo qualquer taxa que tenha sido cobrada. Não há prazo mínimo de antecedência do evento nem qualquer outra condição: não impomos corte por proximidade da data.\n\nPara exercer, escreva para {supportEmail} do e-mail da conta, informando o código do pedido, ou use a opção de desistência no seu histórico de pedidos quando ela estiver disponível na sua conta. Confirmamos o recebimento do pedido de desistência de imediato e instruímos a devolução no mesmo dia útil. O crédito na sua conta depende do prazo da instituição recebedora.\n\nA desistência rescinde, sem ônus, os contratos acessórios àquela compra, na forma do art. 5º do Decreto nº 7.962/2013. Nenhum valor é retido a título de taxa.\n\nPassados os 7 dias, o arrependimento do art. 49 não se aplica mais, mas os seus direitos por cancelamento, adiamento, alteração relevante ou falha do serviço permanecem integralmente, e estão na seção seguinte.\n\nPara consumidores residentes no Espaço Econômico Europeu vale uma regra distinta, que informamos porque ela é menos favorável e não seria honesto omiti-la: o direito de retratação de 14 dias não se aplica a serviços de lazer prestados em data ou período determinado, o que inclui ingresso para evento com data marcada, conforme o art. 16(l) da Diretiva 2011/83/UE, o § 312g, n. 2, item 9, do BGB alemão e o art. 103(l) do texto refundido espanhol. Se você reside no Brasil, vale o art. 49 do CDC, mais amplo, tal como descrito acima."
@@ -988,6 +994,16 @@
   },
   "reports": {
     "title": "Relatório do evento",
+    "evolutionHint": "Receita por dia de pagamento.",
+    "ageHint": "Ingressos por faixa etaria, da mais nova para a mais velha.",
+    "pickerTitle": "Relatorios",
+    "pickerSubtitle": "Escolha um evento para ver quem comprou e quanto entrou. Para o somado de todos, veja Publico.",
+    "pickerLabel": "Evento",
+    "pickerFull": "Abrir relatorio completo",
+    "pickerEmpty": "Escolha um evento acima.",
+    "portfolioTitle": "Publico de todos os seus eventos",
+    "portfolioSubtitle": "Quem compra, somado sobre tudo o que voce ja vendeu.",
+    "portfolioEmpty": "Nenhuma venda ainda em nenhum evento.",
     "subtitle": "Quem comprou e quanto entrou.",
     "loadFailed": "Não foi possível carregar o relatório.",
     "empty": "Ainda não há vendas neste evento.",
@@ -998,6 +1014,8 @@
     "totals": {
       "orders": "Pedidos",
       "tickets": "Ingressos",
+      "averageTicket": "Ticket medio",
+      "averageTicketHint": "Por ingresso. Por pedido: {perOrder}.",
       "buyers": "Compradores",
       "net": "Você recebe",
       "refunded": "Estornado",
@@ -1075,6 +1093,37 @@
       }
     }
   },
+  "payouts": {
+      "title": "Financeiro",
+      "trend": "Entradas por dia",
+      "trendHint": "Somente creditos. Reembolso e estorno aparecem no extrato abaixo.",
+      "subtitle": "Quanto voce tem a receber, o que ainda nao venceu e o que esta retido. Os valores vem do nosso registro de cada venda e reembolso.",
+      "available": "Disponivel",
+      "availableHint": "Ja vencido e liberado para repasse.",
+      "pending": "A vencer",
+      "pendingHint": "Vendas cujo evento ainda nao terminou.",
+      "reserved": "Retido",
+      "reservedHint": "10% de cada venda, liberado 30 dias apos o repasse.",
+      "total": "Total",
+      "totalHint": "Tudo que voce tem a receber, vencido ou nao.",
+      "schedule": "O repasse sai em ate 3 dias uteis apos o termino do evento. Reembolso e estorno sao descontados do saldo assim que acontecem, antes de qualquer repasse, por isso o valor disponivel pode ficar negativo. A taxa de servico nunca entra neste saldo: ela e nossa e e devolvida integralmente ao comprador em todo reembolso.",
+      "statement": "Extrato",
+      "entryCount": "{count, plural, =0 {nenhum lancamento} one {# lancamento} other {# lancamentos}}",
+      "empty": "Nenhum lancamento ainda. A primeira venda paga aparece aqui.",
+      "availableNow": "Disponivel",
+      "availableOn": "Disponivel em {date}",
+      "failed": "Nao foi possivel carregar seu saldo.",
+      "retry": "Tentar de novo",
+      "kinds": {
+        "sale": "Venda",
+        "reserve": "Retencao",
+        "refund": "Reembolso",
+        "chargeback": "Devolucao PIX",
+        "gateway_fee": "Custo de transacao",
+        "payout": "Repasse",
+        "adjustment": "Ajuste"
+      }
+    },
   "refunds": {
     "inboxTitle": "Pedidos de reembolso",
     "inboxSubtitle": "O que está esperando a sua decisão.",
@@ -1095,6 +1144,7 @@
     "requestedAt": "Solicitado em",
     "decidedBy": "Decidido por",
     "autoApproved": "Aprovado automaticamente pela política",
+    "operatorNote": "Estorno nosso: o pagamento chegou depois do prazo e os ingressos ja tinham sido vendidos. Devolvemos o valor integral ao comprador e isso nao sai do seu repasse.",
     "autoApprovedHint": "Dentro do prazo legal de arrependimento, ou evento cancelado: não é possível recusar.",
     "statuses": {
       "pending": "Pendente",
@@ -1442,7 +1492,7 @@
     },
     "retry": "Tentar de novo",
     "legacy": {
-      "hint": "{count, plural, one {Este setor foi salvo antes de guardarmos como ele foi desenhado, então dá para ver a sala mas não para editá-la aqui.} other {Estes {count} setores foram salvos antes de guardarmos como foram desenhados, então dá para ver a sala mas não para editá-la aqui.}} Para mudar a sala, monte-a de novo — e crie uma planta nova se esta já estiver vendendo.",
+      "hint": "{count, plural, one {Este setor foi salvo antes de guardarmos como ele foi desenhado, então dá para ver a sala mas não para editá-la aqui.} other {Estes {count} setores foram salvos antes de guardarmos como foram desenhados, então dá para ver a sala mas não para editá-la aqui.}} Para mudar a sala, monte-a de novo, e crie uma planta nova se esta já estiver vendendo.",
       "readOnly": "{count, plural, one {Um setor desta planta não pode ser reaberto no editor, então ela está somente para leitura: salvar apagaria esse setor e os lugares dele.} other {{count} setores desta planta não podem ser reabertos no editor, então ela está somente para leitura: salvar apagaria esses setores e os lugares deles.}} Crie uma planta nova para desenhar a sala de novo."
     },
     "starter": {

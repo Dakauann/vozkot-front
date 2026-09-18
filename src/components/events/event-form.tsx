@@ -129,7 +129,7 @@ export function EventForm({ event }: { event: EventSummary | null }) {
     // To the event, not back to the form that made it.
     //
     // This was `/events/{id}/edit`, which answered "you made a thing" by
-    // showing the thing's form again — and, worse, routed around the only page
+    // showing the thing's form again, and, worse, routed around the only page
     // that asks whether the event has assigned seats. An organiser could create
     // an event and three tiers without the product ever mentioning seating.
     // The event list already prefers the manager and says so in a comment; this
@@ -196,7 +196,7 @@ export function EventForm({ event }: { event: EventSummary | null }) {
 
           {/* Only when editing. Every new event is a draft by design, so on a
               create form this control existed only to let somebody get it
-              wrong — and "Cancelado" let them create an event that is born
+              wrong, and "Cancelado" let them create an event that is born
               dead, with the publish toggle permanently disabled and no path
               back. */}
           {isEdit ? (
@@ -218,7 +218,7 @@ export function EventForm({ event }: { event: EventSummary | null }) {
           {/* How this event sells.
               The ONLY seating decision a create form can make: binding a plan
               needs an event that already exists and tiers to price the sectors
-              with, and this form has neither. But it can ask — and without the
+              with, and this form has neither. But it can ask, and without the
               answer every screen afterwards has to guess where to send
               somebody, which is how a theatre booking ended up selling
               unnumbered tickets because nothing said otherwise. */}

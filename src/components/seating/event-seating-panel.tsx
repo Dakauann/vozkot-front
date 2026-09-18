@@ -46,7 +46,7 @@ import type { Ticket } from "@/lib/tickets/types";
  *    around and binding one would freeze it mid-thought.
  *  - WHAT EACH BLOCK COSTS. A section is priced by pointing it at a tier, which
  *    is the join between geometry and money. A block left unpriced is simply
- *    not sold — which is how an organiser closes the balcony for one night
+ *    not sold, which is how an organiser closes the balcony for one night
  *    without editing the room.
  *
  * It is one-way on purpose. Once seats exist for a night they can be held, sold
@@ -86,7 +86,7 @@ export function EventSeatingPanel({
    *
    * Used to name the venue record when they have none, which is the whole point
    * of asking here: they have already told us the building, and asking a second
-   * time — in a `window.prompt`, on another screen — is the step that made this
+   * time, in a `window.prompt`, on another screen, is the step that made this
    * feel like a different product.
    */
   venueName: string;
@@ -101,7 +101,7 @@ export function EventSeatingPanel({
    * The published plans of one venue, keyed to the venue they belong to.
    *
    * Keyed rather than replaced, so switching venues cannot leave the previous
-   * venue's plans on screen for a frame — and so "these are still loading" is a
+   * venue's plans on screen for a frame, and so "these are still loading" is a
    * DERIVED fact rather than a second piece of state somebody has to keep in
    * step with the request.
    */
@@ -133,7 +133,7 @@ export function EventSeatingPanel({
    * Why a read failed, if one did.
    *
    * Every fetch here used to drop its error and fall through to an empty state,
-   * which made a failure indistinguishable from an absence — and the absence
+   * which made a failure indistinguishable from an absence, and the absence
    * copy is confident: "you have not drawn a venue yet", with a button offering
    * to go and do the thing the organiser has already done. A failed read now
    * says so and offers to try again.
@@ -200,7 +200,7 @@ export function EventSeatingPanel({
       // Drafts included, because binding a plan publishes and freezes it in
       // the transaction that writes the seats. Offering published plans only
       // produced the worst dead end in the product: an organiser drew a room,
-      // reached this screen, and was told the venue had no published plan —
+      // reached this screen, and was told the venue had no published plan,
       // about the plan they had just finished. Archived is the one exclusion
       // left, because that is somebody saying the room is retired.
       const sellable = (result.data?.data ?? []).filter(
@@ -226,15 +226,15 @@ export function EventSeatingPanel({
         return;
       }
       setLoaded({ id: layoutId, detail: found });
-      // Every band starts pointed at the first tier, so the common case — one
-      // room, one price — is already answered and the organiser only touches
+      // Every band starts pointed at the first tier, so the common case, one
+      // room, one price, is already answered and the organiser only touches
       // what differs.
       const first = tiers[0]?.id ?? "";
       const seeded: Record<string, string> = {};
       for (const seat of found.seats) seeded[seat.category] = first;
       setPricing(seeded);
       // Areas start at "not sold", unlike bands. A band's lote only has to
-      // exist; an area's has to FIT — its quantity is capped by the room — so
+      // exist; an area's has to FIT: its quantity is capped by the room, so
       // guessing one would seed a choice that fails on commit.
       setAreaPricing({});
     });
@@ -252,7 +252,7 @@ export function EventSeatingPanel({
    *
    * Bands, not sections. A band is what the room sells by: it defaults to a
    * section's name, so an ordinary plateia is one band called "Plateia" and this
-   * list looks exactly like the old one — but two wings sharing a band collapse
+   * list looks exactly like the old one, but two wings sharing a band collapse
    * into ONE row, and the front three rows of a sector appear as their own.
    *
    * Taken from the seats, whose band the server has already resolved. Nothing
@@ -286,7 +286,7 @@ export function EventSeatingPanel({
    * Everything this room can sell tonight, in one list.
    *
    * Chairs and open areas were two separate lists, and the second one did not
-   * exist before the seats were committed — so a plan with a pista and two
+   * exist before the seats were committed, so a plan with a pista and two
    * boxes showed the organiser five blocks on the drawing and one row to price,
    * with no way to tell whether the other four were forgotten or forbidden.
    * They are the same decision and they are asked once, in plan order.
@@ -353,7 +353,7 @@ export function EventSeatingPanel({
     }
     setResized((current) => ({ ...current, [tier.id]: quantity }));
   };
-  // Chairs in the bands actually being sold — not in the whole plan. The
+  // Chairs in the bands actually being sold, not in the whole plan. The
   // organiser is about to commit these, and a total that counted a band they
   // left unpriced would be a number they could not check.
   const seatCount = priced.reduce((total, band) => total + band.seats, 0);
@@ -362,7 +362,7 @@ export function EventSeatingPanel({
    * Draw a plan for THIS event, without leaving it first.
    *
    * Creates the venue from the address already on the event when there is none,
-   * a draft plan named after the night, and hands the builder both — so the
+   * a draft plan named after the night, and hands the builder both, so the
    * canvas opens on a room to draw rather than on a question about which room.
    * `for` is what tells the builder to offer the way back.
    */
@@ -400,7 +400,7 @@ export function EventSeatingPanel({
     }
     // The areas go second because they are written onto the manifest the call
     // above creates. Only this one is retryable: the chairs are now committed,
-    // so a failure here must not read as "nothing happened" — it is an event
+    // so a failure here must not read as "nothing happened": it is an event
     // selling its chairs whose floor and boxes are not on sale yet, which the
     // section below fixes without touching the seats.
     const areaChoices = Object.fromEntries(
@@ -687,7 +687,7 @@ export function EventSeatingPanel({
 
           <div className="border-t border-border pt-3">
             {/* Behind a confirmation, because this is the one thing in the
-                product that cannot be taken back — and it was the only
+                product that cannot be taken back, and it was the only
                 consequential action without one, while CANCELLING A TIER, which
                 leaves existing orders valid, got a full destructive dialog.
 
@@ -711,7 +711,7 @@ export function EventSeatingPanel({
             />
             {/* The PERMANENT state is the emphatic one. This had it inverted:
                 muted when everything was valid, and loud only when pricing was
-                missing — so the recoverable problem shouted and the irreversible
+                missing, so the recoverable problem shouted and the irreversible
                 one whispered. */}
             <p
               className={cn(

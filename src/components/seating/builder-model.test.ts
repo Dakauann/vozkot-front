@@ -8,8 +8,8 @@ import type { LayoutSeat } from "@/lib/seating/api";
  *
  * This is the one piece of client-side geometry that can lie without anybody
  * noticing, because an SVG clips silently: a frame one column too small does
- * not error, it just draws fewer chairs than the room has. It did exactly that
- * — sixteen seats per row rendered as nine — so it is measured from the seats
+ * not error, it just draws fewer chairs than the room has. It did exactly that:
+ * sixteen seats per row rendered as nine, so it is measured from the seats
  * now, and these tests are what hold it there.
  */
 
@@ -92,7 +92,7 @@ suite("blocksFrom", () => {
 
   it("matches each response to the piece that asked for it, by order", () => {
     // A stage sells nothing and produces no seats, so the list of sections and
-    // the list of seat groups are different lengths — which is exactly where an
+    // the list of seat groups are different lengths, which is exactly where an
     // index-by-seat-group would put the plateia's chairs in the camarote's box.
     const plateia = block("sec_plateia", { rows: 2, perRow: 4, atX: 200, atY: 200 });
     const balcao = block("sec_balcao", { rows: 3, perRow: 5, atX: 900, atY: 40 });
@@ -128,7 +128,7 @@ suite("blocksFrom", () => {
 
   it("ignores a response that has more sections than the canvas has pieces", () => {
     // A late response from before a piece was deleted. Without the recorded
-    // order it would key geometry under a node id that no longer exists — and
+    // order it would key geometry under a node id that no longer exists, and
     // with more sections than keys, under `undefined`.
     const blocks = blocksFrom({
       keys: ["node_a"],

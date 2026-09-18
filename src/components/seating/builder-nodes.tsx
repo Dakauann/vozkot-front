@@ -19,7 +19,7 @@ import {
  * Three node types, because a room has three kinds of thing in it: a block of
  * named chairs, an area sold as a number, and scenery that is not sold at all.
  * All three are dragged the same way and live in the same coordinate space,
- * which is the point — the previous version could not move a stage because a
+ * which is the point: the previous version could not move a stage because a
  * stage was not a thing, it was a word on the layout.
  */
 
@@ -32,7 +32,7 @@ export const PAD_TOP = 28;
  * What the nodes need to draw, delivered by context rather than by node data.
  *
  * Node data would have to be rewritten every time a preview came back, which
- * means writing to the canvas's own store from an effect — and that store is
+ * means writing to the canvas's own store from an effect, and that store is
  * what the organiser is dragging. Reading through context leaves exactly one
  * writer: the person with the mouse.
  *
@@ -67,8 +67,8 @@ export type BuilderView = {
   /**
    * The pieces drawn on top of something else.
    *
-   * Marked rather than prevented. Refusing the drag — snapping a piece back, or
-   * pushing it aside — fights the mouse, and the organiser is often mid-
+   * Marked rather than prevented. Refusing the drag, snapping a piece back, or
+   * pushing it aside, fights the mouse, and the organiser is often mid-
    * rearrangement, passing one block over another on the way somewhere
    * legitimate. The drag lands, the collision shows, and Save is what refuses.
    */
@@ -267,7 +267,7 @@ function Drawing({ name }: { name: string }) {
  * Shape, not colour alone, and not an icon. A Brazilian house map distinguishes
  * "cadeira para obesos" from "mobilidade reduzida" visually because the legend
  * has to be readable in print, at a glance, by somebody choosing a seat they
- * physically need — and because colour alone fails anybody who cannot tell two
+ * physically need, and because colour alone fails anybody who cannot tell two
  * of these apart.
  */
 const Chair = React.memo(function Chair({
@@ -382,7 +382,7 @@ const Chair = React.memo(function Chair({
  *
  * Corners only, and that is a fix rather than a preference. `NodeResizer` also
  * lays an invisible resize LINE along every edge, so reaching for the edge of a
- * box to move it stretched it instead — which is how a camarote 160 wide by 90
+ * box to move it stretched it instead, which is how a camarote 160 wide by 90
  * deep ended up a tall narrow slot nobody asked for. The edges belong to the
  * drag; the corners resize.
  */
@@ -418,14 +418,14 @@ function Corners({
 /**
  * Stock sold as a number: a pista, a camarote.
  *
- * Dashed, because the boundary is a decision rather than a measurement — a
+ * Dashed, because the boundary is a decision rather than a measurement: a
  * standing floor holds whoever fits, and a solid edge would imply a precision
  * the sale does not have.
  *
  * It shows what it HOLDS, which an empty box did not. A camarote drawn as a
  * blank rectangle beside a block of chairs reads as a sector whose seats failed
  * to load, and that was the first thing anybody said about it. It has no seats
- * and never will — it is one unit admitting several people — so it draws the
+ * and never will: it is one unit admitting several people, so it draws the
  * people instead, and says it is sold whole.
  */
 export function AreaNode({
@@ -485,7 +485,7 @@ export function AreaNode({
  *
  * A camarote gets one mark per person, up to what fits: ten marks in a box is
  * the difference between "a unit for ten" and "an empty rectangle". A pista gets
- * a crowd — five hundred marks would be a grey smear, and the irregularity is
+ * a crowd: five hundred marks would be a grey smear, and the irregularity is
  * the whole point of the difference being shown.
  */
 function Occupancy({
@@ -542,7 +542,7 @@ function Occupancy({
 /**
  * Scenery: the stage, the floor a rodeo runs in.
  *
- * Solid and filled, because unlike an area it IS a measurement — a stage is a
+ * Solid and filled, because unlike an area it IS a measurement: a stage is a
  * physical object at a fixed place, and it is what a buyer orients the whole
  * map by.
  */

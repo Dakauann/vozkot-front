@@ -226,7 +226,7 @@ export function AttendeeTable({
                     </th>
                     <td className="whitespace-nowrap px-3 py-2 text-muted-foreground">{attendee.email}</td>
                     <td className="whitespace-nowrap px-3 py-2 font-mono text-xs text-muted-foreground">
-                      {attendee.documentMask || "—"}
+                      {attendee.documentMask || "-"}
                     </td>
                     <td className="whitespace-nowrap px-3 py-2 text-muted-foreground">
                       {attendee.gender && attendee.gender !== "undisclosed"
@@ -234,10 +234,10 @@ export function AttendeeTable({
                         : tReports("notInformed")}
                     </td>
                     <td className="whitespace-nowrap px-3 py-2 tabular-nums text-muted-foreground">
-                      {attendee.ageYears ? attendee.ageYears : "—"}
+                      {attendee.ageYears ? attendee.ageYears : "-"}
                     </td>
                     <td className="whitespace-nowrap px-3 py-2 text-muted-foreground">
-                      {attendee.city ? `${attendee.city}${attendee.uf ? ` - ${attendee.uf}` : ""}` : "—"}
+                      {attendee.city ? `${attendee.city}${attendee.uf ? ` - ${attendee.uf}` : ""}` : "-"}
                     </td>
                     <td className="whitespace-nowrap px-3 py-2 text-muted-foreground">
                       {attendee.ticketTitle}
