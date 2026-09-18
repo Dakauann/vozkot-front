@@ -57,6 +57,10 @@ export function EventCard({
   return (
     <Link
       href={`/eventos/${event.slug}`}
+      // The landmark a back navigation comes home to. Read by scroll-memory.tsx,
+      // which returns the reader to the card they left through rather than to a
+      // pixel offset that a reflow above it would have invalidated.
+      data-event-id={event.id}
       className="group flex h-full flex-col rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
       <div

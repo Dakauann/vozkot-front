@@ -284,6 +284,17 @@
   * { @apply border-border; }
   html { color-scheme: light; }
   html.dark { color-scheme: dark; }
+
+  /*
+   * The height of the sticky header, reserved at the top of every scroll.
+   *
+   * Anything the browser scrolls TO rather than BY has to clear the navbar:
+   * a hash link, `scrollIntoView` on a restored card, a focused field reached
+   * by keyboard. Without this they all land underneath it, which reads as the
+   * target being missing. `PublicNavbar` is `sticky top-0` with an `h-16` row,
+   * so this is that row.
+   */
+  html { scroll-padding-top: 4rem; }
   body { @apply min-h-screen bg-background text-foreground; }
   ::selection { background: hsl(var(--primary) / 0.24); color: hsl(var(--foreground)); }
   :focus-visible { outline: none; }

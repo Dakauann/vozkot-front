@@ -1,6 +1,7 @@
 import { BrandFooter } from "@/components/brand/brand-footer";
 import { CatalogueFooterNav } from "@/components/events/catalogue-footer-nav";
 import { PublicNavbar } from "@/components/brand/public-navbar";
+import { ScrollMemory } from "@/components/events/scroll-memory";
 
 /**
  * The chrome every buyer-facing page shares.
@@ -17,6 +18,10 @@ import { PublicNavbar } from "@/components/brand/public-navbar";
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-dvh flex-col bg-background">
+      {/* Renders nothing. It remembers where each address was left and puts the
+          reader back there on a back navigation, which the router does not do
+          correctly on its own. See scroll-memory.tsx. */}
+      <ScrollMemory />
       <PublicNavbar />
       <div className="flex-1">{children}</div>
       <CatalogueFooterNav />
