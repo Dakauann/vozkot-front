@@ -525,14 +525,6 @@
   "scaffold": {
     "title": "Em desenvolvimento",
     "body": "Estamos construindo esta parte do produto. Ela chega em breve.",
-    "checkIn": {
-      "title": "Check-in",
-      "description": "Leitura de ingressos na portaria."
-    },
-    "reports": {
-      "title": "Relatórios",
-      "description": "Vendas, receita e público."
-    },
     "help": {
       "title": "Central de ajuda",
       "description": "Artigos que o comprador consulta sozinho."
