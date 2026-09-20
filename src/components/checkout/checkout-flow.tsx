@@ -18,10 +18,16 @@ import {
 } from "@/lib/checkout/api";
 import { readIntent, type CheckoutIntent } from "@/lib/checkout/intent";
 import { OpenHolds } from "@/components/checkout/open-holds";
-import { TextAreaField } from "@/components/ui/field";
+import { Field, SelectField, TextAreaField } from "@/components/ui/field";
 import ElevatedInput from "@/components/elevated-design/elevated-input";
 import { EnvelopeSimple, IdentificationCard, Person } from "@/components/icons";
 import { useAuthDialog } from "@/contexts/auth-dialog-context";
+import { useAuth } from "@/contexts/auth-context";
+import {
+  getProfile,
+  saveProfile,
+  type ProfileState,
+} from "@/lib/auth/verification";
 
 /**
  * Checkout.
@@ -676,6 +682,27 @@ function OrderSummary({
   );
 }
 
+/**
+ * Who is buying, asked once in the life of an account.
+ *
+ * The identity block — document, legal name, date of birth — is required by the
+ * law that governs the SALE, not by having an account, so this is where it is
+ * asked. It used to be demanded at sign-up, which put a document form between
+ * somebody and the thing they had come to do, at the one moment nothing needed
+ * it yet.
+ *
+ * Asked once, and then never again: submitting it here SAVES it on the account,
+ * so every later checkout finds a complete profile and has nothing to ask. The
+ * document itself does not come back to this form on that second visit — the
+ * API masks it by design, and shipping the digits to every page that shows an
+ * account would be the opposite of keeping them sealed — so the order is
+ * confirmed without one and the server fills it in from the profile. See
+ * usecases/checkout.Service.withProfileDetails.
+ *
+ * Buying for somebody ELSE stays possible, because it is ordinary: a parent
+ * buying for a child, an assistant for a director. That path types the other
+ * person's details and saves nothing, since the account did not change hands.
+ */
 function BuyerForm({
   submitting,
   error,
@@ -688,67 +715,223 @@ function BuyerForm({
   onBack: () => void;
 }) {
   const t = useTranslations("checkout");
-  const [buyer, setBuyer] = useState({ name: "", email: "", document: "" });
+  const tSignIn = useTranslations("signIn");
+  const { user } = useAuth();
+
+  // `null` means "not read yet", which is NOT the same as "incomplete" and must
+  // not render as it: flashing a document form at somebody who already answered
+  // it, for the half second before the profile lands, is how a form gets filled
+  // in twice.
+  const [profile, setProfile] = useState<ProfileState | null>(null);
+  const [loaded, setLoaded] = useState(false);
+  const [forSomebodyElse, setForSomebodyElse] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [saveFailed, setSaveFailed] = useState<string | null>(null);
+  const [buyer, setBuyer] = useState({
+    documentType: "cpf",
+    name: "",
+    document: "",
+    birthDate: "",
+  });
+  // The address the receipt goes to is the account's, not a fourth thing to
+  // type, and it is DERIVED rather than copied into state by an effect: an
+  // effect that seeds state from a prop renders twice and fights whatever was
+  // typed in between. null means "untouched", which is what lets the account's
+  // address land in the field whenever it arrives without ever overwriting a
+  // typed one. It stays editable; a buyer may want the receipt somewhere else.
+  const [typedEmail, setTypedEmail] = useState<string | null>(null);
+  const email = typedEmail ?? user?.email ?? "";
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      const { data } = await getProfile();
+      if (cancelled) return;
+      // A profile that fails to load is treated as absent: the fields appear,
+      // the buyer fills them in, and the purchase goes through. The opposite
+      // default would strand somebody on a screen with nothing to type.
+      setProfile(data ?? null);
+      setLoaded(true);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const onFile = profile?.complete === true;
+  const known = onFile && !forSomebodyElse;
+  const busy = submitting || saving;
+
+  const submit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (known) {
+      // Nothing to save, and no document to send: the sealed one on the account
+      // is the one this order gets.
+      onSubmit({ name: profile?.legalName ?? user?.name ?? "", email, document: "" });
+      return;
+    }
+
+    const document = buyer.document.replace(/\D/g, "");
+    if (!forSomebodyElse) {
+      // The account's own first purchase. Saved BEFORE the order is confirmed,
+      // so a buyer who answers this once is never asked again even if the
+      // payment itself falls over a moment later.
+      setSaving(true);
+      setSaveFailed(null);
+      const { error: failed } = await saveProfile({
+        documentType: buyer.documentType,
+        document,
+        legalName: buyer.name,
+        birthDate: buyer.birthDate,
+      });
+      setSaving(false);
+      if (failed) {
+        setSaveFailed(failed.message ?? t("profileFailed"));
+        return;
+      }
+    }
+    onSubmit({ name: buyer.name, email, document });
+  };
 
   return (
     <form
       className="flex flex-col gap-4 rounded-lg border border-border bg-card p-5 shadow-sm sm:p-6"
-      onSubmit={(event) => {
-        event.preventDefault();
-        onSubmit(buyer);
-      }}
+      onSubmit={submit}
     >
       <div>
         <h2 className="font-display text-lg font-semibold text-card-foreground">{t("yourDetails")}</h2>
-        <p className="mt-1 text-sm text-muted-foreground">{t("detailsHint")}</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {known ? t("detailsKnownHint") : t("detailsHint")}
+        </p>
       </div>
 
-      <ElevatedInput
-        id="buyer-name"
-        label={t("name")}
-        icon={<Person size={18} aria-hidden />}
-        value={buyer.name}
-        onChange={(event) => setBuyer((current) => ({ ...current, name: event.target.value }))}
-        autoComplete="name"
-        required
-      />
+      {!loaded ? (
+        <div className="h-11 animate-pulse rounded-md bg-accent-hover" aria-hidden />
+      ) : known ? (
+        <div className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-border bg-accent px-3 py-2.5">
+          <div className="min-w-0">
+            <p className="truncate text-sm font-medium text-foreground">
+              {profile?.legalName ?? user?.name}
+            </p>
+            {profile?.documentMask ? (
+              <p className="truncate text-xs tabular-nums text-muted-foreground">
+                {profile.documentMask}
+              </p>
+            ) : null}
+          </div>
+          <button
+            type="button"
+            onClick={() => setForSomebodyElse(true)}
+            className="rounded-[--radius] text-sm font-medium text-primary-ink underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            {t("buyForSomebodyElse")}
+          </button>
+        </div>
+      ) : (
+        <>
+          {onFile ? (
+            <button
+              type="button"
+              onClick={() => setForSomebodyElse(false)}
+              className="self-start rounded-[--radius] text-sm font-medium text-primary-ink underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              {t("buyForMyself")}
+            </button>
+          ) : null}
+
+          {/* The label sits above rather than floating: a select is never empty,
+              so there is nothing for a floating label to float out of. */}
+          <Field id="buyer-document-type" label={tSignIn("identity.documentType")}>
+            <SelectField
+              id="buyer-document-type"
+              value={buyer.documentType}
+              onChange={(event) =>
+                setBuyer((current) => ({ ...current, documentType: event.target.value }))
+              }
+              className="h-11"
+            >
+              <option value="cpf">{tSignIn("identity.cpf")}</option>
+              <option value="cnpj">{tSignIn("identity.cnpj")}</option>
+              <option value="passport">{tSignIn("identity.passport")}</option>
+            </SelectField>
+          </Field>
+
+          <ElevatedInput
+            id="buyer-name"
+            label={tSignIn("identity.legalName")}
+            icon={<Person size={18} aria-hidden />}
+            value={buyer.name}
+            onChange={(event) => setBuyer((current) => ({ ...current, name: event.target.value }))}
+            autoComplete="name"
+            required
+            hint={tSignIn("identity.legalNameHint")}
+          />
+
+          <ElevatedInput
+            id="buyer-document"
+            label={t("document")}
+            icon={<IdentificationCard size={18} aria-hidden />}
+            value={buyer.document}
+            onChange={(event) =>
+              setBuyer((current) => ({ ...current, document: event.target.value }))
+            }
+            inputMode={buyer.documentType === "passport" ? "text" : "numeric"}
+            autoComplete="off"
+            required
+            hint={t("documentHint")}
+          />
+
+          {/* Only on the path that SAVES. Somebody else's date of birth is not
+              ours to keep, and the order does not carry one. */}
+          {!forSomebodyElse ? (
+            <ElevatedInput
+              id="buyer-birth"
+              label={tSignIn("identity.birthDate")}
+              type="date"
+              value={buyer.birthDate}
+              onChange={(event) =>
+                setBuyer((current) => ({ ...current, birthDate: event.target.value }))
+              }
+              autoComplete="bday"
+              required
+            />
+          ) : null}
+        </>
+      )}
+
       <ElevatedInput
         id="buyer-email"
         label={t("email")}
         icon={<EnvelopeSimple size={18} aria-hidden />}
         type="email"
-        value={buyer.email}
-        onChange={(event) => setBuyer((current) => ({ ...current, email: event.target.value }))}
+        value={email}
+        onChange={(event) => setTypedEmail(event.target.value)}
         autoComplete="email"
         inputMode="email"
         required
         hint={t("emailHint")}
       />
-      <ElevatedInput
-        id="buyer-document"
-        label={t("document")}
-        icon={<IdentificationCard size={18} aria-hidden />}
-        value={buyer.document}
-        onChange={(event) => setBuyer((current) => ({ ...current, document: event.target.value }))}
-        inputMode="numeric"
-        autoComplete="off"
-        required
-        hint={t("documentHint")}
-      />
 
-      {error ? (
+      {error || saveFailed ? (
         <p role="alert" className="notice notice-fault notice-ink px-3 py-2 text-sm">
-          {error}
+          {error ?? saveFailed}
+        </p>
+      ) : null}
+
+      {/* Said where the data is asked for, not buried in a policy page. */}
+      {!known && loaded && !forSomebodyElse ? (
+        <p className="text-xs leading-relaxed text-muted-foreground">
+          {tSignIn("identity.privacy")}
         </p>
       ) : null}
 
       <div className="flex flex-wrap gap-2">
         <button
           type="submit"
-          disabled={submitting}
+          disabled={busy}
           className="h-11 flex-1 rounded-md bg-primary text-sm font-semibold text-primary-foreground shadow-[var(--elev-button-primary)] hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
-          {submitting ? t("confirming") : t("goToPayment")}
+          {busy ? t("confirming") : t("goToPayment")}
         </button>
         <button
           type="button"

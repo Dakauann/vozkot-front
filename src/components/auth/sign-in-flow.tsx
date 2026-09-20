@@ -6,20 +6,15 @@ import { useTranslations } from "next-intl";
 import {
   CircleNotch,
   EnvelopeSimple,
-  IdentificationCard,
   LockIcon,
   Person,
   Phone,
 } from "@/components/icons";
 import { Link } from "@/i18n/routing";
-import { AudienceFields, emptyAudience, type AudienceValue } from "@/components/auth/audience-fields";
-import { Field, SelectField } from "@/components/ui/field";
 import ElevatedInput from "@/components/elevated-design/elevated-input";
 import { useAuth } from "@/contexts/auth-context";
 import type { AuthReason } from "@/contexts/auth-dialog-context";
 import {
-  getProfile,
-  saveProfile,
   secondsUntil,
   startEmailSignIn,
   setPassword,
@@ -35,16 +30,21 @@ import { cn } from "@/lib/utils";
 /**
  * Getting into an account. The ONLY way into one.
  *
- * Five steps, and only the first two are ever on the critical path:
+ * Four steps, and only the first two are ever on the critical path:
  *
  *  1. EMAIL; type an address, get a code. A password field is offered here
  *     too, for accounts that later chose one.
  *  2. CODE; six digits, and you are in.
  *  3. PASSWORD; offered, never demanded, and only to an account that has just
  *     been created.
- *  4. IDENTITY: document, legal name, date of birth. Asked AFTER the session
- *     exists, so nobody meets a document form before they are signed in.
- *  5. PHONE: optional, skippable, and skipping it blocks nothing.
+ *  4. PHONE: optional, skippable, and skipping it blocks nothing.
+ *
+ * WHAT IS DELIBERATELY NOT HERE: the identity block, the document, the legal
+ * name and the date of birth. It used to be a step between the account
+ * existing and the person being allowed to get on with it, and nothing about
+ * signing up needs it. The law that requires it governs a SALE, so it is asked
+ * at the first checkout, saved on the account, and never asked again. See
+ * components/checkout/checkout-flow.
  *
  * THERE IS NO SEPARATE "REGISTER". Step 2 creates the account when the address
  * has none and signs in when it has one, which is one call at the API too. It
@@ -99,7 +99,7 @@ export function SignInFlow({ reason, settle, chrome }: SignInFlowProps) {
   const { refreshUser } = useAuth();
   const t = useTranslations("signIn");
 
-  type Step = "email" | "code" | "password" | "identity" | "phone";
+  type Step = "email" | "code" | "password" | "phone";
   const [step, setStep] = React.useState<Step>("email");
   const [email, setEmail] = React.useState("");
   const [challenge, setChallenge] = React.useState<Started | null>(null);
@@ -122,33 +122,27 @@ export function SignInFlow({ reason, settle, chrome }: SignInFlowProps) {
         setStep("password");
         return;
       }
-      const { data } = await getProfile();
-      if (data?.complete) {
-        settle(true);
-        return;
-      }
-      setStep("identity");
+      settle(true);
     },
     [refreshUser, settle],
   );
 
-  // Past the password step: ask for the identity block if it is still owed.
-  const afterPassword = React.useCallback(async () => {
-    const { data } = await getProfile();
-    if (data?.complete) {
-      settle(true);
-      return;
-    }
-    setStep("identity");
-  }, [settle]);
+  // Past the password step, and the end of what sign-up asks.
+  //
+  // The identity block used to be demanded HERE, between an account existing
+  // and the person using it, which is the worst place for it: it is a document
+  // form standing between somebody and the thing they came to do, asked before
+  // anything needs it. It is asked at the first checkout instead, where the
+  // law that requires it actually applies, and never asked again after that.
+  const afterPassword = React.useCallback(() => {
+    setStep("phone");
+  }, []);
 
   return (
     <>
       <div className="flex flex-col items-center gap-1 px-6 pt-6 text-center">
           <span className="plate plate-brand mb-2 size-11">
-            {step === "identity" ? (
-              <IdentificationCard size={22} aria-hidden />
-            ) : step === "phone" ? (
+            {step === "phone" ? (
               <Person size={22} aria-hidden />
             ) : step === "password" ? (
               <LockIcon size={22} aria-hidden />
@@ -188,11 +182,9 @@ export function SignInFlow({ reason, settle, chrome }: SignInFlowProps) {
             />
           ) : step === "password" ? (
             <PasswordStep onDone={afterPassword} />
-          ) : step === "identity" ? (
-            <IdentityStep onSaved={() => setStep("phone")} />
-        ) : (
-          <PhoneStep onDone={finish} />
-        )}
+          ) : (
+            <PhoneStep onDone={finish} />
+          )}
       </div>
     </>
   );
@@ -592,106 +584,6 @@ function CodeInput({
         />
       ))}
     </div>
-  );
-}
-
-function IdentityStep({ onSaved }: { onSaved: () => void }) {
-  const t = useTranslations("signIn");
-  const [form, setForm] = React.useState({
-    documentType: "cpf",
-    document: "",
-    legalName: "",
-    birthDate: "",
-  });
-  // Kept beside the identity block rather than inside it, because the two are
-  // governed by different rules: the block above is required by law and gates
-  // the purchase, this is volunteered and gates nothing.
-  const [audience, setAudience] = React.useState<AudienceValue>(emptyAudience);
-  const [busy, setBusy] = React.useState(false);
-  const [error, setError] = React.useState<string | null>(null);
-
-  const set = (key: keyof typeof form) => (value: string) =>
-    setForm((current) => ({ ...current, [key]: value }));
-
-  const submit = async (submitEvent: React.FormEvent) => {
-    submitEvent.preventDefault();
-    setBusy(true);
-    setError(null);
-    const { data, error: failed } = await saveProfile({ ...form, ...audience });
-    setBusy(false);
-    if (failed || !data) {
-      setError(failed?.message ?? t("errors.profile"));
-      return;
-    }
-    onSaved();
-  };
-
-  const complete =
-    form.document.trim() !== "" && form.legalName.trim() !== "" && form.birthDate !== "";
-
-  return (
-    <form className="flex flex-col gap-3" onSubmit={submit}>
-      {/* The one control here that is not an input. Its label sits above
-          rather than floating; a select is never empty, so there is nothing
-          for a label to float out of, and it is sized to the fields beside
-          it so the column does not step. */}
-      <Field id="identity-type" label={t("identity.documentType")}>
-        <SelectField
-          id="identity-type"
-          value={form.documentType}
-          onChange={(changeEvent) => set("documentType")(changeEvent.target.value)}
-          className="h-11"
-        >
-          <option value="cpf">{t("identity.cpf")}</option>
-          <option value="cnpj">{t("identity.cnpj")}</option>
-          <option value="passport">{t("identity.passport")}</option>
-        </SelectField>
-      </Field>
-
-      <ElevatedInput
-        id="identity-document"
-        label={t("identity.document")}
-        icon={<IdentificationCard size={18} aria-hidden />}
-        value={form.document}
-        onChange={(changeEvent) => set("document")(changeEvent.target.value)}
-        inputMode={form.documentType === "passport" ? "text" : "numeric"}
-        autoComplete="off"
-        required
-        placeholder={t("identity.documentPlaceholder")}
-      />
-      <ElevatedInput
-        id="identity-name"
-        label={t("identity.legalName")}
-        icon={<Person size={18} aria-hidden />}
-        value={form.legalName}
-        onChange={(changeEvent) => set("legalName")(changeEvent.target.value)}
-        autoComplete="name"
-        required
-        hint={t("identity.legalNameHint")}
-      />
-      <ElevatedInput
-        id="identity-birth"
-        label={t("identity.birthDate")}
-        type="date"
-        value={form.birthDate}
-        onChange={(changeEvent) => set("birthDate")(changeEvent.target.value)}
-        autoComplete="bday"
-        required
-      />
-
-      <div className="border-t border-border pt-3">
-        <AudienceFields value={audience} onChange={setAudience} idPrefix="identity" />
-      </div>
-
-      <Failure message={error} />
-      <Primary busy={busy} disabled={!complete}>
-        {t("identity.submit")}
-      </Primary>
-      {/* Said where the data is asked for, not buried in a policy page. */}
-      <p className="text-center text-xs leading-relaxed text-muted-foreground">
-        {t("identity.privacy")}
-      </p>
-    </form>
   );
 }
 

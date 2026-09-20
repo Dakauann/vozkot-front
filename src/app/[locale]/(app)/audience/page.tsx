@@ -14,7 +14,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   setRequestLocale(locale);
 
   return (
-    <main className="mx-auto w-full max-w-[1100px] px-4 py-6 sm:px-6 lg:px-8">
+    <main className="w-full">
       <EventReport />
     </main>
   );

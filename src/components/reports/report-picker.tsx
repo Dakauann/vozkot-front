@@ -25,7 +25,7 @@ export function ReportPicker() {
   const [eventId, setEventId] = React.useState("");
 
   return (
-    <main className="mx-auto w-full max-w-[1100px] px-4 py-6 sm:px-6 lg:px-8">
+    <main className="w-full">
       <h1 className="font-display text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
         {t("pickerTitle")}
       </h1>

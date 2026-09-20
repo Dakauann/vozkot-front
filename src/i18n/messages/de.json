@@ -316,6 +316,10 @@
     "where": "Wo"
   },
   "checkout": {
+    "detailsKnownHint": "Wir verwenden die Daten deines Kontos. Pruefe sie und geh zur Zahlung.",
+    "buyForSomebodyElse": "Fuer jemand anderen kaufen",
+    "buyForMyself": "Meine Daten verwenden",
+    "profileFailed": "Wir konnten deine Daten nicht speichern. Versuch es noch einmal.",
     "title": "Kasse",
     "yourDetails": "Deine Daten",
     "name": "Vollständiger Name",
@@ -993,6 +997,14 @@
     }
   },
   "reports": {
+    "others": "Andere",
+    "mixHint": "Anteil jeder Ticketart an deinen Einnahmen.",
+    "ticketsPerDayHint": "Wie viele Tickets an jedem Zahlungstag verkauft wurden.",
+    "refunds": {
+      "title": "Erstattungen",
+      "caption": "{orders} von {total} Bestellungen erstattet.",
+      "none": "Keine Bestellung erstattet."
+    },
     "title": "Event-Bericht",
     "evolutionHint": "Umsatz nach Zahlungstag.",
     "ageHint": "Tickets nach Altersgruppe, von jung nach alt.",
@@ -1023,6 +1035,7 @@
       "buyersHint": "Eindeutige Konten. Wer zweimal gekauft hat, zählt einmal."
     },
     "breakdowns": {
+      "ticketsPerDay": "Tickets pro Tag",
       "gender": "Nach Geschlecht",
       "age": "Nach Alter",
       "uf": "Nach Bundesstaat",

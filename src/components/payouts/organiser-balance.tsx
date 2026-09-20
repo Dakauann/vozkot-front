@@ -129,43 +129,53 @@ export function OrganiserBalance({ eventId }: { eventId?: string }) {
       value: cents,
       detail: formatMoney(cents, locale, currency),
     }));
+  // One day is not a curve. The flag is read twice below, by the chart and by
+  // the column the statement takes when the chart is not there.
+  const hasTrend = trend.length > 1;
 
   return (
     <div className="flex flex-col gap-5">
       <KpiStrip items={figures} />
 
-      {/* The money's own shape over time, from the same entries the statement
-          below lists: what came in, day by day. It is the first question after
-          "how much", and a table of forty rows does not answer it. */}
-      {trend.length > 1 ? (
-        <ChartPanel title={t("trend")} hint={t("trendHint")}>
-          <TrendArea valueLabel={t("available")} points={trend} height={200} />
-        </ChartPanel>
-      ) : null}
+      {/* The curve and the statement side by side on a wide screen, because
+          they are one question asked twice: the shape of the money, and the
+          rows it is made of. Stacked, the chart stretched to the full width of
+          a desktop display for 200px of height, which is a pancake nobody can
+          read a slope off, and it pushed the statement below the fold. */}
+      <div className={cn("grid gap-4", hasTrend && "xl:grid-cols-12")}>
+        {hasTrend ? (
+          <ChartPanel title={t("trend")} hint={t("trendHint")} className="xl:col-span-5">
+            <TrendArea valueLabel={t("available")} points={trend} height={240} />
+          </ChartPanel>
+        ) : null}
+
+        <section
+          aria-labelledby="statement-heading"
+          className={cn("flex min-w-0 flex-col gap-3", hasTrend && "xl:col-span-7")}
+        >
+          <div className="flex items-baseline justify-between gap-4">
+            <h3 id="statement-heading" className="font-display text-base font-semibold text-foreground">
+              {t("statement")}
+            </h3>
+            <p className="text-sm text-muted-foreground">{t("entryCount", { count: total })}</p>
+          </div>
+          {entries.length === 0 ? (
+            <p className="rounded-lg border border-dashed border-border-strong bg-card px-4 py-8 text-center text-sm text-muted-foreground">
+              {t("empty")}
+            </p>
+          ) : (
+            <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-card">
+              {entries.map((entry) => (
+                <Row key={entry.id} entry={entry} locale={locale} currency={currency} readAt={readAt} />
+              ))}
+            </ul>
+          )}
+        </section>
+      </div>
 
       {/* Said once, in the organiser's own words, rather than left to be
           discovered when the money does not arrive on the day they expected. */}
       <p className="max-w-[72ch] text-xs leading-5 text-muted-foreground">{t("schedule")}</p>
-
-      <section aria-labelledby="statement-heading" className="flex flex-col gap-3">
-        <div className="flex items-baseline justify-between gap-4">
-          <h3 id="statement-heading" className="font-display text-base font-semibold text-foreground">
-            {t("statement")}
-          </h3>
-          <p className="text-sm text-muted-foreground">{t("entryCount", { count: total })}</p>
-        </div>
-        {entries.length === 0 ? (
-          <p className="rounded-lg border border-dashed border-border-strong bg-card px-4 py-8 text-center text-sm text-muted-foreground">
-            {t("empty")}
-          </p>
-        ) : (
-          <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-card">
-            {entries.map((entry) => (
-              <Row key={entry.id} entry={entry} locale={locale} currency={currency} readAt={readAt} />
-            ))}
-          </ul>
-        )}
-      </section>
     </div>
   );
 }

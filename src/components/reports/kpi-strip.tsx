@@ -99,15 +99,27 @@ export function ChartPanel({
   title,
   hint,
   wide,
+  when = true,
   children,
   className,
 }: {
   title: string;
   hint?: string;
   wide?: boolean;
+  /**
+   * Whether this breakdown has anything to say.
+   *
+   * The guard lives HERE rather than in a conditional around each call,
+   * because what it protects is the heading, not the chart: a chart with no
+   * rows renders nothing, but its panel still draws a title and a frame, and
+   * an empty framed card reads as "this failed" rather than as "nothing has
+   * happened in this cut yet".
+   */
+  when?: boolean;
   children: React.ReactNode;
   className?: string;
 }) {
+  if (!when) return null;
   return (
     <section
       className={cn(

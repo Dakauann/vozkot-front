@@ -316,6 +316,10 @@
     "where": "Where"
   },
   "checkout": {
+    "detailsKnownHint": "We use the details on your account. Check them and go to payment.",
+    "buyForSomebodyElse": "Buying for somebody else",
+    "buyForMyself": "Use my details",
+    "profileFailed": "We could not save your details. Try again.",
     "title": "Checkout",
     "yourDetails": "Your details",
     "name": "Full name",
@@ -993,6 +997,14 @@
     }
   },
   "reports": {
+    "others": "Other",
+    "mixHint": "Each ticket type's share of what you receive.",
+    "ticketsPerDayHint": "How many tickets went out on each payment day.",
+    "refunds": {
+      "title": "Refunds",
+      "caption": "{orders} of {total} orders refunded.",
+      "none": "No orders refunded."
+    },
     "title": "Event report",
     "evolutionHint": "Revenue by the day the money landed.",
     "ageHint": "Tickets by age band, youngest to oldest.",
@@ -1023,6 +1035,7 @@
       "buyersHint": "Distinct accounts. Somebody who bought twice counts once."
     },
     "breakdowns": {
+      "ticketsPerDay": "Tickets per day",
       "gender": "By gender",
       "age": "By age",
       "uf": "By state",
