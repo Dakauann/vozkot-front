@@ -316,6 +316,9 @@
     "where": "Where"
   },
   "checkout": {
+    "whoIsBuying": "Who is buying",
+    "allRequired": "Every field is required.",
+    "audienceThanks": "Thank you. This helps the organiser know who comes to their events.",
     "detailsKnownHint": "We use the details on your account. Check them and go to payment.",
     "buyForSomebodyElse": "Buying for somebody else",
     "buyForMyself": "Use my details",
@@ -520,8 +523,8 @@
     "notFound": "That record was not found."
   },
   "scaffold": {
-    "title": "Nothing wired here yet",
-    "body": "This route is part of the starter scaffold. Replace it with your own page; the shell, the header and the navigation row already work.",
+    "title": "In development",
+    "body": "We're building this part of the product. It's coming soon.",
     "checkIn": {
       "title": "Check-in",
       "description": "Scan tickets at the gate."
@@ -536,7 +539,7 @@
     },
     "contact": {
       "title": "Contact",
-      "description": "Reach the team behind this starter."
+      "description": "Reach the Vozkot Tickets team."
     },
     "settings": {
       "title": "Settings",

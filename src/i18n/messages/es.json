@@ -316,10 +316,13 @@
     "where": "Dónde"
   },
   "checkout": {
-    "detailsKnownHint": "Usamos los datos de tu cuenta. Compruebalos y pasa al pago.",
+    "whoIsBuying": "Quién está comprando",
+    "allRequired": "Todos los campos son obligatorios.",
+    "audienceThanks": "Gracias. Esto ayuda al organizador a saber quién va a sus eventos.",
+    "detailsKnownHint": "Usamos los datos de tu cuenta. Compruébalos y pasa al pago.",
     "buyForSomebodyElse": "Comprar para otra persona",
     "buyForMyself": "Usar mis datos",
-    "profileFailed": "No pudimos guardar tus datos. Intentalo de nuevo.",
+    "profileFailed": "No pudimos guardar tus datos. Inténtalo de nuevo.",
     "title": "Finalizar compra",
     "yourDetails": "Tus datos",
     "name": "Nombre completo",
@@ -520,8 +523,8 @@
     "notFound": "No encontramos este registro."
   },
   "scaffold": {
-    "title": "Aquí todavía no hay nada conectado",
-    "body": "Esta ruta forma parte del esqueleto del proyecto. Sustitúyela por tu propia página; el shell, la cabecera y el elemento de menú ya funcionan.",
+    "title": "En desarrollo",
+    "body": "Estamos construyendo esta parte del producto. Llegará pronto.",
     "checkIn": {
       "title": "Control de acceso",
       "description": "Lectura de entradas en la puerta."
@@ -536,7 +539,7 @@
     },
     "contact": {
       "title": "Contacto",
-      "description": "Habla con el equipo detrás de este proyecto."
+      "description": "Habla con el equipo de Vozkot Tickets."
     },
     "settings": {
       "title": "Configuración",
@@ -998,12 +1001,12 @@
   },
   "reports": {
     "others": "Otros",
-    "mixHint": "Participacion de cada entrada en lo que recibes.",
-    "ticketsPerDayHint": "Cuantas entradas salieron en cada dia de pago.",
+    "mixHint": "Participación de cada entrada en lo que recibes.",
+    "ticketsPerDayHint": "Cuántas entradas salieron en cada día de pago.",
     "refunds": {
       "title": "Reembolsos",
       "caption": "{orders} de {total} pedidos reembolsados.",
-      "none": "Ningun pedido reembolsado."
+      "none": "Ningún pedido reembolsado."
     },
     "title": "Informe del evento",
     "evolutionHint": "Ingresos por dia de pago.",

@@ -316,10 +316,13 @@
     "where": "Onde"
   },
   "checkout": {
+    "whoIsBuying": "Quem está comprando",
+    "allRequired": "Todos os campos são obrigatórios.",
+    "audienceThanks": "Obrigado. Isso ajuda o organizador a saber quem vai aos eventos dele.",
     "detailsKnownHint": "Usamos os dados do seu cadastro. Confira e siga para o pagamento.",
     "buyForSomebodyElse": "Comprar para outra pessoa",
     "buyForMyself": "Usar meus dados",
-    "profileFailed": "Nao foi possivel salvar seus dados. Tente de novo.",
+    "profileFailed": "Não foi possível salvar seus dados. Tente de novo.",
     "title": "Finalizar compra",
     "yourDetails": "Seus dados",
     "name": "Nome completo",
@@ -520,8 +523,8 @@
     "notFound": "Não encontramos este registro."
   },
   "scaffold": {
-    "title": "Nada conectado aqui ainda",
-    "body": "Esta rota faz parte do esqueleto do projeto. Substitua pela sua própria página; o shell, o cabeçalho e o item de menu já funcionam.",
+    "title": "Em desenvolvimento",
+    "body": "Estamos construindo esta parte do produto. Ela chega em breve.",
     "checkIn": {
       "title": "Check-in",
       "description": "Leitura de ingressos na portaria."
@@ -536,7 +539,7 @@
     },
     "contact": {
       "title": "Contato",
-      "description": "Fale com o time por trás deste projeto."
+      "description": "Fale com o time do Vozkot Tickets."
     },
     "settings": {
       "title": "Configurações",
@@ -998,8 +1001,8 @@
   },
   "reports": {
     "others": "Outros",
-    "mixHint": "Participacao de cada ingresso no que voce recebe.",
-    "ticketsPerDayHint": "Quantos ingressos sairam em cada dia de pagamento.",
+    "mixHint": "Participação de cada ingresso no que você recebe.",
+    "ticketsPerDayHint": "Quantos ingressos saíram em cada dia de pagamento.",
     "refunds": {
       "title": "Estornos",
       "caption": "{orders} de {total} pedidos estornados.",

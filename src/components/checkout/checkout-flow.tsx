@@ -24,6 +24,11 @@ import { EnvelopeSimple, IdentificationCard, Person } from "@/components/icons";
 import { useAuthDialog } from "@/contexts/auth-dialog-context";
 import { useAuth } from "@/contexts/auth-context";
 import {
+  AudienceFields,
+  emptyAudience,
+  type AudienceValue,
+} from "@/components/auth/audience-fields";
+import {
   getProfile,
   saveProfile,
   type ProfileState,
@@ -191,6 +196,7 @@ function Resume({ orderID, locale }: { orderID: string; locale: Locale }) {
           <BuyerForm
             submitting={submitting}
             error={error}
+            expiresAt={order.holdExpiresAt}
             onSubmit={confirm}
             onBack={() => router.back()}
           />
@@ -384,6 +390,7 @@ function Purchase({
           <BuyerForm
             submitting={submitting}
             error={error}
+            expiresAt={order.holdExpiresAt}
             onSubmit={confirm}
             onBack={() => router.back()}
           />
@@ -692,12 +699,20 @@ function OrderSummary({
  * it yet.
  *
  * Asked once, and then never again: submitting it here SAVES it on the account,
- * so every later checkout finds a complete profile and has nothing to ask. The
- * document itself does not come back to this form on that second visit — the
- * API masks it by design, and shipping the digits to every page that shows an
- * account would be the opposite of keeping them sealed — so the order is
- * confirmed without one and the server fills it in from the profile. See
- * usecases/checkout.Service.withProfileDetails.
+ * so every later checkout finds a complete profile and shows the summary row
+ * instead of the fields. The document itself does not come back to this form on
+ * that second visit — the API masks it by design, and shipping the digits to
+ * every page that shows an account would be the opposite of keeping them sealed
+ * — so the order is confirmed without one and the server fills it in from the
+ * profile. See usecases/checkout.Service.withProfileDetails.
+ *
+ * NOTHING OPTIONAL IS ASKED HERE, and that is a decision, not an omission. The
+ * demographic questions that used to sit at the bottom of this form now wait
+ * for the paid screen (see AudiencePrompt): large-scale checkout testing puts
+ * the working ceiling at about eight fields and measures a 4–6% drop in
+ * completion for every field past it, and a question that changes nothing about
+ * the purchase has no claim on a field somebody must pass to pay. Answering it
+ * after the money has moved costs the sale nothing and costs the buyer nothing.
  *
  * Buying for somebody ELSE stays possible, because it is ordinary: a parent
  * buying for a child, an assistant for a director. That path types the other
@@ -706,11 +721,19 @@ function OrderSummary({
 function BuyerForm({
   submitting,
   error,
+  expiresAt,
   onSubmit,
   onBack,
 }: {
   submitting: boolean;
   error: string | null;
+  /**
+   * The hold's deadline, shown in this step's own header rather than only in
+   * the summary panel. On a phone that panel sits below the submit button, so a
+   * buyer filling this in could not see the clock they are racing without
+   * scrolling past the thing they were about to press.
+   */
+  expiresAt: string;
   onSubmit: (buyer: { name: string; email: string; document: string }) => void;
   onBack: () => void;
 }) {
@@ -795,153 +818,203 @@ function BuyerForm({
 
   return (
     <form
-      className="flex flex-col gap-4 rounded-lg border border-border bg-card p-5 shadow-sm sm:p-6"
+      // gap-6 between groups against gap-3 inside them: the rhythm is what says
+      // where one thing ends and the next begins. Before this every interval in
+      // the form was the same 16px, which made a change of subject read exactly
+      // like the gap between two fields of the same subject.
+      className="flex flex-col gap-6 rounded-lg border border-border bg-card p-5 shadow-sm sm:p-6"
       onSubmit={submit}
     >
       <div>
-        <h2 className="font-display text-lg font-semibold text-card-foreground">{t("yourDetails")}</h2>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <div className="flex items-baseline justify-between gap-3">
+          <h2 className="font-display text-lg font-semibold text-card-foreground">
+            {t("yourDetails")}
+          </h2>
+          <Countdown expiresAt={expiresAt} />
+        </div>
+        <p className="mt-1 max-w-[52ch] text-sm text-muted-foreground">
           {known ? t("detailsKnownHint") : t("detailsHint")}
         </p>
       </div>
 
       {!loaded ? (
-        <div className="h-11 animate-pulse rounded-md bg-accent-hover" aria-hidden />
+        // Shaped like the branch most buyers land on — an account that has
+        // bought before. A 44px bar standing in for either a 60px row or a
+        // 700px stack moved the whole card on every load.
+        <div className="h-[3.5rem] animate-pulse rounded-md bg-accent-hover" aria-hidden />
       ) : known ? (
-        <div className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-border bg-accent px-3 py-2.5">
-          <div className="min-w-0">
-            <p className="truncate text-sm font-medium text-foreground">
-              {profile?.legalName ?? user?.name}
-            </p>
-            {profile?.documentMask ? (
-              <p className="truncate text-xs tabular-nums text-muted-foreground">
-                {profile.documentMask}
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center justify-between gap-3 rounded-md border border-border bg-accent px-3 py-2.5">
+            <div className="min-w-0">
+              <p className="truncate text-sm font-medium text-foreground" title={profile?.legalName}>
+                {profile?.legalName ?? user?.name}
               </p>
-            ) : null}
+              {profile?.documentMask ? (
+                <p className="truncate text-xs tabular-nums text-muted-foreground">
+                  {profile.documentMask}
+                </p>
+              ) : null}
+            </div>
           </div>
-          <button
-            type="button"
-            onClick={() => setForSomebodyElse(true)}
-            className="rounded-[--radius] text-sm font-medium text-primary-ink underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            {t("buyForSomebodyElse")}
-          </button>
+          {/* Below the block it acts on, in both branches, so the control does
+              not move when it is used. It was right-aligned inside the row in
+              one branch and floating above the fields in the other, which meant
+              the way back was never where the way out had been. */}
+          <BuyerSwitch onClick={() => setForSomebodyElse(true)} label={t("buyForSomebodyElse")} />
         </div>
       ) : (
-        <>
-          {onFile ? (
-            <button
-              type="button"
-              onClick={() => setForSomebodyElse(false)}
-              className="self-start rounded-[--radius] text-sm font-medium text-primary-ink underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            >
-              {t("buyForMyself")}
-            </button>
-          ) : null}
+        // A fieldset rather than a bare fragment: these fields are one subject
+        // and the grouping should exist in the document, not only in the eye of
+        // whoever laid them out.
+        <fieldset className="m-0 border-0 p-0">
+          <legend className="text-sm font-medium text-foreground">{t("whoIsBuying")}</legend>
+          {/* Said once, plainly, instead of an asterisk on six fields: a form
+              that marks neither its required nor its optional fields is the one
+              people guess at, and here there is nothing to guess — all of it is
+              required. */}
+          <p className="mt-0.5 text-xs text-muted-foreground">{t("allRequired")}</p>
 
-          {/* The label sits above rather than floating: a select is never empty,
-              so there is nothing for a floating label to float out of. */}
-          <Field id="buyer-document-type" label={tSignIn("identity.documentType")}>
-            <SelectField
-              id="buyer-document-type"
-              value={buyer.documentType}
-              onChange={(event) =>
-                setBuyer((current) => ({ ...current, documentType: event.target.value }))
-              }
-              className="h-11"
-            >
-              <option value="cpf">{tSignIn("identity.cpf")}</option>
-              <option value="cnpj">{tSignIn("identity.cnpj")}</option>
-              <option value="passport">{tSignIn("identity.passport")}</option>
-            </SelectField>
-          </Field>
+          <div className="mt-3 flex flex-col gap-3">
+            {/* The type and the number are one decision, so they share a row.
+                Everything in this form used to be the same 616px wide: a
+                three-option select, a date, and an eleven-digit document. */}
+            <div className="grid gap-3 sm:grid-cols-[10rem_minmax(0,1fr)]">
+              <Field id="buyer-document-type" label={tSignIn("identity.documentType")}>
+                <SelectField
+                  id="buyer-document-type"
+                  value={buyer.documentType}
+                  onChange={(event) =>
+                    setBuyer((current) => ({ ...current, documentType: event.target.value }))
+                  }
+                  className="h-11"
+                >
+                  <option value="cpf">{tSignIn("identity.cpf")}</option>
+                  <option value="cnpj">{tSignIn("identity.cnpj")}</option>
+                  <option value="passport">{tSignIn("identity.passport")}</option>
+                </SelectField>
+              </Field>
 
-          <ElevatedInput
-            id="buyer-name"
-            label={tSignIn("identity.legalName")}
-            icon={<Person size={18} aria-hidden />}
-            value={buyer.name}
-            onChange={(event) => setBuyer((current) => ({ ...current, name: event.target.value }))}
-            autoComplete="name"
-            required
-            hint={tSignIn("identity.legalNameHint")}
-          />
+              <ElevatedInput
+                id="buyer-document"
+                label={t("document")}
+                icon={<IdentificationCard size={18} aria-hidden />}
+                value={buyer.document}
+                onChange={(event) =>
+                  setBuyer((current) => ({ ...current, document: event.target.value }))
+                }
+                inputMode={buyer.documentType === "passport" ? "text" : "numeric"}
+                autoComplete="off"
+                required
+                hint={t("documentHint")}
+              />
+            </div>
 
-          <ElevatedInput
-            id="buyer-document"
-            label={t("document")}
-            icon={<IdentificationCard size={18} aria-hidden />}
-            value={buyer.document}
-            onChange={(event) =>
-              setBuyer((current) => ({ ...current, document: event.target.value }))
-            }
-            inputMode={buyer.documentType === "passport" ? "text" : "numeric"}
-            autoComplete="off"
-            required
-            hint={t("documentHint")}
-          />
-
-          {/* Only on the path that SAVES. Somebody else's date of birth is not
-              ours to keep, and the order does not carry one. */}
-          {!forSomebodyElse ? (
             <ElevatedInput
-              id="buyer-birth"
-              label={tSignIn("identity.birthDate")}
-              type="date"
-              value={buyer.birthDate}
-              onChange={(event) =>
-                setBuyer((current) => ({ ...current, birthDate: event.target.value }))
-              }
-              autoComplete="bday"
+              id="buyer-name"
+              label={tSignIn("identity.legalName")}
+              icon={<Person size={18} aria-hidden />}
+              value={buyer.name}
+              onChange={(event) => setBuyer((current) => ({ ...current, name: event.target.value }))}
+              autoComplete="name"
               required
+              hint={tSignIn("identity.legalNameHint")}
             />
-          ) : null}
-        </>
+
+            {/* Only on the path that SAVES: somebody else's date of birth is
+                not ours to keep, and the order does not carry one. Capped,
+                because a date input does not get wider by being wider. */}
+            {!forSomebodyElse ? (
+              <div className="sm:max-w-[16rem]">
+                <ElevatedInput
+                  id="buyer-birth"
+                  label={tSignIn("identity.birthDate")}
+                  type="date"
+                  value={buyer.birthDate}
+                  onChange={(event) =>
+                    setBuyer((current) => ({ ...current, birthDate: event.target.value }))
+                  }
+                  autoComplete="bday"
+                  required
+                />
+              </div>
+            ) : null}
+
+            {onFile ? (
+              <BuyerSwitch onClick={() => setForSomebodyElse(false)} label={t("buyForMyself")} />
+            ) : null}
+          </div>
+        </fieldset>
       )}
 
-      <ElevatedInput
-        id="buyer-email"
-        label={t("email")}
-        icon={<EnvelopeSimple size={18} aria-hidden />}
-        type="email"
-        value={email}
-        onChange={(event) => setTypedEmail(event.target.value)}
-        autoComplete="email"
-        inputMode="email"
-        required
-        hint={t("emailHint")}
-      />
+      <div className="flex flex-col gap-3">
+        <ElevatedInput
+          id="buyer-email"
+          label={t("email")}
+          icon={<EnvelopeSimple size={18} aria-hidden />}
+          type="email"
+          value={email}
+          onChange={(event) => setTypedEmail(event.target.value)}
+          autoComplete="email"
+          inputMode="email"
+          required
+          hint={t("emailHint")}
+        />
 
-      {error || saveFailed ? (
-        <p role="alert" className="notice notice-fault notice-ink px-3 py-2 text-sm">
-          {error ?? saveFailed}
-        </p>
-      ) : null}
+        {error || saveFailed ? (
+          <p role="alert" className="notice notice-fault notice-ink px-3 py-2 text-sm">
+            {error ?? saveFailed}
+          </p>
+        ) : null}
 
-      {/* Said where the data is asked for, not buried in a policy page. */}
+        <div className="flex flex-wrap gap-2">
+          <button
+            type="submit"
+            disabled={busy}
+            className="h-11 flex-1 rounded-md bg-primary text-sm font-semibold text-primary-foreground shadow-[var(--elev-button-primary)] hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            {busy ? t("confirming") : t("goToPayment")}
+          </button>
+          <button
+            type="button"
+            onClick={onBack}
+            className="h-11 rounded-md border border-border-strong px-4 text-sm font-medium text-foreground hover:bg-accent-hover"
+          >
+            {t("back")}
+          </button>
+        </div>
+      </div>
+
+      {/* Said where the data is asked for, not buried in a policy page, and set
+          to a readable measure. It was the only unclamped paragraph in this
+          file, running about 120 characters a line at 12px — the one paragraph
+          somebody should actually read before handing over a document. */}
       {!known && loaded && !forSomebodyElse ? (
-        <p className="text-xs leading-relaxed text-muted-foreground">
+        <p className="max-w-[52ch] text-xs leading-relaxed text-muted-foreground">
           {tSignIn("identity.privacy")}
         </p>
       ) : null}
-
-      <div className="flex flex-wrap gap-2">
-        <button
-          type="submit"
-          disabled={busy}
-          className="h-11 flex-1 rounded-md bg-primary text-sm font-semibold text-primary-foreground shadow-[var(--elev-button-primary)] hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-        >
-          {busy ? t("confirming") : t("goToPayment")}
-        </button>
-        <button
-          type="button"
-          onClick={onBack}
-          className="h-11 rounded-md border border-border-strong px-4 text-sm font-medium text-foreground hover:bg-accent-hover"
-        >
-          {t("back")}
-        </button>
-      </div>
     </form>
+  );
+}
+
+/**
+ * The control that swaps whose details the form is collecting.
+ *
+ * Its own component because it appears in both branches and must be identical
+ * in both: same place, same size, same alignment. It is also the one control
+ * that reshapes the entire form, and it used to be the smallest target on the
+ * screen — a bare ~20px text link. It gets a real height like everything else
+ * somebody has to hit.
+ */
+function BuyerSwitch({ onClick, label }: { onClick: () => void; label: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="inline-flex h-9 items-center self-start rounded-[--radius] text-sm font-medium text-primary-ink underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+    >
+      {label}
+    </button>
   );
 }
 
@@ -985,17 +1058,21 @@ function Payment({
 
   if (order.status === "paid") {
     return (
-      <div className="notice notice-healthy p-8 text-center">
-        <p className="notice-ink font-display text-lg font-semibold">{t("paidTitle")}</p>
-        <p className="mx-auto mt-2 max-w-[46ch] text-sm text-muted-foreground">
-          {t("paidBody", { email: order.buyerEmail })}
-        </p>
-        <Link
-          href="/orders"
-          className="mt-5 inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary-hover"
-        >
-          {t("myOrders")}
-        </Link>
+      <div className="flex flex-col gap-4">
+        <div className="notice notice-healthy p-8 text-center">
+          <p className="notice-ink font-display text-lg font-semibold">{t("paidTitle")}</p>
+          <p className="mx-auto mt-2 max-w-[46ch] text-sm text-muted-foreground">
+            {t("paidBody", { email: order.buyerEmail })}
+          </p>
+          <Link
+            href="/orders"
+            className="mt-5 inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary-hover"
+          >
+            {t("myOrders")}
+          </Link>
+        </div>
+
+        <AudiencePrompt />
       </div>
     );
   }
@@ -1187,4 +1264,105 @@ function rememberOrder(orderID: string) {
   url.searchParams.delete("ticket");
   url.searchParams.delete("quantity");
   window.history.replaceState(window.history.state, "", url.toString());
+}
+
+/**
+ * The optional questions, asked after the money has moved.
+ *
+ * These three — sexo, cidade, estado — used to sit at the bottom of the buyer
+ * form, between somebody and their tickets. Nothing about them belongs there:
+ * they change no price, gate no charge, and the checkout that carries them is
+ * measured to lose completions for every field past its working ceiling. Asked
+ * here, on a screen whose whole content is "it worked", they cost the sale
+ * nothing, the buyer is already looking at the screen, and skipping them is
+ * free and obvious — there is no button to skip, because leaving is skipping.
+ *
+ * They are worth asking at all because this is the ONLY place the audience
+ * report gets its answers. Unasked, every cut of that report reads "não
+ * informado" forever, which is the state it was in before this existed.
+ *
+ * Asked once. An account that has answered any of the three is never shown
+ * this again, and the identity block is left exactly as it is: on a profile
+ * that is already complete a blank identity field means "keep what is stored",
+ * so this sends the answers and nothing else.
+ */
+function AudiencePrompt() {
+  const t = useTranslations("checkout");
+  const tCommon = useTranslations("common");
+  const [audience, setAudience] = useState<AudienceValue>(emptyAudience);
+  const [show, setShow] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      const { data } = await getProfile();
+      if (cancelled) return;
+      // Nothing to ask of an account that has already answered, and nowhere to
+      // put an answer from one with no identity block to attach it to.
+      const answered = Boolean(data?.gender || data?.city || data?.uf);
+      setShow(data?.complete === true && !answered);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (!show) return null;
+
+  if (saved) {
+    return (
+      <p className="text-center text-sm text-muted-foreground">{t("audienceThanks")}</p>
+    );
+  }
+
+  const answered = Boolean(audience.gender || audience.city || audience.uf);
+
+  const save = async () => {
+    setBusy(true);
+    setFailed(false);
+    const { error } = await saveProfile({
+      documentType: "",
+      document: "",
+      legalName: "",
+      birthDate: "",
+      ...audience,
+    });
+    setBusy(false);
+    if (error) {
+      setFailed(true);
+      return;
+    }
+    setSaved(true);
+  };
+
+  return (
+    <section className="flex flex-col gap-4 rounded-lg border border-border bg-card p-5 shadow-sm sm:p-6">
+      <AudienceFields
+        value={audience}
+        onChange={setAudience}
+        idPrefix="post-purchase"
+        disabled={busy}
+      />
+
+      {failed ? (
+        <p role="alert" className="notice notice-fault notice-ink px-3 py-2 text-sm">
+          {t("profileFailed")}
+        </p>
+      ) : null}
+
+      {/* Disabled until something is answered, because the honest label for
+          saving three blanks is not "save". Leaving the page is the skip. */}
+      <button
+        type="button"
+        onClick={() => void save()}
+        disabled={busy || !answered}
+        className="h-11 self-start rounded-md border border-border-strong px-4 text-sm font-medium text-foreground hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        {tCommon("save")}
+      </button>
+    </section>
+  );
 }

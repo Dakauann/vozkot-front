@@ -316,8 +316,11 @@
     "where": "Wo"
   },
   "checkout": {
-    "detailsKnownHint": "Wir verwenden die Daten deines Kontos. Pruefe sie und geh zur Zahlung.",
-    "buyForSomebodyElse": "Fuer jemand anderen kaufen",
+    "whoIsBuying": "Wer kauft",
+    "allRequired": "Alle Felder sind Pflichtfelder.",
+    "audienceThanks": "Danke. Das hilft dem Veranstalter zu verstehen, wer zu seinen Events kommt.",
+    "detailsKnownHint": "Wir verwenden die Daten deines Kontos. Prüfe sie und geh zur Zahlung.",
+    "buyForSomebodyElse": "Für jemand anderen kaufen",
     "buyForMyself": "Meine Daten verwenden",
     "profileFailed": "Wir konnten deine Daten nicht speichern. Versuch es noch einmal.",
     "title": "Kasse",
@@ -520,8 +523,8 @@
     "notFound": "Dieser Eintrag wurde nicht gefunden."
   },
   "scaffold": {
-    "title": "Hier ist noch nichts angebunden",
-    "body": "Diese Route gehört zum Grundgerüst. Ersetze sie durch deine eigene Seite; Shell, Kopfbereich und Navigationseintrag funktionieren bereits.",
+    "title": "In Entwicklung",
+    "body": "Wir bauen diesen Teil des Produkts gerade. Er kommt bald.",
     "checkIn": {
       "title": "Einlass",
       "description": "Tickets am Eingang scannen."
@@ -536,7 +539,7 @@
     },
     "contact": {
       "title": "Kontakt",
-      "description": "Sprich mit dem Team hinter diesem Projekt."
+      "description": "Sprich mit dem Team von Vozkot Tickets."
     },
     "settings": {
       "title": "Einstellungen",
